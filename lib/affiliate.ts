@@ -46,6 +46,11 @@ export function affiliatize(rawUrl: string | undefined | null): string | undefin
     if (tag) return withAmazonTag(rawUrl, tag);
   }
 
+  if (host.endsWith("amazon.co.uk")) {
+    const tag = process.env.AMAZON_UK_TAG;
+    if (tag) return withAmazonTag(rawUrl, tag);
+  }
+
   if (INDIAN_RETAILER_HOSTS.some((d) => host === d || host.endsWith(`.${d}`))) {
     const template = process.env.INDIA_AFFILIATE_TEMPLATE;
     if (template) return withTemplate(rawUrl, template);
