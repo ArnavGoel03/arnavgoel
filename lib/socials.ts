@@ -29,8 +29,8 @@ export const socials: Social[] = [
   },
   {
     label: "Spotify",
-    handle: "Ibiza Club Mix (my favorite playlist)",
-    href: "https://open.spotify.com/playlist/37i9dQZF1EIhvQz3p7tStL",
+    handle: "My profile",
+    href: "https://open.spotify.com/user/ltemqo3w5mbso5lubgf9j2mfv",
     icon: SpotifyIcon,
   },
 ];

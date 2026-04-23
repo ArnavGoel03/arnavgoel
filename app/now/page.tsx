@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/container";
+import { SpotifyEmbed } from "@/components/spotify-embed";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -31,7 +32,7 @@ export default function NowPage() {
         .
       </p>
 
-      <div className="mt-12 space-y-10">
+      <div className="mt-12 space-y-12">
         <section>
           <h2 className="font-serif text-2xl text-stone-900">Working on</h2>
           <ul className="mt-4 space-y-3 text-stone-700">
@@ -42,10 +43,22 @@ export default function NowPage() {
             </li>
             <li>
               <strong className="text-stone-900">This site</strong> — you&apos;re
-              on it. Plan is to update the <em>now</em> page at least once a
-              month.
+              on it. Plan is to update this page at least once a month.
             </li>
           </ul>
+        </section>
+
+        <section>
+          <h2 className="font-serif text-2xl text-stone-900">Listening to</h2>
+          <p className="mt-2 text-sm text-stone-500">
+            My favorite playlist at the moment — Ibiza Club Mix. On repeat.
+          </p>
+          <div className="mt-4">
+            <SpotifyEmbed
+              playlistId="37i9dQZF1EIhvQz3p7tStL"
+              title="Ibiza Club Mix"
+            />
+          </div>
         </section>
 
         <section>
