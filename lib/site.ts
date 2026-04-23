@@ -1,8 +1,10 @@
 export const site = {
-  name: "Reviewed.",
-  tagline: "Honest, long-form reviews of every skincare product and supplement I've tried.",
+  name: "Yash Goel",
+  shortName: "Yash",
+  tagline: "Builder, student, occasional writer.",
+  bio: "Hi — I'm Yash. I build things, read widely, and try to leave each place a little better than I found it.",
   description:
-    "A personal, meticulously maintained log of skincare and supplement reviews — rating, verdict, pros, cons, and whether I'd repurchase.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://reviewed.example.com",
-  author: "Yash Goel",
+    "The personal site of Yash Goel — what I'm working on, what I'm reading, and where to find me elsewhere on the internet.",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://yashgoel.com",
+  location: "San Diego, CA",
 } as const;

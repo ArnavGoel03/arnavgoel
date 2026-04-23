@@ -1,22 +1,31 @@
 import type { MetadataRoute } from "next";
-import { getReviews } from "@/lib/content";
+import { getNotes, getReviews } from "@/lib/content";
 import { site } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${site.url}/`, lastModified: now, priority: 1 },
-    { url: `${site.url}/skincare`, lastModified: now, priority: 0.9 },
-    { url: `${site.url}/supplements`, lastModified: now, priority: 0.9 },
-    { url: `${site.url}/about`, lastModified: now, priority: 0.5 },
+    { url: `${site.url}/about`, lastModified: now, priority: 0.8 },
+    { url: `${site.url}/now`, lastModified: now, priority: 0.9 },
+    { url: `${site.url}/notes`, lastModified: now, priority: 0.8 },
+    { url: `${site.url}/photos`, lastModified: now, priority: 0.8 },
+    { url: `${site.url}/skincare`, lastModified: now, priority: 0.8 },
+    { url: `${site.url}/supplements`, lastModified: now, priority: 0.8 },
+    { url: `${site.url}/links`, lastModified: now, priority: 0.7 },
   ];
+  const noteRoutes: MetadataRoute.Sitemap = getNotes().map((n) => ({
+    url: `${site.url}/notes/${n.slug}`,
+    lastModified: new Date(n.datePublished),
+    priority: 0.7,
+  }));
   const reviewRoutes: MetadataRoute.Sitemap = (["skincare", "supplements"] as const).flatMap(
     (kind) =>
       getReviews(kind).map((r) => ({
         url: `${site.url}/${kind}/${r.slug}`,
         lastModified: new Date(r.datePublished),
-        priority: 0.8,
+        priority: 0.7,
       })),
   );
-  return [...staticRoutes, ...reviewRoutes];
+  return [...staticRoutes, ...noteRoutes, ...reviewRoutes];
 }

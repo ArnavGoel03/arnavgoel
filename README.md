@@ -1,43 +1,62 @@
-# Skincare & Supplement Reviews
+# arnavgoel
 
-A personal, meticulously maintained log of every skincare product and supplement I've tried, built with Next.js 16, Tailwind 4, shadcn/ui, and MDX.
+My personal website — home, about, now, notes, photos, and honest product reviews. Built with Next.js 16, Tailwind 4, shadcn/ui, and MDX.
 
-## Features
+## Sections
 
-- **Editorial design** — serif display type, generous whitespace, neutral palette
-- **MDX-based content** — one file per review, typed frontmatter via Zod
-- **Filter + sort** — by category and by rating
-- **SEO / AEO** — JSON-LD `Review` + `Product` + `WebSite` schema, sitemap, robots, per-page metadata, canonical URLs, OG tags, semantic HTML
-- **Zero JS on catalog cards** — pure server-rendered + static
-- **Accessible** — proper headings, rating has `aria-label`, sufficient contrast
+- **`/`** — landing page with bio and socials
+- **`/about`** — longer introduction
+- **`/now`** — what I'm working on / reading / thinking about right now ([/now page movement](https://nownownow.com/about))
+- **`/notes`** — short writing, one MDX file per note
+- **`/photos`** — DSLR gallery, entries in `lib/photos.ts`
+- **`/skincare`** and **`/supplements`** — product reviews, one MDX file per product
+- **`/links`** — all my socials in one place
 
-## Add a review
+## Edit your content
 
-Drop an `.mdx` file into `content/skincare/` or `content/supplements/`:
+- **Site-wide info** (name, bio, location, domain): `lib/site.ts`
+- **Socials** (GitHub, Twitter, etc): `lib/socials.ts`
+- **Photos**: `lib/photos.ts` — add entries; drop the actual `.jpg`/`.png` files in `public/photos/`
+- **Notes**: drop an `.mdx` file in `content/notes/`
+- **Skincare reviews**: drop an `.mdx` file in `content/skincare/`
+- **Supplement reviews**: drop an `.mdx` file in `content/supplements/`
+
+All MDX frontmatter is validated at build time by Zod schemas in `lib/schema.ts` — bad data fails fast.
+
+## Note frontmatter
 
 ```mdx
 ---
-name: Product Name
+title: Title of the note
+description: One-sentence summary for meta/SEO.
+datePublished: "2026-04-23"
+tags: [tag1, tag2]
+---
+
+Markdown body.
+```
+
+## Review frontmatter
+
+```mdx
+---
+name: Product name
 brand: Brand
 category: cleanser
 rating: 8.5
 price: $25
-skinType: [oily, combination]     # skincare only
-goal: [sleep, focus]              # supplements only
-ingredients: [Niacinamide, Zinc]
-pros:
-  - What worked
-cons:
-  - What didn't
+skinType: [oily, combination]   # skincare only
+goal: [sleep, focus]            # supplements only
+ingredients: [Ingredient 1]
+pros: [What worked]
+cons: [What didn't]
 repurchase: true
 datePublished: "2026-04-23"
-summary: One-sentence verdict for cards and SEO meta.
+summary: One-sentence verdict.
 ---
 
-Markdown body — verdict, context, routine, results.
+Verdict body in markdown.
 ```
-
-The file name becomes the URL slug. Frontmatter is validated at build time — bad data fails fast.
 
 ## Develop
 
@@ -55,14 +74,9 @@ npm start
 
 Set `NEXT_PUBLIC_SITE_URL` to your canonical URL so sitemap, robots, and OG tags resolve correctly.
 
-## Structure
+## SEO / AEO
 
-```
-app/                  routes, metadata, sitemap, robots
-components/           small single-purpose components (~50–150 lines)
-content/skincare/     skincare review MDX
-content/supplements/  supplement review MDX
-lib/content.ts        MDX loading
-lib/schema.ts         Zod frontmatter schema
-lib/site.ts           site-wide config
-```
+- JSON-LD `Person`, `WebSite`, `BlogPosting`, `Review`, `Product` schema
+- `sitemap.xml`, `robots.txt`
+- Per-page canonical URLs + OpenGraph tags
+- Fully prerendered static HTML

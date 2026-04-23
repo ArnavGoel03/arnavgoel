@@ -1,8 +1,65 @@
-import type { Review } from "@/lib/types";
+import type { Note, Review } from "@/lib/types";
 import { site } from "@/lib/site";
+import { socials } from "@/lib/socials";
 
 function serialize(data: unknown) {
   return JSON.stringify(data).replace(/</g, "\\u003c");
+}
+
+export function PersonJsonLd() {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: site.name,
+    url: site.url,
+    description: site.bio,
+    sameAs: socials
+      .filter((s) => s.href.startsWith("http"))
+      .map((s) => s.href),
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: serialize(data) }}
+    />
+  );
+}
+
+export function WebsiteJsonLd() {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: site.name,
+    url: site.url,
+    description: site.description,
+    author: { "@type": "Person", name: site.name, url: site.url },
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: serialize(data) }}
+    />
+  );
+}
+
+export function NoteJsonLd({ note }: { note: Note }) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: note.title,
+    description: note.description,
+    datePublished: note.datePublished,
+    author: { "@type": "Person", name: site.name, url: site.url },
+    publisher: { "@type": "Person", name: site.name, url: site.url },
+    mainEntityOfPage: `${site.url}/notes/${note.slug}`,
+    keywords: note.tags.join(", "),
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: serialize(data) }}
+    />
+  );
 }
 
 export function ReviewJsonLd({ review }: { review: Review }) {
@@ -21,27 +78,10 @@ export function ReviewJsonLd({ review }: { review: Review }) {
       bestRating: 10,
       worstRating: 0,
     },
-    author: { "@type": "Person", name: site.author },
+    author: { "@type": "Person", name: site.name, url: site.url },
     datePublished: review.datePublished,
     reviewBody: review.summary,
     publisher: { "@type": "Organization", name: site.name, url: site.url },
-  };
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: serialize(data) }}
-    />
-  );
-}
-
-export function WebsiteJsonLd() {
-  const data = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: site.name,
-    url: site.url,
-    description: site.description,
-    author: { "@type": "Person", name: site.author },
   };
   return (
     <script

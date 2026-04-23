@@ -4,7 +4,7 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About",
-  description: `About ${site.name} — how I rate products, why there are no affiliate links, and my methodology.`,
+  description: `About ${site.name}.`,
   alternates: { canonical: "/about" },
 };
 
@@ -15,41 +15,36 @@ export default function AboutPage() {
         About
       </p>
       <h1 className="font-serif text-4xl leading-tight text-stone-900 sm:text-5xl">
-        Why this exists.
+        Hi, I&apos;m {site.shortName}.
       </h1>
-      <div className="prose prose-stone mt-10 max-w-none prose-headings:font-serif prose-headings:font-normal prose-p:leading-relaxed">
+      <div className="prose prose-stone mt-10 max-w-none prose-headings:font-serif prose-headings:font-normal prose-p:leading-relaxed prose-a:text-stone-900 prose-a:underline-offset-4">
         <p>
-          Every review on this site is something I actually used — typically
-          for weeks or months — before forming an opinion. There are no
-          affiliate links, no sponsorships, and no free samples. If I paid for
-          it, I&apos;ll say so. If something was a gift, I&apos;ll say that too.
+          I live in {site.location}. I study, I build, I write a little, and I
+          read a lot. This is the corner of the internet I keep for myself —
+          slower than social feeds, and more honest than a résumé.
         </p>
 
-        <h2>How I rate</h2>
+        <h2>What I&apos;m interested in</h2>
         <p>
-          Ratings are on a 0–10 scale. I try to anchor them to what a product
-          promises versus what it delivered, not to the product&apos;s price.
-          An $8 cleanser that does its job well can score higher than a $90
-          serum that doesn&apos;t.
-        </p>
-        <ul>
-          <li><strong>9–10</strong> — would repurchase, recommend, and keep in rotation indefinitely.</li>
-          <li><strong>7–8</strong> — works well; minor gripes.</li>
-          <li><strong>5–6</strong> — fine, but I wouldn&apos;t go out of my way to buy again.</li>
-          <li><strong>Below 5</strong> — not worth the money, or actively unpleasant.</li>
-        </ul>
-
-        <h2>What gets reviewed</h2>
-        <p>
-          Every product I use long enough to have a real opinion on. I avoid
-          reviewing anything I&apos;ve used for less than two weeks, because
-          skincare especially tends to reveal itself slowly.
+          Software, design, health, books, and the strange friction that
+          happens when any of those bump into each other. I lean toward
+          making things rather than talking about making things.
         </p>
 
-        <h2>Contact</h2>
+        <h2>What this site is</h2>
         <p>
-          Have a product you think I should try? Disagree with a review? Email
-          me. I read everything.
+          Four things: a <a href="/">home</a> to land on, an{" "}
+          <a href="/about">about</a> page (you&apos;re reading it), a{" "}
+          <a href="/now">now</a> page that tells you what I&apos;m actually
+          doing this month, and a <a href="/notes">notes</a> section where I
+          post rough writing.
+        </p>
+
+        <h2>Get in touch</h2>
+        <p>
+          Best way to reach me is by <a href="/links">email or any of the
+          socials on the links page</a>. I read everything, and I reply to
+          most things.
         </p>
       </div>
     </Container>

@@ -9,8 +9,7 @@ export default function NotFound() {
         Nothing here.
       </h1>
       <p className="mx-auto mt-4 max-w-md text-stone-600">
-        That review doesn&apos;t exist. It might have been renamed, or maybe I
-        never wrote it.
+        This page doesn&apos;t exist — or maybe I unpublished it.
       </p>
       <Link
         href="/"

@@ -1,90 +1,115 @@
 import Link from "next/link";
-import { Container } from "@/components/container";
-import { ProductCard } from "@/components/product-card";
-import { getAllReviews, getReviews } from "@/lib/content";
-import { site } from "@/lib/site";
 import { ArrowRight } from "lucide-react";
+import { Container } from "@/components/container";
+import { SocialIconLink } from "@/components/social-link";
+import { NoteRow } from "@/components/note-card";
+import { SectionTile } from "@/components/section-tile";
+import { PersonJsonLd } from "@/components/json-ld";
+import { site } from "@/lib/site";
+import { socials } from "@/lib/socials";
+import { getNotes, getReviews } from "@/lib/content";
+import { photos } from "@/lib/photos";
 
 export default function HomePage() {
-  const all = getAllReviews();
-  const recent = all.slice(0, 6);
+  const recentNotes = getNotes().slice(0, 4);
   const skincareCount = getReviews("skincare").length;
   const supplementsCount = getReviews("supplements").length;
-  const topRated = [...all].sort((a, b) => b.rating - a.rating).slice(0, 3);
+  const notesCount = getNotes().length;
+  const photosCount = photos.length;
 
   return (
     <>
+      <PersonJsonLd />
       <section className="border-b border-stone-200/70 bg-gradient-to-b from-stone-50 to-white">
         <Container className="py-20 sm:py-28">
-          <div className="max-w-3xl">
+          <div className="max-w-2xl">
             <p className="mb-4 text-xs uppercase tracking-[0.2em] text-stone-500">
-              A personal review log
+              {site.location}
             </p>
             <h1 className="font-serif text-5xl leading-[1.05] text-stone-900 sm:text-7xl">
-              Every product
-              <br />
-              I&apos;ve actually{" "}
-              <span className="italic text-stone-500">used</span>.
+              {site.name}.
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-stone-600">
-              {site.description} No affiliate links. No hype. Just what worked,
-              what didn&apos;t, and whether I&apos;d buy it again.
+            <p className="mt-6 text-xl leading-relaxed text-stone-600 sm:text-2xl">
+              {site.bio}
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              {socials.map((s) => (
+                <SocialIconLink key={s.label} social={s} />
+              ))}
+            </div>
+            <div className="mt-10 flex flex-wrap gap-3">
               <Link
-                href="/skincare"
+                href="/about"
                 className="inline-flex items-center gap-2 rounded-full bg-stone-900 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-stone-800"
               >
-                Skincare ({skincareCount})
+                More about me
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
-                href="/supplements"
+                href="/now"
                 className="inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-medium text-stone-900 transition-colors hover:border-stone-900"
               >
-                Supplements ({supplementsCount})
-                <ArrowRight className="h-4 w-4" />
+                What I&apos;m doing now
               </Link>
             </div>
           </div>
         </Container>
       </section>
 
-      {topRated.length > 0 && (
-        <Container className="py-16">
-          <div className="mb-8 flex items-end justify-between">
-            <div>
-              <p className="mb-1 text-xs uppercase tracking-[0.2em] text-stone-500">
-                Top rated
-              </p>
-              <h2 className="font-serif text-3xl text-stone-900">
-                The ones worth buying
-              </h2>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {topRated.map((r) => (
-              <ProductCard key={`${r.kind}-${r.slug}`} review={r} />
-            ))}
-          </div>
-        </Container>
-      )}
+      <Container className="py-16">
+        <div className="mb-8">
+          <p className="mb-1 text-xs uppercase tracking-[0.2em] text-stone-500">
+            Sections
+          </p>
+          <h2 className="font-serif text-3xl text-stone-900">Poke around.</h2>
+        </div>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <SectionTile
+            href="/notes"
+            eyebrow={`${notesCount} entries`}
+            title="Notes"
+            description="Short writing — thoughts, essays, whatever's on my mind."
+          />
+          <SectionTile
+            href="/photos"
+            eyebrow={`${photosCount} photos`}
+            title="Photos"
+            description="DSLR shots from wherever I happened to be carrying the camera."
+          />
+          <SectionTile
+            href="/skincare"
+            eyebrow={`${skincareCount} reviews`}
+            title="Skincare"
+            description="Every skincare product I've tried, rated and reviewed honestly."
+          />
+          <SectionTile
+            href="/supplements"
+            eyebrow={`${supplementsCount} reviews`}
+            title="Supplements"
+            description="Vitamins, minerals, nootropics — what I took and what I felt."
+          />
+        </div>
+      </Container>
 
-      {recent.length > 0 && (
+      {recentNotes.length > 0 && (
         <Container className="pb-20">
-          <div className="mb-8 flex items-end justify-between">
+          <div className="mb-6 flex items-end justify-between">
             <div>
               <p className="mb-1 text-xs uppercase tracking-[0.2em] text-stone-500">
-                Recently reviewed
+                Notes
               </p>
-              <h2 className="font-serif text-3xl text-stone-900">
-                What I&apos;ve been trying
-              </h2>
+              <h2 className="font-serif text-3xl text-stone-900">Recently written</h2>
             </div>
+            <Link
+              href="/notes"
+              className="text-sm text-stone-500 transition-colors hover:text-stone-900"
+            >
+              All notes →
+            </Link>
           </div>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {recent.map((r) => (
-              <ProductCard key={`${r.kind}-${r.slug}`} review={r} />
+          <div className="rounded-2xl border border-stone-200 bg-white px-6">
+            {recentNotes.map((note) => (
+              <NoteRow key={note.slug} note={note} />
             ))}
           </div>
         </Container>
