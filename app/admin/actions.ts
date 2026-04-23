@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { put } from "@vercel/blob";
 import { commitRepoFile, readRepoFile } from "@/lib/github";
+import { retailerForUrl } from "@/lib/retailers";
 
 const reviewSchema = z.object({
   kind: z.enum(["skincare", "supplements", "oral-care"]),
@@ -20,18 +21,8 @@ const reviewSchema = z.object({
     .url("must be a valid URL")
     .optional()
     .or(z.literal("").transform(() => undefined)),
-  buyIndiaUrl: z
-    .string()
-    .trim()
-    .url("must be a valid URL")
-    .optional()
-    .or(z.literal("").transform(() => undefined)),
-  buyWesternUrl: z
-    .string()
-    .trim()
-    .url("must be a valid URL")
-    .optional()
-    .or(z.literal("").transform(() => undefined)),
+  indiaLinks: z.string().optional(),
+  westernLinks: z.string().optional(),
   ingredients: z.string().optional(),
   pros: z.string().optional(),
   cons: z.string().optional(),
@@ -70,6 +61,31 @@ function parseLines(s: string | undefined): string[] {
   return (s ?? "").split("\n").map((x) => x.trim()).filter(Boolean);
 }
 
+function parseBuyLinks(
+  s: string | undefined,
+): { retailer: string; url: string }[] {
+  const out: { retailer: string; url: string }[] = [];
+  for (const line of parseLines(s)) {
+    let retailer: string;
+    let url: string;
+    if (line.includes("|")) {
+      const [r, u] = line.split("|", 2).map((x) => x.trim());
+      retailer = r || retailerForUrl(u);
+      url = u;
+    } else {
+      url = line;
+      retailer = retailerForUrl(line);
+    }
+    try {
+      new URL(url);
+    } catch {
+      continue;
+    }
+    out.push({ retailer, url });
+  }
+  return out;
+}
+
 function yamlString(s: string): string {
   if (/^[-?*&!|>'"%@`#[{,]/.test(s) || /[:\n#]/.test(s)) {
     return JSON.stringify(s);
@@ -87,8 +103,8 @@ function buildReviewMdx(d: {
   goal: string[];
   photo?: string;
   boughtFromUrl?: string;
-  buyIndiaUrl?: string;
-  buyWesternUrl?: string;
+  indiaLinks: { retailer: string; url: string }[];
+  westernLinks: { retailer: string; url: string }[];
   ingredients: string[];
   pros: string[];
   cons: string[];
@@ -108,10 +124,22 @@ function buildReviewMdx(d: {
   if (d.photo) lines.push(`photo: ${yamlString(d.photo)}`);
   if (d.boughtFromUrl)
     lines.push(`boughtFromUrl: ${JSON.stringify(d.boughtFromUrl)}`);
-  if (d.buyIndiaUrl)
-    lines.push(`buyIndiaUrl: ${JSON.stringify(d.buyIndiaUrl)}`);
-  if (d.buyWesternUrl)
-    lines.push(`buyWesternUrl: ${JSON.stringify(d.buyWesternUrl)}`);
+  if (d.indiaLinks.length) {
+    lines.push("indiaLinks:");
+    for (const l of d.indiaLinks) {
+      lines.push(
+        `  - { retailer: ${JSON.stringify(l.retailer)}, url: ${JSON.stringify(l.url)} }`,
+      );
+    }
+  }
+  if (d.westernLinks.length) {
+    lines.push("westernLinks:");
+    for (const l of d.westernLinks) {
+      lines.push(
+        `  - { retailer: ${JSON.stringify(l.retailer)}, url: ${JSON.stringify(l.url)} }`,
+      );
+    }
+  }
   if (d.ingredients.length)
     lines.push(`ingredients: [${d.ingredients.join(", ")}]`);
   if (d.pros.length) {
@@ -152,8 +180,8 @@ function buildContentFromForm(d: z.infer<typeof reviewSchema>): string {
     goal: d.kind === "skincare" ? [] : parseList(d.goal),
     photo: d.photo || undefined,
     boughtFromUrl: d.boughtFromUrl,
-    buyIndiaUrl: d.buyIndiaUrl,
-    buyWesternUrl: d.buyWesternUrl,
+    indiaLinks: parseBuyLinks(d.indiaLinks),
+    westernLinks: parseBuyLinks(d.westernLinks),
     ingredients: parseList(d.ingredients),
     pros: parseLines(d.pros),
     cons: parseLines(d.cons),

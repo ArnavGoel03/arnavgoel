@@ -63,8 +63,8 @@ export type ProductFormInitial = {
   goal?: string[];
   photo?: string;
   boughtFromUrl?: string;
-  buyIndiaUrl?: string;
-  buyWesternUrl?: string;
+  indiaLinks?: { retailer: string; url: string }[];
+  westernLinks?: { retailer: string; url: string }[];
   ingredients?: string[];
   pros: string[];
   cons: string[];
@@ -297,7 +297,7 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
 
       <Section
         title="Purchase links"
-        description="Where you bought it goes up top. Regional links help readers find it locally. All optional."
+        description="Bought-from URL is shown as the prominent button. India and West sections each accept multiple URLs (one per line) — readers see them all."
       >
         <div>
           <label htmlFor="boughtFromUrl" className={labelCls}>
@@ -313,30 +313,49 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
           />
         </div>
         <div>
-          <label htmlFor="buyIndiaUrl" className={labelCls}>
-            Buy in India <Optional />
+          <label htmlFor="indiaLinks" className={labelCls}>
+            India retailers <Optional />
           </label>
-          <input
-            id="buyIndiaUrl"
-            name="buyIndiaUrl"
-            type="url"
-            defaultValue={initial?.buyIndiaUrl ?? ""}
-            placeholder="https://www.nykaa.com/…"
-            className={inputCls}
+          <textarea
+            id="indiaLinks"
+            name="indiaLinks"
+            rows={3}
+            defaultValue={
+              initial?.indiaLinks
+                ?.map((l) => `${l.retailer} | ${l.url}`)
+                .join("\n") ?? ""
+            }
+            placeholder={
+              "https://www.amazon.in/dp/...\nhttps://www.nykaa.com/...\nhttps://www.myntra.com/..."
+            }
+            className={textareaCls}
           />
+          <p className="mt-1 text-xs text-stone-500">
+            One URL per line. Retailer name is auto-detected from the domain;
+            you can override with <code>Retailer | URL</code> format.
+          </p>
         </div>
         <div>
-          <label htmlFor="buyWesternUrl" className={labelCls}>
-            Buy in the US / West <Optional />
+          <label htmlFor="westernLinks" className={labelCls}>
+            US / West retailers <Optional />
           </label>
-          <input
-            id="buyWesternUrl"
-            name="buyWesternUrl"
-            type="url"
-            defaultValue={initial?.buyWesternUrl ?? ""}
-            placeholder="https://www.target.com/p/…"
-            className={inputCls}
+          <textarea
+            id="westernLinks"
+            name="westernLinks"
+            rows={3}
+            defaultValue={
+              initial?.westernLinks
+                ?.map((l) => `${l.retailer} | ${l.url}`)
+                .join("\n") ?? ""
+            }
+            placeholder={
+              "https://www.amazon.com/dp/...\nhttps://www.target.com/p/...\nhttps://www.sephora.com/..."
+            }
+            className={textareaCls}
           />
+          <p className="mt-1 text-xs text-stone-500">
+            Same format as India.
+          </p>
         </div>
       </Section>
 

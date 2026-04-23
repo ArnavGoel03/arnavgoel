@@ -10,8 +10,12 @@ export const reviewFrontmatter = z.object({
   goal: z.array(z.string()).optional(),
   photo: z.string().optional(),
   boughtFromUrl: z.string().url().optional(),
-  buyIndiaUrl: z.string().url().optional(),
-  buyWesternUrl: z.string().url().optional(),
+  indiaLinks: z
+    .array(z.object({ retailer: z.string().min(1), url: z.string().url() }))
+    .default([]),
+  westernLinks: z
+    .array(z.object({ retailer: z.string().min(1), url: z.string().url() }))
+    .default([]),
   ingredients: z.array(z.string()).optional(),
   pros: z.array(z.string()).default([]),
   cons: z.array(z.string()).default([]),

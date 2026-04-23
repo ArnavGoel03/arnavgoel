@@ -1,6 +1,8 @@
 import { ArrowUpRight } from "lucide-react";
-import type { Review } from "@/lib/types";
+import type { BuyLink, Review } from "@/lib/types";
 import { affiliatize } from "@/lib/affiliate";
+import { themeForRetailer } from "@/lib/retailers";
+import { cn } from "@/lib/utils";
 
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
@@ -23,21 +25,34 @@ function buildLinkProps(rawHref: string) {
   };
 }
 
-function PrimaryLink({ href, label }: { href: string; label: string }) {
+function PrimaryLink({
+  href,
+  label,
+  sublabel,
+}: {
+  href: string;
+  label: string;
+  sublabel?: string;
+}) {
   const link = buildLinkProps(href);
   return (
     <a
       href={link.href}
       target="_blank"
       rel={link.rel}
-      className="group inline-flex w-full items-center justify-between gap-2 rounded-2xl border border-stone-900 bg-stone-900 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-stone-800"
+      className="group flex w-full items-center justify-between gap-2 rounded-2xl border border-stone-900 bg-stone-900 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-stone-800"
     >
-      <span>
-        {label}
-        {link.isAffiliate && (
-          <span className="ml-2 text-xs font-normal text-stone-400">
-            affiliate
-          </span>
+      <span className="flex flex-col items-start text-left">
+        <span>
+          {label}
+          {link.isAffiliate && (
+            <span className="ml-2 text-xs font-normal text-stone-400">
+              affiliate
+            </span>
+          )}
+        </span>
+        {sublabel && (
+          <span className="text-xs font-normal text-stone-400">{sublabel}</span>
         )}
       </span>
       <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -45,19 +60,31 @@ function PrimaryLink({ href, label }: { href: string; label: string }) {
   );
 }
 
-function SecondaryLink({ href, label }: { href: string; label: string }) {
+function SecondaryLink({
+  href,
+  label,
+}: {
+  href: string;
+  label: string;
+}) {
   const link = buildLinkProps(href);
+  const theme = themeForRetailer(label);
   return (
     <a
       href={link.href}
       target="_blank"
       rel={link.rel}
-      className="group inline-flex w-full items-center justify-between gap-2 rounded-xl border border-stone-200 bg-white px-4 py-2.5 text-sm text-stone-700 transition-colors hover:border-stone-900 hover:text-stone-900"
+      className={cn(
+        "group inline-flex w-full items-center justify-between gap-2 rounded-xl border px-4 py-2.5 text-sm transition-colors",
+        theme.idle,
+        theme.hover,
+      )}
     >
-      <span>
+      <span className="flex items-center gap-2">
+        <span className={cn("h-1.5 w-1.5 rounded-full", theme.bar)} />
         {label}
         {link.isAffiliate && (
-          <span className="ml-2 text-xs text-stone-400">affiliate</span>
+          <span className="ml-1 text-xs opacity-60">affiliate</span>
         )}
       </span>
       <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -65,21 +92,27 @@ function SecondaryLink({ href, label }: { href: string; label: string }) {
   );
 }
 
+function dedupeByUrl(links: BuyLink[], skip: Set<string>): BuyLink[] {
+  const out: BuyLink[] = [];
+  const seen = new Set(skip);
+  for (const l of links) {
+    if (!l.url || seen.has(l.url)) continue;
+    seen.add(l.url);
+    out.push(l);
+  }
+  return out;
+}
+
 export function ReviewMeta({ review }: { review: Review }) {
   const tags = review.skinType ?? review.goal ?? [];
   const seen = new Set<string>();
-  const bought = review.boughtFromUrl;
-  if (bought) seen.add(bought);
-  const india =
-    review.buyIndiaUrl && !seen.has(review.buyIndiaUrl)
-      ? review.buyIndiaUrl
-      : undefined;
-  if (india) seen.add(india);
-  const western =
-    review.buyWesternUrl && !seen.has(review.buyWesternUrl)
-      ? review.buyWesternUrl
-      : undefined;
-  const hasAnyLink = bought || india || western;
+  if (review.boughtFromUrl) seen.add(review.boughtFromUrl);
+  const india = dedupeByUrl(review.indiaLinks ?? [], seen);
+  india.forEach((l) => seen.add(l.url));
+  const western = dedupeByUrl(review.westernLinks ?? [], seen);
+
+  const hasAnyLink =
+    review.boughtFromUrl || india.length > 0 || western.length > 0;
 
   return (
     <div className="space-y-4">
@@ -114,18 +147,31 @@ export function ReviewMeta({ review }: { review: Review }) {
       </dl>
 
       {hasAnyLink && (
-        <div className="space-y-2">
-          {bought && <PrimaryLink href={bought} label="Bought from" />}
-          {(india || western) && (
-            <div className="pt-1">
+        <div className="space-y-3">
+          {review.boughtFromUrl && (
+            <PrimaryLink href={review.boughtFromUrl} label="Bought from" />
+          )}
+          {india.length > 0 && (
+            <div>
               <p className="mb-2 text-xs uppercase tracking-wider text-stone-500">
-                Also available
+                Buy in India
               </p>
               <div className="space-y-2">
-                {india && <SecondaryLink href={india} label="Buy in India" />}
-                {western && (
-                  <SecondaryLink href={western} label="Buy in the US / West" />
-                )}
+                {india.map((l) => (
+                  <SecondaryLink key={l.url} href={l.url} label={l.retailer} />
+                ))}
+              </div>
+            </div>
+          )}
+          {western.length > 0 && (
+            <div>
+              <p className="mb-2 text-xs uppercase tracking-wider text-stone-500">
+                Buy in the US / West
+              </p>
+              <div className="space-y-2">
+                {western.map((l) => (
+                  <SecondaryLink key={l.url} href={l.url} label={l.retailer} />
+                ))}
               </div>
             </div>
           )}

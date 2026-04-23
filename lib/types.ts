@@ -1,5 +1,10 @@
 export type Kind = "skincare" | "supplements" | "oral-care";
 
+export interface BuyLink {
+  retailer: string;
+  url: string;
+}
+
 export interface Review {
   kind: Kind;
   slug: string;
@@ -12,8 +17,8 @@ export interface Review {
   goal?: string[];
   photo?: string;
   boughtFromUrl?: string;
-  buyIndiaUrl?: string;
-  buyWesternUrl?: string;
+  indiaLinks: BuyLink[];
+  westernLinks: BuyLink[];
   ingredients?: string[];
   pros: string[];
   cons: string[];
