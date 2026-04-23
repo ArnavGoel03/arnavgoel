@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Skincare & Supplement Reviews
 
-## Getting Started
+A personal, meticulously maintained log of every skincare product and supplement I've tried, built with Next.js 16, Tailwind 4, shadcn/ui, and MDX.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Editorial design** — serif display type, generous whitespace, neutral palette
+- **MDX-based content** — one file per review, typed frontmatter via Zod
+- **Filter + sort** — by category and by rating
+- **SEO / AEO** — JSON-LD `Review` + `Product` + `WebSite` schema, sitemap, robots, per-page metadata, canonical URLs, OG tags, semantic HTML
+- **Zero JS on catalog cards** — pure server-rendered + static
+- **Accessible** — proper headings, rating has `aria-label`, sufficient contrast
+
+## Add a review
+
+Drop an `.mdx` file into `content/skincare/` or `content/supplements/`:
+
+```mdx
+---
+name: Product Name
+brand: Brand
+category: cleanser
+rating: 8.5
+price: $25
+skinType: [oily, combination]     # skincare only
+goal: [sleep, focus]              # supplements only
+ingredients: [Niacinamide, Zinc]
+pros:
+  - What worked
+cons:
+  - What didn't
+repurchase: true
+datePublished: "2026-04-23"
+summary: One-sentence verdict for cards and SEO meta.
+---
+
+Markdown body — verdict, context, routine, results.
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The file name becomes the URL slug. Frontmatter is validated at build time — bad data fails fast.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Develop
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm install
+npm run dev
+```
 
-## Learn More
+## Production
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+npm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Set `NEXT_PUBLIC_SITE_URL` to your canonical URL so sitemap, robots, and OG tags resolve correctly.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Structure
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+app/                  routes, metadata, sitemap, robots
+components/           small single-purpose components (~50–150 lines)
+content/skincare/     skincare review MDX
+content/supplements/  supplement review MDX
+lib/content.ts        MDX loading
+lib/schema.ts         Zod frontmatter schema
+lib/site.ts           site-wide config
+```
