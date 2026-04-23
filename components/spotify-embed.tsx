@@ -10,10 +10,11 @@ export function SpotifyEmbed({
       title={title}
       src={`https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator`}
       width="100%"
-      height="352"
+      height="152"
       loading="lazy"
       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-      className="overflow-hidden rounded-2xl border border-stone-200"
+      className="block overflow-hidden rounded-2xl border border-stone-200"
+      style={{ colorScheme: "normal" }}
     />
   );
 }
