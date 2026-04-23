@@ -5,7 +5,7 @@ import { put } from "@vercel/blob";
 import { commitRepoFile, readRepoFile } from "@/lib/github";
 
 const reviewSchema = z.object({
-  kind: z.enum(["skincare", "supplements"]),
+  kind: z.enum(["skincare", "supplements", "oral-care"]),
   name: z.string().trim().min(1, "required"),
   brand: z.string().trim().min(1, "required"),
   category: z.string().trim().min(1, "required"),
@@ -14,6 +14,12 @@ const reviewSchema = z.object({
   skinType: z.string().optional(),
   goal: z.string().optional(),
   photo: z.string().trim().optional(),
+  productUrl: z
+    .string()
+    .trim()
+    .url("must be a valid URL")
+    .optional()
+    .or(z.literal("").transform(() => undefined)),
   ingredients: z.string().optional(),
   pros: z.string().optional(),
   cons: z.string().optional(),
@@ -68,6 +74,7 @@ function buildReviewMdx(d: {
   skinType: string[];
   goal: string[];
   photo?: string;
+  productUrl?: string;
   ingredients: string[];
   pros: string[];
   cons: string[];
@@ -85,6 +92,7 @@ function buildReviewMdx(d: {
   if (d.skinType.length) lines.push(`skinType: [${d.skinType.join(", ")}]`);
   if (d.goal.length) lines.push(`goal: [${d.goal.join(", ")}]`);
   if (d.photo) lines.push(`photo: ${yamlString(d.photo)}`);
+  if (d.productUrl) lines.push(`productUrl: ${JSON.stringify(d.productUrl)}`);
   if (d.ingredients.length)
     lines.push(`ingredients: [${d.ingredients.join(", ")}]`);
   if (d.pros.length) {
@@ -110,7 +118,7 @@ export type ActionState = {
   error?: string;
   message?: string;
   slug?: string;
-  kind?: "skincare" | "supplements";
+  kind?: "skincare" | "supplements" | "oral-care";
   path?: string;
 };
 
@@ -141,8 +149,9 @@ export async function createReview(
       rating: d.rating,
       price: d.price || undefined,
       skinType: d.kind === "skincare" ? parseList(d.skinType) : [],
-      goal: d.kind === "supplements" ? parseList(d.goal) : [],
+      goal: d.kind === "skincare" ? [] : parseList(d.goal),
       photo: d.photo || undefined,
+      productUrl: d.productUrl,
       ingredients: parseList(d.ingredients),
       pros: parseLines(d.pros),
       cons: parseLines(d.cons),

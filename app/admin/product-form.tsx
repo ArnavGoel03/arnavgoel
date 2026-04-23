@@ -28,7 +28,9 @@ export function ProductForm() {
     createReview,
     null,
   );
-  const [kind, setKind] = useState<"skincare" | "supplements">("skincare");
+  const [kind, setKind] = useState<"skincare" | "supplements" | "oral-care">(
+    "skincare",
+  );
   const [brand, setBrand] = useState("");
   const [name, setName] = useState("");
 
@@ -41,19 +43,25 @@ export function ProductForm() {
       <div>
         <span className={labelCls}>Kind</span>
         <div className="flex gap-2">
-          {(["skincare", "supplements"] as const).map((k) => (
+          {(
+            [
+              { value: "skincare", label: "Skincare" },
+              { value: "supplements", label: "Supplements" },
+              { value: "oral-care", label: "Oral care" },
+            ] as const
+          ).map((k) => (
             <button
-              key={k}
+              key={k.value}
               type="button"
-              onClick={() => setKind(k)}
+              onClick={() => setKind(k.value)}
               className={cn(
-                "rounded-full border px-4 py-1.5 text-sm capitalize transition-colors",
-                kind === k
+                "rounded-full border px-4 py-1.5 text-sm transition-colors",
+                kind === k.value
                   ? "border-stone-900 bg-stone-900 text-white"
                   : "border-stone-200 bg-white text-stone-600 hover:border-stone-300",
               )}
             >
-              {k}
+              {k.label}
             </button>
           ))}
         </div>
@@ -92,7 +100,13 @@ export function ProductForm() {
           <input
             id="category"
             name="category"
-            placeholder={kind === "skincare" ? "cleanser" : "mineral"}
+            placeholder={
+              kind === "skincare"
+                ? "cleanser"
+                : kind === "supplements"
+                  ? "mineral"
+                  : "electric toothbrush"
+            }
             required
             className={inputCls}
           />
@@ -141,11 +155,17 @@ export function ProductForm() {
         </div>
       ) : (
         <div>
-          <label htmlFor="goal" className={labelCls}>Goal (comma-separated)</label>
+          <label htmlFor="goal" className={labelCls}>
+            {kind === "supplements" ? "Goal" : "Best for"} (comma-separated)
+          </label>
           <input
             id="goal"
             name="goal"
-            placeholder="sleep, recovery, stress"
+            placeholder={
+              kind === "supplements"
+                ? "sleep, recovery, stress"
+                : "plaque, gum health, whitening"
+            }
             className={inputCls}
           />
         </div>
@@ -167,6 +187,17 @@ export function ProductForm() {
           id="photo"
           name="photo"
           placeholder="/photos/beauty-of-joseon.jpg or https://..."
+          className={inputCls}
+        />
+      </div>
+
+      <div>
+        <label htmlFor="productUrl" className={labelCls}>Product URL (optional)</label>
+        <input
+          id="productUrl"
+          name="productUrl"
+          type="url"
+          placeholder="https://www.target.com/p/..."
           className={inputCls}
         />
       </div>

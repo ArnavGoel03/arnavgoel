@@ -1,4 +1,4 @@
-export type Kind = "skincare" | "supplements";
+export type Kind = "skincare" | "supplements" | "oral-care";
 
 export interface Review {
   kind: Kind;
@@ -11,6 +11,7 @@ export interface Review {
   skinType?: string[];
   goal?: string[];
   photo?: string;
+  productUrl?: string;
   ingredients?: string[];
   pros: string[];
   cons: string[];

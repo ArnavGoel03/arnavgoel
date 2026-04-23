@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${site.url}/photos`, lastModified: now, priority: 0.8 },
     { url: `${site.url}/skincare`, lastModified: now, priority: 0.8 },
     { url: `${site.url}/supplements`, lastModified: now, priority: 0.8 },
+    { url: `${site.url}/oral-care`, lastModified: now, priority: 0.8 },
     { url: `${site.url}/links`, lastModified: now, priority: 0.7 },
   ];
   const noteRoutes: MetadataRoute.Sitemap = getNotes().map((n) => ({
@@ -19,7 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(n.datePublished),
     priority: 0.7,
   }));
-  const reviewRoutes: MetadataRoute.Sitemap = (["skincare", "supplements"] as const).flatMap(
+  const reviewRoutes: MetadataRoute.Sitemap = (["skincare", "supplements", "oral-care"] as const).flatMap(
     (kind) =>
       getReviews(kind).map((r) => ({
         url: `${site.url}/${kind}/${r.slug}`,

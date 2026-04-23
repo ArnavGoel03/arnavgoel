@@ -15,6 +15,7 @@ export default function HomePage() {
   const recentNotes = getNotes().slice(0, 4);
   const skincareCount = getReviews("skincare").length;
   const supplementsCount = getReviews("supplements").length;
+  const oralCareCount = getReviews("oral-care").length;
   const notesCount = getNotes().length;
   const photosCount = photos.length;
 
@@ -64,7 +65,7 @@ export default function HomePage() {
           </p>
           <h2 className="font-serif text-3xl text-stone-900">Poke around.</h2>
         </div>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <SectionTile
             href="/notes"
             eyebrow={`${notesCount} entries`}
@@ -88,6 +89,12 @@ export default function HomePage() {
             eyebrow={`${supplementsCount} reviews`}
             title="Supplements"
             description="Vitamins, minerals, nootropics — what I took and what I felt."
+          />
+          <SectionTile
+            href="/oral-care"
+            eyebrow={`${oralCareCount} reviews`}
+            title="Oral care"
+            description="Electric brushes, pastes, mouthwash — for teeth, breath, and gums."
           />
         </div>
       </Container>

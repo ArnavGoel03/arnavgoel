@@ -47,7 +47,11 @@ export function getReview(kind: Kind, slug: string): Review | null {
 }
 
 export function getAllReviews(): ReviewSummary[] {
-  return sortByDateDesc([...getReviews("skincare"), ...getReviews("supplements")]);
+  return sortByDateDesc([
+    ...getReviews("skincare"),
+    ...getReviews("supplements"),
+    ...getReviews("oral-care"),
+  ]);
 }
 
 export function getNotes(): NoteSummary[] {

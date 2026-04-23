@@ -9,6 +9,7 @@ export const reviewFrontmatter = z.object({
   skinType: z.array(z.string()).optional(),
   goal: z.array(z.string()).optional(),
   photo: z.string().optional(),
+  productUrl: z.string().url().optional(),
   ingredients: z.array(z.string()).optional(),
   pros: z.array(z.string()).default([]),
   cons: z.array(z.string()).default([]),
