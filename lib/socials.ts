@@ -19,8 +19,8 @@ export const socials: Social[] = [
   },
   {
     label: "Instagram",
-    handle: "Add your handle",
-    href: "#",
+    handle: "@yashgoel03_",
+    href: "https://www.instagram.com/yashgoel03_/",
     icon: InstagramIcon,
   },
 ];
