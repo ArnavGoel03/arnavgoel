@@ -1,5 +1,5 @@
 import type { ComponentType, SVGProps } from "react";
-import { InstagramIcon, XIcon } from "@/components/brand-icons";
+import { InstagramIcon, XIcon, YoutubeIcon } from "@/components/brand-icons";
 
 type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
 
@@ -12,15 +12,21 @@ export interface Social {
 
 export const socials: Social[] = [
   {
-    label: "Twitter",
-    handle: "Add your handle",
-    href: "#",
-    icon: XIcon,
-  },
-  {
     label: "Instagram",
     handle: "@yashgoel03_",
     href: "https://www.instagram.com/yashgoel03_/",
     icon: InstagramIcon,
+  },
+  {
+    label: "YouTube",
+    handle: "@nobodytosomeone",
+    href: "https://www.youtube.com/@nobodytosomeone",
+    icon: YoutubeIcon,
+  },
+  {
+    label: "Twitter",
+    handle: "Add your handle",
+    href: "#",
+    icon: XIcon,
   },
 ];
