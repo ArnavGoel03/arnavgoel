@@ -191,15 +191,44 @@ export function ProductForm() {
         />
       </div>
 
-      <div>
-        <label htmlFor="productUrl" className={labelCls}>Product URL (optional)</label>
-        <input
-          id="productUrl"
-          name="productUrl"
-          type="url"
-          placeholder="https://www.target.com/p/..."
-          className={inputCls}
-        />
+      <div className="space-y-5 rounded-2xl border border-stone-200 bg-stone-50 p-5">
+        <div>
+          <span className={labelCls}>Purchase links (all optional)</span>
+          <p className="-mt-1 mb-3 text-xs text-stone-500">
+            Where you bought it goes up top. Regional links help readers find
+            it locally.
+          </p>
+        </div>
+        <div>
+          <label htmlFor="boughtFromUrl" className={labelCls}>Bought from</label>
+          <input
+            id="boughtFromUrl"
+            name="boughtFromUrl"
+            type="url"
+            placeholder="https://… (where you actually bought it)"
+            className={inputCls}
+          />
+        </div>
+        <div>
+          <label htmlFor="buyIndiaUrl" className={labelCls}>Buy in India</label>
+          <input
+            id="buyIndiaUrl"
+            name="buyIndiaUrl"
+            type="url"
+            placeholder="https://www.nykaa.com/…"
+            className={inputCls}
+          />
+        </div>
+        <div>
+          <label htmlFor="buyWesternUrl" className={labelCls}>Buy in the US / West</label>
+          <input
+            id="buyWesternUrl"
+            name="buyWesternUrl"
+            type="url"
+            placeholder="https://www.target.com/p/…"
+            className={inputCls}
+          />
+        </div>
       </div>
 
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">

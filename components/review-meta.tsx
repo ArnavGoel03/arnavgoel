@@ -10,8 +10,50 @@ function Row({ label, value }: { label: string; value: React.ReactNode }) {
   );
 }
 
+function PrimaryLink({ href, label }: { href: string; label: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group inline-flex w-full items-center justify-between gap-2 rounded-2xl border border-stone-900 bg-stone-900 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-stone-800"
+    >
+      {label}
+      <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+    </a>
+  );
+}
+
+function SecondaryLink({ href, label }: { href: string; label: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group inline-flex w-full items-center justify-between gap-2 rounded-xl border border-stone-200 bg-white px-4 py-2.5 text-sm text-stone-700 transition-colors hover:border-stone-900 hover:text-stone-900"
+    >
+      {label}
+      <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+    </a>
+  );
+}
+
 export function ReviewMeta({ review }: { review: Review }) {
   const tags = review.skinType ?? review.goal ?? [];
+  const seen = new Set<string>();
+  const bought = review.boughtFromUrl;
+  if (bought) seen.add(bought);
+  const india =
+    review.buyIndiaUrl && !seen.has(review.buyIndiaUrl)
+      ? review.buyIndiaUrl
+      : undefined;
+  if (india) seen.add(india);
+  const western =
+    review.buyWesternUrl && !seen.has(review.buyWesternUrl)
+      ? review.buyWesternUrl
+      : undefined;
+  const hasAnyLink = bought || india || western;
+
   return (
     <div className="space-y-4">
       <dl className="rounded-2xl border border-stone-200 bg-white p-6">
@@ -43,16 +85,24 @@ export function ReviewMeta({ review }: { review: Review }) {
           })}
         />
       </dl>
-      {review.productUrl && (
-        <a
-          href={review.productUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group inline-flex w-full items-center justify-between gap-2 rounded-2xl border border-stone-900 bg-stone-900 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-stone-800"
-        >
-          Where to buy
-          <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-        </a>
+
+      {hasAnyLink && (
+        <div className="space-y-2">
+          {bought && <PrimaryLink href={bought} label="Bought from" />}
+          {(india || western) && (
+            <div className="pt-1">
+              <p className="mb-2 text-xs uppercase tracking-wider text-stone-500">
+                Also available
+              </p>
+              <div className="space-y-2">
+                {india && <SecondaryLink href={india} label="Buy in India" />}
+                {western && (
+                  <SecondaryLink href={western} label="Buy in the US / West" />
+                )}
+              </div>
+            </div>
+          )}
+        </div>
       )}
     </div>
   );

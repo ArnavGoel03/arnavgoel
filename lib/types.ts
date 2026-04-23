@@ -11,7 +11,9 @@ export interface Review {
   skinType?: string[];
   goal?: string[];
   photo?: string;
-  productUrl?: string;
+  boughtFromUrl?: string;
+  buyIndiaUrl?: string;
+  buyWesternUrl?: string;
   ingredients?: string[];
   pros: string[];
   cons: string[];

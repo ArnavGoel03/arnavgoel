@@ -14,7 +14,19 @@ const reviewSchema = z.object({
   skinType: z.string().optional(),
   goal: z.string().optional(),
   photo: z.string().trim().optional(),
-  productUrl: z
+  boughtFromUrl: z
+    .string()
+    .trim()
+    .url("must be a valid URL")
+    .optional()
+    .or(z.literal("").transform(() => undefined)),
+  buyIndiaUrl: z
+    .string()
+    .trim()
+    .url("must be a valid URL")
+    .optional()
+    .or(z.literal("").transform(() => undefined)),
+  buyWesternUrl: z
     .string()
     .trim()
     .url("must be a valid URL")
@@ -74,7 +86,9 @@ function buildReviewMdx(d: {
   skinType: string[];
   goal: string[];
   photo?: string;
-  productUrl?: string;
+  boughtFromUrl?: string;
+  buyIndiaUrl?: string;
+  buyWesternUrl?: string;
   ingredients: string[];
   pros: string[];
   cons: string[];
@@ -92,7 +106,12 @@ function buildReviewMdx(d: {
   if (d.skinType.length) lines.push(`skinType: [${d.skinType.join(", ")}]`);
   if (d.goal.length) lines.push(`goal: [${d.goal.join(", ")}]`);
   if (d.photo) lines.push(`photo: ${yamlString(d.photo)}`);
-  if (d.productUrl) lines.push(`productUrl: ${JSON.stringify(d.productUrl)}`);
+  if (d.boughtFromUrl)
+    lines.push(`boughtFromUrl: ${JSON.stringify(d.boughtFromUrl)}`);
+  if (d.buyIndiaUrl)
+    lines.push(`buyIndiaUrl: ${JSON.stringify(d.buyIndiaUrl)}`);
+  if (d.buyWesternUrl)
+    lines.push(`buyWesternUrl: ${JSON.stringify(d.buyWesternUrl)}`);
   if (d.ingredients.length)
     lines.push(`ingredients: [${d.ingredients.join(", ")}]`);
   if (d.pros.length) {
@@ -151,7 +170,9 @@ export async function createReview(
       skinType: d.kind === "skincare" ? parseList(d.skinType) : [],
       goal: d.kind === "skincare" ? [] : parseList(d.goal),
       photo: d.photo || undefined,
-      productUrl: d.productUrl,
+      boughtFromUrl: d.boughtFromUrl,
+      buyIndiaUrl: d.buyIndiaUrl,
+      buyWesternUrl: d.buyWesternUrl,
       ingredients: parseList(d.ingredients),
       pros: parseLines(d.pros),
       cons: parseLines(d.cons),
