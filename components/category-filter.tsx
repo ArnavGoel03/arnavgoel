@@ -32,7 +32,9 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
     if (region !== "all") {
       base = base.filter((r) => availableInRegion(r, region));
     }
-    if (sort === "rating") return [...base].sort((a, b) => b.rating - a.rating);
+    if (sort === "rating") {
+      return [...base].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
+    }
     return base;
   }, [reviews, active, sort, region]);
 

@@ -10,7 +10,42 @@ const reviewSchema = z.object({
   name: z.string().trim().min(1, "required"),
   brand: z.string().trim().min(1, "required"),
   category: z.string().trim().min(1, "required"),
-  rating: z.coerce.number().min(0).max(10),
+  rating: z
+    .string()
+    .optional()
+    .transform((v) => {
+      if (v === undefined || v === "") return undefined;
+      const n = Number(v);
+      return isNaN(n) ? undefined : n;
+    }),
+  effectRating: z
+    .string()
+    .optional()
+    .transform((v) => {
+      if (v === undefined || v === "") return undefined;
+      const n = Number(v);
+      return isNaN(n) ? undefined : n;
+    }),
+  valueRating: z
+    .string()
+    .optional()
+    .transform((v) => {
+      if (v === undefined || v === "") return undefined;
+      const n = Number(v);
+      return isNaN(n) ? undefined : n;
+    }),
+  toleranceRating: z
+    .string()
+    .optional()
+    .transform((v) => {
+      if (v === undefined || v === "") return undefined;
+      const n = Number(v);
+      return isNaN(n) ? undefined : n;
+    }),
+  hidden: z.preprocess(
+    (v) => v === "on" || v === "true" || v === true,
+    z.boolean(),
+  ),
   price: z.string().trim().optional(),
   skinType: z.string().optional(),
   goal: z.string().optional(),
@@ -28,8 +63,13 @@ const reviewSchema = z.object({
   pros: z.string().optional(),
   cons: z.string().optional(),
   repurchase: z.preprocess(
-    (v) => v === "on" || v === "true" || v === true,
-    z.boolean(),
+    (v) => {
+      if (v === undefined || v === "" || v === "undecided") return undefined;
+      if (v === "yes" || v === "on" || v === "true" || v === true) return true;
+      if (v === "no" || v === "false" || v === false) return false;
+      return undefined;
+    },
+    z.boolean().optional(),
   ),
   datePublished: z.string().trim().min(1, "required"),
   summary: z.string().optional().transform((v) => (v ?? "").trim()),
@@ -98,7 +138,9 @@ function buildReviewMdx(d: {
   name: string;
   brand: string;
   category: string;
-  rating: number;
+  rating?: number;
+  ratings?: { effect?: number; value?: number; tolerance?: number };
+  hidden?: boolean;
   price?: string;
   skinType: string[];
   goal: string[];
@@ -110,7 +152,7 @@ function buildReviewMdx(d: {
   ingredients: string[];
   pros: string[];
   cons: string[];
-  repurchase: boolean;
+  repurchase?: boolean;
   datePublished: string;
   summary: string;
   body: string;
@@ -119,7 +161,20 @@ function buildReviewMdx(d: {
   lines.push(`name: ${yamlString(d.name)}`);
   lines.push(`brand: ${yamlString(d.brand)}`);
   lines.push(`category: ${yamlString(d.category)}`);
-  lines.push(`rating: ${d.rating}`);
+  if (typeof d.rating === "number") lines.push(`rating: ${d.rating}`);
+  if (d.ratings) {
+    const r = d.ratings;
+    const entries: string[] = [];
+    if (typeof r.effect === "number") entries.push(`effect: ${r.effect}`);
+    if (typeof r.value === "number") entries.push(`value: ${r.value}`);
+    if (typeof r.tolerance === "number")
+      entries.push(`tolerance: ${r.tolerance}`);
+    if (entries.length) {
+      lines.push("ratings:");
+      for (const e of entries) lines.push(`  ${e}`);
+    }
+  }
+  if (d.hidden) lines.push(`hidden: true`);
   if (d.price) lines.push(`price: ${yamlString(d.price)}`);
   if (d.skinType.length) lines.push(`skinType: [${d.skinType.join(", ")}]`);
   if (d.goal.length) lines.push(`goal: [${d.goal.join(", ")}]`);
@@ -160,7 +215,8 @@ function buildReviewMdx(d: {
     lines.push("cons:");
     for (const c of d.cons) lines.push(`  - ${c}`);
   }
-  lines.push(`repurchase: ${d.repurchase}`);
+  if (typeof d.repurchase === "boolean")
+    lines.push(`repurchase: ${d.repurchase}`);
   lines.push(`datePublished: "${d.datePublished}"`);
   if (d.summary) lines.push(`summary: ${yamlString(d.summary)}`);
   lines.push("---");
@@ -180,11 +236,23 @@ export type ActionState = {
 };
 
 function buildContentFromForm(d: z.infer<typeof reviewSchema>): string {
+  const ratings =
+    d.effectRating !== undefined ||
+    d.valueRating !== undefined ||
+    d.toleranceRating !== undefined
+      ? {
+          effect: d.effectRating,
+          value: d.valueRating,
+          tolerance: d.toleranceRating,
+        }
+      : undefined;
   return buildReviewMdx({
     name: d.name,
     brand: d.brand,
     category: d.category,
     rating: d.rating,
+    ratings,
+    hidden: d.hidden,
     price: d.price || undefined,
     skinType: d.kind === "skincare" ? parseList(d.skinType) : [],
     goal: d.kind === "skincare" ? [] : parseList(d.goal),

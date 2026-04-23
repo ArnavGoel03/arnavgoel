@@ -57,7 +57,9 @@ export type ProductFormInitial = {
   name: string;
   brand: string;
   category: string;
-  rating: number;
+  rating?: number;
+  ratings?: { effect?: number; value?: number; tolerance?: number };
+  hidden?: boolean;
   price?: string;
   skinType?: string[];
   goal?: string[];
@@ -69,7 +71,7 @@ export type ProductFormInitial = {
   ingredients?: string[];
   pros: string[];
   cons: string[];
-  repurchase: boolean;
+  repurchase?: boolean;
   datePublished: string;
   summary: string;
   body: string;
@@ -181,7 +183,9 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
             />
           </div>
           <div>
-            <label htmlFor="rating" className={labelCls}>Rating (0–10)</label>
+            <label htmlFor="rating" className={labelCls}>
+              Overall rating <Optional />
+            </label>
             <input
               id="rating"
               name="rating"
@@ -190,8 +194,7 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
               min="0"
               max="10"
               defaultValue={initial?.rating ?? ""}
-              placeholder="8.5"
-              required
+              placeholder="Leave blank while testing"
               className={inputCls}
             />
           </div>
@@ -209,6 +212,60 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
           </div>
         </div>
 
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
+          <div>
+            <label htmlFor="effectRating" className={labelCls}>
+              Effect <Optional />
+            </label>
+            <input
+              id="effectRating"
+              name="effectRating"
+              type="number"
+              step="0.1"
+              min="0"
+              max="10"
+              defaultValue={initial?.ratings?.effect ?? ""}
+              placeholder="0–10"
+              className={inputCls}
+            />
+            <p className="mt-1 text-xs text-stone-500">Does it work?</p>
+          </div>
+          <div>
+            <label htmlFor="valueRating" className={labelCls}>
+              Value <Optional />
+            </label>
+            <input
+              id="valueRating"
+              name="valueRating"
+              type="number"
+              step="0.1"
+              min="0"
+              max="10"
+              defaultValue={initial?.ratings?.value ?? ""}
+              placeholder="0–10"
+              className={inputCls}
+            />
+            <p className="mt-1 text-xs text-stone-500">Worth the price?</p>
+          </div>
+          <div>
+            <label htmlFor="toleranceRating" className={labelCls}>
+              Tolerance <Optional />
+            </label>
+            <input
+              id="toleranceRating"
+              name="toleranceRating"
+              type="number"
+              step="0.1"
+              min="0"
+              max="10"
+              defaultValue={initial?.ratings?.tolerance ?? ""}
+              placeholder="0–10"
+              className={inputCls}
+            />
+            <p className="mt-1 text-xs text-stone-500">Easy to live with?</p>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <div>
             <label htmlFor="datePublished" className={labelCls}>
@@ -223,19 +280,57 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
               className={inputCls}
             />
           </div>
-          <div className="flex items-end">
-            <label className="flex items-center gap-2 pb-2 text-sm text-stone-700">
-              <input
-                type="checkbox"
-                name="repurchase"
-                value="true"
-                defaultChecked={initial?.repurchase ?? false}
-                className="size-4 rounded border-stone-300"
-              />
-              I would repurchase this
-            </label>
+          <div>
+            <span className={labelCls}>Repurchase?</span>
+            <div className="flex gap-4 pt-2 text-sm text-stone-700">
+              {(
+                [
+                  { value: "undecided", label: "Not yet" },
+                  { value: "yes", label: "Yes" },
+                  { value: "no", label: "No" },
+                ] as const
+              ).map((opt) => {
+                const checked =
+                  opt.value === "undecided"
+                    ? initial?.repurchase === undefined
+                    : opt.value === "yes"
+                      ? initial?.repurchase === true
+                      : initial?.repurchase === false;
+                return (
+                  <label key={opt.value} className="flex items-center gap-1.5">
+                    <input
+                      type="radio"
+                      name="repurchase"
+                      value={opt.value}
+                      defaultChecked={checked}
+                      className="size-4"
+                    />
+                    {opt.label}
+                  </label>
+                );
+              })}
+            </div>
           </div>
         </div>
+
+        <label className="flex items-start gap-3 rounded-lg border border-stone-200 bg-stone-50 p-4 text-sm text-stone-700">
+          <input
+            type="checkbox"
+            name="hidden"
+            value="true"
+            defaultChecked={initial?.hidden ?? false}
+            className="mt-0.5 size-4 rounded border-stone-300"
+          />
+          <span className="flex-1">
+            <span className="font-medium">Hide from the catalogue.</span>{" "}
+            <span className="text-stone-500">
+              The product stays in the repo and at its direct URL, but won&apos;t
+              appear on listing pages, the home &ldquo;just added&rdquo; row, or
+              in sitemap/filters. Useful when you&apos;ve stopped using
+              something or want to draft without publishing.
+            </span>
+          </span>
+        </label>
       </Section>
 
       <Section

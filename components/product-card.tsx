@@ -7,6 +7,8 @@ export function ProductCard({ review }: { review: ReviewSummary }) {
   const href = `/${review.kind}/${review.slug}`;
   const availability = availabilityLabel(review);
   const isRegionLocked = availability?.endsWith("only") ?? false;
+  const isPending =
+    !review.rating && (!review.summary || review.summary.length === 0);
   return (
     <Link
       href={href}
@@ -35,9 +37,16 @@ export function ProductCard({ review }: { review: ReviewSummary }) {
             <span aria-hidden className="absolute bottom-3 right-3 h-3 w-3 border-b border-r border-stone-300/70" />
           </>
         )}
-        {/* Floating rating in top-right */}
+        {/* Floating rating / pending badge in top-right */}
         <div className="absolute right-4 top-3 rounded-md bg-white/85 px-2 py-1 backdrop-blur">
-          <RatingPill rating={review.rating} size="sm" />
+          {isPending ? (
+            <span className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.18em] text-amber-700">
+              <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-amber-400" />
+              Still testing
+            </span>
+          ) : (
+            <RatingPill rating={review.rating} size="sm" />
+          )}
         </div>
       </div>
 
@@ -53,11 +62,15 @@ export function ProductCard({ review }: { review: ReviewSummary }) {
         <h3 className="font-serif text-2xl leading-[1.1] tracking-tight text-stone-900">
           {review.name}
         </h3>
-        {review.summary && (
+        {review.summary ? (
           <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-stone-600">
             {review.summary}
           </p>
-        )}
+        ) : isPending ? (
+          <p className="mt-1 font-serif text-sm italic leading-relaxed text-stone-500">
+            Full review coming after a month of real use.
+          </p>
+        ) : null}
         {availability && (
           <p
             className={

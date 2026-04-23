@@ -4,7 +4,14 @@ export const reviewFrontmatter = z.object({
   name: z.string().min(1),
   brand: z.string().min(1),
   category: z.string().min(1),
-  rating: z.number().min(0).max(10),
+  rating: z.number().min(0).max(10).optional(),
+  ratings: z
+    .object({
+      effect: z.number().min(0).max(10).optional(),
+      value: z.number().min(0).max(10).optional(),
+      tolerance: z.number().min(0).max(10).optional(),
+    })
+    .optional(),
   price: z.string().optional(),
   skinType: z.array(z.string()).optional(),
   goal: z.array(z.string()).optional(),
@@ -22,7 +29,8 @@ export const reviewFrontmatter = z.object({
   ingredients: z.array(z.string()).optional(),
   pros: z.array(z.string()).default([]),
   cons: z.array(z.string()).default([]),
-  repurchase: z.boolean().default(false),
+  repurchase: z.boolean().optional(),
+  hidden: z.boolean().default(false),
   datePublished: z.string(),
   summary: z.string().default(""),
 });

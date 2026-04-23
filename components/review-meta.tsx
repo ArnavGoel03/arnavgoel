@@ -143,16 +143,18 @@ export function ReviewMeta({ review }: { review: Review }) {
             }
           />
         )}
-        <Row
-          label="Repurchase"
-          value={
-            review.repurchase ? (
-              <span className="text-emerald-700">Yes</span>
-            ) : (
-              <span className="text-rose-700">No</span>
-            )
-          }
-        />
+        {review.repurchase !== undefined && (
+          <Row
+            label="Repurchase"
+            value={
+              review.repurchase ? (
+                <span className="text-emerald-700">Yes</span>
+              ) : (
+                <span className="text-rose-700">No</span>
+              )
+            }
+          />
+        )}
         <Row
           label="Reviewed"
           value={new Date(review.datePublished).toLocaleDateString("en-US", {

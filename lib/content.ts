@@ -38,8 +38,15 @@ function sortByDateDesc<T extends { datePublished: string }>(list: T[]): T[] {
   );
 }
 
+/**
+ * Public-facing listings exclude any review with `hidden: true` in its
+ * frontmatter. The `/admin` dashboard uses `getAllReviewsIncludingHidden()` so
+ * the author can still toggle them back on.
+ */
 export function getReviews(kind: Kind): ReviewSummary[] {
-  return sortByDateDesc(readReviews(kind)).map(({ body: _body, ...rest }) => rest);
+  return sortByDateDesc(readReviews(kind))
+    .filter((r) => !r.hidden)
+    .map(({ body: _body, ...rest }) => rest);
 }
 
 export function getReview(kind: Kind, slug: string): Review | null {
@@ -52,6 +59,12 @@ export function getAllReviews(): ReviewSummary[] {
     ...getReviews("supplements"),
     ...getReviews("oral-care"),
   ]);
+}
+
+export function getAllReviewsIncludingHidden(kind: Kind): ReviewSummary[] {
+  return sortByDateDesc(readReviews(kind)).map(
+    ({ body: _body, ...rest }) => rest,
+  );
 }
 
 export function getNotes(): NoteSummary[] {

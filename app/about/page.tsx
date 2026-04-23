@@ -77,7 +77,51 @@ export default function AboutPage() {
           whether it was worth the money. So I made one.
         </p>
 
-        <SectionLabel num="03" label="Off the clock" />
+        <SectionLabel num="03" label="On the rating number" />
+        <p>
+          Every review here carries a number out of ten. I put it there
+          because readers expect one and because it makes sorting and
+          filtering possible. But a single rating is a lie by compression.
+          It can&apos;t capture:
+        </p>
+        <ul className="mt-4 space-y-3 text-stone-700">
+          <li className="flex gap-3">
+            <span aria-hidden className="mt-1.5 text-rose-400">❋</span>
+            <span>
+              <strong className="font-serif text-stone-900">Context.</strong>{" "}
+              A 7.5 for oily skin might be a 9 for dry skin — and the opposite.
+            </span>
+          </li>
+          <li className="flex gap-3">
+            <span aria-hidden className="mt-1.5 text-rose-400">❋</span>
+            <span>
+              <strong className="font-serif text-stone-900">Price.</strong>{" "}
+              A $15 product at 7 is a different product than a $200 product
+              at 7.
+            </span>
+          </li>
+          <li className="flex gap-3">
+            <span aria-hidden className="mt-1.5 text-rose-400">❋</span>
+            <span>
+              <strong className="font-serif text-stone-900">Routine fit.</strong>{" "}
+              A product is only as good as the things around it in a routine.
+            </span>
+          </li>
+          <li className="flex gap-3">
+            <span aria-hidden className="mt-1.5 text-rose-400">❋</span>
+            <span>
+              <strong className="font-serif text-stone-900">Life stage.</strong>{" "}
+              What works on 24-year-old skin may not work on 44-year-old skin.
+            </span>
+          </li>
+        </ul>
+        <p className="mt-5 font-serif italic text-stone-700">
+          The number is a shortcut; the prose is where the real opinion lives.
+          If you&apos;re deciding whether to buy something, read the body
+          before the score.
+        </p>
+
+        <SectionLabel num="04" label="Off the clock" />
         <p>
           Most weekends involve water in some form — kayaking, wakesurfing,
           snorkelling, and, when time and depth permit, underwater basket

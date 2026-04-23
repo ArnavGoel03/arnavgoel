@@ -11,7 +11,7 @@ export function RatingPill({
   rating,
   size = "md",
 }: {
-  rating: number;
+  rating?: number;
   size?: "sm" | "md" | "lg";
 }) {
   const sizing = {
@@ -25,6 +25,36 @@ export function RatingPill({
     md: "text-[10px]",
     lg: "text-xs",
   }[size];
+
+  // Pending state — the product is on the shelf but not yet rated.
+  if (rating === undefined || rating === null || rating === 0) {
+    return (
+      <span
+        className="inline-flex items-baseline gap-1.5"
+        aria-label="Not yet rated"
+      >
+        <span
+          aria-hidden
+          className={cn(
+            "h-1.5 w-1.5 rounded-full bg-amber-400",
+            size === "lg" && "h-2 w-2",
+          )}
+        />
+        <span
+          className={cn(
+            "font-serif italic leading-none text-stone-500",
+            size === "lg"
+              ? "text-4xl sm:text-5xl"
+              : size === "md"
+                ? "text-lg"
+                : "text-sm",
+          )}
+        >
+          Still testing
+        </span>
+      </span>
+    );
+  }
 
   return (
     <span

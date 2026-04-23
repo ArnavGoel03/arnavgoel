@@ -11,7 +11,13 @@ export interface Review {
   name: string;
   brand: string;
   category: string;
-  rating: number;
+  rating?: number;
+  ratings?: {
+    effect?: number;
+    value?: number;
+    tolerance?: number;
+  };
+  hidden?: boolean;
   price?: string;
   skinType?: string[];
   goal?: string[];
@@ -23,7 +29,7 @@ export interface Review {
   ingredients?: string[];
   pros: string[];
   cons: string[];
-  repurchase: boolean;
+  repurchase?: boolean;
   datePublished: string;
   summary: string;
   body: string;

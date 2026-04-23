@@ -53,6 +53,8 @@ export default async function EditReviewPage({ params }: Props) {
               brand: review.brand,
               category: review.category,
               rating: review.rating,
+              ratings: review.ratings,
+              hidden: review.hidden,
               price: review.price,
               skinType: review.skinType,
               goal: review.goal,
