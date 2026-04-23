@@ -141,6 +141,29 @@ export type ActionState = {
   path?: string;
 };
 
+function buildContentFromForm(d: z.infer<typeof reviewSchema>): string {
+  return buildReviewMdx({
+    name: d.name,
+    brand: d.brand,
+    category: d.category,
+    rating: d.rating,
+    price: d.price || undefined,
+    skinType: d.kind === "skincare" ? parseList(d.skinType) : [],
+    goal: d.kind === "skincare" ? [] : parseList(d.goal),
+    photo: d.photo || undefined,
+    boughtFromUrl: d.boughtFromUrl,
+    buyIndiaUrl: d.buyIndiaUrl,
+    buyWesternUrl: d.buyWesternUrl,
+    ingredients: parseList(d.ingredients),
+    pros: parseLines(d.pros),
+    cons: parseLines(d.cons),
+    repurchase: d.repurchase,
+    datePublished: d.datePublished,
+    summary: d.summary,
+    body: d.body ?? "",
+  });
+}
+
 export async function createReview(
   _prev: ActionState | null,
   formData: FormData,
@@ -161,30 +184,9 @@ export async function createReview(
   const repoPath = `content/${d.kind}/${slug}.mdx`;
 
   try {
-    const content = buildReviewMdx({
-      name: d.name,
-      brand: d.brand,
-      category: d.category,
-      rating: d.rating,
-      price: d.price || undefined,
-      skinType: d.kind === "skincare" ? parseList(d.skinType) : [],
-      goal: d.kind === "skincare" ? [] : parseList(d.goal),
-      photo: d.photo || undefined,
-      boughtFromUrl: d.boughtFromUrl,
-      buyIndiaUrl: d.buyIndiaUrl,
-      buyWesternUrl: d.buyWesternUrl,
-      ingredients: parseList(d.ingredients),
-      pros: parseLines(d.pros),
-      cons: parseLines(d.cons),
-      repurchase: d.repurchase,
-      datePublished: d.datePublished,
-      summary: d.summary,
-      body: d.body ?? "",
-    });
-
     await commitRepoFile({
       path: repoPath,
-      content,
+      content: buildContentFromForm(d),
       message: `Add ${d.brand} ${d.name} (${d.kind})`,
       expectExisting: false,
     });
@@ -198,6 +200,44 @@ export async function createReview(
     kind: d.kind,
     path: repoPath,
     message: `Committed ${repoPath}. Live in ~30–60s once Vercel redeploys.`,
+  };
+}
+
+export async function updateReview(
+  _prev: ActionState | null,
+  formData: FormData,
+): Promise<ActionState> {
+  const slug = (formData.get("slug") ?? "").toString().trim();
+  if (!slug) return { ok: false, error: "Missing slug — can't locate the file to update." };
+
+  const parsed = reviewSchema.safeParse(Object.fromEntries(formData));
+  if (!parsed.success) {
+    return {
+      ok: false,
+      error: parsed.error.issues
+        .map((i) => `${i.path.join(".") || "form"}: ${i.message}`)
+        .join("; "),
+    };
+  }
+  const d = parsed.data;
+  const repoPath = `content/${d.kind}/${slug}.mdx`;
+
+  try {
+    await commitRepoFile({
+      path: repoPath,
+      content: buildContentFromForm(d),
+      message: `Update ${d.brand} ${d.name} (${d.kind})`,
+    });
+  } catch (err) {
+    return { ok: false, error: (err as Error).message };
+  }
+
+  return {
+    ok: true,
+    slug,
+    kind: d.kind,
+    path: repoPath,
+    message: `Updated ${repoPath}. Live in ~30–60s once Vercel redeploys.`,
   };
 }
 

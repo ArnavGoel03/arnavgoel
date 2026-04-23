@@ -5,9 +5,9 @@ import { ProductForm } from "./product-form";
 import { PhotoForm } from "./photo-form";
 import { cn } from "@/lib/utils";
 
-type Tab = "product" | "photo";
+type Tab = "product" | "photo" | "edit";
 
-export function AdminTabs() {
+export function AdminTabs({ editList }: { editList: React.ReactNode }) {
   const [tab, setTab] = useState<Tab>("product");
 
   return (
@@ -15,8 +15,9 @@ export function AdminTabs() {
       <div className="flex gap-2 border-b border-stone-200 pb-px">
         {(
           [
-            { id: "product", label: "Skincare & Supplements" },
-            { id: "photo", label: "Photos" },
+            { id: "product", label: "Add product" },
+            { id: "photo", label: "Add photo" },
+            { id: "edit", label: "Edit existing" },
           ] as const
         ).map((t) => (
           <button
@@ -38,7 +39,9 @@ export function AdminTabs() {
         ))}
       </div>
 
-      {tab === "product" ? <ProductForm /> : <PhotoForm />}
+      {tab === "product" && <ProductForm />}
+      {tab === "photo" && <PhotoForm />}
+      {tab === "edit" && editList}
     </div>
   );
 }

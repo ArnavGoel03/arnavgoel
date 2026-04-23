@@ -2,7 +2,7 @@
 
 import { useActionState, useMemo, useState } from "react";
 import Link from "next/link";
-import { createReview, type ActionState } from "./actions";
+import { createReview, updateReview, type ActionState } from "./actions";
 import { cn } from "@/lib/utils";
 
 const today = () => new Date().toISOString().slice(0, 10);
@@ -23,22 +23,50 @@ const inputCls =
   "w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-900 outline-none transition-colors placeholder:text-stone-400 focus:border-stone-400";
 const textareaCls = cn(inputCls, "resize-y font-mono");
 
-export function ProductForm() {
+export type ProductFormInitial = {
+  slug: string;
+  kind: "skincare" | "supplements" | "oral-care";
+  name: string;
+  brand: string;
+  category: string;
+  rating: number;
+  price?: string;
+  skinType?: string[];
+  goal?: string[];
+  photo?: string;
+  boughtFromUrl?: string;
+  buyIndiaUrl?: string;
+  buyWesternUrl?: string;
+  ingredients?: string[];
+  pros: string[];
+  cons: string[];
+  repurchase: boolean;
+  datePublished: string;
+  summary: string;
+  body: string;
+};
+
+export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
+  const isEdit = !!initial;
   const [state, action, pending] = useActionState<ActionState | null, FormData>(
-    createReview,
+    isEdit ? updateReview : createReview,
     null,
   );
   const [kind, setKind] = useState<"skincare" | "supplements" | "oral-care">(
-    "skincare",
+    initial?.kind ?? "skincare",
   );
-  const [brand, setBrand] = useState("");
-  const [name, setName] = useState("");
+  const [brand, setBrand] = useState(initial?.brand ?? "");
+  const [name, setName] = useState(initial?.name ?? "");
 
-  const slug = useMemo(() => slugPreview(brand, name), [brand, name]);
+  const slug = useMemo(
+    () => initial?.slug ?? slugPreview(brand, name),
+    [initial?.slug, brand, name],
+  );
 
   return (
     <form action={action} className="space-y-8">
       <input type="hidden" name="kind" value={kind} />
+      {isEdit && <input type="hidden" name="slug" value={initial!.slug} />}
 
       <div>
         <span className={labelCls}>Kind</span>
@@ -53,18 +81,25 @@ export function ProductForm() {
             <button
               key={k.value}
               type="button"
-              onClick={() => setKind(k.value)}
+              onClick={() => !isEdit && setKind(k.value)}
+              disabled={isEdit}
               className={cn(
                 "rounded-full border px-4 py-1.5 text-sm transition-colors",
                 kind === k.value
                   ? "border-stone-900 bg-stone-900 text-white"
                   : "border-stone-200 bg-white text-stone-600 hover:border-stone-300",
+                isEdit && "cursor-not-allowed opacity-60",
               )}
             >
               {k.label}
             </button>
           ))}
         </div>
+        {isEdit && (
+          <p className="mt-2 text-xs text-stone-500">
+            Kind is locked when editing. Delete and recreate to change it.
+          </p>
+        )}
       </div>
 
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
@@ -100,6 +135,7 @@ export function ProductForm() {
           <input
             id="category"
             name="category"
+            defaultValue={initial?.category ?? ""}
             placeholder={
               kind === "skincare"
                 ? "cleanser"
@@ -120,6 +156,7 @@ export function ProductForm() {
             step="0.1"
             min="0"
             max="10"
+            defaultValue={initial?.rating ?? ""}
             placeholder="8.5"
             required
             className={inputCls}
@@ -127,7 +164,13 @@ export function ProductForm() {
         </div>
         <div>
           <label htmlFor="price" className={labelCls}>Price</label>
-          <input id="price" name="price" placeholder="$20" className={inputCls} />
+          <input
+            id="price"
+            name="price"
+            defaultValue={initial?.price ?? ""}
+            placeholder="$20"
+            className={inputCls}
+          />
         </div>
       </div>
 
@@ -137,7 +180,7 @@ export function ProductForm() {
           id="datePublished"
           name="datePublished"
           type="date"
-          defaultValue={today()}
+          defaultValue={initial?.datePublished ?? today()}
           required
           className={cn(inputCls, "sm:max-w-xs")}
         />
@@ -149,6 +192,7 @@ export function ProductForm() {
           <input
             id="skinType"
             name="skinType"
+            defaultValue={initial?.skinType?.join(", ") ?? ""}
             placeholder="dry, sensitive, normal"
             className={inputCls}
           />
@@ -161,6 +205,7 @@ export function ProductForm() {
           <input
             id="goal"
             name="goal"
+            defaultValue={initial?.goal?.join(", ") ?? ""}
             placeholder={
               kind === "supplements"
                 ? "sleep, recovery, stress"
@@ -176,6 +221,7 @@ export function ProductForm() {
         <input
           id="ingredients"
           name="ingredients"
+          defaultValue={initial?.ingredients?.join(", ") ?? ""}
           placeholder="Rice Bran Oil, Ginseng Extract, Shea Butter"
           className={inputCls}
         />
@@ -186,6 +232,7 @@ export function ProductForm() {
         <input
           id="photo"
           name="photo"
+          defaultValue={initial?.photo ?? ""}
           placeholder="/photos/beauty-of-joseon.jpg or https://..."
           className={inputCls}
         />
@@ -205,6 +252,7 @@ export function ProductForm() {
             id="boughtFromUrl"
             name="boughtFromUrl"
             type="url"
+            defaultValue={initial?.boughtFromUrl ?? ""}
             placeholder="https://… (where you actually bought it)"
             className={inputCls}
           />
@@ -215,6 +263,7 @@ export function ProductForm() {
             id="buyIndiaUrl"
             name="buyIndiaUrl"
             type="url"
+            defaultValue={initial?.buyIndiaUrl ?? ""}
             placeholder="https://www.nykaa.com/…"
             className={inputCls}
           />
@@ -225,6 +274,7 @@ export function ProductForm() {
             id="buyWesternUrl"
             name="buyWesternUrl"
             type="url"
+            defaultValue={initial?.buyWesternUrl ?? ""}
             placeholder="https://www.target.com/p/…"
             className={inputCls}
           />
@@ -238,6 +288,7 @@ export function ProductForm() {
             id="pros"
             name="pros"
             rows={4}
+            defaultValue={initial?.pros?.join("\n") ?? ""}
             placeholder={"Melts sunscreen off\nRinses clean"}
             className={textareaCls}
           />
@@ -248,6 +299,7 @@ export function ProductForm() {
             id="cons"
             name="cons"
             rows={4}
+            defaultValue={initial?.cons?.join("\n") ?? ""}
             placeholder={"Jar packaging\nGoes fast"}
             className={textareaCls}
           />
@@ -259,6 +311,7 @@ export function ProductForm() {
         <input
           id="summary"
           name="summary"
+          defaultValue={initial?.summary ?? ""}
           placeholder="The first cleanse I've actually stuck with."
           required
           className={inputCls}
@@ -271,6 +324,7 @@ export function ProductForm() {
           id="body"
           name="body"
           rows={14}
+          defaultValue={initial?.body ?? ""}
           placeholder={"## Why I bought it\n\n…\n\n## How I use it\n\n…"}
           className={textareaCls}
         />
@@ -281,13 +335,14 @@ export function ProductForm() {
           type="checkbox"
           name="repurchase"
           value="true"
+          defaultChecked={initial?.repurchase ?? false}
           className="size-4 rounded border-stone-300"
         />
         I would repurchase this
       </label>
 
       <div className="rounded-lg border border-stone-200 bg-stone-50 px-4 py-3 font-mono text-xs text-stone-600">
-        Will commit to{" "}
+        {isEdit ? "Editing" : "Will commit to"}{" "}
         <span className="text-stone-900">content/{kind}/{slug}.mdx</span>
       </div>
 
@@ -316,7 +371,7 @@ export function ProductForm() {
         disabled={pending}
         className="inline-flex h-10 items-center gap-2 rounded-full bg-stone-900 px-6 text-sm font-medium text-white transition-colors hover:bg-stone-800 disabled:opacity-50"
       >
-        {pending ? "Committing…" : "Save review"}
+        {pending ? "Committing…" : isEdit ? "Update review" : "Save review"}
       </button>
     </form>
   );

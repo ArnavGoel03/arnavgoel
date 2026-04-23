@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Container } from "@/components/container";
 import { PageHeading } from "@/components/page-heading";
 import { AdminTabs } from "./tabs";
+import { EditList } from "./edit-list";
 
 export const metadata: Metadata = {
   title: "Admin",
@@ -16,8 +17,8 @@ export default function AdminPage() {
       <Container>
         <PageHeading
           eyebrow="Dashboard"
-          title="Add content"
-          description="Reviews commit to GitHub. Photo uploads go to Vercel Blob at original quality. Site rebuilds in ~30–60s after each save."
+          title="Manage content"
+          description="Add or edit reviews and photos. Reviews commit to GitHub; photo uploads go to Vercel Blob at original quality. Site rebuilds in ~30–60s after each save."
         />
       </Container>
       <Container className="pb-20">
@@ -25,7 +26,7 @@ export default function AdminPage() {
           <strong>No auth is configured.</strong> Anyone who visits this URL can write
           to your repo. Keep the URL private until we add a password.
         </div>
-        <AdminTabs />
+        <AdminTabs editList={<EditList />} />
       </Container>
     </>
   );
