@@ -11,67 +11,99 @@ export const metadata: Metadata = {
 
 const lastUpdated = "2026-04-23";
 
-export default function NowPage() {
+const sections = [
+  { num: "01", label: "Working on" },
+  { num: "02", label: "Listening to" },
+  { num: "03", label: "Reading" },
+  { num: "04", label: "Thinking about" },
+  { num: "05", label: "Not doing" },
+] as const;
+
+function NumberedHeading({ num, label }: { num: string; label: string }) {
   return (
-    <Container className="max-w-2xl py-16 sm:py-24">
-      <p className="mb-3 text-xs uppercase tracking-[0.2em] text-stone-500">
-        Now
-      </p>
-      <h1 className="font-serif text-4xl leading-tight text-stone-900 sm:text-5xl">
-        What I&apos;m up to.
+    <div className="mb-5 flex items-baseline gap-4 border-b border-stone-200 pb-2">
+      <span className="font-display text-3xl font-light tabular-nums text-stone-300">
+        {num}
+      </span>
+      <h2 className="font-serif text-2xl italic text-stone-900 sm:text-3xl">
+        {label}
+      </h2>
+    </div>
+  );
+}
+
+export default function NowPage() {
+  const issued = new Date(lastUpdated).toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  return (
+    <Container className="max-w-3xl py-12 sm:py-16">
+      <div className="mb-8 flex items-baseline justify-between gap-4 text-[11px] uppercase tracking-[0.22em] text-stone-500">
+        <span className="flex items-baseline gap-2">
+          <span className="text-rose-400">❋</span>
+          <span>From the desk of —</span>
+        </span>
+        <span className="font-mono text-stone-400">Issued {issued}</span>
+      </div>
+
+      <h1 className="font-serif text-[12vw] leading-[0.92] tracking-[-0.04em] text-stone-900 sm:text-8xl">
+        Now<span className="text-rose-400">.</span>
       </h1>
-      <p className="mt-4 text-sm text-stone-500">
-        Last updated{" "}
-        <time dateTime={lastUpdated}>
-          {new Date(lastUpdated).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}
-        </time>
-        .
+
+      <p className="mt-6 max-w-2xl font-serif text-xl leading-snug text-stone-600 sm:text-2xl">
+        <span className="float-left mr-2 mt-1 font-display text-6xl font-light leading-[0.8] text-stone-900 sm:text-7xl">
+          T
+        </span>
+        his page exists because a feed will not. Five sections — what I&apos;m
+        making, taking in, thinking through, and saying no to — refreshed
+        whenever the truth changes.
       </p>
 
-      <div className="mt-12 space-y-12">
+      <div className="mt-16 space-y-14 border-t border-stone-300 pt-12">
         <section>
-          <h2 className="font-serif text-2xl text-stone-900">Working on</h2>
-          <ul className="mt-4 space-y-3 text-stone-700">
+          <NumberedHeading num={sections[0].num} label={sections[0].label} />
+          <ul className="space-y-4 text-stone-700">
             <li>
-              <strong className="text-stone-900">Buzz</strong> — a native iOS
-              event discovery app for college students, starting with my own
-              campus. SwiftUI, polish-focused.
+              <strong className="font-serif text-stone-900">Buzz</strong> — a
+              native iOS event discovery app for college students, starting with
+              my own campus. SwiftUI, polish-focused.
             </li>
             <li>
-              <strong className="text-stone-900">This site</strong> — you&apos;re
-              on it. Plan is to update this page at least once a month.
+              <strong className="font-serif text-stone-900">This site</strong>{" "}
+              — you&apos;re on it. Plan is to add a real review every other day
+              and refresh this page once a month.
             </li>
           </ul>
         </section>
 
         <section>
-          <h2 className="font-serif text-2xl text-stone-900">Listening to</h2>
-          <p className="mt-2 text-sm text-stone-500">
-            My favorite playlist at the moment — Ibiza Club Mix. On repeat.
+          <NumberedHeading num={sections[1].num} label={sections[1].label} />
+          <p className="mb-4 font-serif italic text-stone-600">
+            Ibiza Club Mix on repeat. Plays in the background more than I&apos;d
+            like to admit.
           </p>
-          <div className="mt-4">
-            <SpotifyEmbed
-              playlistId="37i9dQZF1EIhvQz3p7tStL"
-              title="Ibiza Club Mix"
-            />
-          </div>
+          <SpotifyEmbed
+            playlistId="37i9dQZF1EIhvQz3p7tStL"
+            title="Ibiza Club Mix"
+          />
         </section>
 
         <section>
-          <h2 className="font-serif text-2xl text-stone-900">Reading</h2>
-          <ul className="mt-4 space-y-3 text-stone-700">
-            <li>Currently somewhere in the middle of a few books.</li>
-            <li>Add your current reads here — non-fiction, fiction, papers.</li>
+          <NumberedHeading num={sections[2].num} label={sections[2].label} />
+          <ul className="space-y-3 text-stone-700">
+            <li>Somewhere in the middle of a few books.</li>
+            <li className="text-stone-400 italic">
+              (placeholder — replace with current reads)
+            </li>
           </ul>
         </section>
 
         <section>
-          <h2 className="font-serif text-2xl text-stone-900">Thinking about</h2>
-          <ul className="mt-4 space-y-3 text-stone-700">
+          <NumberedHeading num={sections[3].num} label={sections[3].label} />
+          <ul className="space-y-3 text-stone-700">
             <li>
               How to make software that feels quiet — that does its job and
               gets out of the way.
@@ -81,8 +113,8 @@ export default function NowPage() {
         </section>
 
         <section>
-          <h2 className="font-serif text-2xl text-stone-900">Not doing</h2>
-          <ul className="mt-4 space-y-3 text-stone-700">
+          <NumberedHeading num={sections[4].num} label={sections[4].label} />
+          <ul className="space-y-3 text-stone-700">
             <li>
               Anything involving LeetCode grinds. Anything that doesn&apos;t
               excite me.
@@ -91,16 +123,18 @@ export default function NowPage() {
         </section>
       </div>
 
-      <p className="mt-16 text-sm text-stone-500">
-        Inspired by{" "}
-        <a
-          href="https://nownownow.com/about"
-          className="underline underline-offset-4 hover:text-stone-900"
-        >
-          Derek Sivers&apos; /now page movement
-        </a>
-        .
-      </p>
+      <div className="mt-20 border-t border-stone-200 pt-8 text-center">
+        <p className="font-serif text-3xl italic text-stone-700">— Yash</p>
+        <p className="mt-3 text-[10px] uppercase tracking-[0.22em] text-stone-400">
+          inspired by{" "}
+          <a
+            href="https://nownownow.com/about"
+            className="underline decoration-stone-300 underline-offset-4 hover:text-stone-700"
+          >
+            Derek Sivers&apos; /now movement
+          </a>
+        </p>
+      </div>
     </Container>
   );
 }
