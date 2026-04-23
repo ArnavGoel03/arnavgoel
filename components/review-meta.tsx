@@ -1,5 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import type { Review } from "@/lib/types";
+import { affiliatize } from "@/lib/affiliate";
 
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
@@ -10,29 +11,55 @@ function Row({ label, value }: { label: string; value: React.ReactNode }) {
   );
 }
 
+function buildLinkProps(rawHref: string) {
+  const finalHref = affiliatize(rawHref) ?? rawHref;
+  const isAffiliate = finalHref !== rawHref;
+  return {
+    href: finalHref,
+    rel: isAffiliate
+      ? "noopener noreferrer sponsored nofollow"
+      : "noopener noreferrer",
+    isAffiliate,
+  };
+}
+
 function PrimaryLink({ href, label }: { href: string; label: string }) {
+  const link = buildLinkProps(href);
   return (
     <a
-      href={href}
+      href={link.href}
       target="_blank"
-      rel="noopener noreferrer"
+      rel={link.rel}
       className="group inline-flex w-full items-center justify-between gap-2 rounded-2xl border border-stone-900 bg-stone-900 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-stone-800"
     >
-      {label}
+      <span>
+        {label}
+        {link.isAffiliate && (
+          <span className="ml-2 text-xs font-normal text-stone-400">
+            affiliate
+          </span>
+        )}
+      </span>
       <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
     </a>
   );
 }
 
 function SecondaryLink({ href, label }: { href: string; label: string }) {
+  const link = buildLinkProps(href);
   return (
     <a
-      href={href}
+      href={link.href}
       target="_blank"
-      rel="noopener noreferrer"
+      rel={link.rel}
       className="group inline-flex w-full items-center justify-between gap-2 rounded-xl border border-stone-200 bg-white px-4 py-2.5 text-sm text-stone-700 transition-colors hover:border-stone-900 hover:text-stone-900"
     >
-      {label}
+      <span>
+        {label}
+        {link.isAffiliate && (
+          <span className="ml-2 text-xs text-stone-400">affiliate</span>
+        )}
+      </span>
       <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
     </a>
   );
