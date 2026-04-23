@@ -77,7 +77,14 @@ export default function AboutPage() {
           whether it was worth the money. So I made one.
         </p>
 
-        <SectionLabel num="03" label="Sections" />
+        <SectionLabel num="03" label="Off the clock" />
+        <p>
+          Most weekends involve water in some form — kayaking, wakesurfing,
+          snorkelling, and, when time and depth permit, underwater basket
+          weaving.
+        </p>
+
+        <SectionLabel num="04" label="Sections" />
         <p>
           <a href="/skincare" className="font-medium text-stone-900 underline decoration-stone-300 underline-offset-4 hover:decoration-rose-400">Skincare</a>,{" "}
           <a href="/supplements" className="font-medium text-stone-900 underline decoration-stone-300 underline-offset-4 hover:decoration-rose-400">supplements</a>,{" "}
@@ -88,7 +95,7 @@ export default function AboutPage() {
           <a href="/links" className="font-medium text-stone-900 underline decoration-stone-300 underline-offset-4 hover:decoration-rose-400">Links</a> if you want to find me elsewhere.
         </p>
 
-        <SectionLabel num="04" label="My day job" />
+        <SectionLabel num="05" label="My day job" />
         <p>
           I write software when I&apos;m not writing about ceramide
           concentrations.{" "}
@@ -104,7 +111,7 @@ export default function AboutPage() {
           is where that side lives.
         </p>
 
-        <SectionLabel num="05" label="Get in touch" />
+        <SectionLabel num="06" label="Get in touch" />
         <p>
           Email or any of the socials on the{" "}
           <a href="/links" className="font-medium text-stone-900 underline decoration-stone-300 underline-offset-4 hover:decoration-rose-400">
