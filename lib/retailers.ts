@@ -125,3 +125,58 @@ export function themeForRetailer(name: string): {
 } {
   return RETAILER_THEME[name] ?? DEFAULT_THEME;
 }
+
+const INDIA_HOSTS = [
+  "amazon.in",
+  "nykaa.com",
+  "myntra.com",
+  "flipkart.com",
+  "ajio.com",
+  "naturaltein.in",
+  "earthful.me",
+  "distausa.com",
+];
+
+const USA_HOSTS = [
+  "amazon.com",
+  "amzn.to",
+  "target.com",
+  "walmart.com",
+  "sephora.com",
+  "ulta.com",
+];
+
+export type Region = "india" | "usa";
+
+export function regionForUrl(url: string | undefined | null): Region | null {
+  if (!url) return null;
+  let host: string;
+  try {
+    host = new URL(url).hostname.toLowerCase().replace(/^www\./, "");
+  } catch {
+    return null;
+  }
+  for (const h of INDIA_HOSTS) {
+    if (host === h || host.endsWith(`.${h}`)) return "india";
+  }
+  for (const h of USA_HOSTS) {
+    if (host === h || host.endsWith(`.${h}`)) return "usa";
+  }
+  return null;
+}
+
+export function availableInRegion(
+  review: {
+    boughtFromUrl?: string;
+    indiaLinks?: { url: string }[];
+    westernLinks?: { url: string }[];
+  },
+  region: Region,
+): boolean {
+  if (region === "india") {
+    if (review.indiaLinks && review.indiaLinks.length > 0) return true;
+    return regionForUrl(review.boughtFromUrl) === "india";
+  }
+  if (review.westernLinks && review.westernLinks.length > 0) return true;
+  return regionForUrl(review.boughtFromUrl) === "usa";
+}

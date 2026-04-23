@@ -337,7 +337,7 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
         </div>
         <div>
           <label htmlFor="westernLinks" className={labelCls}>
-            US / West retailers <Optional />
+            USA retailers <Optional />
           </label>
           <textarea
             id="westernLinks"

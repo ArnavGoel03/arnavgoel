@@ -166,7 +166,7 @@ export function ReviewMeta({ review }: { review: Review }) {
           {western.length > 0 && (
             <div>
               <p className="mb-2 text-xs uppercase tracking-wider text-stone-500">
-                Buy in the US / West
+                Buy in the USA
               </p>
               <div className="space-y-2">
                 {western.map((l) => (
