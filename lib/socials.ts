@@ -13,14 +13,14 @@ export interface Social {
 export const socials: Social[] = [
   {
     label: "Twitter",
-    handle: "@yashgoel",
-    href: "https://twitter.com/yashgoel",
+    handle: "Add your handle",
+    href: "#",
     icon: XIcon,
   },
   {
     label: "Instagram",
-    handle: "@yashgoel",
-    href: "https://instagram.com/yashgoel",
+    handle: "Add your handle",
+    href: "#",
     icon: InstagramIcon,
   },
 ];
