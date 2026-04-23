@@ -11,17 +11,23 @@ export interface Review {
   name: string;
   brand: string;
   category: string;
-  rating?: number;
+  verdict?: "recommend" | "okay" | "bad";
   ratings?: {
     effect?: number;
     value?: number;
     tolerance?: number;
   };
   hidden?: boolean;
+  retired?: boolean;
+  retiredReason?: string;
   price?: string;
+  servingsPerContainer?: number;
+  dailyServings?: number;
   skinType?: string[];
   goal?: string[];
+  routines: ("morning" | "evening" | "stack")[];
   photo?: string;
+  photoTimeline: { date: string; src: string; note?: string }[];
   boughtFromUrl?: string;
   indiaLinks: BuyLink[];
   westernLinks: BuyLink[];
@@ -31,6 +37,8 @@ export interface Review {
   cons: string[];
   repurchase?: boolean;
   datePublished: string;
+  lastUpdated?: string;
+  changelog: { date: string; note: string }[];
   summary: string;
   body: string;
 }

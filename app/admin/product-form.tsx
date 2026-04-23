@@ -57,12 +57,17 @@ export type ProductFormInitial = {
   name: string;
   brand: string;
   category: string;
-  rating?: number;
+  verdict?: "recommend" | "okay" | "bad";
   ratings?: { effect?: number; value?: number; tolerance?: number };
   hidden?: boolean;
+  retired?: boolean;
+  retiredReason?: string;
   price?: string;
+  servingsPerContainer?: number;
+  dailyServings?: number;
   skinType?: string[];
   goal?: string[];
+  routines?: ("morning" | "evening" | "stack")[];
   photo?: string;
   boughtFromUrl?: string;
   indiaLinks?: { retailer: string; url: string }[];
@@ -101,7 +106,7 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
 
       <Section
         title="Basics"
-        description="Only brand, name, category, and rating are required. Everything else can wait."
+        description="Only brand, name, and category are required. Everything else can wait."
       >
         <div>
           <span className={labelCls}>Kind</span>
@@ -164,7 +169,7 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <div>
             <label htmlFor="category" className={labelCls}>Category</label>
             <input
@@ -183,22 +188,6 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
             />
           </div>
           <div>
-            <label htmlFor="rating" className={labelCls}>
-              Overall rating <Optional />
-            </label>
-            <input
-              id="rating"
-              name="rating"
-              type="number"
-              step="0.1"
-              min="0"
-              max="10"
-              defaultValue={initial?.rating ?? ""}
-              placeholder="Leave blank while testing"
-              className={inputCls}
-            />
-          </div>
-          <div>
             <label htmlFor="price" className={labelCls}>
               Price <Optional />
             </label>
@@ -210,6 +199,81 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
               className={inputCls}
             />
           </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+          <div>
+            <label htmlFor="servingsPerContainer" className={labelCls}>
+              Servings per container <Optional />
+            </label>
+            <input
+              id="servingsPerContainer"
+              name="servingsPerContainer"
+              type="number"
+              step="1"
+              min="1"
+              defaultValue={initial?.servingsPerContainer ?? ""}
+              placeholder="e.g. 60"
+              className={inputCls}
+            />
+            <p className="mt-1 text-xs text-stone-500">
+              Used to compute cost-per-day.
+            </p>
+          </div>
+          <div>
+            <label htmlFor="dailyServings" className={labelCls}>
+              Daily servings <Optional />
+            </label>
+            <input
+              id="dailyServings"
+              name="dailyServings"
+              type="number"
+              step="0.5"
+              min="0.5"
+              defaultValue={initial?.dailyServings ?? ""}
+              placeholder="1"
+              className={inputCls}
+            />
+            <p className="mt-1 text-xs text-stone-500">
+              Defaults to 1 if left blank.
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <span className={labelCls}>
+            Verdict <Optional />
+          </span>
+          <div className="flex flex-wrap gap-4 pt-2 text-sm text-stone-700">
+            {(
+              [
+                { value: "", label: "Still testing" },
+                { value: "recommend", label: "Would recommend" },
+                { value: "okay", label: "Okayish" },
+                { value: "bad", label: "Bad" },
+              ] as const
+            ).map((opt) => {
+              const checked =
+                opt.value === ""
+                  ? initial?.verdict === undefined
+                  : initial?.verdict === opt.value;
+              return (
+                <label key={opt.value} className="flex items-center gap-1.5">
+                  <input
+                    type="radio"
+                    name="verdict"
+                    value={opt.value}
+                    defaultChecked={checked}
+                    className="size-4"
+                  />
+                  {opt.label}
+                </label>
+              );
+            })}
+          </div>
+          <p className="mt-1 text-xs text-stone-500">
+            One-word shortcut. The 3 axes below carry the nuance.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
@@ -331,6 +395,32 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
             </span>
           </span>
         </label>
+
+        <label className="flex items-start gap-3 rounded-lg border border-stone-200 bg-stone-50 p-4 text-sm text-stone-700">
+          <input
+            type="checkbox"
+            name="retired"
+            value="true"
+            defaultChecked={initial?.retired ?? false}
+            className="mt-0.5 size-4 rounded border-stone-300"
+          />
+          <span className="flex-1 space-y-2">
+            <span>
+              <span className="font-medium">Retire this product.</span>{" "}
+              <span className="text-stone-500">
+                Moves it off the category listing into /retired — still indexed,
+                still browsable, but signals you no longer keep it in rotation.
+              </span>
+            </span>
+            <input
+              type="text"
+              name="retiredReason"
+              defaultValue={initial?.retiredReason ?? ""}
+              placeholder="Why you stopped (one sentence)"
+              className={inputCls}
+            />
+          </span>
+        </label>
       </Section>
 
       <Section
@@ -375,6 +465,29 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
             />
           </div>
         )}
+
+        <div>
+          <span className={labelCls}>
+            Routines <Optional />
+          </span>
+          <div className="flex flex-wrap gap-4 pt-2 text-sm text-stone-700">
+            {(["morning", "evening", "stack"] as const).map((r) => (
+              <label key={r} className="flex items-center gap-1.5 capitalize">
+                <input
+                  type="checkbox"
+                  name="routines"
+                  value={r}
+                  defaultChecked={initial?.routines?.includes(r) ?? false}
+                  className="size-4"
+                />
+                {r}
+              </label>
+            ))}
+          </div>
+          <p className="mt-1 text-xs text-stone-500">
+            Tag the product into any routine pages it&apos;s part of.
+          </p>
+        </div>
 
         <div>
           <label htmlFor="ingredients" className={labelCls}>

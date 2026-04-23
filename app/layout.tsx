@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono, Instrument_Serif, Fraunces } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { WebsiteJsonLd } from "@/components/json-ld";
+import { themeInitScript } from "@/components/theme-toggle";
 import { site } from "@/lib/site";
 
 const inter = Inter({
@@ -34,8 +35,20 @@ export const metadata: Metadata = {
     template: `%s — ${site.name}`,
   },
   description: site.description,
+  applicationName: site.name,
   authors: [{ name: site.name }],
   creator: site.name,
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    title: site.shortName,
+    statusBarStyle: "default",
+  },
+  formatDetection: {
+    telephone: false,
+    email: false,
+    address: false,
+  },
   openGraph: {
     type: "website",
     siteName: site.name,
@@ -49,6 +62,23 @@ export const metadata: Metadata = {
     description: site.description,
   },
   robots: { index: true, follow: true },
+  alternates: {
+    types: {
+      "application/rss+xml": [{ url: "/feed.xml", title: site.name }],
+    },
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fafaf8" },
+    { media: "(prefers-color-scheme: dark)", color: "#1c1917" },
+  ],
+  colorScheme: "light dark",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -57,9 +87,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${inter.variable} ${jetbrainsMono.variable} ${instrumentSerif.variable} ${fraunces.variable} antialiased`}
     >
-      <body className="flex min-h-screen flex-col bg-background font-sans text-stone-900">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{ __html: themeInitScript }}
+        />
+      </head>
+      <body className="flex min-h-screen flex-col bg-background font-sans text-stone-900 dark:text-stone-100">
         <WebsiteJsonLd />
         <Header />
         <main className="flex-1">{children}</main>

@@ -10,13 +10,12 @@ const reviewSchema = z.object({
   name: z.string().trim().min(1, "required"),
   brand: z.string().trim().min(1, "required"),
   category: z.string().trim().min(1, "required"),
-  rating: z
+  verdict: z
     .string()
     .optional()
     .transform((v) => {
-      if (v === undefined || v === "") return undefined;
-      const n = Number(v);
-      return isNaN(n) ? undefined : n;
+      if (v === "recommend" || v === "okay" || v === "bad") return v;
+      return undefined;
     }),
   effectRating: z
     .string()
@@ -46,9 +45,39 @@ const reviewSchema = z.object({
     (v) => v === "on" || v === "true" || v === true,
     z.boolean(),
   ),
+  retired: z.preprocess(
+    (v) => v === "on" || v === "true" || v === true,
+    z.boolean(),
+  ),
+  retiredReason: z.string().trim().optional(),
   price: z.string().trim().optional(),
+  servingsPerContainer: z
+    .string()
+    .optional()
+    .transform((v) => {
+      if (v === undefined || v === "") return undefined;
+      const n = Number(v);
+      return Number.isFinite(n) && n > 0 ? n : undefined;
+    }),
+  dailyServings: z
+    .string()
+    .optional()
+    .transform((v) => {
+      if (v === undefined || v === "") return undefined;
+      const n = Number(v);
+      return Number.isFinite(n) && n > 0 ? n : undefined;
+    }),
   skinType: z.string().optional(),
   goal: z.string().optional(),
+  routines: z
+    .union([z.string(), z.array(z.string())])
+    .optional()
+    .transform((v) => {
+      const arr = v === undefined ? [] : Array.isArray(v) ? v : [v];
+      return arr.filter((s): s is "morning" | "evening" | "stack" =>
+        s === "morning" || s === "evening" || s === "stack",
+      );
+    }),
   photo: z.string().trim().optional(),
   boughtFromUrl: z
     .string()
@@ -138,12 +167,17 @@ function buildReviewMdx(d: {
   name: string;
   brand: string;
   category: string;
-  rating?: number;
+  verdict?: "recommend" | "okay" | "bad";
   ratings?: { effect?: number; value?: number; tolerance?: number };
   hidden?: boolean;
+  retired?: boolean;
+  retiredReason?: string;
   price?: string;
+  servingsPerContainer?: number;
+  dailyServings?: number;
   skinType: string[];
   goal: string[];
+  routines: ("morning" | "evening" | "stack")[];
   photo?: string;
   boughtFromUrl?: string;
   indiaLinks: { retailer: string; url: string }[];
@@ -161,7 +195,7 @@ function buildReviewMdx(d: {
   lines.push(`name: ${yamlString(d.name)}`);
   lines.push(`brand: ${yamlString(d.brand)}`);
   lines.push(`category: ${yamlString(d.category)}`);
-  if (typeof d.rating === "number") lines.push(`rating: ${d.rating}`);
+  if (d.verdict) lines.push(`verdict: ${d.verdict}`);
   if (d.ratings) {
     const r = d.ratings;
     const entries: string[] = [];
@@ -175,9 +209,16 @@ function buildReviewMdx(d: {
     }
   }
   if (d.hidden) lines.push(`hidden: true`);
+  if (d.retired) lines.push(`retired: true`);
+  if (d.retiredReason) lines.push(`retiredReason: ${yamlString(d.retiredReason)}`);
   if (d.price) lines.push(`price: ${yamlString(d.price)}`);
+  if (typeof d.servingsPerContainer === "number")
+    lines.push(`servingsPerContainer: ${d.servingsPerContainer}`);
+  if (typeof d.dailyServings === "number")
+    lines.push(`dailyServings: ${d.dailyServings}`);
   if (d.skinType.length) lines.push(`skinType: [${d.skinType.join(", ")}]`);
   if (d.goal.length) lines.push(`goal: [${d.goal.join(", ")}]`);
+  if (d.routines.length) lines.push(`routines: [${d.routines.join(", ")}]`);
   if (d.photo) lines.push(`photo: ${yamlString(d.photo)}`);
   if (d.boughtFromUrl)
     lines.push(`boughtFromUrl: ${JSON.stringify(d.boughtFromUrl)}`);
@@ -250,12 +291,17 @@ function buildContentFromForm(d: z.infer<typeof reviewSchema>): string {
     name: d.name,
     brand: d.brand,
     category: d.category,
-    rating: d.rating,
+    verdict: d.verdict,
     ratings,
     hidden: d.hidden,
+    retired: d.retired,
+    retiredReason: d.retiredReason || undefined,
     price: d.price || undefined,
+    servingsPerContainer: d.servingsPerContainer,
+    dailyServings: d.dailyServings,
     skinType: d.kind === "skincare" ? parseList(d.skinType) : [],
     goal: d.kind === "skincare" ? [] : parseList(d.goal),
+    routines: d.routines,
     photo: d.photo || undefined,
     boughtFromUrl: d.boughtFromUrl,
     indiaLinks: parseBuyLinks(d.indiaLinks),

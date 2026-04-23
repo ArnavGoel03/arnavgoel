@@ -8,24 +8,32 @@ const SECTIONS: { kind: Kind; label: string }[] = [
   { kind: "oral-care", label: "Oral care" },
 ];
 
-function ratingDisplay(review: ReviewSummary): string {
-  if (typeof review.rating === "number" && review.rating > 0) {
-    return `⭑ ${review.rating.toFixed(1)}`;
+function verdictDisplay(review: ReviewSummary): string {
+  switch (review.verdict) {
+    case "recommend":
+      return "would recommend";
+    case "okay":
+      return "okayish";
+    case "bad":
+      return "bad";
+    default:
+      return "still testing";
   }
-  return "still testing";
 }
 
 function Row({ kind, review }: { kind: Kind; review: ReviewSummary }) {
   const hidden = review.hidden === true;
   return (
-    <Link
-      href={`/admin/edit/${kind}/${review.slug}`}
+    <div
       className={
         "group flex items-center justify-between gap-4 border-b border-stone-100 px-4 py-3 last:border-none hover:bg-stone-50 " +
         (hidden ? "opacity-55" : "")
       }
     >
-      <div className="min-w-0 flex-1">
+      <Link
+        href={`/admin/edit/${kind}/${review.slug}`}
+        className="min-w-0 flex-1"
+      >
         <div className="flex items-center gap-2 truncate text-sm font-medium text-stone-900">
           {review.name}
           {hidden && (
@@ -35,13 +43,27 @@ function Row({ kind, review }: { kind: Kind; review: ReviewSummary }) {
           )}
         </div>
         <div className="mt-0.5 truncate text-xs text-stone-500">
-          {review.brand} · {review.category} · {ratingDisplay(review)}
+          {review.brand} · {review.category} · {verdictDisplay(review)}
         </div>
+      </Link>
+      <div className="flex shrink-0 items-center gap-3 text-xs">
+        {!hidden && (
+          <Link
+            href={`/${kind}/${review.slug}`}
+            target="_blank"
+            className="text-stone-400 transition-colors hover:text-stone-900"
+          >
+            View ↗
+          </Link>
+        )}
+        <Link
+          href={`/admin/edit/${kind}/${review.slug}`}
+          className="text-stone-400 transition-colors hover:text-stone-900"
+        >
+          Edit →
+        </Link>
       </div>
-      <span className="text-xs text-stone-400 transition-colors group-hover:text-stone-900">
-        Edit →
-      </span>
-    </Link>
+    </div>
   );
 }
 

@@ -4,6 +4,8 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Container } from "@/components/container";
 import { MdxContent } from "@/components/mdx-content";
+import { Breadcrumb } from "@/components/breadcrumb";
+import { TocNav } from "@/components/toc-nav";
 import { getPrimer, getPrimers } from "@/lib/content";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -37,7 +39,14 @@ export default async function PrimerPage({ params }: Props) {
 
   return (
     <article>
-      <Container className="max-w-3xl py-10">
+      <Container className="max-w-4xl py-10">
+        <Breadcrumb
+          trail={[
+            { name: "Home", href: "/" },
+            { name: "Primers", href: "/primers" },
+            { name: primer.title, href: `/primers/${primer.slug}` },
+          ]}
+        />
         <Link
           href="/primers"
           className="inline-flex items-center gap-1.5 text-sm text-stone-500 transition-colors hover:text-stone-900"
@@ -95,7 +104,11 @@ export default async function PrimerPage({ params }: Props) {
           )}
         </header>
 
-        <div className="mt-10">
+        <div className="mt-10 lg:grid lg:grid-cols-[200px_1fr] lg:gap-10">
+          <TocNav
+            body={primer.body}
+            className="mb-8 hidden border-l border-stone-200 pl-4 lg:sticky lg:top-24 lg:mb-0 lg:block lg:self-start"
+          />
           <MdxContent source={primer.body} />
         </div>
       </Container>

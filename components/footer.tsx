@@ -4,7 +4,7 @@ import { site } from "@/lib/site";
 
 export function Footer() {
   return (
-    <footer className="mt-24 border-t border-stone-200/70 py-14 text-sm text-stone-500">
+    <footer className="mt-24 border-t border-stone-200/70 py-14 text-sm text-stone-500 dark:border-stone-800/70 dark:text-stone-400">
       <Container className="flex flex-col gap-6">
         <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="flex items-baseline gap-2">
@@ -28,6 +28,28 @@ export function Footer() {
               <ArrowUpRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
           </p>
+        </div>
+
+        <div className="flex flex-wrap gap-x-5 gap-y-2 border-t border-stone-200/70 pt-6 text-[10px] uppercase tracking-[0.2em] text-stone-400">
+          <a href="/search" className="transition-colors hover:text-stone-700">
+            Search
+          </a>
+          <span className="text-stone-300">·</span>
+          <a href="/issue" className="transition-colors hover:text-stone-700">
+            Archive
+          </a>
+          <span className="text-stone-300">·</span>
+          <a href="/retired" className="transition-colors hover:text-stone-700">
+            Retired
+          </a>
+          <span className="text-stone-300">·</span>
+          <a href="/links" className="transition-colors hover:text-stone-700">
+            Links
+          </a>
+          <span className="text-stone-300">·</span>
+          <a href="/feed.xml" className="transition-colors hover:text-stone-700">
+            RSS
+          </a>
         </div>
 
         <div className="flex flex-col gap-3 border-t border-stone-200/70 pt-6 sm:flex-row sm:items-start sm:justify-between">

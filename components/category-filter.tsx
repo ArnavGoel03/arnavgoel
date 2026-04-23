@@ -10,8 +10,14 @@ type RegionFilter = "all" | Region;
 
 export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
   const [active, setActive] = useState<string>("all");
-  const [sort, setSort] = useState<"recent" | "rating">("recent");
+  const [sort, setSort] = useState<"recent" | "verdict">("recent");
   const [region, setRegion] = useState<RegionFilter>("all");
+
+  const verdictRank: Record<string, number> = {
+    recommend: 0,
+    okay: 1,
+    bad: 2,
+  };
 
   const categories = useMemo(() => {
     const set = new Set(reviews.map((r) => r.category));
@@ -32,8 +38,12 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
     if (region !== "all") {
       base = base.filter((r) => availableInRegion(r, region));
     }
-    if (sort === "rating") {
-      return [...base].sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
+    if (sort === "verdict") {
+      return [...base].sort(
+        (a, b) =>
+          (verdictRank[a.verdict ?? "z"] ?? 3) -
+          (verdictRank[b.verdict ?? "z"] ?? 3),
+      );
     }
     return base;
   }, [reviews, active, sort, region]);
@@ -69,13 +79,13 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
             Recent
           </button>
           <button
-            onClick={() => setSort("rating")}
+            onClick={() => setSort("verdict")}
             className={cn(
               "rounded-full px-3 py-1 transition-colors",
-              sort === "rating" ? "bg-stone-100 text-stone-900" : "hover:text-stone-900",
+              sort === "verdict" ? "bg-stone-100 text-stone-900" : "hover:text-stone-900",
             )}
           >
-            Rating
+            Verdict
           </button>
         </div>
       </div>

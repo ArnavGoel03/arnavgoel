@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { RatingPill } from "./rating-pill";
+import { VerdictPill } from "./verdict-pill";
 import { availabilityLabel } from "@/lib/retailers";
 import type { ReviewSummary } from "@/lib/types";
 
@@ -7,8 +7,7 @@ export function ProductCard({ review }: { review: ReviewSummary }) {
   const href = `/${review.kind}/${review.slug}`;
   const availability = availabilityLabel(review);
   const isRegionLocked = availability?.endsWith("only") ?? false;
-  const isPending =
-    !review.rating && (!review.summary || review.summary.length === 0);
+  const isPending = !review.verdict;
   return (
     <Link
       href={href}
@@ -39,14 +38,7 @@ export function ProductCard({ review }: { review: ReviewSummary }) {
         )}
         {/* Floating rating / pending badge in top-right */}
         <div className="absolute right-4 top-3 rounded-md bg-white/85 px-2 py-1 backdrop-blur">
-          {isPending ? (
-            <span className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.18em] text-amber-700">
-              <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-amber-400" />
-              Still testing
-            </span>
-          ) : (
-            <RatingPill rating={review.rating} size="sm" />
-          )}
+          <VerdictPill verdict={review.verdict} size="sm" />
         </div>
       </div>
 

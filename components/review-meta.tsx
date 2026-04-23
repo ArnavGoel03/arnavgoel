@@ -1,6 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 import type { BuyLink, Review } from "@/lib/types";
 import { affiliatize } from "@/lib/affiliate";
+import { formatCostPerDay } from "@/lib/cost";
 import { availabilityLabel, themeForRetailer } from "@/lib/retailers";
 import { cn } from "@/lib/utils";
 
@@ -106,7 +107,6 @@ function dedupeByUrl(links: BuyLink[], skip: Set<string>): BuyLink[] {
 export function ReviewMeta({ review }: { review: Review }) {
   const tags = review.skinType ?? review.goal ?? [];
   const seen = new Set<string>();
-  if (review.boughtFromUrl) seen.add(review.boughtFromUrl);
   const india = dedupeByUrl(review.indiaLinks ?? [], seen);
   india.forEach((l) => seen.add(l.url));
   const western = dedupeByUrl(review.westernLinks ?? [], seen);
@@ -127,6 +127,26 @@ export function ReviewMeta({ review }: { review: Review }) {
         <Row label="Brand" value={review.brand} />
         <Row label="Category" value={<span className="capitalize">{review.category}</span>} />
         {review.price && <Row label="Price" value={review.price} />}
+        {(() => {
+          const cpd = formatCostPerDay(review);
+          if (!cpd) return null;
+          const daily = review.dailyServings && review.dailyServings !== 1
+            ? ` · ${review.dailyServings}/day`
+            : "";
+          return (
+            <Row
+              label="Cost / day"
+              value={
+                <span>
+                  {cpd}
+                  <span className="ml-1 text-xs font-normal italic text-stone-400">
+                    {daily}
+                  </span>
+                </span>
+              }
+            />
+          );
+        })()}
         {tags.length > 0 && (
           <Row
             label={review.skinType ? "Skin type" : "Best for"}
@@ -163,6 +183,20 @@ export function ReviewMeta({ review }: { review: Review }) {
             day: "numeric",
           })}
         />
+        {review.lastUpdated && (
+          <Row
+            label="Updated"
+            value={
+              <span className="italic text-stone-600">
+                {new Date(review.lastUpdated).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </span>
+            }
+          />
+        )}
       </dl>
 
       {isRegionLocked && (

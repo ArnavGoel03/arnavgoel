@@ -28,13 +28,20 @@ export default async function EditReviewPage({ params }: Props) {
   return (
     <>
       <Container>
-        <div className="pt-8">
+        <div className="flex items-center justify-between pt-8">
           <Link
             href="/admin"
             className="inline-flex items-center gap-1.5 text-sm text-stone-500 transition-colors hover:text-stone-900"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to dashboard
+          </Link>
+          <Link
+            href={`/${review.kind}/${review.slug}`}
+            target="_blank"
+            className="inline-flex items-center gap-1.5 rounded-full border border-stone-200 bg-white px-3 py-1 text-xs text-stone-600 transition-colors hover:border-stone-900 hover:text-stone-900"
+          >
+            View live ↗
           </Link>
         </div>
         <PageHeading
@@ -52,12 +59,17 @@ export default async function EditReviewPage({ params }: Props) {
               name: review.name,
               brand: review.brand,
               category: review.category,
-              rating: review.rating,
+              verdict: review.verdict,
               ratings: review.ratings,
               hidden: review.hidden,
+              retired: review.retired,
+              retiredReason: review.retiredReason,
               price: review.price,
+              servingsPerContainer: review.servingsPerContainer,
+              dailyServings: review.dailyServings,
               skinType: review.skinType,
               goal: review.goal,
+              routines: review.routines,
               photo: review.photo,
               boughtFromUrl: review.boughtFromUrl,
               indiaLinks: review.indiaLinks,

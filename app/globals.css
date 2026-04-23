@@ -75,9 +75,49 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+/* Dark mode. Applied two ways:
+   - System preference: (prefers-color-scheme: dark) on the root element
+     when no explicit choice has been stored (the default).
+   - Manual: `.dark` class on <html>, written by the ThemeToggle client
+     component and persisted via localStorage. Takes priority over the
+     media query. */
+.dark,
+:root.dark {
+  --background: oklch(0.17 0.006 80);
+  --foreground: oklch(0.94 0.004 80);
+  --card: oklch(0.20 0.006 80);
+  --card-foreground: oklch(0.94 0.004 80);
+  --popover: oklch(0.20 0.006 80);
+  --popover-foreground: oklch(0.94 0.004 80);
+  --primary: oklch(0.94 0.004 80);
+  --primary-foreground: oklch(0.17 0.006 80);
+  --secondary: oklch(0.23 0.006 80);
+  --secondary-foreground: oklch(0.94 0.004 80);
+  --muted: oklch(0.23 0.006 80);
+  --muted-foreground: oklch(0.65 0.01 80);
+  --accent: oklch(0.23 0.006 80);
+  --accent-foreground: oklch(0.94 0.004 80);
+  --destructive: oklch(0.62 0.22 27);
+  --border: oklch(0.28 0.006 80);
+  --input: oklch(0.28 0.006 80);
+  --ring: oklch(0.55 0.01 80);
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    /* Kill the blue tap flash on iOS; we control hover/active states ourselves. */
+    -webkit-tap-highlight-color: transparent;
+  }
+  html {
+    @apply font-sans;
+    /* Respect user-agent scrollbar behavior but avoid layout shift on
+       sites with intermittent scrollbars (content jump on route change). */
+    scrollbar-gutter: stable;
+    /* Standalone PWA: account for the iPhone notch / home-indicator area
+       without letting content spill under them. */
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
   }
   body {
     @apply bg-background text-foreground;
@@ -85,9 +125,38 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    /* Bottom safe area for iOS home indicator */
+    padding-bottom: env(safe-area-inset-bottom);
+    /* Allow pinch-zoom but lock overscroll chaining at the body edge so the
+       page doesn't bounce the whole browser chrome on mobile. */
+    overscroll-behavior-y: none;
   }
-  html {
-    @apply font-sans;
+  /* Sticky header needs to extend into the notch and then pad its content
+     downward. The Header component already does `sticky top-0`; this just
+     adds the inset. */
+  header[class*="sticky"] {
+    padding-top: env(safe-area-inset-top);
+  }
+  /* Cross-page view transitions (baseline fade). React/Next trigger the
+     named transition for route changes when `experimental.viewTransition`
+     is enabled in next.config. Users with reduced-motion preference skip
+     this via the media query below. */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 220ms;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Accessibility: users with reduced-motion preference get instant transitions. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
   /* Editorial display headings: tighter tracking, light optical-size, real
      italics for accent text. Numerals lined and tabular for prices/ratings. */

@@ -62,6 +62,29 @@ export function NoteJsonLd({ note }: { note: Note }) {
   );
 }
 
+export function BreadcrumbJsonLd({
+  trail,
+}: {
+  trail: { name: string; href: string }[];
+}) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: trail.map((t, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: t.name,
+      item: t.href.startsWith("http") ? t.href : `${site.url}${t.href}`,
+    })),
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: serialize(data) }}
+    />
+  );
+}
+
 export function ReviewJsonLd({ review }: { review: Review }) {
   const data = {
     "@context": "https://schema.org",
@@ -71,12 +94,6 @@ export function ReviewJsonLd({ review }: { review: Review }) {
       name: review.name,
       brand: { "@type": "Brand", name: review.brand },
       category: review.category,
-    },
-    reviewRating: {
-      "@type": "Rating",
-      ratingValue: review.rating,
-      bestRating: 10,
-      worstRating: 0,
     },
     author: { "@type": "Person", name: site.name, url: site.url },
     datePublished: review.datePublished,

@@ -4,7 +4,7 @@ export const reviewFrontmatter = z.object({
   name: z.string().min(1),
   brand: z.string().min(1),
   category: z.string().min(1),
-  rating: z.number().min(0).max(10).optional(),
+  verdict: z.enum(["recommend", "okay", "bad"]).optional(),
   ratings: z
     .object({
       effect: z.number().min(0).max(10).optional(),
@@ -13,9 +13,23 @@ export const reviewFrontmatter = z.object({
     })
     .optional(),
   price: z.string().optional(),
+  servingsPerContainer: z.number().positive().optional(),
+  dailyServings: z.number().positive().optional(),
   skinType: z.array(z.string()).optional(),
   goal: z.array(z.string()).optional(),
+  routines: z
+    .array(z.enum(["morning", "evening", "stack"]))
+    .default([]),
   photo: z.string().optional(),
+  photoTimeline: z
+    .array(
+      z.object({
+        date: z.string(),
+        src: z.string().min(1),
+        note: z.string().optional(),
+      }),
+    )
+    .default([]),
   boughtFromUrl: z.string().url().optional(),
   indiaLinks: z
     .array(z.object({ retailer: z.string().min(1), url: z.string().url() }))
@@ -31,7 +45,18 @@ export const reviewFrontmatter = z.object({
   cons: z.array(z.string()).default([]),
   repurchase: z.boolean().optional(),
   hidden: z.boolean().default(false),
+  retired: z.boolean().default(false),
+  retiredReason: z.string().optional(),
   datePublished: z.string(),
+  lastUpdated: z.string().optional(),
+  changelog: z
+    .array(
+      z.object({
+        date: z.string(),
+        note: z.string().min(1),
+      }),
+    )
+    .default([]),
   summary: z.string().default(""),
 });
 

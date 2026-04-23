@@ -53,7 +53,17 @@ function sortByDateDesc<T extends { datePublished: string }>(list: T[]): T[] {
  */
 export function getReviews(kind: Kind): ReviewSummary[] {
   return sortByDateDesc(readReviews(kind))
-    .filter((r) => !r.hidden)
+    .filter((r) => !r.hidden && !r.retired)
+    .map(({ body: _body, ...rest }) => rest);
+}
+
+export function getRetiredReviews(): ReviewSummary[] {
+  return sortByDateDesc([
+    ...readReviews("skincare"),
+    ...readReviews("supplements"),
+    ...readReviews("oral-care"),
+  ])
+    .filter((r) => r.retired && !r.hidden)
     .map(({ body: _body, ...rest }) => rest);
 }
 
@@ -106,4 +116,11 @@ export function getPrimers(): PrimerSummary[] {
 
 export function getPrimer(slug: string): Primer | null {
   return readPrimers().find((p) => p.slug === slug) ?? null;
+}
+
+/** Primers that explicitly reference this product slug via relatedProductSlugs. */
+export function getPrimersForProduct(productSlug: string): PrimerSummary[] {
+  return getPrimers().filter((p) =>
+    p.relatedProductSlugs.includes(productSlug),
+  );
 }

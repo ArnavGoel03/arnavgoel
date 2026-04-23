@@ -8,24 +8,17 @@ import type { ReviewSummary } from "@/lib/types";
  *  instead of a lonely chunk of Fraunces. */
 const pad2 = (n: number) => (n < 10 ? `0${n}` : String(n));
 
-function averageRating(reviews: ReviewSummary[]): number {
-  const rated = reviews
-    .map((r) => r.rating)
-    .filter((r): r is number => typeof r === "number" && r > 0);
-  if (rated.length === 0) return 0;
-  return rated.reduce((a, b) => a + b, 0) / rated.length;
-}
-
 function computeStats(reviews: ReviewSummary[]) {
-  const ratedCount = reviews.filter(
-    (r) => typeof r.rating === "number" && r.rating > 0,
-  ).length;
-  const pendingCount = reviews.length - ratedCount;
+  const recommendCount = reviews.filter((r) => r.verdict === "recommend").length;
+  const okayCount = reviews.filter((r) => r.verdict === "okay").length;
+  const badCount = reviews.filter((r) => r.verdict === "bad").length;
+  const testingCount = reviews.filter((r) => !r.verdict).length;
   return {
     total: reviews.length,
-    ratedCount,
-    pendingCount,
-    avg: averageRating(reviews),
+    recommendCount,
+    okayCount,
+    badCount,
+    testingCount,
   };
 }
 
@@ -79,11 +72,11 @@ function Stat({
 }
 
 function RatingCaveat({
-  ratedCount,
-  pendingCount,
+  verdictedCount,
+  testingCount,
 }: {
-  ratedCount: number;
-  pendingCount: number;
+  verdictedCount: number;
+  testingCount: number;
 }) {
   const wrap = (text: React.ReactNode) => (
     <p className="mt-4 max-w-xl font-serif text-sm italic leading-relaxed text-stone-500">
@@ -91,16 +84,17 @@ function RatingCaveat({
     </p>
   );
 
-  if (ratedCount > 0) {
+  if (verdictedCount > 0) {
     return wrap(
-      "A single number compresses context, price, and routine. Treat these as shortcuts — read the prose before the score.",
+      "One word can't capture context, price, or routine — read the prose before the verdict.",
     );
   }
-  if (pendingCount > 0) {
+  if (testingCount > 0) {
     return wrap(
       <>
-        Nothing rated yet. I don&apos;t score a product until it&apos;s lived
-        in my routine for at least a month.
+        Nothing verdicted yet. I don&apos;t call a product
+        &ldquo;recommend&rdquo; or &ldquo;bad&rdquo; until it&apos;s lived in
+        my routine for at least a month.
       </>,
     );
   }
@@ -136,22 +130,22 @@ export function SectionMasthead({
         {intro}
       </p>
 
-      <dl className="mt-10 grid grid-cols-3 gap-x-6 border-t border-stone-200 pt-6 sm:max-w-xl sm:grid-cols-3 sm:gap-x-12">
+      <dl className="mt-10 grid grid-cols-2 gap-x-6 border-t border-stone-200 pt-6 sm:max-w-2xl sm:grid-cols-4 sm:gap-x-12">
         <Stat label="On the shelf" value={pad2(stats.total)} />
+        <Stat label="Recommend" value={pad2(stats.recommendCount)} />
+        <Stat label="Okayish" value={pad2(stats.okayCount)} />
         <Stat
-          label="Rated"
-          value={pad2(stats.ratedCount)}
-          note={stats.pendingCount > 0 ? `${stats.pendingCount} testing` : undefined}
-        />
-        <Stat
-          label="Avg score"
-          value={stats.avg ? stats.avg.toFixed(1) : "—"}
+          label="Testing"
+          value={pad2(stats.testingCount)}
+          note={stats.badCount > 0 ? `${stats.badCount} bad` : undefined}
         />
       </dl>
 
       <RatingCaveat
-        ratedCount={stats.ratedCount}
-        pendingCount={stats.pendingCount}
+        verdictedCount={
+          stats.recommendCount + stats.okayCount + stats.badCount
+        }
+        testingCount={stats.testingCount}
       />
     </div>
   );

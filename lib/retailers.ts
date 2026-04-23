@@ -16,6 +16,11 @@ const RETAILER_BY_HOST: Record<string, string> = {
   "naturaltein.in": "Naturaltein",
   "earthful.me": "Earthful",
   "distausa.com": "DistaUSA",
+  "myprotein.com": "Myprotein",
+  "myprotein.co.in": "Myprotein",
+  "myprotein.co.uk": "Myprotein",
+  "thorne.com": "Thorne",
+  "healthkart.com": "HealthKart",
   "target.com": "Target",
   "walmart.com": "Walmart",
   "sephora.com": "Sephora",
@@ -166,6 +171,8 @@ const INDIA_HOSTS = [
   "naturaltein.in",
   "earthful.me",
   "distausa.com",
+  "myprotein.co.in",
+  "healthkart.com",
 ];
 
 const USA_HOSTS = [
@@ -175,6 +182,7 @@ const USA_HOSTS = [
   "walmart.com",
   "sephora.com",
   "ulta.com",
+  "thorne.com",
 ];
 
 const UK_HOSTS = [
@@ -185,6 +193,8 @@ const UK_HOSTS = [
   "spacenk.com",
   "feelunique.com",
   "hollandandbarrett.com",
+  "myprotein.com",
+  "myprotein.co.uk",
 ];
 
 export type Region = "india" | "usa" | "uk";

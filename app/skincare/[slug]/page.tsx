@@ -3,12 +3,17 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Container } from "@/components/container";
-import { RatingPill } from "@/components/rating-pill";
+import { VerdictPill } from "@/components/verdict-pill";
 import { ReviewMeta } from "@/components/review-meta";
+import { RatingAxes } from "@/components/rating-axes";
+import { ReviewChangelog } from "@/components/review-changelog";
+import { Breadcrumb } from "@/components/breadcrumb";
 import { ProsCons } from "@/components/pros-cons";
+import { PhotoTimeline } from "@/components/photo-timeline";
 import { MdxContent } from "@/components/mdx-content";
 import { ReviewJsonLd } from "@/components/json-ld";
-import { getReview, getReviews } from "@/lib/content";
+import { getPrimersForProduct, getReview, getReviews } from "@/lib/content";
+import { RelatedPrimers } from "@/components/related-primers";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -38,11 +43,19 @@ export default async function SkincareReviewPage({ params }: Props) {
   const { slug } = await params;
   const review = getReview("skincare", slug);
   if (!review) notFound();
+  const relatedPrimers = getPrimersForProduct(review.slug);
 
   return (
     <article>
       <ReviewJsonLd review={review} />
       <Container className="py-10">
+        <Breadcrumb
+          trail={[
+            { name: "Home", href: "/" },
+            { name: "Skincare", href: "/skincare" },
+            { name: review.name, href: `/skincare/${review.slug}` },
+          ]}
+        />
         <Link
           href="/skincare"
           className="inline-flex items-center gap-1.5 text-sm text-stone-500 transition-colors hover:text-stone-900"
@@ -59,7 +72,7 @@ export default async function SkincareReviewPage({ params }: Props) {
             <h1 className="font-serif text-4xl leading-tight text-stone-900 sm:text-5xl">
               {review.name}
             </h1>
-            <RatingPill rating={review.rating} size="lg" />
+            <VerdictPill verdict={review.verdict} size="lg" />
           </div>
           {review.summary && (
             <p className="mt-6 max-w-2xl text-xl leading-relaxed text-stone-600">
@@ -71,10 +84,14 @@ export default async function SkincareReviewPage({ params }: Props) {
         <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_320px]">
           <div className="space-y-10">
             <MdxContent source={review.body} />
+            <PhotoTimeline review={review} />
             <ProsCons pros={review.pros} cons={review.cons} />
           </div>
           <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
             <ReviewMeta review={review} />
+            <RatingAxes review={review} />
+            <RelatedPrimers primers={relatedPrimers} />
+            <ReviewChangelog review={review} />
             {review.ingredients && review.ingredients.length > 0 && (
               <div className="rounded-2xl border border-stone-200 bg-white p-6">
                 <h3 className="mb-3 font-serif text-lg text-stone-900">

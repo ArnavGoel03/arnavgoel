@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getNotes, getPrimers, getReviews } from "@/lib/content";
+import { getAllIssuePeriods } from "@/lib/issues";
+import { getRoutinesList } from "@/lib/routines";
 import { site } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -14,19 +16,43 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${site.url}/supplements`, lastModified: now, priority: 0.8 },
     { url: `${site.url}/oral-care`, lastModified: now, priority: 0.8 },
     { url: `${site.url}/primers`, lastModified: now, priority: 0.8 },
+    { url: `${site.url}/issue`, lastModified: now, priority: 0.7 },
+    { url: `${site.url}/routine`, lastModified: now, priority: 0.8 },
+    { url: `${site.url}/retired`, lastModified: now, priority: 0.5 },
+    { url: `${site.url}/search`, lastModified: now, priority: 0.5 },
     { url: `${site.url}/links`, lastModified: now, priority: 0.7 },
   ];
+  const routineRoutes: MetadataRoute.Sitemap = getRoutinesList().map((r) => ({
+    url: `${site.url}/routine/${r}`,
+    lastModified: now,
+    priority: 0.7,
+  }));
+  const issueRoutes: MetadataRoute.Sitemap = getAllIssuePeriods().map(
+    (period) => ({
+      url: `${site.url}/issue/${period}`,
+      lastModified: now,
+      priority: 0.6,
+    }),
+  );
   const noteRoutes: MetadataRoute.Sitemap = getNotes().map((n) => ({
     url: `${site.url}/notes/${n.slug}`,
     lastModified: new Date(n.datePublished),
     priority: 0.7,
   }));
+  // Weight reviews by verdict: products I stand behind deserve more crawl
+  // budget than "still testing" placeholders.
+  const priorityForVerdict = (v?: "recommend" | "okay" | "bad"): number => {
+    if (v === "recommend") return 0.85;
+    if (v === "okay") return 0.7;
+    if (v === "bad") return 0.5;
+    return 0.55; // still testing
+  };
   const reviewRoutes: MetadataRoute.Sitemap = (["skincare", "supplements", "oral-care"] as const).flatMap(
     (kind) =>
       getReviews(kind).map((r) => ({
         url: `${site.url}/${kind}/${r.slug}`,
         lastModified: new Date(r.datePublished),
-        priority: 0.7,
+        priority: priorityForVerdict(r.verdict),
       })),
   );
   const primerRoutes: MetadataRoute.Sitemap = getPrimers().map((p) => ({
@@ -34,5 +60,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(p.lastUpdated ?? p.datePublished),
     priority: 0.7,
   }));
-  return [...staticRoutes, ...noteRoutes, ...reviewRoutes, ...primerRoutes];
+  return [
+    ...staticRoutes,
+    ...noteRoutes,
+    ...reviewRoutes,
+    ...primerRoutes,
+    ...issueRoutes,
+    ...routineRoutes,
+  ];
 }
