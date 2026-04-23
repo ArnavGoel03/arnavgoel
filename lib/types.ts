@@ -19,6 +19,7 @@ export interface Review {
   boughtFromUrl?: string;
   indiaLinks: BuyLink[];
   westernLinks: BuyLink[];
+  ukLinks: BuyLink[];
   ingredients?: string[];
   pros: string[];
   cons: string[];

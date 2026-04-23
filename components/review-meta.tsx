@@ -110,9 +110,14 @@ export function ReviewMeta({ review }: { review: Review }) {
   const india = dedupeByUrl(review.indiaLinks ?? [], seen);
   india.forEach((l) => seen.add(l.url));
   const western = dedupeByUrl(review.westernLinks ?? [], seen);
+  western.forEach((l) => seen.add(l.url));
+  const uk = dedupeByUrl(review.ukLinks ?? [], seen);
 
   const hasAnyLink =
-    review.boughtFromUrl || india.length > 0 || western.length > 0;
+    review.boughtFromUrl ||
+    india.length > 0 ||
+    western.length > 0 ||
+    uk.length > 0;
 
   return (
     <div className="space-y-4">
@@ -170,6 +175,18 @@ export function ReviewMeta({ review }: { review: Review }) {
               </p>
               <div className="space-y-2">
                 {western.map((l) => (
+                  <SecondaryLink key={l.url} href={l.url} label={l.retailer} />
+                ))}
+              </div>
+            </div>
+          )}
+          {uk.length > 0 && (
+            <div>
+              <p className="mb-2 text-xs uppercase tracking-wider text-stone-500">
+                Buy in the UK
+              </p>
+              <div className="space-y-2">
+                {uk.map((l) => (
                   <SecondaryLink key={l.url} href={l.url} label={l.retailer} />
                 ))}
               </div>

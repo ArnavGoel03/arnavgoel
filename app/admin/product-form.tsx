@@ -65,6 +65,7 @@ export type ProductFormInitial = {
   boughtFromUrl?: string;
   indiaLinks?: { retailer: string; url: string }[];
   westernLinks?: { retailer: string; url: string }[];
+  ukLinks?: { retailer: string; url: string }[];
   ingredients?: string[];
   pros: string[];
   cons: string[];
@@ -350,6 +351,28 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
             }
             placeholder={
               "https://www.amazon.com/dp/...\nhttps://www.target.com/p/...\nhttps://www.sephora.com/..."
+            }
+            className={textareaCls}
+          />
+          <p className="mt-1 text-xs text-stone-500">
+            Same format as India.
+          </p>
+        </div>
+        <div>
+          <label htmlFor="ukLinks" className={labelCls}>
+            UK retailers <Optional />
+          </label>
+          <textarea
+            id="ukLinks"
+            name="ukLinks"
+            rows={3}
+            defaultValue={
+              initial?.ukLinks
+                ?.map((l) => `${l.retailer} | ${l.url}`)
+                .join("\n") ?? ""
+            }
+            placeholder={
+              "https://www.amazon.co.uk/dp/...\nhttps://www.boots.com/...\nhttps://www.lookfantastic.com/..."
             }
             className={textareaCls}
           />

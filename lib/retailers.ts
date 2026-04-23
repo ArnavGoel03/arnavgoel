@@ -3,6 +3,12 @@ const RETAILER_BY_HOST: Record<string, string> = {
   "amzn.to": "Amazon",
   "amazon.in": "Amazon India",
   "amazon.co.uk": "Amazon UK",
+  "boots.com": "Boots",
+  "lookfantastic.com": "LookFantastic",
+  "cultbeauty.co.uk": "Cult Beauty",
+  "spacenk.com": "Space NK",
+  "feelunique.com": "LookFantastic",
+  "hollandandbarrett.com": "Holland & Barrett",
   "nykaa.com": "Nykaa",
   "myntra.com": "Myntra",
   "flipkart.com": "Flipkart",
@@ -54,6 +60,31 @@ const RETAILER_THEME: Record<
     idle: "border-amber-300 bg-amber-50 text-amber-900",
     hover: "hover:border-amber-500 hover:bg-amber-100",
     bar: "bg-amber-500",
+  },
+  Boots: {
+    idle: "border-blue-300 bg-blue-50 text-blue-900",
+    hover: "hover:border-blue-500 hover:bg-blue-100",
+    bar: "bg-blue-700",
+  },
+  LookFantastic: {
+    idle: "border-purple-300 bg-purple-50 text-purple-900",
+    hover: "hover:border-purple-500 hover:bg-purple-100",
+    bar: "bg-purple-500",
+  },
+  "Cult Beauty": {
+    idle: "border-stone-300 bg-stone-50 text-stone-900",
+    hover: "hover:border-stone-500 hover:bg-stone-100",
+    bar: "bg-stone-900",
+  },
+  "Space NK": {
+    idle: "border-stone-300 bg-stone-50 text-stone-900",
+    hover: "hover:border-stone-500 hover:bg-stone-100",
+    bar: "bg-stone-900",
+  },
+  "Holland & Barrett": {
+    idle: "border-emerald-300 bg-emerald-50 text-emerald-900",
+    hover: "hover:border-emerald-500 hover:bg-emerald-100",
+    bar: "bg-emerald-700",
   },
   Nykaa: {
     idle: "border-pink-300 bg-pink-50 text-pink-900",
@@ -146,7 +177,17 @@ const USA_HOSTS = [
   "ulta.com",
 ];
 
-export type Region = "india" | "usa";
+const UK_HOSTS = [
+  "amazon.co.uk",
+  "boots.com",
+  "lookfantastic.com",
+  "cultbeauty.co.uk",
+  "spacenk.com",
+  "feelunique.com",
+  "hollandandbarrett.com",
+];
+
+export type Region = "india" | "usa" | "uk";
 
 export function regionForUrl(url: string | undefined | null): Region | null {
   if (!url) return null;
@@ -162,6 +203,9 @@ export function regionForUrl(url: string | undefined | null): Region | null {
   for (const h of USA_HOSTS) {
     if (host === h || host.endsWith(`.${h}`)) return "usa";
   }
+  for (const h of UK_HOSTS) {
+    if (host === h || host.endsWith(`.${h}`)) return "uk";
+  }
   return null;
 }
 
@@ -170,12 +214,17 @@ export function availableInRegion(
     boughtFromUrl?: string;
     indiaLinks?: { url: string }[];
     westernLinks?: { url: string }[];
+    ukLinks?: { url: string }[];
   },
   region: Region,
 ): boolean {
   if (region === "india") {
     if (review.indiaLinks && review.indiaLinks.length > 0) return true;
     return regionForUrl(review.boughtFromUrl) === "india";
+  }
+  if (region === "uk") {
+    if (review.ukLinks && review.ukLinks.length > 0) return true;
+    return regionForUrl(review.boughtFromUrl) === "uk";
   }
   if (review.westernLinks && review.westernLinks.length > 0) return true;
   return regionForUrl(review.boughtFromUrl) === "usa";

@@ -22,6 +22,7 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
     () => ({
       india: reviews.filter((r) => availableInRegion(r, "india")).length,
       usa: reviews.filter((r) => availableInRegion(r, "usa")).length,
+      uk: reviews.filter((r) => availableInRegion(r, "uk")).length,
     }),
     [reviews],
   );
@@ -84,6 +85,7 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
             { id: "all", label: "All", count: reviews.length },
             { id: "india", label: "India", count: counts.india },
             { id: "usa", label: "USA", count: counts.usa },
+            { id: "uk", label: "UK", count: counts.uk },
           ] as const
         ).map((r) => (
           <button

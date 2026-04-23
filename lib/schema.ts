@@ -16,6 +16,9 @@ export const reviewFrontmatter = z.object({
   westernLinks: z
     .array(z.object({ retailer: z.string().min(1), url: z.string().url() }))
     .default([]),
+  ukLinks: z
+    .array(z.object({ retailer: z.string().min(1), url: z.string().url() }))
+    .default([]),
   ingredients: z.array(z.string()).optional(),
   pros: z.array(z.string()).default([]),
   cons: z.array(z.string()).default([]),

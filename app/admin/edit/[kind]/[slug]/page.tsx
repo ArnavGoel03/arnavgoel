@@ -60,6 +60,7 @@ export default async function EditReviewPage({ params }: Props) {
               boughtFromUrl: review.boughtFromUrl,
               indiaLinks: review.indiaLinks,
               westernLinks: review.westernLinks,
+              ukLinks: review.ukLinks,
               ingredients: review.ingredients,
               pros: review.pros,
               cons: review.cons,

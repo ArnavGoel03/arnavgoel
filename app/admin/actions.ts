@@ -23,6 +23,7 @@ const reviewSchema = z.object({
     .or(z.literal("").transform(() => undefined)),
   indiaLinks: z.string().optional(),
   westernLinks: z.string().optional(),
+  ukLinks: z.string().optional(),
   ingredients: z.string().optional(),
   pros: z.string().optional(),
   cons: z.string().optional(),
@@ -105,6 +106,7 @@ function buildReviewMdx(d: {
   boughtFromUrl?: string;
   indiaLinks: { retailer: string; url: string }[];
   westernLinks: { retailer: string; url: string }[];
+  ukLinks: { retailer: string; url: string }[];
   ingredients: string[];
   pros: string[];
   cons: string[];
@@ -135,6 +137,14 @@ function buildReviewMdx(d: {
   if (d.westernLinks.length) {
     lines.push("westernLinks:");
     for (const l of d.westernLinks) {
+      lines.push(
+        `  - { retailer: ${JSON.stringify(l.retailer)}, url: ${JSON.stringify(l.url)} }`,
+      );
+    }
+  }
+  if (d.ukLinks.length) {
+    lines.push("ukLinks:");
+    for (const l of d.ukLinks) {
       lines.push(
         `  - { retailer: ${JSON.stringify(l.retailer)}, url: ${JSON.stringify(l.url)} }`,
       );
@@ -182,6 +192,7 @@ function buildContentFromForm(d: z.infer<typeof reviewSchema>): string {
     boughtFromUrl: d.boughtFromUrl,
     indiaLinks: parseBuyLinks(d.indiaLinks),
     westernLinks: parseBuyLinks(d.westernLinks),
+    ukLinks: parseBuyLinks(d.ukLinks),
     ingredients: parseList(d.ingredients),
     pros: parseLines(d.pros),
     cons: parseLines(d.cons),
