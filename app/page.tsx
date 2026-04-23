@@ -1,76 +1,147 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/container";
 import { SocialIconLink } from "@/components/social-link";
 import { NoteRow } from "@/components/note-card";
 import { SectionTile } from "@/components/section-tile";
+import { ProductCard } from "@/components/product-card";
 import { SpotifyEmbed } from "@/components/spotify-embed";
 import { PersonJsonLd } from "@/components/json-ld";
 import { site } from "@/lib/site";
 import { socials } from "@/lib/socials";
-import { getNotes, getReviews } from "@/lib/content";
+import { getAllReviews, getNotes, getReviews } from "@/lib/content";
 import { photos } from "@/lib/photos";
 
 export default function HomePage() {
   const recentNotes = getNotes().slice(0, 4);
+  const recentReviews = getAllReviews().slice(0, 3);
   const skincareCount = getReviews("skincare").length;
   const supplementsCount = getReviews("supplements").length;
   const oralCareCount = getReviews("oral-care").length;
+  const totalReviews = skincareCount + supplementsCount + oralCareCount;
   const notesCount = getNotes().length;
   const photosCount = photos.length;
 
   return (
     <>
       <PersonJsonLd />
-      <section className="border-b border-stone-200/70 bg-gradient-to-b from-stone-50 to-white">
+
+      {/* Hero */}
+      <section className="relative overflow-hidden border-b border-stone-200/70 bg-gradient-to-b from-stone-50 to-white">
         <Container className="py-20 sm:py-28">
           <div className="max-w-2xl">
             <p className="mb-4 text-xs uppercase tracking-[0.2em] text-stone-500">
               {site.location}
             </p>
             <h1 className="font-serif text-5xl leading-[1.05] text-stone-900 sm:text-7xl">
-              {site.name}.
+              {site.name}
+              <span className="text-rose-400">.</span>
             </h1>
             <p className="mt-6 text-xl leading-relaxed text-stone-600 sm:text-2xl">
               {site.bio}
             </p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-4 text-xs uppercase tracking-[0.18em] text-stone-500">
+              <span>
+                <span className="font-semibold text-stone-900">{totalReviews}</span> reviews
+              </span>
+              <span aria-hidden className="text-stone-300">·</span>
+              <span>
+                <span className="font-semibold text-stone-900">0</span> sponsored
+              </span>
+              <span aria-hidden className="text-stone-300">·</span>
+              <span>Updated weekly</span>
+            </div>
+
             <div className="mt-8 flex flex-wrap items-center gap-3">
               {socials.map((s) => (
                 <SocialIconLink key={s.label} social={s} />
               ))}
             </div>
+
             <div className="mt-10 flex flex-wrap gap-3">
               <Link
-                href="/about"
+                href="/skincare"
                 className="inline-flex items-center gap-2 rounded-full bg-stone-900 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-stone-800"
               >
-                More about me
+                Read the latest reviews
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 href="/now"
                 className="inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-medium text-stone-900 transition-colors hover:border-stone-900"
               >
-                What I&apos;m doing now
+                What&apos;s on the shelf this month
               </Link>
             </div>
           </div>
         </Container>
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-rose-100/40 blur-3xl"
+        />
       </section>
 
-      <Container className="py-16">
-        <div className="mb-8">
+      {/* Currently on the shelf */}
+      {recentReviews.length > 0 && (
+        <Container className="py-20">
+          <div className="mb-8 flex items-end justify-between gap-6">
+            <div>
+              <p className="mb-1 text-xs uppercase tracking-[0.2em] text-stone-500">
+                <span className="text-rose-400">★</span>{" "}
+                Just added
+              </p>
+              <h2 className="font-serif text-3xl text-stone-900 sm:text-4xl">
+                On the shelf right now.
+              </h2>
+              <p className="mt-2 max-w-xl text-sm text-stone-500">
+                The most recent products through the routine. Each one used
+                long enough to have an honest opinion.
+              </p>
+            </div>
+            <Link
+              href="/skincare"
+              className="hidden whitespace-nowrap text-sm text-stone-500 transition-colors hover:text-stone-900 sm:inline-flex"
+            >
+              All reviews →
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {recentReviews.map((r) => (
+              <ProductCard key={`${r.kind}-${r.slug}`} review={r} />
+            ))}
+          </div>
+        </Container>
+      )}
+
+      {/* Sections */}
+      <Container className="border-t border-stone-200/70 py-20">
+        <div className="mb-10">
           <p className="mb-1 text-xs uppercase tracking-[0.2em] text-stone-500">
-            Sections
+            <span className="text-rose-400">✷</span> Sections
           </p>
-          <h2 className="font-serif text-3xl text-stone-900">Poke around.</h2>
+          <h2 className="font-serif text-3xl text-stone-900 sm:text-4xl">
+            Poke around.
+          </h2>
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <SectionTile
-            href="/notes"
-            eyebrow={`${notesCount} entries`}
-            title="Notes"
-            description="Short writing — thoughts, essays, whatever's on my mind."
+            href="/skincare"
+            eyebrow={`${skincareCount} reviews`}
+            title="Skincare"
+            description="Cleansers, serums, moisturizers, sunscreens — every product that's lived on my face for a month."
+          />
+          <SectionTile
+            href="/supplements"
+            eyebrow={`${supplementsCount} reviews`}
+            title="Supplements"
+            description="Vitamins, minerals, nootropics. What I took, how long, and what I actually felt."
+          />
+          <SectionTile
+            href="/oral-care"
+            eyebrow={`${oralCareCount} reviews`}
+            title="Oral care"
+            description="Electric brushes, pastes, mouthwash — for teeth, breath, and gums."
           />
           <SectionTile
             href="/photos"
@@ -79,32 +150,27 @@ export default function HomePage() {
             description="DSLR shots from wherever I happened to be carrying the camera."
           />
           <SectionTile
-            href="/skincare"
-            eyebrow={`${skincareCount} reviews`}
-            title="Skincare"
-            description="Every skincare product I've tried, rated and reviewed honestly."
+            href="/notes"
+            eyebrow={`${notesCount} entries`}
+            title="Notes"
+            description="Slow writing — essays, stray thoughts, half-formed ideas."
           />
           <SectionTile
-            href="/supplements"
-            eyebrow={`${supplementsCount} reviews`}
-            title="Supplements"
-            description="Vitamins, minerals, nootropics — what I took and what I felt."
-          />
-          <SectionTile
-            href="/oral-care"
-            eyebrow={`${oralCareCount} reviews`}
-            title="Oral care"
-            description="Electric brushes, pastes, mouthwash — for teeth, breath, and gums."
+            href="/now"
+            eyebrow="this month"
+            title="Now"
+            description="What I'm currently reading, taking, listening to, and thinking about."
           />
         </div>
       </Container>
 
-      <Container className="pb-16">
+      {/* Listening */}
+      <Container className="border-t border-stone-200/70 py-20">
         <div className="mb-6">
           <p className="mb-1 text-xs uppercase tracking-[0.2em] text-stone-500">
-            Listening to
+            <span className="text-rose-400">♪</span> Listening to
           </p>
-          <h2 className="font-serif text-3xl text-stone-900">
+          <h2 className="font-serif text-3xl text-stone-900 sm:text-4xl">
             On repeat right now.
           </h2>
           <p className="mt-2 text-sm text-stone-500">
@@ -117,20 +183,24 @@ export default function HomePage() {
         />
       </Container>
 
+      {/* Recent notes */}
       {recentNotes.length > 0 && (
-        <Container className="pb-20">
+        <Container className="border-t border-stone-200/70 py-20">
           <div className="mb-6 flex items-end justify-between">
             <div>
               <p className="mb-1 text-xs uppercase tracking-[0.2em] text-stone-500">
-                Notes
+                <span className="text-rose-400">¶</span> Notes
               </p>
-              <h2 className="font-serif text-3xl text-stone-900">Recently written</h2>
+              <h2 className="font-serif text-3xl text-stone-900 sm:text-4xl">
+                Recently written.
+              </h2>
             </div>
             <Link
               href="/notes"
-              className="text-sm text-stone-500 transition-colors hover:text-stone-900"
+              className="inline-flex items-center gap-1 text-sm text-stone-500 transition-colors hover:text-stone-900"
             >
-              All notes →
+              All notes
+              <ArrowUpRight className="h-3.5 w-3.5" />
             </Link>
           </div>
           <div className="rounded-2xl border border-stone-200 bg-white px-6">
