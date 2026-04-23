@@ -1,58 +1,18 @@
+import fs from "node:fs";
+import path from "node:path";
 import type { Photo } from "./types";
 
-export const photos: Photo[] = [
-  {
-    src: "/photos/placeholder-1.jpg",
-    alt: "Placeholder",
-    caption: "Drop your first DSLR photo in /public/photos/ and update this entry.",
-    location: "Location",
-    date: "2026-04-01",
-    width: 1600,
-    height: 2400,
-  },
-  {
-    src: "/photos/placeholder-2.jpg",
-    alt: "Placeholder",
-    caption: "Add a caption — one sentence is plenty.",
-    location: "Location",
-    date: "2026-03-15",
-    width: 2400,
-    height: 1600,
-  },
-  {
-    src: "/photos/placeholder-3.jpg",
-    alt: "Placeholder",
-    caption: "Mix portrait and landscape shots for a nice masonry feel.",
-    location: "Location",
-    date: "2026-02-28",
-    width: 1600,
-    height: 2000,
-  },
-  {
-    src: "/photos/placeholder-4.jpg",
-    alt: "Placeholder",
-    caption: "Caption here.",
-    location: "Location",
-    date: "2026-02-10",
-    width: 2000,
-    height: 1400,
-  },
-  {
-    src: "/photos/placeholder-5.jpg",
-    alt: "Placeholder",
-    caption: "Caption here.",
-    location: "Location",
-    date: "2026-01-20",
-    width: 1600,
-    height: 2400,
-  },
-  {
-    src: "/photos/placeholder-6.jpg",
-    alt: "Placeholder",
-    caption: "Caption here.",
-    location: "Location",
-    date: "2026-01-05",
-    width: 2400,
-    height: 1600,
-  },
-];
+const PHOTOS_FILE = path.join(process.cwd(), "content", "photos.json");
+
+function readPhotosFromDisk(): Photo[] {
+  if (!fs.existsSync(PHOTOS_FILE)) return [];
+  const raw = fs.readFileSync(PHOTOS_FILE, "utf8");
+  const data = JSON.parse(raw) as Photo[];
+  return data;
+}
+
+export function getPhotos(): Photo[] {
+  return readPhotosFromDisk().sort((a, b) => b.date.localeCompare(a.date));
+}
+
+export const photos: Photo[] = getPhotos();
