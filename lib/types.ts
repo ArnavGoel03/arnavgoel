@@ -57,3 +57,22 @@ export interface Photo {
   width: number;
   height: number;
 }
+
+export type PrimerKind = "stack" | "ingredient";
+export type PrimerDomain = "supplement" | "skincare";
+
+export interface Primer {
+  slug: string;
+  title: string;
+  subtitle?: string;
+  kind: PrimerKind;
+  domain: PrimerDomain;
+  tags: string[];
+  stack: string[];
+  relatedProductSlugs: string[];
+  datePublished: string;
+  lastUpdated?: string;
+  body: string;
+}
+
+export interface PrimerSummary extends Omit<Primer, "body"> {}

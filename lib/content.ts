@@ -1,8 +1,16 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
-import { noteFrontmatter, reviewFrontmatter } from "./schema";
-import type { Kind, Note, NoteSummary, Review, ReviewSummary } from "./types";
+import { noteFrontmatter, primerFrontmatter, reviewFrontmatter } from "./schema";
+import type {
+  Kind,
+  Note,
+  NoteSummary,
+  Primer,
+  PrimerSummary,
+  Review,
+  ReviewSummary,
+} from "./types";
 
 const ROOT = path.join(process.cwd(), "content");
 
@@ -73,4 +81,29 @@ export function getNotes(): NoteSummary[] {
 
 export function getNote(slug: string): Note | null {
   return readNotes().find((n) => n.slug === slug) ?? null;
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// Primers — short, high-signal reference pages on ingredients and stacks.
+// ────────────────────────────────────────────────────────────────────────────
+
+function readPrimers(): Primer[] {
+  const dir = path.join(ROOT, "primers");
+  if (!fs.existsSync(dir)) return [];
+  const files = fs.readdirSync(dir).filter((f) => f.endsWith(".mdx"));
+  return files.map((file) => {
+    const raw = fs.readFileSync(path.join(dir, file), "utf8");
+    const { data, content } = matter(raw);
+    const fm = primerFrontmatter.parse(data);
+    const slug = file.replace(/\.mdx$/, "");
+    return { slug, body: content.trim(), ...fm };
+  });
+}
+
+export function getPrimers(): PrimerSummary[] {
+  return sortByDateDesc(readPrimers()).map(({ body: _body, ...rest }) => rest);
+}
+
+export function getPrimer(slug: string): Primer | null {
+  return readPrimers().find((p) => p.slug === slug) ?? null;
 }

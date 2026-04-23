@@ -42,5 +42,26 @@ export const noteFrontmatter = z.object({
   tags: z.array(z.string()).default([]),
 });
 
+/**
+ * A Primer is a short, high-signal reference page.
+ *   - `kind: "stack"` — a combined-together explainer (bone health, omega-3,
+ *     the sleep stack). Usually includes a `stack` list of component parts.
+ *   - `kind: "ingredient"` — a single-ingredient primer (niacinamide, retinoids,
+ *     ceramides, magnesium forms).
+ * `domain` toggles between supplement / skincare context for grouping on
+ * the index page.
+ */
+export const primerFrontmatter = z.object({
+  title: z.string().min(1),
+  subtitle: z.string().optional(),
+  kind: z.enum(["stack", "ingredient"]),
+  domain: z.enum(["supplement", "skincare"]),
+  tags: z.array(z.string()).default([]),
+  stack: z.array(z.string()).default([]),
+  relatedProductSlugs: z.array(z.string()).default([]),
+  datePublished: z.string(),
+  lastUpdated: z.string().optional(),
+});
+
 export type ReviewFrontmatter = z.infer<typeof reviewFrontmatter>;
 export type NoteFrontmatter = z.infer<typeof noteFrontmatter>;
