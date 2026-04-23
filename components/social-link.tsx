@@ -1,7 +1,13 @@
 import { ArrowUpRight } from "lucide-react";
 import type { Social } from "@/lib/socials";
 
-export function SocialLink({ social }: { social: Social }) {
+export function SocialLink({
+  social,
+  index,
+}: {
+  social: Social;
+  index?: number;
+}) {
   const Icon = social.icon;
   const isExternal = social.href.startsWith("http");
   return (
@@ -9,18 +15,23 @@ export function SocialLink({ social }: { social: Social }) {
       href={social.href}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener noreferrer" : undefined}
-      className="group flex items-center justify-between gap-4 rounded-2xl border border-stone-200 bg-white p-5 transition-all hover:-translate-y-0.5 hover:border-stone-300 hover:shadow-sm"
+      className="group flex items-baseline gap-6 py-6"
     >
-      <div className="flex items-center gap-4">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-stone-100 text-stone-700 transition-colors group-hover:bg-stone-900 group-hover:text-white">
-          <Icon className="h-5 w-5" />
-        </div>
-        <div>
-          <div className="font-medium text-stone-900">{social.label}</div>
-          <div className="text-sm text-stone-500">{social.handle}</div>
-        </div>
+      {index !== undefined && (
+        <span className="hidden w-10 shrink-0 font-mono text-xs text-stone-400 tabular-nums sm:inline-block">
+          №&nbsp;{String(index).padStart(2, "0")}
+        </span>
+      )}
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-stone-200 bg-white text-stone-700 transition-colors group-hover:border-stone-900 group-hover:bg-stone-900 group-hover:text-white">
+        <Icon className="h-4 w-4" />
       </div>
-      <ArrowUpRight className="h-4 w-4 text-stone-400 transition-colors group-hover:text-stone-900" />
+      <div className="min-w-0 flex-1">
+        <h3 className="font-serif text-2xl leading-tight tracking-tight text-stone-900 transition-colors group-hover:text-rose-700 sm:text-3xl">
+          {social.label}
+        </h3>
+        <p className="mt-1 font-serif italic text-stone-600">{social.handle}</p>
+      </div>
+      <ArrowUpRight className="h-4 w-4 self-center text-stone-400 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-stone-900" />
     </a>
   );
 }

@@ -157,36 +157,42 @@ export default function HomePage() {
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <SectionTile
+            index={1}
             href="/skincare"
             eyebrow={`${skincareCount} reviews`}
             title="Skincare"
             description="Cleansers, serums, moisturizers, sunscreens — every product that's lived on my face for a month."
           />
           <SectionTile
+            index={2}
             href="/supplements"
             eyebrow={`${supplementsCount} reviews`}
             title="Supplements"
             description="Vitamins, minerals, nootropics. What I took, how long, and what I actually felt."
           />
           <SectionTile
+            index={3}
             href="/oral-care"
             eyebrow={`${oralCareCount} reviews`}
             title="Oral care"
             description="Electric brushes, pastes, mouthwash — for teeth, breath, and gums."
           />
           <SectionTile
+            index={4}
             href="/photos"
             eyebrow={`${photosCount} photos`}
             title="Photos"
             description="DSLR shots from wherever I happened to be carrying the camera."
           />
           <SectionTile
+            index={5}
             href="/notes"
             eyebrow={`${notesCount} entries`}
             title="Notes"
             description="Slow writing — essays, stray thoughts, half-formed ideas."
           />
           <SectionTile
+            index={6}
             href="/now"
             eyebrow="this month"
             title="Now"
