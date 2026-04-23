@@ -4,6 +4,7 @@ import { Container } from "@/components/container";
 import { SocialIconLink } from "@/components/social-link";
 import { NoteRow } from "@/components/note-card";
 import { SectionTile } from "@/components/section-tile";
+import { SpotifyEmbed } from "@/components/spotify-embed";
 import { PersonJsonLd } from "@/components/json-ld";
 import { site } from "@/lib/site";
 import { socials } from "@/lib/socials";
@@ -89,6 +90,24 @@ export default function HomePage() {
             description="Vitamins, minerals, nootropics — what I took and what I felt."
           />
         </div>
+      </Container>
+
+      <Container className="pb-16">
+        <div className="mb-6">
+          <p className="mb-1 text-xs uppercase tracking-[0.2em] text-stone-500">
+            Listening to
+          </p>
+          <h2 className="font-serif text-3xl text-stone-900">
+            On repeat right now.
+          </h2>
+          <p className="mt-2 text-sm text-stone-500">
+            Press play — it opens right here.
+          </p>
+        </div>
+        <SpotifyEmbed
+          playlistId="37i9dQZF1EIhvQz3p7tStL"
+          title="Ibiza Club Mix — my favorite playlist"
+        />
       </Container>
 
       {recentNotes.length > 0 && (
