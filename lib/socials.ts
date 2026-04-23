@@ -1,5 +1,9 @@
 import type { ComponentType, SVGProps } from "react";
-import { InstagramIcon, YoutubeIcon } from "@/components/brand-icons";
+import {
+  InstagramIcon,
+  SpotifyIcon,
+  YoutubeIcon,
+} from "@/components/brand-icons";
 
 type IconComponent = ComponentType<SVGProps<SVGSVGElement>>;
 
@@ -22,5 +26,11 @@ export const socials: Social[] = [
     handle: "@nobodytosomeone",
     href: "https://www.youtube.com/@nobodytosomeone",
     icon: YoutubeIcon,
+  },
+  {
+    label: "Spotify",
+    handle: "Ibiza Club Mix (my favorite playlist)",
+    href: "https://open.spotify.com/playlist/37i9dQZF1EIhvQz3p7tStL",
+    icon: SpotifyIcon,
   },
 ];
