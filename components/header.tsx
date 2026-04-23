@@ -6,6 +6,7 @@ const nav = [
   { href: "/skincare", label: "Skincare" },
   { href: "/supplements", label: "Supplements" },
   { href: "/oral-care", label: "Oral care" },
+  { href: "/primers", label: "Primers" },
   { href: "/photos", label: "Photos" },
   { href: "/notes", label: "Notes" },
   { href: "/now", label: "Now" },

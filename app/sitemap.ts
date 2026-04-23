@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getNotes, getReviews } from "@/lib/content";
+import { getNotes, getPrimers, getReviews } from "@/lib/content";
 import { site } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${site.url}/skincare`, lastModified: now, priority: 0.8 },
     { url: `${site.url}/supplements`, lastModified: now, priority: 0.8 },
     { url: `${site.url}/oral-care`, lastModified: now, priority: 0.8 },
+    { url: `${site.url}/primers`, lastModified: now, priority: 0.8 },
     { url: `${site.url}/links`, lastModified: now, priority: 0.7 },
   ];
   const noteRoutes: MetadataRoute.Sitemap = getNotes().map((n) => ({
@@ -28,5 +29,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.7,
       })),
   );
-  return [...staticRoutes, ...noteRoutes, ...reviewRoutes];
+  const primerRoutes: MetadataRoute.Sitemap = getPrimers().map((p) => ({
+    url: `${site.url}/primers/${p.slug}`,
+    lastModified: new Date(p.lastUpdated ?? p.datePublished),
+    priority: 0.7,
+  }));
+  return [...staticRoutes, ...noteRoutes, ...reviewRoutes, ...primerRoutes];
 }
