@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/container";
-import { PageHeading } from "@/components/page-heading";
+import { SectionMasthead } from "@/components/section-masthead";
 import { CategoryFilter } from "@/components/category-filter";
 import { getReviews } from "@/lib/content";
 
@@ -16,13 +16,14 @@ export default function OralCarePage() {
   return (
     <>
       <Container>
-        <PageHeading
-          eyebrow={`${reviews.length} reviews`}
+        <SectionMasthead
+          volume="Vol. III — Oral care"
           title="Oral care"
-          description="Brushes, pastes, mouthwash, floss. What's in my bathroom cabinet for teeth."
+          intro="Brushes, pastes, mouthwash, floss. What lives in my bathroom cabinet for teeth, breath, and gums."
+          reviews={reviews}
         />
       </Container>
-      <Container className="pb-20">
+      <Container className="py-10 pb-24">
         <CategoryFilter reviews={reviews} />
       </Container>
     </>

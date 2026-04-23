@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/container";
-import { PageHeading } from "@/components/page-heading";
+import { SectionMasthead } from "@/components/section-masthead";
 import { CategoryFilter } from "@/components/category-filter";
 import { getReviews } from "@/lib/content";
 
@@ -16,13 +16,14 @@ export default function SupplementsPage() {
   return (
     <>
       <Container>
-        <PageHeading
-          eyebrow={`${reviews.length} reviews`}
+        <SectionMasthead
+          volume="Vol. II — Supplements"
           title="Supplements"
-          description="Vitamins, minerals, nootropics, adaptogens. What I took, how long, and whether I noticed anything."
+          intro="Vitamins, minerals, nootropics, adaptogens. What I took, how long, and whether I felt anything."
+          reviews={reviews}
         />
       </Container>
-      <Container className="pb-20">
+      <Container className="py-10 pb-24">
         <CategoryFilter reviews={reviews} />
       </Container>
     </>

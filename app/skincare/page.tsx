@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/container";
-import { PageHeading } from "@/components/page-heading";
+import { SectionMasthead } from "@/components/section-masthead";
 import { CategoryFilter } from "@/components/category-filter";
 import { getReviews } from "@/lib/content";
 
@@ -16,13 +16,14 @@ export default function SkincarePage() {
   return (
     <>
       <Container>
-        <PageHeading
-          eyebrow={`${reviews.length} reviews`}
+        <SectionMasthead
+          volume="Vol. I — Skincare"
           title="Skincare"
-          description="Cleansers, serums, moisturizers, sunscreens. Everything I've put on my face — what worked, what didn't."
+          intro="Cleansers, serums, moisturizers, sunscreens. Every product that's lived on my face for a month."
+          reviews={reviews}
         />
       </Container>
-      <Container className="pb-20">
+      <Container className="py-10 pb-24">
         <CategoryFilter reviews={reviews} />
       </Container>
     </>

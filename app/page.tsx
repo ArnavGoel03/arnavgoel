@@ -26,31 +26,62 @@ export default function HomePage() {
     <>
       <PersonJsonLd />
 
-      {/* Hero */}
-      <section className="relative overflow-hidden border-b border-stone-200/70 bg-gradient-to-b from-stone-50 to-white">
-        <Container className="py-20 sm:py-28">
-          <div className="max-w-2xl">
-            <p className="mb-4 text-xs uppercase tracking-[0.2em] text-stone-500">
-              {site.location}
+      {/* Hero — magazine cover */}
+      <section className="relative overflow-hidden border-b border-stone-300 bg-gradient-to-b from-stone-50 via-stone-50 to-white">
+        <Container className="pt-12 pb-20 sm:pt-16 sm:pb-28">
+          {/* Masthead rule: location · issue · date */}
+          <div className="mb-10 flex items-baseline justify-between gap-4 text-[11px] uppercase tracking-[0.22em] text-stone-500">
+            <span className="flex items-baseline gap-2">
+              <span className="text-rose-400">❋</span>
+              <span>{site.location}</span>
+            </span>
+            <span className="font-mono text-stone-400">
+              Issue №{" "}
+              {String(totalReviews + photosCount + notesCount).padStart(2, "0")}
+            </span>
+          </div>
+
+          <div className="max-w-3xl">
+            {/* Italic editorial label */}
+            <p className="font-serif text-xl italic text-stone-500 sm:text-2xl">
+              An honest catalog of —
             </p>
-            <h1 className="font-serif text-5xl leading-[1.05] text-stone-900 sm:text-7xl">
+
+            <h1 className="mt-2 font-serif text-[14vw] leading-[0.92] tracking-[-0.045em] text-stone-900 sm:text-8xl">
               {site.name}
               <span className="text-rose-400">.</span>
             </h1>
-            <p className="mt-6 text-xl leading-relaxed text-stone-600 sm:text-2xl">
+
+            <p className="mt-8 max-w-2xl font-serif text-xl leading-snug text-stone-600 sm:text-2xl">
               {site.bio}
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-4 text-xs uppercase tracking-[0.18em] text-stone-500">
-              <span>
-                <span className="font-semibold text-stone-900">{totalReviews}</span> reviews
-              </span>
-              <span aria-hidden className="text-stone-300">·</span>
-              <span>
-                <span className="font-semibold text-stone-900">0</span> sponsored
-              </span>
-              <span aria-hidden className="text-stone-300">·</span>
-              <span>Updated weekly</span>
+            {/* Trust strip — newsstand-style */}
+            <div className="mt-10 flex flex-wrap items-baseline gap-x-8 gap-y-3 border-y border-stone-200 py-5">
+              <div className="flex items-baseline gap-2">
+                <span className="font-display text-2xl font-light tabular-nums text-stone-900">
+                  {totalReviews}
+                </span>
+                <span className="text-[10px] uppercase tracking-[0.18em] text-stone-500">
+                  reviews
+                </span>
+              </div>
+              <div className="flex items-baseline gap-2">
+                <span className="font-display text-2xl font-light tabular-nums text-stone-900">
+                  0
+                </span>
+                <span className="text-[10px] uppercase tracking-[0.18em] text-stone-500">
+                  sponsored
+                </span>
+              </div>
+              <div className="flex items-baseline gap-2">
+                <span className="font-display text-2xl font-light tabular-nums text-stone-900">
+                  ∞
+                </span>
+                <span className="text-[10px] uppercase tracking-[0.18em] text-stone-500">
+                  unfiltered opinions
+                </span>
+              </div>
             </div>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -62,10 +93,10 @@ export default function HomePage() {
             <div className="mt-10 flex flex-wrap gap-3">
               <Link
                 href="/skincare"
-                className="inline-flex items-center gap-2 rounded-full bg-stone-900 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-stone-800"
+                className="group inline-flex items-center gap-2 rounded-full bg-stone-900 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-stone-800"
               >
                 Read the latest reviews
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
               <Link
                 href="/now"
