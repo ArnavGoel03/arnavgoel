@@ -1,7 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 import type { BuyLink, Review } from "@/lib/types";
 import { affiliatize } from "@/lib/affiliate";
-import { themeForRetailer } from "@/lib/retailers";
+import { availabilityLabel, themeForRetailer } from "@/lib/retailers";
 import { cn } from "@/lib/utils";
 
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
@@ -118,6 +118,8 @@ export function ReviewMeta({ review }: { review: Review }) {
     india.length > 0 ||
     western.length > 0 ||
     uk.length > 0;
+  const availability = availabilityLabel(review);
+  const isRegionLocked = availability?.endsWith("only") ?? false;
 
   return (
     <div className="space-y-4">
@@ -129,6 +131,16 @@ export function ReviewMeta({ review }: { review: Review }) {
           <Row
             label={review.skinType ? "Skin type" : "Best for"}
             value={<span className="capitalize">{tags.join(", ")}</span>}
+          />
+        )}
+        {availability && (
+          <Row
+            label="Sold in"
+            value={
+              <span className={isRegionLocked ? "text-amber-700" : undefined}>
+                {availability}
+              </span>
+            }
           />
         )}
         <Row
@@ -150,6 +162,18 @@ export function ReviewMeta({ review }: { review: Review }) {
           })}
         />
       </dl>
+
+      {isRegionLocked && (
+        <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+          <span className="font-medium">Heads up:</span> this product is only
+          stocked by{" "}
+          <span className="italic">
+            {availability!.replace(" only", "")}
+          </span>{" "}
+          retailers — readers outside that region may need to import or find a
+          local equivalent.
+        </div>
+      )}
 
       {hasAnyLink && (
         <div className="space-y-3">

@@ -1,9 +1,12 @@
 import Link from "next/link";
 import { RatingPill } from "./rating-pill";
+import { availabilityLabel } from "@/lib/retailers";
 import type { ReviewSummary } from "@/lib/types";
 
 export function ProductCard({ review }: { review: ReviewSummary }) {
   const href = `/${review.kind}/${review.slug}`;
+  const availability = availabilityLabel(review);
+  const isRegionLocked = availability?.endsWith("only") ?? false;
   return (
     <Link
       href={href}
@@ -53,6 +56,22 @@ export function ProductCard({ review }: { review: ReviewSummary }) {
         {review.summary && (
           <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-stone-600">
             {review.summary}
+          </p>
+        )}
+        {availability && (
+          <p
+            className={
+              "mt-2 text-[10px] uppercase tracking-[0.18em] " +
+              (isRegionLocked ? "text-amber-700" : "text-stone-400")
+            }
+          >
+            {isRegionLocked ? "Sold in " : "Sold in "}
+            {availability.replace(" only", "").replace(" + ", " + ")}
+            {isRegionLocked && (
+              <span className="ml-1 normal-case tracking-normal italic text-amber-600">
+                only
+              </span>
+            )}
           </p>
         )}
       </div>

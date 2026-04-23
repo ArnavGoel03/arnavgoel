@@ -229,3 +229,44 @@ export function availableInRegion(
   if (review.westernLinks && review.westernLinks.length > 0) return true;
   return regionForUrl(review.boughtFromUrl) === "usa";
 }
+
+const REGION_NAME: Record<Region, string> = {
+  india: "India",
+  usa: "USA",
+  uk: "UK",
+};
+
+export function availableRegions(review: {
+  boughtFromUrl?: string;
+  indiaLinks?: { url: string }[];
+  westernLinks?: { url: string }[];
+  ukLinks?: { url: string }[];
+}): Region[] {
+  return (["india", "usa", "uk"] as const).filter((r) =>
+    availableInRegion(review, r),
+  );
+}
+
+/**
+ * Short human label describing where a review's product can be bought.
+ * Returns null if no buy links exist at all.
+ *
+ *   ["india"]               → "India only"
+ *   ["usa"]                 → "USA only"
+ *   ["uk"]                  → "UK only"
+ *   ["india", "usa"]        → "India + USA"
+ *   ["india", "usa", "uk"]  → "India · USA · UK"
+ */
+export function availabilityLabel(review: {
+  boughtFromUrl?: string;
+  indiaLinks?: { url: string }[];
+  westernLinks?: { url: string }[];
+  ukLinks?: { url: string }[];
+}): string | null {
+  const regions = availableRegions(review);
+  if (regions.length === 0) return null;
+  if (regions.length === 1) return `${REGION_NAME[regions[0]]} only`;
+  if (regions.length === 2)
+    return `${REGION_NAME[regions[0]]} + ${REGION_NAME[regions[1]]}`;
+  return regions.map((r) => REGION_NAME[r]).join(" · ");
+}
