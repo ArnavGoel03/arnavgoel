@@ -40,7 +40,7 @@ const reviewSchema = z.object({
     z.boolean(),
   ),
   datePublished: z.string().trim().min(1, "required"),
-  summary: z.string().trim().min(1, "required"),
+  summary: z.string().optional().transform((v) => (v ?? "").trim()),
   body: z.string().optional(),
 });
 
@@ -124,7 +124,7 @@ function buildReviewMdx(d: {
   }
   lines.push(`repurchase: ${d.repurchase}`);
   lines.push(`datePublished: "${d.datePublished}"`);
-  lines.push(`summary: ${yamlString(d.summary)}`);
+  if (d.summary) lines.push(`summary: ${yamlString(d.summary)}`);
   lines.push("---");
   lines.push("");
   lines.push(d.body.trim());
@@ -239,6 +239,35 @@ export async function updateReview(
     path: repoPath,
     message: `Updated ${repoPath}. Live in ~30–60s once Vercel redeploys.`,
   };
+}
+
+export async function uploadProductImage(
+  formData: FormData,
+): Promise<{ ok: boolean; url?: string; error?: string }> {
+  const file = formData.get("file");
+  if (!(file instanceof File) || file.size === 0) {
+    return { ok: false, error: "No file received." };
+  }
+  const origName = file.name || "upload";
+  const ext = origName.includes(".") ? origName.split(".").pop()! : "bin";
+  const base =
+    origName
+      .replace(/\.[^.]+$/, "")
+      .normalize("NFKD")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "") || "product";
+  const key = `products/${base}-${Date.now()}.${ext}`;
+  try {
+    const blob = await put(key, file, {
+      access: "public",
+      addRandomSuffix: false,
+      contentType: file.type || undefined,
+    });
+    return { ok: true, url: blob.url };
+  } catch (err) {
+    return { ok: false, error: (err as Error).message };
+  }
 }
 
 export async function createPhoto(

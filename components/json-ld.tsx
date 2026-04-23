@@ -80,7 +80,7 @@ export function ReviewJsonLd({ review }: { review: Review }) {
     },
     author: { "@type": "Person", name: site.name, url: site.url },
     datePublished: review.datePublished,
-    reviewBody: review.summary,
+    reviewBody: review.summary || `${review.brand} ${review.name}`,
     publisher: { "@type": "Organization", name: site.name, url: site.url },
   };
   return (

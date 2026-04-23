@@ -20,14 +20,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const review = getReview("skincare", slug);
   if (!review) return {};
+  const description = review.summary || `${review.brand} ${review.name} — review.`;
   return {
     title: `${review.name} by ${review.brand} — Review`,
-    description: review.summary,
+    description,
     alternates: { canonical: `/skincare/${review.slug}` },
     openGraph: {
       type: "article",
       title: `${review.name} by ${review.brand}`,
-      description: review.summary,
+      description,
       publishedTime: review.datePublished,
     },
   };
@@ -60,9 +61,11 @@ export default async function SkincareReviewPage({ params }: Props) {
             </h1>
             <RatingPill rating={review.rating} size="lg" />
           </div>
-          <p className="mt-6 max-w-2xl text-xl leading-relaxed text-stone-600">
-            {review.summary}
-          </p>
+          {review.summary && (
+            <p className="mt-6 max-w-2xl text-xl leading-relaxed text-stone-600">
+              {review.summary}
+            </p>
+          )}
         </header>
 
         <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_320px]">

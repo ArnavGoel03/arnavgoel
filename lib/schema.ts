@@ -17,7 +17,7 @@ export const reviewFrontmatter = z.object({
   cons: z.array(z.string()).default([]),
   repurchase: z.boolean().default(false),
   datePublished: z.string(),
-  summary: z.string().min(1),
+  summary: z.string().default(""),
 });
 
 export const noteFrontmatter = z.object({

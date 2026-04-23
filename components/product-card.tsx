@@ -33,9 +33,11 @@ export function ProductCard({ review }: { review: ReviewSummary }) {
         <h3 className="font-serif text-xl leading-snug text-stone-900">
           {review.name}
         </h3>
-        <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-stone-600">
-          {review.summary}
-        </p>
+        {review.summary && (
+          <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-stone-600">
+            {review.summary}
+          </p>
+        )}
       </div>
     </Link>
   );
