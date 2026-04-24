@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Suspense } from "react";
 import { Inter, JetBrains_Mono, Instrument_Serif, Fraunces } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
@@ -105,7 +106,12 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
           <CommandPaletteMount />
-          <SiteTourMount />
+          {/* Suspense wrap is required because SiteTourMount calls
+              useSearchParams(); without it, static prerender of /404
+              bails and the whole build fails. */}
+          <Suspense fallback={null}>
+            <SiteTourMount />
+          </Suspense>
         </CompareProvider>
       </body>
     </html>

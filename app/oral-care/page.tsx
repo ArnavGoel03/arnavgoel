@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Container } from "@/components/container";
 import { SectionMasthead } from "@/components/section-masthead";
 import { CategoryFilter } from "@/components/category-filter";
@@ -27,7 +28,9 @@ export default function OralCarePage() {
       <Container className="py-10 pb-24">
         <CategoryFilter reviews={reviews} />
       </Container>
-      <ListingTourMount />
+      <Suspense fallback={null}>
+        <ListingTourMount />
+      </Suspense>
     </>
   );
 }

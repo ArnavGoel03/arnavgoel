@@ -21,8 +21,8 @@ export function PhotoTile({ photo, index }: { photo: Photo; index: number }) {
   const frameNumber = String(index + 1).padStart(2, "0");
 
   return (
-    <figure className="group mb-10 break-inside-avoid">
-      <div className="mb-2 flex items-baseline justify-between text-[10px] uppercase tracking-[0.22em] text-stone-400 dark:text-stone-500">
+    <figure className="group break-inside-avoid">
+      <div className="mb-3 flex items-baseline justify-between text-[10px] uppercase tracking-[0.22em] text-stone-400 dark:text-stone-500">
         <span className="font-mono">№ {frameNumber}</span>
         {photo.location && (
           <span className="font-serif italic normal-case tracking-normal text-stone-500 dark:text-stone-400">
@@ -32,7 +32,7 @@ export function PhotoTile({ photo, index }: { photo: Photo; index: number }) {
       </div>
 
       <div
-        className="relative w-full overflow-hidden border border-stone-300 bg-stone-50 dark:border-stone-800 dark:bg-stone-900"
+        className="relative w-full overflow-hidden bg-stone-100 dark:bg-stone-900"
         style={{ aspectRatio: aspect }}
       >
         {exists ? (
@@ -40,28 +40,94 @@ export function PhotoTile({ photo, index }: { photo: Photo; index: number }) {
             src={photo.src}
             alt={photo.alt}
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover transition-transform duration-700 group-hover:scale-[1.015]"
+            sizes="(max-width: 640px) 100vw, 50vw"
+            className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.015]"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center p-6 text-center">
-            <p className="font-mono text-[10px] uppercase tracking-wider text-stone-400 dark:text-stone-500">
+            <p className="font-mono text-[10px] uppercase tracking-wider text-stone-500 dark:text-stone-500">
               {photo.src}
             </p>
           </div>
         )}
       </div>
 
-      <figcaption className="mt-3 flex items-baseline justify-between gap-4">
-        <span className="font-serif italic leading-snug text-stone-700 dark:text-stone-300">
+      <figcaption className="mt-4 flex items-baseline justify-between gap-4">
+        <span className="font-serif text-base italic leading-snug text-stone-700 dark:text-stone-200 sm:text-lg">
           {photo.caption}
         </span>
         <time
           dateTime={photo.date}
-          className="shrink-0 font-mono text-[10px] uppercase tracking-wider text-stone-400 tabular-nums dark:text-stone-500"
+          className="shrink-0 font-mono text-[10px] uppercase tracking-[0.2em] text-stone-400 tabular-nums dark:text-stone-500"
         >
           {formatDate(photo.date)}
         </time>
+      </figcaption>
+    </figure>
+  );
+}
+
+/**
+ * Cover-frame treatment for the first photo in the roll. Bleeds to the
+ * viewport edges on desktop, clamps height so portraits don't run off
+ * screen, and pairs the image with a larger italic caption below.
+ */
+export function PhotoHero({ photo, index }: { photo: Photo; index: number }) {
+  const exists = fileExists(photo.src);
+  const aspect = `${photo.width} / ${photo.height}`;
+  const frameNumber = String(index + 1).padStart(2, "0");
+
+  return (
+    <figure className="group">
+      <div
+        className="relative w-full overflow-hidden bg-stone-100 dark:bg-stone-900"
+        style={{ aspectRatio: aspect, maxHeight: "85vh" }}
+      >
+        {exists ? (
+          <Image
+            src={photo.src}
+            alt={photo.alt}
+            fill
+            sizes="100vw"
+            priority
+            className="object-cover"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center p-6 text-center">
+            <p className="font-mono text-[10px] uppercase tracking-wider text-stone-500">
+              {photo.src}
+            </p>
+          </div>
+        )}
+      </div>
+
+      <figcaption className="mx-auto mt-6 flex max-w-5xl flex-col gap-3 px-6 sm:mt-8">
+        <div className="flex items-baseline justify-between gap-4 text-[10px] uppercase tracking-[0.22em] text-stone-400 dark:text-stone-500">
+          <span className="flex items-baseline gap-3">
+            <span className="font-mono">Frame № {frameNumber}</span>
+            {photo.location && (
+              <>
+                <span aria-hidden className="text-stone-300 dark:text-stone-700">
+                  ·
+                </span>
+                <span className="font-serif italic normal-case tracking-normal text-stone-500 dark:text-stone-400">
+                  {photo.location}
+                </span>
+              </>
+            )}
+          </span>
+          <time
+            dateTime={photo.date}
+            className="shrink-0 font-mono tabular-nums"
+          >
+            {formatDate(photo.date)}
+          </time>
+        </div>
+        {photo.caption && (
+          <p className="max-w-3xl font-serif text-xl italic leading-snug text-stone-700 dark:text-stone-200 sm:text-2xl">
+            {photo.caption}
+          </p>
+        )}
       </figcaption>
     </figure>
   );
