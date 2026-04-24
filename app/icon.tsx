@@ -4,6 +4,12 @@ export const runtime = "nodejs";
 export const size = { width: 32, height: 32 };
 export const contentType = "image/png";
 
+/**
+ * 32x32 favicon. Dark mark on a near-black plate, which reads equally
+ * well against light and dark browser chrome (inverting the old light
+ * plate fixes the 'red lines on a white square' look that jumped out
+ * against the dark site body).
+ */
 export default function Icon() {
   return new ImageResponse(
     (
@@ -14,7 +20,7 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#fafaf8",
+          background: "#1c1917",
           color: "#fb7185",
           fontSize: 26,
           lineHeight: 1,

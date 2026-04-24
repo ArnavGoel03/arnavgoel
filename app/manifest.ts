@@ -1,6 +1,18 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
 
+/**
+ * PWA manifest. Dark-first, matching the site's house style:
+ *   - theme_color / background_color point at the stone-950 body so
+ *     Android's status bar and iOS splash screens blend into the page
+ *     rather than flashing a cream plate between launch and hydration.
+ *   - Icons ship at 192 and 512, with the 512 doubling as a maskable
+ *     source for Android adaptive launchers (the glyph is padded inside
+ *     the safe zone in icon2.tsx).
+ *   - Shortcuts surface the three review shelves directly from the
+ *     home-screen icon on platforms that honor them (Android, Samsung,
+ *     Windows Start Menu).
+ */
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: `${site.name}, ${site.tagline}`,
@@ -10,8 +22,8 @@ export default function manifest(): MetadataRoute.Manifest {
     scope: "/",
     display: "standalone",
     orientation: "portrait",
-    background_color: "#fafaf8",
-    theme_color: "#fafaf8",
+    background_color: "#1c1917",
+    theme_color: "#1c1917",
     categories: ["lifestyle", "health", "magazines"],
     icons: [
       {
@@ -36,6 +48,32 @@ export default function manifest(): MetadataRoute.Manifest {
         src: "/apple-icon",
         sizes: "180x180",
         type: "image/png",
+      },
+    ],
+    shortcuts: [
+      {
+        name: "Skincare",
+        short_name: "Skincare",
+        description: "Cleansers, serums, moisturizers, sunscreens.",
+        url: "/skincare",
+      },
+      {
+        name: "Supplements",
+        short_name: "Supplements",
+        description: "Vitamins, minerals, nootropics, adaptogens.",
+        url: "/supplements",
+      },
+      {
+        name: "Oral care",
+        short_name: "Oral care",
+        description: "Electric brushes, pastes, mouthwash, floss.",
+        url: "/oral-care",
+      },
+      {
+        name: "Now",
+        short_name: "Now",
+        description: "What's on the shelf this month.",
+        url: "/now",
       },
     ],
   };

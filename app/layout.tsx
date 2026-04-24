@@ -73,11 +73,11 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fafaf8" },
-    { media: "(prefers-color-scheme: dark)", color: "#1c1917" },
-  ],
-  colorScheme: "light dark",
+  // Site defaults to dark regardless of OS preference, so the theme
+  // color on every platform should match the dark body. Users who
+  // manually toggle to light accept a small chrome-tint mismatch.
+  themeColor: "#1c1917",
+  colorScheme: "dark light",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,

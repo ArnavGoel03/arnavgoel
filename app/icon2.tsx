@@ -4,8 +4,11 @@ export const runtime = "nodejs";
 export const size = { width: 512, height: 512 };
 export const contentType = "image/png";
 
-// 512x512 "maskable-safe": keeps the glyph inside a 410px center square
-// (≈20% total padding) so Android adaptive-icon masks don't clip the mark.
+/**
+ * 512x512 PWA icon, used for the maskable variant on Android adaptive
+ * launchers. Glyph sits inside the 80% safe zone so a circular or
+ * rounded-square mask never clips the mark.
+ */
 export default function Icon512() {
   return new ImageResponse(
     (
@@ -16,7 +19,8 @@ export default function Icon512() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#fafaf8",
+          background:
+            "radial-gradient(ellipse at 70% 20%, #2a2624 0%, #1c1917 55%, #171412 100%)",
           color: "#fb7185",
           fontSize: 300,
           lineHeight: 1,
