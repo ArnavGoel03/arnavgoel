@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 
 function SectionLabel({ num, label }: { num: string; label: string }) {
   return (
-    <h2 className="mt-14 mb-5 flex items-baseline gap-3 border-b border-stone-200 pb-2 font-serif text-2xl text-stone-900 sm:text-3xl">
-      <span className="font-display text-base font-light tabular-nums text-stone-300">
+    <h2 className="mt-14 mb-5 flex items-baseline gap-3 border-b border-stone-200 pb-2 font-serif text-2xl text-stone-900 dark:border-stone-800 dark:text-stone-100 sm:text-3xl">
+      <span className="font-display text-base font-light tabular-nums text-stone-300 dark:text-stone-700">
         {num}
       </span>
       <span className="italic">{label}</span>
@@ -20,24 +20,29 @@ function SectionLabel({ num, label }: { num: string; label: string }) {
   );
 }
 
+const linkClass =
+  "font-medium text-stone-900 underline decoration-stone-300 underline-offset-4 hover:decoration-rose-400 dark:text-stone-100 dark:decoration-stone-700 dark:hover:decoration-rose-400";
+
 export default function AboutPage() {
   return (
     <Container className="max-w-3xl py-12 sm:py-16">
-      <div className="mb-8 flex items-baseline justify-between gap-4 text-[11px] uppercase tracking-[0.22em] text-stone-500">
+      <div className="mb-8 flex items-baseline justify-between gap-4 text-[11px] uppercase tracking-[0.22em] text-stone-500 dark:text-stone-400">
         <span className="flex items-baseline gap-2">
           <span className="text-rose-400">❋</span>
           <span>The author -</span>
         </span>
-        <span className="font-mono text-stone-400">{site.location}</span>
+        <span className="font-mono text-stone-400 dark:text-stone-500">
+          {site.location}
+        </span>
       </div>
 
-      <h1 className="font-serif text-[12vw] leading-[0.92] tracking-[-0.04em] text-stone-900 sm:text-8xl">
+      <h1 className="font-serif text-[12vw] leading-[0.92] tracking-[-0.04em] text-stone-900 dark:text-stone-100 sm:text-8xl">
         Hi, I&apos;m {site.shortName}<span className="text-rose-400">.</span>
       </h1>
 
-      <div className="mt-10 max-w-2xl text-lg leading-relaxed text-stone-700">
+      <div className="mt-10 max-w-2xl text-lg leading-relaxed text-stone-700 dark:text-stone-300">
         <p>
-          <span className="float-left mr-3 mt-1 font-display text-7xl font-light leading-[0.8] text-stone-900 sm:text-8xl">
+          <span className="float-left mr-3 mt-1 font-display text-7xl font-light leading-[0.8] text-stone-900 dark:text-stone-100 sm:text-8xl">
             I
           </span>
           live in {site.location}. This is the corner of the internet where I
@@ -47,7 +52,7 @@ export default function AboutPage() {
         </p>
 
         <SectionLabel num="01" label="The rules I write by" />
-        <ul className="space-y-3 text-stone-700">
+        <ul className="space-y-3">
           <li className="flex gap-3">
             <span aria-hidden className="mt-1.5 text-rose-400">❋</span>
             <span>I have to use the product for at least a month before I rate it.</span>
@@ -84,18 +89,18 @@ export default function AboutPage() {
           filtering possible. But a single rating is a lie by compression.
           It can&apos;t capture:
         </p>
-        <ul className="mt-4 space-y-3 text-stone-700">
+        <ul className="mt-4 space-y-3">
           <li className="flex gap-3">
             <span aria-hidden className="mt-1.5 text-rose-400">❋</span>
             <span>
-              <strong className="font-serif text-stone-900">Context.</strong>{" "}
+              <strong className="font-serif text-stone-900 dark:text-stone-100">Context.</strong>{" "}
               A 7.5 for oily skin might be a 9 for dry skin, and the opposite.
             </span>
           </li>
           <li className="flex gap-3">
             <span aria-hidden className="mt-1.5 text-rose-400">❋</span>
             <span>
-              <strong className="font-serif text-stone-900">Price.</strong>{" "}
+              <strong className="font-serif text-stone-900 dark:text-stone-100">Price.</strong>{" "}
               A $15 product at 7 is a different product than a $200 product
               at 7.
             </span>
@@ -103,19 +108,19 @@ export default function AboutPage() {
           <li className="flex gap-3">
             <span aria-hidden className="mt-1.5 text-rose-400">❋</span>
             <span>
-              <strong className="font-serif text-stone-900">Routine fit.</strong>{" "}
+              <strong className="font-serif text-stone-900 dark:text-stone-100">Routine fit.</strong>{" "}
               A product is only as good as the things around it in a routine.
             </span>
           </li>
           <li className="flex gap-3">
             <span aria-hidden className="mt-1.5 text-rose-400">❋</span>
             <span>
-              <strong className="font-serif text-stone-900">Life stage.</strong>{" "}
+              <strong className="font-serif text-stone-900 dark:text-stone-100">Life stage.</strong>{" "}
               What works on 24-year-old skin may not work on 44-year-old skin.
             </span>
           </li>
         </ul>
-        <p className="mt-5 font-serif italic text-stone-700">
+        <p className="mt-5 font-serif italic">
           The number is a shortcut; the prose is where the real opinion lives.
           If you&apos;re deciding whether to buy something, read the body
           before the score.
@@ -130,13 +135,13 @@ export default function AboutPage() {
 
         <SectionLabel num="04" label="Sections" />
         <p>
-          <a href="/skincare" className="font-medium text-stone-900 underline decoration-stone-300 underline-offset-4 hover:decoration-rose-400">Skincare</a>,{" "}
-          <a href="/supplements" className="font-medium text-stone-900 underline decoration-stone-300 underline-offset-4 hover:decoration-rose-400">supplements</a>,{" "}
-          <a href="/oral-care" className="font-medium text-stone-900 underline decoration-stone-300 underline-offset-4 hover:decoration-rose-400">oral care</a>, the reviews.{" "}
-          <a href="/photos" className="font-medium text-stone-900 underline decoration-stone-300 underline-offset-4 hover:decoration-rose-400">Photos</a> for the ones I shot on a DSLR.{" "}
-          <a href="/notes" className="font-medium text-stone-900 underline decoration-stone-300 underline-offset-4 hover:decoration-rose-400">Notes</a> for the slower writing.{" "}
-          <a href="/now" className="font-medium text-stone-900 underline decoration-stone-300 underline-offset-4 hover:decoration-rose-400">Now</a> for what&apos;s on the shelf this month.{" "}
-          <a href="/links" className="font-medium text-stone-900 underline decoration-stone-300 underline-offset-4 hover:decoration-rose-400">Links</a> if you want to find me elsewhere.
+          <a href="/skincare" className={linkClass}>Skincare</a>,{" "}
+          <a href="/supplements" className={linkClass}>supplements</a>,{" "}
+          <a href="/oral-care" className={linkClass}>oral care</a>, the reviews.{" "}
+          <a href="/photos" className={linkClass}>Photos</a> for the ones I shot on a DSLR.{" "}
+          <a href="/notes" className={linkClass}>Notes</a> for the slower writing.{" "}
+          <a href="/now" className={linkClass}>Now</a> for what&apos;s on the shelf this month.{" "}
+          <a href="/links" className={linkClass}>Links</a> if you want to find me elsewhere.
         </p>
 
         <SectionLabel num="05" label="My day job" />
@@ -147,7 +152,7 @@ export default function AboutPage() {
             href={site.professionalUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-baseline gap-1 font-medium text-stone-900 underline decoration-stone-300 underline-offset-4 hover:decoration-rose-400"
+            className={`inline-flex items-baseline gap-1 ${linkClass}`}
           >
             {site.professionalName}
             <ArrowUpRight className="h-3.5 w-3.5 self-center" />
@@ -158,16 +163,18 @@ export default function AboutPage() {
         <SectionLabel num="06" label="Get in touch" />
         <p>
           Email or any of the socials on the{" "}
-          <a href="/links" className="font-medium text-stone-900 underline decoration-stone-300 underline-offset-4 hover:decoration-rose-400">
+          <a href="/links" className={linkClass}>
             links page
           </a>
           . I read everything; I reply to most things.
         </p>
       </div>
 
-      <div className="mt-20 border-t border-stone-200 pt-8 text-center">
-        <p className="font-serif text-3xl italic text-stone-700">- {site.shortName}</p>
-        <p className="mt-2 text-[10px] uppercase tracking-[0.22em] text-stone-400">
+      <div className="mt-20 border-t border-stone-200 pt-8 text-center dark:border-stone-800">
+        <p className="font-serif text-3xl italic text-stone-700 dark:text-stone-300">
+          - {site.shortName}
+        </p>
+        <p className="mt-2 text-[10px] uppercase tracking-[0.22em] text-stone-400 dark:text-stone-500">
           ❋ {site.location}
         </p>
       </div>

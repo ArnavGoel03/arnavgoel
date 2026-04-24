@@ -44,30 +44,34 @@ function PrimerRow({ primer, index }: { primer: PrimerSummary; index: number }) 
         href={`/primers/${primer.slug}`}
         className="group flex items-baseline gap-6 py-6"
       >
-        <span className="hidden w-10 shrink-0 font-mono text-xs text-stone-400 tabular-nums sm:inline-block">
+        <span className="hidden w-10 shrink-0 font-mono text-xs text-stone-400 tabular-nums dark:text-stone-500 sm:inline-block">
           №&nbsp;{String(index + 1).padStart(2, "0")}
         </span>
         <div className="min-w-0 flex-1">
-          <h3 className="font-serif text-2xl leading-tight tracking-tight text-stone-900 transition-colors group-hover:text-rose-700 sm:text-3xl">
+          <h3 className="font-serif text-2xl leading-tight tracking-tight text-stone-900 transition-colors group-hover:text-rose-700 dark:text-stone-100 dark:group-hover:text-rose-400 sm:text-3xl">
             {primer.title}
           </h3>
           {primer.subtitle && (
-            <p className="mt-2 font-serif text-base italic leading-relaxed text-stone-600">
+            <p className="mt-2 font-serif text-base italic leading-relaxed text-stone-600 dark:text-stone-300">
               {primer.subtitle}
             </p>
           )}
           {primer.stack.length > 0 && (
-            <div className="mt-3 flex flex-wrap gap-x-2 gap-y-1 text-[10px] uppercase tracking-[0.18em] text-stone-400">
+            <div className="mt-3 flex flex-wrap gap-x-2 gap-y-1 text-[10px] uppercase tracking-[0.18em] text-stone-400 dark:text-stone-500">
               {primer.stack.map((s, i) => (
                 <span key={s}>
-                  {i > 0 && <span className="mr-2 text-stone-300">·</span>}
+                  {i > 0 && (
+                    <span className="mr-2 text-stone-300 dark:text-stone-700">
+                      ·
+                    </span>
+                  )}
                   {s}
                 </span>
               ))}
             </div>
           )}
         </div>
-        <span className="shrink-0 text-[10px] uppercase tracking-[0.18em] text-stone-400">
+        <span className="shrink-0 text-[10px] uppercase tracking-[0.18em] text-stone-400 dark:text-stone-500">
           {primer.kind === "stack" ? "Stack" : "Ingredient"}
         </span>
       </Link>
@@ -84,15 +88,15 @@ function DomainGroup({
 }) {
   return (
     <section>
-      <div className="mb-6 flex items-baseline justify-between border-b border-stone-200 pb-2">
-        <h2 className="font-display text-4xl font-light tracking-tight text-stone-900 sm:text-5xl">
+      <div className="mb-6 flex items-baseline justify-between border-b border-stone-200 pb-2 dark:border-stone-800">
+        <h2 className="font-display text-4xl font-light tracking-tight text-stone-900 dark:text-stone-100 sm:text-5xl">
           {label}
         </h2>
-        <span className="text-[10px] uppercase tracking-[0.2em] text-stone-400">
+        <span className="text-[10px] uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500">
           {items.length} {items.length === 1 ? "entry" : "entries"}
         </span>
       </div>
-      <ol className="divide-y divide-stone-100">
+      <ol className="divide-y divide-stone-100 dark:divide-stone-800">
         {items.map((p, i) => (
           <PrimerRow key={p.slug} primer={p} index={i} />
         ))}
@@ -115,29 +119,31 @@ export default function PrimersPage() {
 
   return (
     <Container className="max-w-4xl py-12 sm:py-16">
-      <div className="mb-8 flex items-baseline justify-between gap-4 text-[11px] uppercase tracking-[0.22em] text-stone-500">
+      <div className="mb-8 flex items-baseline justify-between gap-4 text-[11px] uppercase tracking-[0.22em] text-stone-500 dark:text-stone-400">
         <span className="flex items-baseline gap-2">
           <span className="text-rose-400">❋</span>
           <span>The reading room</span>
         </span>
-        <span className="font-mono text-stone-400">{today}</span>
+        <span className="font-mono text-stone-400 dark:text-stone-500">
+          {today}
+        </span>
       </div>
 
-      <h1 className="font-serif text-[12vw] leading-[0.92] tracking-[-0.04em] text-stone-900 sm:text-8xl">
+      <h1 className="font-serif text-[12vw] leading-[0.92] tracking-[-0.04em] text-stone-900 dark:text-stone-100 sm:text-8xl">
         Primers<span className="text-rose-400">.</span>
       </h1>
-      <p className="mt-6 max-w-2xl font-serif text-xl italic leading-snug text-stone-600 sm:text-2xl">
+      <p className="mt-6 max-w-2xl font-serif text-xl italic leading-snug text-stone-600 dark:text-stone-300 sm:text-2xl">
         High-signal reference pages on ingredients and stacks. No filler,
         no marketing, the parts of a topic you actually need before a
         review makes sense.
       </p>
 
       {primers.length === 0 ? (
-        <p className="mt-16 py-12 text-center text-stone-500">
+        <p className="mt-16 py-12 text-center text-stone-500 dark:text-stone-400">
           No primers yet. Come back soon.
         </p>
       ) : (
-        <div className="mt-16 space-y-16 border-t border-stone-300 pt-10">
+        <div className="mt-16 space-y-16 border-t border-stone-300 pt-10 dark:border-stone-800">
           {(["supplement", "skincare", "oral", "meta"] as const).map((d) =>
             grouped[d].length > 0 ? (
               <DomainGroup key={d} label={DOMAIN_LABEL[d]} items={grouped[d]} />

@@ -18,18 +18,18 @@ export default function SearchPage() {
 
   return (
     <Container className="max-w-3xl py-12 sm:py-16">
-      <div className="mb-8 flex items-baseline justify-between gap-4 text-[11px] uppercase tracking-[0.22em] text-stone-500">
+      <div className="mb-8 flex items-baseline justify-between gap-4 text-[11px] uppercase tracking-[0.22em] text-stone-500 dark:text-stone-400">
         <span className="flex items-baseline gap-2">
           <span className="text-rose-400">❋</span>
           <span>Find something</span>
         </span>
-        <span className="font-mono text-stone-400">{today}</span>
+        <span className="font-mono text-stone-400 dark:text-stone-500">{today}</span>
       </div>
 
-      <h1 className="font-serif text-[12vw] leading-[0.92] tracking-[-0.04em] text-stone-900 sm:text-7xl">
+      <h1 className="font-serif text-[12vw] leading-[0.92] tracking-[-0.04em] text-stone-900 sm:text-7xl dark:text-stone-100">
         Search<span className="text-rose-400">.</span>
       </h1>
-      <p className="mt-6 mb-12 max-w-2xl font-serif text-lg italic leading-snug text-stone-600 sm:text-xl">
+      <p className="mt-6 mb-12 max-w-2xl font-serif text-lg italic leading-snug text-stone-600 sm:text-xl dark:text-stone-300">
         Everything on the shelf, products by name, brand, or ingredient;
         primers by topic; notes by tag.
       </p>

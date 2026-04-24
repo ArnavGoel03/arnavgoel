@@ -44,30 +44,30 @@ export default async function RoutinePage({ params }: Props) {
     <Container className="max-w-3xl py-12 sm:py-16">
       <Link
         href="/routine"
-        className="inline-flex items-center gap-1.5 text-sm text-stone-500 transition-colors hover:text-stone-900"
+        className="inline-flex items-center gap-1.5 text-sm text-stone-500 transition-colors hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
       >
         <ArrowLeft className="h-4 w-4" />
         All routines
       </Link>
 
-      <div className="mt-8 border-b border-stone-300 pb-10">
-        <div className="mb-4 flex items-baseline justify-between gap-4 text-[11px] uppercase tracking-[0.22em] text-stone-500">
+      <div className="mt-8 border-b border-stone-300 pb-10 dark:border-stone-800">
+        <div className="mb-4 flex items-baseline justify-between gap-4 text-[11px] uppercase tracking-[0.22em] text-stone-500 dark:text-stone-400">
           <span className="flex items-baseline gap-2">
             <span className="text-rose-400">❋</span>
             <span>Routine</span>
           </span>
         </div>
-        <h1 className="font-serif text-4xl leading-[1.02] tracking-tight text-stone-900 sm:text-6xl">
+        <h1 className="font-serif text-4xl leading-[1.02] tracking-tight text-stone-900 sm:text-6xl dark:text-stone-100">
           {ROUTINE_LABELS[routine]}
           <span className="text-rose-400">.</span>
         </h1>
-        <p className="mt-6 max-w-2xl font-serif text-lg italic leading-snug text-stone-600 sm:text-xl">
+        <p className="mt-6 max-w-2xl font-serif text-lg italic leading-snug text-stone-600 sm:text-xl dark:text-stone-300">
           {ROUTINE_DESCRIPTIONS[routine]}
         </p>
       </div>
 
       {items.length === 0 ? (
-        <p className="mt-16 py-12 text-center text-stone-500">
+        <p className="mt-16 py-12 text-center text-stone-500 dark:text-stone-400">
           Nothing tagged into this routine yet.
         </p>
       ) : (
@@ -96,10 +96,10 @@ function Section({
 }) {
   return (
     <section>
-      <h2 className="mb-4 border-b border-stone-200 pb-2 font-display text-3xl font-light tracking-tight text-stone-900">
+      <h2 className="mb-4 border-b border-stone-200 pb-2 font-display text-3xl font-light tracking-tight text-stone-900 dark:text-stone-100 dark:border-stone-800">
         {label}
       </h2>
-      <ol className="divide-y divide-stone-100">
+      <ol className="divide-y divide-stone-100 dark:divide-stone-800">
         {items.map((r) => (
           <li key={`${r.kind}-${r.slug}`} className="py-4">
             <Link
@@ -107,14 +107,14 @@ function Section({
               className="group flex items-baseline justify-between gap-4"
             >
               <div className="min-w-0 flex-1">
-                <p className="text-[10px] uppercase tracking-[0.2em] text-stone-400">
+                <p className="text-[10px] uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500">
                   {r.brand} · {r.category}
                 </p>
-                <h3 className="mt-0.5 font-serif text-lg text-stone-900 transition-colors group-hover:text-rose-700">
+                <h3 className="mt-0.5 font-serif text-lg text-stone-900 transition-colors group-hover:text-rose-700 dark:text-stone-100">
                   {r.name}
                 </h3>
               </div>
-              <span className="shrink-0 text-[10px] uppercase tracking-[0.18em] italic text-stone-400">
+              <span className="shrink-0 text-[10px] uppercase tracking-[0.18em] italic text-stone-400 dark:text-stone-500">
                 {r.verdict ?? "testing"}
               </span>
             </Link>

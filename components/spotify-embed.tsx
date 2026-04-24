@@ -12,7 +12,7 @@ export function SpotifyEmbed({
         src={`https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator`}
         loading="lazy"
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        className="block h-[420px] w-full overflow-hidden rounded-2xl border border-stone-200 md:h-[380px] lg:h-[460px]"
+        className="block h-[420px] w-full overflow-hidden rounded-2xl border border-stone-200 md:h-[380px] lg:h-[460px] dark:border-stone-800"
         style={{ colorScheme: "normal" }}
       />
     </div>

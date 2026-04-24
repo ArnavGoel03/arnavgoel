@@ -146,7 +146,7 @@ export function CommandPalette({ items }: { items: SearchItem[] }) {
         className="w-full max-w-xl overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-2xl dark:border-stone-800 dark:bg-stone-900"
       >
         <div className="relative border-b border-stone-200 dark:border-stone-800">
-          <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" />
+          <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400 dark:text-stone-500" />
           <input
             ref={inputRef}
             value={query}
@@ -162,7 +162,7 @@ export function CommandPalette({ items }: { items: SearchItem[] }) {
             aria-autocomplete="list"
             aria-controls="command-palette-list"
           />
-          <kbd className="pointer-events-none absolute right-4 top-1/2 hidden -translate-y-1/2 rounded border border-stone-200 bg-stone-50 px-1.5 py-0.5 font-mono text-[10px] text-stone-500 sm:inline dark:border-stone-700 dark:bg-stone-800 dark:text-stone-400">
+          <kbd className="pointer-events-none absolute right-4 top-1/2 hidden -translate-y-1/2 rounded border border-stone-200 bg-stone-50 px-1.5 py-0.5 font-mono text-[10px] text-stone-500 sm:inline dark:border-stone-700 dark:bg-stone-800 dark:text-stone-400 dark:border-stone-800 dark:bg-stone-900">
             esc
           </kbd>
         </div>
@@ -188,7 +188,7 @@ export function CommandPalette({ items }: { items: SearchItem[] }) {
               )}
             >
               <div className="min-w-0">
-                <p className="text-[10px] uppercase tracking-[0.2em] text-stone-400">
+                <p className="text-[10px] uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500">
                   {item.subtitle}
                 </p>
                 <p className="truncate font-serif text-sm text-stone-900 dark:text-stone-100">
@@ -196,24 +196,24 @@ export function CommandPalette({ items }: { items: SearchItem[] }) {
                 </p>
               </div>
               {item.verdict && (
-                <span className="shrink-0 text-[10px] uppercase tracking-[0.18em] italic text-stone-400">
+                <span className="shrink-0 text-[10px] uppercase tracking-[0.18em] italic text-stone-400 dark:text-stone-500">
                   {item.verdict}
                 </span>
               )}
             </li>
           ))}
           {results.length === 0 && (
-            <li className="px-4 py-10 text-center font-serif text-sm italic text-stone-500">
+            <li className="px-4 py-10 text-center font-serif text-sm italic text-stone-500 dark:text-stone-400">
               No matches for &ldquo;{query}&rdquo;.
             </li>
           )}
         </ul>
 
-        <div className="flex items-center justify-between border-t border-stone-200 bg-stone-50/80 px-4 py-2 text-[10px] uppercase tracking-[0.18em] text-stone-400 dark:border-stone-800 dark:bg-stone-950/50">
+        <div className="flex items-center justify-between border-t border-stone-200 bg-stone-50/80 px-4 py-2 text-[10px] uppercase tracking-[0.18em] text-stone-400 dark:border-stone-800 dark:bg-stone-950/50 dark:text-stone-500">
           <span className="inline-flex items-center gap-2">
             <kbd className="font-mono">↑↓</kbd>
             navigate
-            <span className="text-stone-300">·</span>
+            <span className="text-stone-300 dark:text-stone-700">·</span>
             <kbd className="font-mono">enter</kbd>
             open
           </span>

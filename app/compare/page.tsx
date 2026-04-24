@@ -45,55 +45,55 @@ export default async function ComparePage({ searchParams }: Props) {
 
   return (
     <Container className="max-w-6xl py-12 sm:py-16">
-      <div className="mb-8 flex items-baseline justify-between gap-4 text-[11px] uppercase tracking-[0.22em] text-stone-500">
+      <div className="mb-8 flex items-baseline justify-between gap-4 text-[11px] uppercase tracking-[0.22em] text-stone-500 dark:text-stone-400">
         <span className="flex items-baseline gap-2">
           <span className="text-rose-400">❋</span>
           <span>Side by side</span>
         </span>
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 text-stone-500 transition-colors hover:text-stone-900"
+          className="inline-flex items-center gap-1.5 text-stone-500 transition-colors hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
           Home
         </Link>
       </div>
 
-      <h1 className="font-serif text-[12vw] leading-[0.92] tracking-[-0.04em] text-stone-900 sm:text-7xl">
+      <h1 className="font-serif text-[12vw] leading-[0.92] tracking-[-0.04em] text-stone-900 sm:text-7xl dark:text-stone-100">
         Compare<span className="text-rose-400">.</span>
       </h1>
-      <p className="mt-6 mb-12 max-w-2xl font-serif text-lg italic leading-snug text-stone-600 sm:text-xl">
+      <p className="mt-6 mb-12 max-w-2xl font-serif text-lg italic leading-snug text-stone-600 sm:text-xl dark:text-stone-300">
         Read two or more reviews next to each other. Pick them with the
         &ldquo;Compare&rdquo; toggle on any product card, then come back here.
       </p>
 
       {reviews.length < 2 ? (
-        <div className="rounded-2xl border border-amber-200 bg-amber-50 p-8 text-center text-stone-700 dark:border-amber-900/40 dark:bg-amber-950/20">
+        <div className="rounded-2xl border border-amber-200 bg-amber-50 p-8 text-center text-stone-700 dark:border-amber-900/40 dark:bg-amber-950/20 dark:text-stone-300">
           <p className="font-serif text-lg">
             {reviews.length === 0
               ? "Nothing in the compare tray."
               : "Only one item in the tray."}
           </p>
-          <p className="mt-2 text-sm text-stone-500">
+          <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
             Use the &ldquo;Compare&rdquo; toggle on a product card to add
             items. Two is the minimum; four is the practical max.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3 text-sm">
             <Link
               href="/skincare"
-              className="rounded-full border border-stone-200 bg-white px-4 py-1.5 transition-colors hover:border-stone-900"
+              className="rounded-full border border-stone-200 bg-white px-4 py-1.5 transition-colors hover:border-stone-900 dark:border-stone-800 dark:bg-stone-900 dark:hover:border-stone-400"
             >
               Browse skincare
             </Link>
             <Link
               href="/supplements"
-              className="rounded-full border border-stone-200 bg-white px-4 py-1.5 transition-colors hover:border-stone-900"
+              className="rounded-full border border-stone-200 bg-white px-4 py-1.5 transition-colors hover:border-stone-900 dark:border-stone-800 dark:bg-stone-900 dark:hover:border-stone-400"
             >
               Browse supplements
             </Link>
             <Link
               href="/oral-care"
-              className="rounded-full border border-stone-200 bg-white px-4 py-1.5 transition-colors hover:border-stone-900"
+              className="rounded-full border border-stone-200 bg-white px-4 py-1.5 transition-colors hover:border-stone-900 dark:border-stone-800 dark:bg-stone-900 dark:hover:border-stone-400"
             >
               Browse oral care
             </Link>
@@ -103,8 +103,8 @@ export default async function ComparePage({ searchParams }: Props) {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[720px] border-collapse text-sm">
             <thead>
-              <tr className="border-b border-stone-300">
-                <th className="sticky left-0 z-10 w-36 bg-background py-4 text-left text-[10px] uppercase tracking-[0.22em] text-stone-500">
+              <tr className="border-b border-stone-300 dark:border-stone-800">
+                <th className="sticky left-0 z-10 w-36 bg-background py-4 text-left text-[10px] uppercase tracking-[0.22em] text-stone-500 dark:text-stone-400">
                   Product
                 </th>
                 {reviews.map((r) => (
@@ -112,12 +112,12 @@ export default async function ComparePage({ searchParams }: Props) {
                     key={`${r.kind}-${r.slug}`}
                     className="min-w-[180px] px-4 py-4 text-left align-bottom"
                   >
-                    <p className="text-[10px] uppercase tracking-[0.2em] text-stone-400">
+                    <p className="text-[10px] uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500">
                       {r.brand} · {r.category}
                     </p>
                     <Link
                       href={`/${r.kind}/${r.slug}`}
-                      className="mt-1 inline-block font-serif text-xl leading-tight text-stone-900 transition-colors hover:text-rose-700"
+                      className="mt-1 inline-block font-serif text-xl leading-tight text-stone-900 transition-colors hover:text-rose-700 dark:text-stone-100"
                     >
                       {r.name}
                     </Link>
@@ -125,7 +125,7 @@ export default async function ComparePage({ searchParams }: Props) {
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-stone-100">
+            <tbody className="divide-y divide-stone-100 dark:divide-stone-800">
               <Row label="Verdict">
                 {reviews.map((r) => {
                   const dot = r.verdict
@@ -238,7 +238,7 @@ export default async function ComparePage({ searchParams }: Props) {
               <Row label="Reviewed">
                 {reviews.map((r) => (
                   <Cell key={`${r.kind}-${r.slug}-d`}>
-                    <span className="font-mono text-xs text-stone-500 tabular-nums">
+                    <span className="font-mono text-xs text-stone-500 tabular-nums dark:text-stone-400">
                       {new Date(r.datePublished).toLocaleDateString("en-US", {
                         year: "numeric",
                         month: "short",
@@ -267,7 +267,7 @@ function Row({
     <tr>
       <th
         scope="row"
-        className="sticky left-0 z-10 whitespace-nowrap bg-background py-4 pr-4 text-left align-top text-[10px] uppercase tracking-[0.22em] text-stone-500"
+        className="sticky left-0 z-10 whitespace-nowrap bg-background py-4 pr-4 text-left align-top text-[10px] uppercase tracking-[0.22em] text-stone-500 dark:text-stone-400"
       >
         {label}
       </th>
@@ -289,7 +289,7 @@ function axisOrDash(n: number | undefined) {
   return (
     <span className="inline-flex items-baseline gap-0.5 font-display text-xl font-light tabular-nums text-stone-900 dark:text-stone-100">
       {n.toFixed(1)}
-      <span className="font-mono text-[9px] uppercase tracking-wider text-stone-400">
+      <span className="font-mono text-[9px] uppercase tracking-wider text-stone-400 dark:text-stone-500">
         /10
       </span>
     </span>
@@ -297,5 +297,5 @@ function axisOrDash(n: number | undefined) {
 }
 
 function dashEl() {
-  return <span className="font-mono text-stone-400">·</span>;
+  return <span className="font-mono text-stone-400 dark:text-stone-500">·</span>;
 }

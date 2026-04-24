@@ -18,20 +18,20 @@ export function SocialLink({
       className="group flex items-baseline gap-6 py-6"
     >
       {index !== undefined && (
-        <span className="hidden w-10 shrink-0 font-mono text-xs text-stone-400 tabular-nums sm:inline-block">
+        <span className="hidden w-10 shrink-0 font-mono text-xs text-stone-400 tabular-nums sm:inline-block dark:text-stone-500">
           №&nbsp;{String(index).padStart(2, "0")}
         </span>
       )}
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-stone-200 bg-white text-stone-700 transition-colors group-hover:border-stone-900 group-hover:bg-stone-900 group-hover:text-white">
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-stone-200 bg-white text-stone-700 transition-colors group-hover:border-stone-900 group-hover:bg-stone-900 group-hover:text-white dark:text-stone-300 dark:border-stone-800 dark:bg-stone-900">
         <Icon className="h-4 w-4" />
       </div>
       <div className="min-w-0 flex-1">
-        <h3 className="font-serif text-2xl leading-tight tracking-tight text-stone-900 transition-colors group-hover:text-rose-700 sm:text-3xl">
+        <h3 className="font-serif text-2xl leading-tight tracking-tight text-stone-900 transition-colors group-hover:text-rose-700 sm:text-3xl dark:text-stone-100">
           {social.label}
         </h3>
-        <p className="mt-1 font-serif italic text-stone-600">{social.handle}</p>
+        <p className="mt-1 font-serif italic text-stone-600 dark:text-stone-300">{social.handle}</p>
       </div>
-      <ArrowUpRight className="h-4 w-4 self-center text-stone-400 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-stone-900" />
+      <ArrowUpRight className="h-4 w-4 self-center text-stone-400 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-stone-900 dark:text-stone-500" />
     </a>
   );
 }
@@ -46,7 +46,7 @@ export function SocialIconLink({ social }: { social: Social }) {
       rel={isExternal ? "noopener noreferrer" : undefined}
       aria-label={social.label}
       title={social.label}
-      className="flex h-10 w-10 items-center justify-center rounded-full border border-stone-200 bg-white text-stone-700 transition-colors hover:border-stone-900 hover:bg-stone-900 hover:text-white"
+      className="flex h-10 w-10 items-center justify-center rounded-full border border-stone-200 bg-white text-stone-700 transition-colors hover:border-stone-900 hover:bg-stone-900 hover:text-white dark:text-stone-300 dark:border-stone-800 dark:bg-stone-900 dark:hover:border-stone-400"
     >
       <Icon className="h-4 w-4" />
     </a>

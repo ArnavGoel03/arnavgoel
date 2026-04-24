@@ -39,15 +39,15 @@ export default async function LoginPage({ searchParams }: Props) {
 
   return (
     <Container className="max-w-sm py-20">
-      <div className="mb-10 flex items-baseline gap-2 text-[11px] uppercase tracking-[0.22em] text-stone-500">
+      <div className="mb-10 flex items-baseline gap-2 text-[11px] uppercase tracking-[0.22em] text-stone-500 dark:text-stone-400">
         <span className="text-rose-400">❋</span>
         <span>Admin</span>
       </div>
 
-      <h1 className="mb-2 font-serif text-4xl leading-tight text-stone-900 sm:text-5xl">
+      <h1 className="mb-2 font-serif text-4xl leading-tight text-stone-900 sm:text-5xl dark:text-stone-100">
         Sign in<span className="text-rose-400">.</span>
       </h1>
-      <p className="mb-8 font-serif text-lg italic text-stone-500">
+      <p className="mb-8 font-serif text-lg italic text-stone-500 dark:text-stone-400">
         Private. The dashboard that commits to GitHub.
       </p>
 
@@ -68,7 +68,7 @@ export default async function LoginPage({ searchParams }: Props) {
         <form action={googleSignIn} className="space-y-4">
           <button
             type="submit"
-            className="inline-flex h-11 w-full items-center justify-center gap-3 rounded-full border border-stone-200 bg-white px-6 text-sm font-medium text-stone-900 transition-colors hover:border-stone-900 hover:bg-stone-50 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 dark:hover:border-stone-400"
+            className="inline-flex h-11 w-full items-center justify-center gap-3 rounded-full border border-stone-200 bg-white px-6 text-sm font-medium text-stone-900 transition-colors hover:border-stone-900 hover:bg-stone-50 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 dark:hover:border-stone-400 dark:border-stone-800"
           >
             <GoogleMark />
             Continue with Google
@@ -80,7 +80,7 @@ export default async function LoginPage({ searchParams }: Props) {
             </p>
           )}
 
-          <p className="text-xs italic text-stone-500">
+          <p className="text-xs italic text-stone-500 dark:text-stone-400">
             Only the email on the admin allow-list can sign in. Everyone else
             gets bounced.
           </p>

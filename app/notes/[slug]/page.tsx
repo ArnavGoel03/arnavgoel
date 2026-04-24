@@ -50,27 +50,27 @@ export default async function NotePage({ params }: Props) {
       <Container className="max-w-2xl py-10">
         <Link
           href="/notes"
-          className="inline-flex items-center gap-1.5 text-sm text-stone-500 transition-colors hover:text-stone-900"
+          className="inline-flex items-center gap-1.5 text-sm text-stone-500 transition-colors hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
         >
           <ArrowLeft className="h-4 w-4" />
           All notes
         </Link>
 
-        <header className="mt-8 border-b border-stone-200 pb-8">
-          <div className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-wider text-stone-500">
+        <header className="mt-8 border-b border-stone-200 pb-8 dark:border-stone-800">
+          <div className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-wider text-stone-500 dark:text-stone-400">
             <time dateTime={note.datePublished}>{date}</time>
-            <span className="text-stone-300">·</span>
-            <span className="font-mono text-stone-400">
+            <span className="text-stone-300 dark:text-stone-700">·</span>
+            <span className="font-mono text-stone-400 dark:text-stone-500">
               {formatReadingTime(note.body)}
             </span>
             {note.tags.map((t) => (
               <span key={t}>· {t}</span>
             ))}
           </div>
-          <h1 className="mt-4 font-serif text-4xl leading-tight text-stone-900 sm:text-5xl">
+          <h1 className="mt-4 font-serif text-4xl leading-tight text-stone-900 dark:text-stone-100 sm:text-5xl">
             {note.title}
           </h1>
-          <p className="mt-5 text-xl leading-relaxed text-stone-600">
+          <p className="mt-5 text-xl leading-relaxed text-stone-600 dark:text-stone-300">
             {note.description}
           </p>
         </header>

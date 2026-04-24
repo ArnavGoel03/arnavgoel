@@ -97,7 +97,7 @@ function CompareBar() {
       )}
     >
       <div className="pointer-events-auto flex items-center gap-3 rounded-full border border-stone-200 bg-white/95 px-4 py-2 shadow-lg backdrop-blur dark:border-stone-800 dark:bg-stone-900/95">
-        <span className="text-xs uppercase tracking-[0.18em] text-stone-500">
+        <span className="text-xs uppercase tracking-[0.18em] text-stone-500 dark:text-stone-400">
           Compare tray
         </span>
         <span className="font-mono text-sm tabular-nums text-stone-700 dark:text-stone-300">
@@ -107,7 +107,7 @@ function CompareBar() {
           type="button"
           onClick={clear}
           aria-label="Clear compare tray"
-          className="inline-flex h-7 w-7 items-center justify-center rounded-full text-stone-400 transition-colors hover:bg-stone-100 hover:text-stone-900 dark:hover:bg-stone-800 dark:hover:text-stone-100"
+          className="inline-flex h-7 w-7 items-center justify-center rounded-full text-stone-400 transition-colors hover:bg-stone-100 hover:text-stone-900 dark:hover:bg-stone-800 dark:hover:text-stone-100 dark:text-stone-500"
         >
           <X className="h-3.5 w-3.5" />
         </button>
@@ -119,7 +119,7 @@ function CompareBar() {
             Compare →
           </Link>
         ) : (
-          <span className="text-xs italic text-stone-500">
+          <span className="text-xs italic text-stone-500 dark:text-stone-400">
             Add one more to compare
           </span>
         )}
