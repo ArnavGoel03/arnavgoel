@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Container } from "@/components/container";
-import { parseIdsParam, reviewsFromCompareIds } from "@/lib/compare";
+import { parseCompareId, parseIdsParam } from "@/lib/compare";
+import { getReview } from "@/lib/content";
 import { formatCostPerDay } from "@/lib/cost";
 import { availabilityLabel } from "@/lib/retailers";
+import type { Review } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "Compare",
@@ -33,7 +35,13 @@ const VERDICT_DOT: Record<string, string> = {
 export default async function ComparePage({ searchParams }: Props) {
   const { ids } = await searchParams;
   const compareIds = parseIdsParam(ids);
-  const reviews = reviewsFromCompareIds(compareIds);
+  const reviews: Review[] = [];
+  for (const id of compareIds) {
+    const parsed = parseCompareId(id);
+    if (!parsed) continue;
+    const r = getReview(parsed.kind, parsed.slug);
+    if (r) reviews.push(r);
+  }
 
   return (
     <Container className="max-w-6xl py-12 sm:py-16">

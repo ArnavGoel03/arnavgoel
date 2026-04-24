@@ -1,5 +1,4 @@
-import { getReview } from "@/lib/content";
-import type { Kind, Review } from "@/lib/types";
+import type { Kind } from "@/lib/types";
 
 /** URL-encoded compare ID: "kind/slug" (e.g. "supplements/magtein-l-threonate"). */
 export type CompareId = string;
@@ -30,13 +29,3 @@ export function parseIdsParam(raw: string | string[] | undefined): CompareId[] {
   ).slice(0, 8); // sanity cap
 }
 
-export function reviewsFromCompareIds(ids: CompareId[]): Review[] {
-  const out: Review[] = [];
-  for (const id of ids) {
-    const parsed = parseCompareId(id);
-    if (!parsed) continue;
-    const r = getReview(parsed.kind, parsed.slug);
-    if (r) out.push(r);
-  }
-  return out;
-}
