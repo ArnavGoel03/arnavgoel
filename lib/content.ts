@@ -124,3 +124,41 @@ export function getPrimersForProduct(productSlug: string): PrimerSummary[] {
     p.relatedProductSlugs.includes(productSlug),
   );
 }
+
+// ────────────────────────────────────────────────────────────────────────────
+// Prev/next navigation helpers. All lists are sorted newest-first by
+// datePublished already (sortByDateDesc), so "prev" means older and
+// "next" means newer within a content type.
+// ────────────────────────────────────────────────────────────────────────────
+
+type Adjacent<T> = { prev: T | null; next: T | null };
+
+function findAdjacent<T extends { slug: string }>(
+  list: T[],
+  slug: string,
+): Adjacent<T> {
+  const i = list.findIndex((x) => x.slug === slug);
+  if (i === -1) return { prev: null, next: null };
+  // list is newest-first; "next" (newer) sits at a lower index, "prev"
+  // (older) at a higher one. Present to the reader as prev=older since
+  // that's the more natural "keep reading back" direction.
+  return {
+    next: i > 0 ? list[i - 1] : null,
+    prev: i < list.length - 1 ? list[i + 1] : null,
+  };
+}
+
+export function getAdjacentReviews(
+  kind: Kind,
+  slug: string,
+): Adjacent<ReviewSummary> {
+  return findAdjacent(getReviews(kind), slug);
+}
+
+export function getAdjacentPrimers(slug: string): Adjacent<PrimerSummary> {
+  return findAdjacent(getPrimers(), slug);
+}
+
+export function getAdjacentNotes(slug: string): Adjacent<NoteSummary> {
+  return findAdjacent(getNotes(), slug);
+}

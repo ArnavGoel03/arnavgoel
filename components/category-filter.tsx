@@ -3,24 +3,40 @@
 import { useMemo, useState } from "react";
 import { ProductCard } from "./product-card";
 import { cn } from "@/lib/utils";
+import { costPerDay, parsePrice } from "@/lib/cost";
 import { availableInRegion, type Region } from "@/lib/retailers";
 import type { ReviewSummary } from "@/lib/types";
 
 type RegionFilter = "all" | Region;
+type SortKey = "recent" | "verdict" | "price" | "cost-per-day";
+
+const verdictRank: Record<string, number> = {
+  recommend: 0,
+  okay: 1,
+  bad: 2,
+};
+
+const SORT_OPTIONS: { id: SortKey; label: string }[] = [
+  { id: "recent", label: "Recent" },
+  { id: "verdict", label: "Verdict" },
+  { id: "price", label: "Price" },
+  { id: "cost-per-day", label: "Cost / day" },
+];
 
 export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
   const [active, setActive] = useState<string>("all");
-  const [sort, setSort] = useState<"recent" | "verdict">("recent");
+  const [sort, setSort] = useState<SortKey>("recent");
   const [region, setRegion] = useState<RegionFilter>("all");
-
-  const verdictRank: Record<string, number> = {
-    recommend: 0,
-    okay: 1,
-    bad: 2,
-  };
+  const [ingredient, setIngredient] = useState<string>("all");
 
   const categories = useMemo(() => {
     const set = new Set(reviews.map((r) => r.category));
+    return ["all", ...Array.from(set).sort()];
+  }, [reviews]);
+
+  const ingredients = useMemo(() => {
+    const set = new Set<string>();
+    for (const r of reviews) for (const i of r.ingredients ?? []) set.add(i);
     return ["all", ...Array.from(set).sort()];
   }, [reviews]);
 
@@ -38,6 +54,9 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
     if (region !== "all") {
       base = base.filter((r) => availableInRegion(r, region));
     }
+    if (ingredient !== "all") {
+      base = base.filter((r) => (r.ingredients ?? []).includes(ingredient));
+    }
     if (sort === "verdict") {
       return [...base].sort(
         (a, b) =>
@@ -45,8 +64,29 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
           (verdictRank[b.verdict ?? "z"] ?? 3),
       );
     }
+    if (sort === "price") {
+      return [...base].sort((a, b) => {
+        const pa = parsePrice(a.price);
+        const pb = parsePrice(b.price);
+        // Items without a price sink to the bottom.
+        if (pa === null && pb === null) return 0;
+        if (pa === null) return 1;
+        if (pb === null) return -1;
+        return pa - pb;
+      });
+    }
+    if (sort === "cost-per-day") {
+      return [...base].sort((a, b) => {
+        const ca = costPerDay(a);
+        const cb = costPerDay(b);
+        if (ca === null && cb === null) return 0;
+        if (ca === null) return 1;
+        if (cb === null) return -1;
+        return ca - cb;
+      });
+    }
     return base;
-  }, [reviews, active, sort, region]);
+  }, [reviews, active, sort, region, ingredient]);
 
   return (
     <div className="space-y-6">
@@ -67,26 +107,22 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
             </button>
           ))}
         </div>
-        <div className="flex items-center gap-2 text-sm text-stone-500">
+        <div className="flex flex-wrap items-center gap-2 text-sm text-stone-500">
           <span>Sort:</span>
-          <button
-            onClick={() => setSort("recent")}
-            className={cn(
-              "rounded-full px-3 py-1 transition-colors",
-              sort === "recent" ? "bg-stone-100 text-stone-900" : "hover:text-stone-900",
-            )}
-          >
-            Recent
-          </button>
-          <button
-            onClick={() => setSort("verdict")}
-            className={cn(
-              "rounded-full px-3 py-1 transition-colors",
-              sort === "verdict" ? "bg-stone-100 text-stone-900" : "hover:text-stone-900",
-            )}
-          >
-            Verdict
-          </button>
+          {SORT_OPTIONS.map((opt) => (
+            <button
+              key={opt.id}
+              onClick={() => setSort(opt.id)}
+              className={cn(
+                "rounded-full px-3 py-1 transition-colors",
+                sort === opt.id
+                  ? "bg-stone-100 text-stone-900"
+                  : "hover:text-stone-900",
+              )}
+            >
+              {opt.label}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -122,6 +158,26 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
           </button>
         ))}
       </div>
+
+      {ingredients.length > 2 && (
+        <div className="flex flex-wrap items-center gap-2 text-sm">
+          <label className="text-stone-500" htmlFor="ingredient-filter">
+            Ingredient:
+          </label>
+          <select
+            id="ingredient-filter"
+            value={ingredient}
+            onChange={(e) => setIngredient(e.target.value)}
+            className="rounded-full border border-stone-200 bg-white px-3 py-1 text-stone-700 transition-colors hover:border-stone-400 focus:border-stone-900 focus:outline-none"
+          >
+            {ingredients.map((i) => (
+              <option key={i} value={i}>
+                {i === "all" ? "Any" : i}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
 
       {filtered.length === 0 ? (
         <p className="py-16 text-center text-stone-500">

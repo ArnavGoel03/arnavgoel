@@ -5,6 +5,8 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { WebsiteJsonLd } from "@/components/json-ld";
 import { themeInitScript } from "@/components/theme-toggle";
+import { CompareProvider } from "@/components/compare-bar";
+import { CommandPaletteMount } from "@/components/command-palette-mount";
 import { site } from "@/lib/site";
 
 const inter = Inter({
@@ -97,9 +99,12 @@ export default function RootLayout({
       </head>
       <body className="flex min-h-screen flex-col bg-background font-sans text-stone-900 dark:text-stone-100">
         <WebsiteJsonLd />
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <CompareProvider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <CommandPaletteMount />
+        </CompareProvider>
       </body>
     </html>
   );

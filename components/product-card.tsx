@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { VerdictPill } from "./verdict-pill";
+import { CompareToggle } from "./compare-bar";
 import { availabilityLabel } from "@/lib/retailers";
+import { toCompareId } from "@/lib/compare";
 import type { ReviewSummary } from "@/lib/types";
 
 export function ProductCard({ review }: { review: ReviewSummary }) {
@@ -39,6 +41,10 @@ export function ProductCard({ review }: { review: ReviewSummary }) {
         {/* Floating rating / pending badge in top-right */}
         <div className="absolute right-4 top-3 rounded-md bg-white/85 px-2 py-1 backdrop-blur">
           <VerdictPill verdict={review.verdict} size="sm" />
+        </div>
+        {/* Compare toggle in bottom-left of the image well */}
+        <div className="absolute bottom-3 left-3 z-10">
+          <CompareToggle id={toCompareId(review.kind, review.slug)} />
         </div>
       </div>
 

@@ -12,8 +12,10 @@ import { ProsCons } from "@/components/pros-cons";
 import { PhotoTimeline } from "@/components/photo-timeline";
 import { MdxContent } from "@/components/mdx-content";
 import { ReviewJsonLd } from "@/components/json-ld";
-import { getPrimersForProduct, getReview, getReviews } from "@/lib/content";
+import { getAdjacentReviews, getPrimersForProduct, getReview, getReviews } from "@/lib/content";
 import { RelatedPrimers } from "@/components/related-primers";
+import { PrevNext } from "@/components/prev-next";
+import { CopyLink } from "@/components/copy-link";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -44,6 +46,7 @@ export default async function SupplementReviewPage({ params }: Props) {
   const review = getReview("supplements", slug);
   if (!review) notFound();
   const relatedPrimers = getPrimersForProduct(review.slug);
+  const { prev, next } = getAdjacentReviews("supplements", review.slug);
 
   return (
     <article>
@@ -56,13 +59,16 @@ export default async function SupplementReviewPage({ params }: Props) {
             { name: review.name, href: `/supplements/${review.slug}` },
           ]}
         />
-        <Link
-          href="/supplements"
-          className="inline-flex items-center gap-1.5 text-sm text-stone-500 transition-colors hover:text-stone-900"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          All supplements
-        </Link>
+        <div className="flex items-center justify-between gap-4">
+          <Link
+            href="/supplements"
+            className="inline-flex items-center gap-1.5 text-sm text-stone-500 transition-colors hover:text-stone-900"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            All supplements
+          </Link>
+          <CopyLink path={`/supplements/${review.slug}`} />
+        </div>
 
         <header className="mt-8 border-b border-stone-200 pb-10">
           <p className="mb-3 text-xs uppercase tracking-[0.2em] text-stone-500">
@@ -111,6 +117,28 @@ export default async function SupplementReviewPage({ params }: Props) {
             )}
           </aside>
         </div>
+
+        <PrevNext
+          prev={
+            prev
+              ? {
+                  title: prev.name,
+                  subtitle: `${prev.brand} · ${prev.category}`,
+                  href: `/supplements/${prev.slug}`,
+                }
+              : null
+          }
+          next={
+            next
+              ? {
+                  title: next.name,
+                  subtitle: `${next.brand} · ${next.category}`,
+                  href: `/supplements/${next.slug}`,
+                }
+              : null
+          }
+          label="Supplement pagination"
+        />
       </Container>
     </article>
   );

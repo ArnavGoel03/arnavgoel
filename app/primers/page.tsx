@@ -18,12 +18,16 @@ export const metadata: Metadata = {
 const DOMAIN_LABEL: Record<PrimerSummary["domain"], string> = {
   supplement: "Health",
   skincare: "Skincare",
+  oral: "Oral care",
+  meta: "Label literacy",
 };
 
 function groupByDomain(primers: PrimerSummary[]) {
   const bucket: Record<PrimerSummary["domain"], PrimerSummary[]> = {
     supplement: [],
     skincare: [],
+    oral: [],
+    meta: [],
   };
   for (const p of primers) bucket[p.domain].push(p);
   return bucket;
@@ -134,7 +138,7 @@ export default function PrimersPage() {
         </p>
       ) : (
         <div className="mt-16 space-y-16 border-t border-stone-300 pt-10">
-          {(["supplement", "skincare"] as const).map((d) =>
+          {(["supplement", "skincare", "oral", "meta"] as const).map((d) =>
             grouped[d].length > 0 ? (
               <DomainGroup key={d} label={DOMAIN_LABEL[d]} items={grouped[d]} />
             ) : null,

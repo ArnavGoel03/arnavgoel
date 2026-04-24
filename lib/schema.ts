@@ -80,7 +80,7 @@ export const primerFrontmatter = z.object({
   title: z.string().min(1),
   subtitle: z.string().optional(),
   kind: z.enum(["stack", "ingredient"]),
-  domain: z.enum(["supplement", "skincare"]),
+  domain: z.enum(["supplement", "skincare", "oral", "meta"]),
   tags: z.array(z.string()).default([]),
   stack: z.array(z.string()).default([]),
   relatedProductSlugs: z.array(z.string()).default([]),

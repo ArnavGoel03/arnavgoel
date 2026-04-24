@@ -20,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${site.url}/routine`, lastModified: now, priority: 0.8 },
     { url: `${site.url}/retired`, lastModified: now, priority: 0.5 },
     { url: `${site.url}/search`, lastModified: now, priority: 0.5 },
+    { url: `${site.url}/compare`, lastModified: now, priority: 0.4 },
     { url: `${site.url}/links`, lastModified: now, priority: 0.7 },
   ];
   const routineRoutes: MetadataRoute.Sitemap = getRoutinesList().map((r) => ({

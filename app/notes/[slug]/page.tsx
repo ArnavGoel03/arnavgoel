@@ -5,7 +5,9 @@ import { ArrowLeft } from "lucide-react";
 import { Container } from "@/components/container";
 import { MdxContent } from "@/components/mdx-content";
 import { NoteJsonLd } from "@/components/json-ld";
-import { getNote, getNotes } from "@/lib/content";
+import { getAdjacentNotes, getNote, getNotes } from "@/lib/content";
+import { formatReadingTime } from "@/lib/reading-time";
+import { PrevNext } from "@/components/prev-next";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -34,6 +36,7 @@ export default async function NotePage({ params }: Props) {
   const { slug } = await params;
   const note = getNote(slug);
   if (!note) notFound();
+  const { prev, next } = getAdjacentNotes(note.slug);
 
   const date = new Date(note.datePublished).toLocaleDateString("en-US", {
     year: "numeric",
@@ -56,6 +59,10 @@ export default async function NotePage({ params }: Props) {
         <header className="mt-8 border-b border-stone-200 pb-8">
           <div className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-wider text-stone-500">
             <time dateTime={note.datePublished}>{date}</time>
+            <span className="text-stone-300">·</span>
+            <span className="font-mono text-stone-400">
+              {formatReadingTime(note.body)}
+            </span>
             {note.tags.map((t) => (
               <span key={t}>· {t}</span>
             ))}
@@ -71,6 +78,28 @@ export default async function NotePage({ params }: Props) {
         <div className="mt-10">
           <MdxContent source={note.body} />
         </div>
+
+        <PrevNext
+          prev={
+            prev
+              ? {
+                  title: prev.title,
+                  subtitle: prev.tags.join(", "),
+                  href: `/notes/${prev.slug}`,
+                }
+              : null
+          }
+          next={
+            next
+              ? {
+                  title: next.title,
+                  subtitle: next.tags.join(", "),
+                  href: `/notes/${next.slug}`,
+                }
+              : null
+          }
+          label="Notes pagination"
+        />
       </Container>
     </article>
   );

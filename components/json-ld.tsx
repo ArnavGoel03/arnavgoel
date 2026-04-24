@@ -1,9 +1,25 @@
 import type { Note, Review } from "@/lib/types";
+import { parsePrice, currencyFor } from "@/lib/cost";
 import { site } from "@/lib/site";
 import { socials } from "@/lib/socials";
 
 function serialize(data: unknown) {
   return JSON.stringify(data).replace(/</g, "\\u003c");
+}
+
+/**
+ * Map our three-letter currency prefix into an ISO 4217 code for
+ * schema.org. Non-exhaustive: extend when a new currency shows up in
+ * the price column.
+ */
+function priceCurrencyCode(price: string | undefined): string {
+  const sym = currencyFor(price);
+  if (sym === "₹" || sym.toLowerCase() === "rs" || sym.toLowerCase() === "rs.")
+    return "INR";
+  if (sym === "£") return "GBP";
+  if (sym === "€") return "EUR";
+  if (sym === "¥") return "JPY";
+  return "USD";
 }
 
 export function PersonJsonLd() {
@@ -86,17 +102,60 @@ export function BreadcrumbJsonLd({
 }
 
 export function ReviewJsonLd({ review }: { review: Review }) {
+  const allLinks = [
+    ...review.indiaLinks,
+    ...review.westernLinks,
+    ...review.ukLinks,
+  ];
+
+  const offers = allLinks.map((l) => {
+    const offer: Record<string, unknown> = {
+      "@type": "Offer",
+      url: l.url,
+      seller: { "@type": "Organization", name: l.retailer },
+      availability: "https://schema.org/InStock",
+    };
+    const numeric = parsePrice(review.price);
+    if (numeric !== null) {
+      offer.price = numeric.toFixed(2);
+      offer.priceCurrency = priceCurrencyCode(review.price);
+    }
+    return offer;
+  });
+
+  const productImage = review.photo
+    ? review.photo.startsWith("http")
+      ? review.photo
+      : `${site.url}${review.photo.startsWith("/") ? "" : "/"}${review.photo}`
+    : undefined;
+
+  const additionalProperty = (review.ingredients ?? []).map((i) => ({
+    "@type": "PropertyValue",
+    name: "Ingredient",
+    value: i,
+  }));
+
+  const itemReviewed: Record<string, unknown> = {
+    "@type": "Product",
+    name: review.name,
+    brand: { "@type": "Brand", name: review.brand },
+    category: review.category,
+    url: `${site.url}/${review.kind}/${review.slug}`,
+  };
+  if (productImage) itemReviewed.image = productImage;
+  if (offers.length === 1) itemReviewed.offers = offers[0];
+  else if (offers.length > 1) itemReviewed.offers = offers;
+  if (additionalProperty.length > 0)
+    itemReviewed.additionalProperty = additionalProperty;
+
   const data = {
     "@context": "https://schema.org",
     "@type": "Review",
-    itemReviewed: {
-      "@type": "Product",
-      name: review.name,
-      brand: { "@type": "Brand", name: review.brand },
-      category: review.category,
-    },
+    itemReviewed,
     author: { "@type": "Person", name: site.name, url: site.url },
     datePublished: review.datePublished,
+    dateModified: review.lastUpdated ?? review.datePublished,
+    name: `${review.brand} ${review.name}`,
     reviewBody: review.summary || `${review.brand} ${review.name}`,
     publisher: { "@type": "Organization", name: site.name, url: site.url },
   };

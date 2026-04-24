@@ -67,7 +67,7 @@ export interface Photo {
 }
 
 export type PrimerKind = "stack" | "ingredient";
-export type PrimerDomain = "supplement" | "skincare";
+export type PrimerDomain = "supplement" | "skincare" | "oral" | "meta";
 
 export interface Primer {
   slug: string;
