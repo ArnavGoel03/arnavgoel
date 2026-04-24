@@ -91,7 +91,7 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <div className="flex flex-wrap gap-2">
+        <div data-tour-listing="categories" className="flex flex-wrap gap-2">
           {categories.map((c) => (
             <button
               key={c}
@@ -107,7 +107,10 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
             </button>
           ))}
         </div>
-        <div className="flex flex-wrap items-center gap-2 text-sm text-stone-500 dark:text-stone-400">
+        <div
+          data-tour-listing="sort"
+          className="flex flex-wrap items-center gap-2 text-sm text-stone-500 dark:text-stone-400"
+        >
           <span>Sort:</span>
           {SORT_OPTIONS.map((opt) => (
             <button
@@ -126,7 +129,10 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
         </div>
       </div>
 
-      <div className="flex flex-wrap items-center gap-2 text-sm">
+      <div
+        data-tour-listing="region"
+        className="flex flex-wrap items-center gap-2 text-sm"
+      >
         <span className="text-stone-500 dark:text-stone-400">Available in:</span>
         {(
           [

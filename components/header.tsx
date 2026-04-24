@@ -8,10 +8,10 @@ import { Container } from "./container";
 import { ThemeToggle } from "./theme-toggle";
 import { site } from "@/lib/site";
 
-const nav = [
-  { href: "/skincare", label: "Skincare" },
-  { href: "/supplements", label: "Supplements" },
-  { href: "/oral-care", label: "Oral care" },
+const nav: { href: string; label: string; tourId?: string }[] = [
+  { href: "/skincare", label: "Skincare", tourId: "tab-skincare" },
+  { href: "/supplements", label: "Supplements", tourId: "tab-supplements" },
+  { href: "/oral-care", label: "Oral care", tourId: "tab-oralcare" },
   { href: "/routine", label: "Routine" },
   { href: "/primers", label: "Primers" },
   { href: "/photos", label: "Photos" },
@@ -62,7 +62,6 @@ export function Header() {
         <div className="flex items-center gap-2 lg:gap-4">
           {/* Desktop nav, inline, hides below lg */}
           <nav
-            data-tour="nav"
             className="hidden items-center overflow-x-auto text-[11px] uppercase tracking-[0.16em] text-stone-500 lg:flex dark:text-stone-400"
           >
             {nav.map((item, i) => {
@@ -82,6 +81,7 @@ export function Header() {
                   <Link
                     href={item.href}
                     aria-current={active ? "page" : undefined}
+                    data-tour={item.tourId}
                     className={
                       "whitespace-nowrap py-1 transition-colors " +
                       (active

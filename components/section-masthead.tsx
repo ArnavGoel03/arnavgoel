@@ -130,7 +130,10 @@ export function SectionMasthead({
         {intro}
       </p>
 
-      <dl className="mt-10 grid grid-cols-2 gap-x-6 border-t border-stone-200 pt-6 dark:border-stone-800 sm:max-w-2xl sm:grid-cols-4 sm:gap-x-12">
+      <dl
+        data-tour-listing="stats"
+        className="mt-10 grid grid-cols-2 gap-x-6 border-t border-stone-200 pt-6 dark:border-stone-800 sm:max-w-2xl sm:grid-cols-4 sm:gap-x-12"
+      >
         <Stat label="On the shelf" value={pad2(stats.total)} />
         <Stat label="Recommend" value={pad2(stats.recommendCount)} />
         <Stat label="Okayish" value={pad2(stats.okayCount)} />

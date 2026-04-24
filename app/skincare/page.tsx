@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Container } from "@/components/container";
 import { SectionMasthead } from "@/components/section-masthead";
 import { CategoryFilter } from "@/components/category-filter";
+import { ListingTourMount } from "@/components/listing-tour-mount";
 import { getReviews } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -26,6 +27,7 @@ export default function SkincarePage() {
       <Container className="py-10 pb-24">
         <CategoryFilter reviews={reviews} />
       </Container>
+      <ListingTourMount />
     </>
   );
 }

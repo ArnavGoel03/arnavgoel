@@ -3,69 +3,40 @@
 import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
-export const TOUR_STORAGE_KEY = "yashgoel-tour-seen";
-
-type Step = {
+export type TourStep = {
   selector?: string;
   title: string;
   body: string;
   placement?: "bottom" | "top" | "center";
 };
 
-const STEPS: Step[] = [
-  {
-    title: "Welcome in",
-    body: "A personal review site: skincare, supplements, oral care. Every product has lived in my routine for at least a month before it earned a verdict. Quick tour, thirty seconds.",
-    placement: "center",
-  },
-  {
-    selector: "[data-tour='nav']",
-    title: "The top nav",
-    body: "Three review categories, plus Routines, Primers, Photos, Notes, Now, and About. Everything is one click from here.",
-    placement: "bottom",
-  },
-  {
-    selector: "[data-tour='search']",
-    title: "Search everything",
-    body: "Click the magnifier, or press ⌘K (Ctrl+K on Windows) anywhere. Fuzzy-matches across reviews, notes, and primers.",
-    placement: "bottom",
-  },
-  {
-    selector: "[data-tour='theme']",
-    title: "Light or dark",
-    body: "Sun or moon, pick the one you want. Your choice is remembered across sessions.",
-    placement: "bottom",
-  },
-  {
-    selector: "[data-tour='stats']",
-    title: "The honesty line",
-    body: "Zero sponsored products. Nothing ever sent free by a brand. If I stopped using something, the review says that.",
-    placement: "top",
-  },
-  {
-    selector: "[data-tour='cta']",
-    title: "Pick an entry point",
-    body: "Latest reviews, or 'what's on the shelf' for the monthly snapshot of what I'm currently using.",
-    placement: "top",
-  },
-];
-
 function clamp(n: number, lo: number, hi: number) {
   return Math.max(lo, Math.min(hi, n));
 }
 
-export function SiteTour({ onClose }: { onClose: () => void }) {
+/**
+ * Generic tour UI. Walks a reader through an ordered list of steps,
+ * anchoring a floating card and a pulsing ring to a target element for
+ * each step. Portals to document.body so nothing in the page tree
+ * clips it, positions are recomputed on scroll + resize.
+ */
+export function SiteTour({
+  steps,
+  storageKey,
+  onClose,
+}: {
+  steps: TourStep[];
+  storageKey: string;
+  onClose: () => void;
+}) {
   const [index, setIndex] = useState(0);
   const [rect, setRect] = useState<DOMRect | null>(null);
-  const [viewport, setViewport] = useState({
-    w: 0,
-    h: 0,
-  });
+  const [viewport, setViewport] = useState({ w: 0, h: 0 });
 
-  const step = STEPS[index];
+  const step = steps[index];
 
   const updateRect = useCallback(() => {
-    if (!step.selector) {
+    if (!step?.selector) {
       setRect(null);
       return;
     }
@@ -74,10 +45,7 @@ export function SiteTour({ onClose }: { onClose: () => void }) {
       setRect(null);
       return;
     }
-    // Bring the target into view before measuring. `nearest` avoids
-    // aggressive scroll on already-visible targets.
     el.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    // Measure after the scroll settles.
     const t = setTimeout(() => {
       setRect(el.getBoundingClientRect());
     }, 320);
@@ -114,16 +82,16 @@ export function SiteTour({ onClose }: { onClose: () => void }) {
   function finish(saveSeen: boolean) {
     if (saveSeen) {
       try {
-        localStorage.setItem(TOUR_STORAGE_KEY, "seen");
+        localStorage.setItem(storageKey, "seen");
       } catch {
-        // Private mode, quota, etc. Ignore.
+        // ignore
       }
     }
     onClose();
   }
 
   function next() {
-    if (index === STEPS.length - 1) finish(true);
+    if (index === steps.length - 1) finish(true);
     else setIndex(index + 1);
   }
 
@@ -131,13 +99,11 @@ export function SiteTour({ onClose }: { onClose: () => void }) {
     setIndex(Math.max(0, index - 1));
   }
 
-  // Don't render on the server or before the portal target exists.
-  if (typeof document === "undefined") return null;
+  if (typeof document === "undefined" || !step) return null;
 
   const CARD_W = Math.min(384, viewport.w - 32);
   const placement = step.placement ?? "bottom";
 
-  // Card + highlight positioning + arrow geometry.
   let cardStyle: React.CSSProperties;
   let cardLeft = 0;
   let arrowDirection: "up" | "down" | null = null;
@@ -168,8 +134,6 @@ export function SiteTour({ onClose }: { onClose: () => void }) {
       width: CARD_W,
     };
     arrowDirection = "up";
-    // Point the arrow at the horizontal center of the target, constrained
-    // to sit within the card's width so it doesn't jut off the edge.
     arrowOffsetPx = clamp(
       rect.left + rect.width / 2 - cardLeft,
       20,
@@ -210,7 +174,6 @@ export function SiteTour({ onClose }: { onClose: () => void }) {
       aria-modal="true"
       aria-labelledby="tour-title"
     >
-      {/* Backdrop. Clicking dismisses the tour and marks it as seen. */}
       <button
         type="button"
         aria-label="Close tour"
@@ -218,14 +181,12 @@ export function SiteTour({ onClose }: { onClose: () => void }) {
         className="absolute inset-0 bg-stone-900/40 backdrop-blur-[2px] transition-opacity dark:bg-black/70"
       />
 
-      {/* Highlight ring around the current target (static) */}
       {highlightStyle && (
         <>
           <div
             style={highlightStyle}
             className="pointer-events-none rounded-xl ring-2 ring-rose-400 ring-offset-4 ring-offset-white transition-all duration-300 dark:ring-offset-stone-950"
           />
-          {/* Pulse ring, draws the eye and says 'look here' */}
           <div
             style={highlightStyle}
             className="pointer-events-none animate-ping rounded-xl ring-2 ring-rose-400/70"
@@ -233,12 +194,10 @@ export function SiteTour({ onClose }: { onClose: () => void }) {
         </>
       )}
 
-      {/* The tour card */}
       <div
         style={cardStyle}
         className="relative rounded-2xl border border-stone-200 bg-white p-5 shadow-2xl dark:border-stone-800 dark:bg-stone-900"
       >
-        {/* Arrow pointing at the highlighted target */}
         {arrowDirection === "up" && (
           <>
             <span
@@ -274,7 +233,8 @@ export function SiteTour({ onClose }: { onClose: () => void }) {
             <span>Tour</span>
           </span>
           <span className="font-mono text-stone-400 dark:text-stone-500">
-            № {String(index + 1).padStart(2, "0")} / {String(STEPS.length).padStart(2, "0")}
+            № {String(index + 1).padStart(2, "0")} /{" "}
+            {String(steps.length).padStart(2, "0")}
           </span>
         </div>
         <h3
@@ -310,7 +270,7 @@ export function SiteTour({ onClose }: { onClose: () => void }) {
               onClick={next}
               className="rounded-full bg-stone-900 px-4 py-1.5 text-xs font-medium text-white transition-colors hover:bg-stone-800 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white"
             >
-              {index === STEPS.length - 1 ? "Done" : "Next →"}
+              {index === steps.length - 1 ? "Done" : "Next →"}
             </button>
           </div>
         </div>
@@ -319,3 +279,108 @@ export function SiteTour({ onClose }: { onClose: () => void }) {
     document.body,
   );
 }
+
+// ────────────────────────────────────────────────────────────────────────────
+// Tour configurations
+// ────────────────────────────────────────────────────────────────────────────
+
+export const HOME_TOUR_STORAGE_KEY = "yashgoel-tour-seen";
+export const LISTING_TOUR_STORAGE_KEY = "yashgoel-listing-tour-seen";
+
+/**
+ * First-visit tour for the home page. Walks through the three review
+ * categories one by one (so readers learn what each covers), then the
+ * search + theme affordances, then the hero stats and CTAs.
+ */
+export const HOME_STEPS: TourStep[] = [
+  {
+    title: "Welcome in",
+    body: "A personal review site: skincare, supplements, oral care. Every product has lived in my routine for at least a month before it earned a verdict. Quick tour, thirty seconds.",
+    placement: "center",
+  },
+  {
+    selector: "[data-tour='tab-skincare']",
+    title: "Skincare",
+    body: "Cleansers, serums, moisturizers, sunscreens, actives. Everything that has lived on my face for at least a month.",
+    placement: "bottom",
+  },
+  {
+    selector: "[data-tour='tab-supplements']",
+    title: "Supplements",
+    body: "Vitamins, minerals, protein, nootropics. Dose, duration, and what I actually felt. No 'big if true' copy.",
+    placement: "bottom",
+  },
+  {
+    selector: "[data-tour='tab-oralcare']",
+    title: "Oral care",
+    body: "Electric brushes, pastes, mouthwash, flossing kit. Smaller section, but held to the same month-minimum rule.",
+    placement: "bottom",
+  },
+  {
+    selector: "[data-tour='search']",
+    title: "Search everything",
+    body: "Click the magnifier, or press ⌘K (Ctrl+K on Windows) anywhere. Fuzzy-matches across reviews, notes, and primers.",
+    placement: "bottom",
+  },
+  {
+    selector: "[data-tour='theme']",
+    title: "Light or dark",
+    body: "Sun or moon, pick the one you want. Your choice is remembered across sessions.",
+    placement: "bottom",
+  },
+  {
+    selector: "[data-tour='stats']",
+    title: "The honesty line",
+    body: "Zero sponsored products. Nothing ever sent free by a brand. If I stopped using something, the review says that.",
+    placement: "top",
+  },
+  {
+    selector: "[data-tour='cta']",
+    title: "Pick an entry point",
+    body: "Latest reviews, or 'what's on the shelf' for the monthly snapshot of what I'm currently using.",
+    placement: "top",
+  },
+];
+
+/**
+ * First-visit tour for a category listing page (skincare, supplements,
+ * oral care). Explains the masthead stats and every filter / sort
+ * control so the filter rail makes sense on first sight.
+ */
+export const LISTING_STEPS: TourStep[] = [
+  {
+    title: "How this shelf works",
+    body: "The listing pages have more controls than the home page. Thirty-second walkthrough of the filter rail and a product card.",
+    placement: "center",
+  },
+  {
+    selector: "[data-tour-listing='stats']",
+    title: "Verdict counts at a glance",
+    body: "How many products are on the shelf, how many earned a 'recommend', how many landed at 'okayish', and how many are still in testing.",
+    placement: "top",
+  },
+  {
+    selector: "[data-tour-listing='categories']",
+    title: "Sub-category filter",
+    body: "Narrow to cleansers, serums, protein powders, toothpastes. Click a chip to toggle that category on; click again or tap 'All' to clear.",
+    placement: "bottom",
+  },
+  {
+    selector: "[data-tour-listing='sort']",
+    title: "Sort the shelf",
+    body: "Recent (default), verdict (recommends first), price (low to high), or cost per day for supplements where servings matter more than sticker price.",
+    placement: "bottom",
+  },
+  {
+    selector: "[data-tour-listing='region']",
+    title: "Region filter",
+    body: "Some products are only stocked in one region. Pick India, USA, or UK to hide everything you can't buy from where you are.",
+    placement: "bottom",
+  },
+  {
+    selector: "[data-tour-listing='card']",
+    title: "A product card",
+    body: "Verdict pill in the top-right. Compare toggle in the bottom-left. Click anywhere else on the card to open the full review.",
+    placement: "top",
+  },
+];

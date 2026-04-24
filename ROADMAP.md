@@ -4,20 +4,22 @@ Running list of deferred work. Ordered loosely by priority.
 
 ## Security / red-team pass
 
-A full adversarial review of the deployed site, deferred to a dedicated session.
-Scope:
+Partially addressed, rest still deferred to a dedicated session.
 
-- **Server action auth.** Add an explicit `await auth()` guard at the top of
-  every action in `app/admin/actions.ts` (`createReview`, `updateReview`,
-  `createPhoto`, `uploadProductImage`). Middleware covers the HTTP path but an
-  in-code check is belt + suspenders, and removes any ambiguity if a server
-  action ever gets imported from a non-admin route.
-- **Upload content-type whitelist.** `uploadProductImage` passes whatever
-  `file.type` the browser sends to `@vercel/blob`. Restrict to
-  `image/jpeg|png|webp|avif` and reject SVGs (script-in-SVG is a classic
-  stored-XSS vector if a non-admin ever views the file).
-- **Content Security Policy.** Not set. Add a strict CSP for `/admin/*` at
-  minimum, and a looser site-wide one.
+Done:
+
+- ~~**Server action auth.**~~ `requireAdmin()` guard added to every action in
+  `app/admin/actions.ts`, cross-checks the Auth.js session against
+  `ALLOWED_ADMIN_EMAIL` (case-insensitive).
+- ~~**Upload content-type whitelist.**~~ `uploadProductImage` and
+  `createPhoto` now reject anything other than jpeg/png/webp/avif/gif, and
+  cap file size at 8 MiB. SVG explicitly excluded.
+- ~~**Content Security Policy.**~~ Site-wide CSP in `next.config.ts`, plus
+  HSTS (2 years, preload). Strict-ish, with documented compatibility
+  trade-offs around inline hydration scripts and hot-linked product imagery.
+
+Still open:
+
 - **Rate limiting.** `/admin/login` has no throttle. Not a big deal behind
   Google OAuth + allow-list, but Vercel BotID or a simple in-memory limiter
   would be nice.
@@ -34,8 +36,9 @@ Scope:
 - **MDX render boundary.** `next-mdx-remote` compiles MDX server-side from
   author-controlled files. Low-risk, but document the assumption that only
   allow-listed admins can commit.
-- **Stale `ADMIN_PASSWORD` env var.** Delete from Vercel — we migrated to
-  Google OAuth, the HMAC cookie auth is gone from the code.
+- **Stale `ADMIN_PASSWORD` env var.** Delete from Vercel. Migration to
+  Google OAuth removed the HMAC cookie auth from the code; the env var no
+  longer has any effect.
 
 ## Affiliate program applications
 
@@ -47,10 +50,10 @@ Scope:
 ## Content
 
 - Take real product photos for each review (placeholder watermark falls back
-  today). Upload via `/admin` — now writes to Vercel Blob (connected
+  today). Upload via `/admin`, which now writes to Vercel Blob (connected
   2026-04-24).
 - Migrate any hot-linked product imagery (Amazon, retailer URLs) into Blob
-  for reliability + privacy.
+  for reliability, privacy, and eventually a stricter CSP img-src directive.
 
 ## Infrastructure
 
@@ -59,3 +62,11 @@ Scope:
 - Decide on Australia / Canada regional link support (would introduce a
   `regionalLinks` map on the schema instead of the current three fixed
   arrays).
+
+## Product ideas (nice-to-haves)
+
+- Per-review TOC (like primers already have) for long bodies.
+- Nonce-based CSP to drop `'unsafe-inline'` from script-src.
+- A "Last updated" ribbon on review detail pages when `lastUpdated`
+  postdates `datePublished` meaningfully.
+- Search URL state sync, so `/search?q=creatine` deep-links into results.
