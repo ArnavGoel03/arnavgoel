@@ -84,7 +84,7 @@ export function PhotoForm() {
                 Click to pick a file, or drop it here
               </p>
               <p className="text-xs text-stone-500">
-                Uploaded at original quality — no recompression, no resizing.
+                Uploaded at original quality, no recompression, no resizing.
               </p>
             </div>
           )}

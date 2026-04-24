@@ -10,7 +10,7 @@ import {
 export const metadata: Metadata = {
   title: "Issues",
   description:
-    "Monthly digest — what landed on the site, what moved off the shelf, and what's still on trial.",
+    "Monthly digest, what landed on the site, what moved off the shelf, and what's still on trial.",
   alternates: { canonical: "/issue" },
 };
 
@@ -35,7 +35,7 @@ export default function IssueIndexPage() {
         Issues<span className="text-rose-400">.</span>
       </h1>
       <p className="mt-6 max-w-2xl font-serif text-xl italic leading-snug text-stone-600 sm:text-2xl">
-        A running index of each month — every product, note, and primer that
+        A running index of each month, every product, note, and primer that
         landed here, grouped by when it joined the shelf.
       </p>
 

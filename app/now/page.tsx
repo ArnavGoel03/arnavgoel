@@ -44,7 +44,7 @@ export default function NowPage() {
       <div className="mb-8 flex items-baseline justify-between gap-4 text-[11px] uppercase tracking-[0.22em] text-stone-500">
         <span className="flex items-baseline gap-2">
           <span className="text-rose-400">❋</span>
-          <span>From the desk of —</span>
+          <span>From the desk of -</span>
         </span>
         <span className="font-mono text-stone-400">Issued {issued}</span>
       </div>
@@ -57,8 +57,8 @@ export default function NowPage() {
         <span className="float-left mr-2 mt-1 font-display text-6xl font-light leading-[0.8] text-stone-900 sm:text-7xl">
           T
         </span>
-        his page exists because a feed will not. Five sections — what I&apos;m
-        making, taking in, thinking through, and saying no to — refreshed
+        his page exists because a feed will not. Five sections, what I&apos;m
+        making, taking in, thinking through, and saying no to, refreshed
         whenever the truth changes.
       </p>
 
@@ -67,13 +67,13 @@ export default function NowPage() {
           <NumberedHeading num={sections[0].num} label={sections[0].label} />
           <ul className="space-y-4 text-stone-700">
             <li>
-              <strong className="font-serif text-stone-900">Buzz</strong> — a
+              <strong className="font-serif text-stone-900">Buzz</strong>, a
               native iOS event discovery app for college students, starting with
               my own campus. SwiftUI, polish-focused.
             </li>
             <li>
               <strong className="font-serif text-stone-900">This site</strong>{" "}
-              — you&apos;re on it. Plan is to add a real review every other day
+             , you&apos;re on it. Plan is to add a real review every other day
               and refresh this page once a month.
             </li>
           </ul>
@@ -96,7 +96,7 @@ export default function NowPage() {
           <ul className="space-y-3 text-stone-700">
             <li>Somewhere in the middle of a few books.</li>
             <li className="text-stone-400 italic">
-              (placeholder — replace with current reads)
+              (placeholder, replace with current reads)
             </li>
           </ul>
         </section>
@@ -105,7 +105,7 @@ export default function NowPage() {
           <NumberedHeading num={sections[3].num} label={sections[3].label} />
           <ul className="space-y-3 text-stone-700">
             <li>
-              How to make software that feels quiet — that does its job and
+              How to make software that feels quiet, that does its job and
               gets out of the way.
             </li>
             <li>What to cook this week.</li>
@@ -124,7 +124,7 @@ export default function NowPage() {
       </div>
 
       <div className="mt-20 border-t border-stone-200 pt-8 text-center">
-        <p className="font-serif text-3xl italic text-stone-700">— Yash</p>
+        <p className="font-serif text-3xl italic text-stone-700">- Yash</p>
         <p className="mt-3 text-[10px] uppercase tracking-[0.22em] text-stone-400">
           inspired by{" "}
           <a

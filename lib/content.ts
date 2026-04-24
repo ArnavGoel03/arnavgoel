@@ -94,7 +94,7 @@ export function getNote(slug: string): Note | null {
 }
 
 // ────────────────────────────────────────────────────────────────────────────
-// Primers — short, high-signal reference pages on ingredients and stacks.
+// Primers, short, high-signal reference pages on ingredients and stacks.
 // ────────────────────────────────────────────────────────────────────────────
 
 function readPrimers(): Primer[] {

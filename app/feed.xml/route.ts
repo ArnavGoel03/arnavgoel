@@ -61,9 +61,9 @@ export async function GET() {
 
   for (const r of getAllReviews()) {
     items.push({
-      title: `${r.brand} — ${r.name}`,
+      title: `${r.brand}, ${r.name}`,
       link: `${site.url}/${r.kind}/${r.slug}`,
-      description: r.summary || `${r.brand} ${r.name} — review.`,
+      description: r.summary || `${r.brand} ${r.name}, review.`,
       pubDate: r.datePublished,
       categories: [r.kind, r.category],
     });
@@ -81,10 +81,10 @@ export async function GET() {
 
   for (const p of getPrimers()) {
     items.push({
-      title: `${p.title} — Primer`,
+      title: `${p.title}, Primer`,
       link: `${site.url}/primers/${p.slug}`,
       description:
-        p.subtitle ?? `${p.title} — a primer on ${p.domain}.`,
+        p.subtitle ?? `${p.title}, a primer on ${p.domain}.`,
       pubDate: p.datePublished,
       categories: ["primer", p.domain, p.kind],
     });

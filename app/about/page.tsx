@@ -26,7 +26,7 @@ export default function AboutPage() {
       <div className="mb-8 flex items-baseline justify-between gap-4 text-[11px] uppercase tracking-[0.22em] text-stone-500">
         <span className="flex items-baseline gap-2">
           <span className="text-rose-400">❋</span>
-          <span>The author —</span>
+          <span>The author -</span>
         </span>
         <span className="font-mono text-stone-400">{site.location}</span>
       </div>
@@ -41,8 +41,8 @@ export default function AboutPage() {
             I
           </span>
           live in {site.location}. This is the corner of the internet where I
-          write about the products I actually use — skincare, supplements, oral
-          care — and the photos and rough notes I make in between. Slower than a
+          write about the products I actually use, skincare, supplements, oral
+          care, and the photos and rough notes I make in between. Slower than a
           feed. More honest than a sponsored review.
         </p>
 
@@ -58,7 +58,7 @@ export default function AboutPage() {
           </li>
           <li className="flex gap-3">
             <span aria-hidden className="mt-1.5 text-rose-400">❋</span>
-            <span>If I stop using a product, the review says so — and why.</span>
+            <span>If I stop using a product, the review says so, and why.</span>
           </li>
           <li className="flex gap-3">
             <span aria-hidden className="mt-1.5 text-rose-400">❋</span>
@@ -89,7 +89,7 @@ export default function AboutPage() {
             <span aria-hidden className="mt-1.5 text-rose-400">❋</span>
             <span>
               <strong className="font-serif text-stone-900">Context.</strong>{" "}
-              A 7.5 for oily skin might be a 9 for dry skin — and the opposite.
+              A 7.5 for oily skin might be a 9 for dry skin, and the opposite.
             </span>
           </li>
           <li className="flex gap-3">
@@ -123,7 +123,7 @@ export default function AboutPage() {
 
         <SectionLabel num="04" label="Off the clock" />
         <p>
-          Most weekends involve water in some form — kayaking, wakesurfing,
+          Most weekends involve water in some form, kayaking, wakesurfing,
           snorkelling, and, when time and depth permit, underwater basket
           weaving.
         </p>
@@ -132,7 +132,7 @@ export default function AboutPage() {
         <p>
           <a href="/skincare" className="font-medium text-stone-900 underline decoration-stone-300 underline-offset-4 hover:decoration-rose-400">Skincare</a>,{" "}
           <a href="/supplements" className="font-medium text-stone-900 underline decoration-stone-300 underline-offset-4 hover:decoration-rose-400">supplements</a>,{" "}
-          <a href="/oral-care" className="font-medium text-stone-900 underline decoration-stone-300 underline-offset-4 hover:decoration-rose-400">oral care</a> — the reviews.{" "}
+          <a href="/oral-care" className="font-medium text-stone-900 underline decoration-stone-300 underline-offset-4 hover:decoration-rose-400">oral care</a>, the reviews.{" "}
           <a href="/photos" className="font-medium text-stone-900 underline decoration-stone-300 underline-offset-4 hover:decoration-rose-400">Photos</a> for the ones I shot on a DSLR.{" "}
           <a href="/notes" className="font-medium text-stone-900 underline decoration-stone-300 underline-offset-4 hover:decoration-rose-400">Notes</a> for the slower writing.{" "}
           <a href="/now" className="font-medium text-stone-900 underline decoration-stone-300 underline-offset-4 hover:decoration-rose-400">Now</a> for what&apos;s on the shelf this month.{" "}
@@ -166,7 +166,7 @@ export default function AboutPage() {
       </div>
 
       <div className="mt-20 border-t border-stone-200 pt-8 text-center">
-        <p className="font-serif text-3xl italic text-stone-700">— {site.shortName}</p>
+        <p className="font-serif text-3xl italic text-stone-700">- {site.shortName}</p>
         <p className="mt-2 text-[10px] uppercase tracking-[0.22em] text-stone-400">
           ❋ {site.location}
         </p>

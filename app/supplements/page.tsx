@@ -7,7 +7,7 @@ import { getReviews } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Supplement Reviews",
   description:
-    "Honest reviews of every supplement I've taken — vitamins, minerals, nootropics, adaptogens. Rated out of 10 with what I actually felt.",
+    "Honest reviews of every supplement I've taken, vitamins, minerals, nootropics, adaptogens. Rated out of 10 with what I actually felt.",
   alternates: { canonical: "/supplements" },
 };
 
@@ -17,7 +17,7 @@ export default function SupplementsPage() {
     <>
       <Container>
         <SectionMasthead
-          volume="Vol. II — Supplements"
+          volume="Vol. II, Supplements"
           title="Supplements"
           intro="Vitamins, minerals, nootropics, adaptogens. What I took, how long, and whether I felt anything."
           reviews={reviews}

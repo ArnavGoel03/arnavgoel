@@ -10,16 +10,16 @@ The site is editorial content (MDX files committed to git) plus a small dashboar
 
 | Route | What it is |
 |---|---|
-| `/` | Landing page — bio, "just added" reviews, sections, listening, recent notes |
+| `/` | Landing page, bio, "just added" reviews, sections, listening, recent notes |
 | `/about` | Longer intro, "rules I write by," and a link to my professional site |
 | `/now` | What I'm reading / taking / thinking about this month ([/now movement](https://nownownow.com/about)) |
 | `/notes` | Long-form writing, one MDX file per note |
 | `/photos` | DSLR gallery, entries in `content/photos.json`, originals on Vercel Blob |
-| `/skincare` | Product reviews — one MDX file per product, country availability filter |
+| `/skincare` | Product reviews, one MDX file per product, country availability filter |
 | `/supplements` | Same as skincare |
 | `/oral-care` | Same as skincare |
 | `/links` | All my socials in one place |
-| `/admin` | Private dashboard for adding/editing content (not auth-protected yet — see "Auth" below) |
+| `/admin` | Private dashboard for adding/editing content (not auth-protected yet, see "Auth" below) |
 
 ---
 
@@ -40,10 +40,10 @@ The site is editorial content (MDX files committed to git) plus a small dashboar
 
 1. Visit `/admin` on the live site (or `localhost:3000/admin`)
 2. **Add product** tab → fill in brand, name, category, rating
-3. (Optional) Drop a product photo into the upload zone — uploaded to Vercel Blob at original quality
+3. (Optional) Drop a product photo into the upload zone, uploaded to Vercel Blob at original quality
 4. (Optional) Add buy links: bought-from URL up top, plus India / USA / UK retailer URLs (one per line)
 5. (Optional) Pros, cons, ingredients, summary, full markdown body
-6. Save → server action commits the MDX file to GitHub via the REST API → Vercel rebuilds → live in ~30–60s
+6. Save → server action commits the MDX file to GitHub via the REST API → Vercel rebuilds → live in ~30-60s
 
 To **edit** an existing review: same dashboard, **Edit existing** tab, click the review, change fields, save.
 
@@ -91,7 +91,7 @@ summary: One-sentence verdict shown on the listing card.
 Markdown body…
 ```
 
-Frontmatter is validated by Zod at request time — bad data fails the page render with a clear error.
+Frontmatter is validated by Zod at request time, bad data fails the page render with a clear error.
 
 ### Notes (essays)
 
@@ -99,7 +99,7 @@ Drop an `.mdx` file in `content/notes/` with frontmatter `{ title, description, 
 
 ### Photos
 
-Use the dashboard's **Add photo** tab. Drop the file in, fill caption / alt / location / date — original is uploaded to Vercel Blob (no recompression) and an entry is appended to `content/photos.json`.
+Use the dashboard's **Add photo** tab. Drop the file in, fill caption / alt / location / date, original is uploaded to Vercel Blob (no recompression) and an entry is appended to `content/photos.json`.
 
 ---
 
@@ -107,10 +107,10 @@ Use the dashboard's **Add photo** tab. Drop the file in, fill caption / alt / lo
 
 Each review has up to four URL fields:
 
-- `boughtFromUrl` — single, prominent "Bought from" button (the truthful one)
-- `indiaLinks[]` — Amazon India, Nykaa, Myntra, Flipkart, Naturaltein, Earthful, etc.
-- `westernLinks[]` — Amazon US, Target, Walmart, Sephora, Ulta
-- `ukLinks[]` — Amazon UK, Boots, LookFantastic, Cult Beauty, Space NK, Holland & Barrett
+- `boughtFromUrl`, single, prominent "Bought from" button (the truthful one)
+- `indiaLinks[]`, Amazon India, Nykaa, Myntra, Flipkart, Naturaltein, Earthful, etc.
+- `westernLinks[]`, Amazon US, Target, Walmart, Sephora, Ulta
+- `ukLinks[]`, Amazon UK, Boots, LookFantastic, Cult Beauty, Space NK, Holland & Barrett
 
 Each link's button label is auto-derived from the URL host (`amazon.in` → "Amazon India", `nykaa.com` → "Nykaa", etc.) via `lib/retailers.ts`. Buttons get a brand-specific color theme (Amazon amber, Nykaa pink, Target red, etc.).
 
@@ -154,7 +154,7 @@ The footer carries a permanent FTC-style disclosure.
 
 `/admin` is currently **not auth-protected**. The page itself shows a yellow warning. Anyone who knows the URL can write to the repo, so keep it private.
 
-A simple password gate is the next thing to add — single env var (`ADMIN_PASSWORD`) + signed cookie. Until then, don't share the URL.
+A simple password gate is the next thing to add, single env var (`ADMIN_PASSWORD`) + signed cookie. Until then, don't share the URL.
 
 ---
 

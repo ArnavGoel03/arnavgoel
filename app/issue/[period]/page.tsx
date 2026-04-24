@@ -24,8 +24,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const count =
     issue.reviews.length + issue.notes.length + issue.primers.length;
   return {
-    title: `${label} — Issue`,
-    description: `${count} items landed on the site in ${label} — reviews, notes, and primers.`,
+    title: `${label} · Issue`,
+    description: `${count} items landed on the site in ${label}: reviews, notes, and primers.`,
     alternates: { canonical: `/issue/${period}` },
   };
 }
@@ -87,7 +87,7 @@ export default async function IssuePage({ params }: Props) {
           <span className="text-rose-400">.</span>
         </h1>
         <p className="mt-6 max-w-2xl font-serif text-xl italic leading-snug text-stone-600 sm:text-2xl">
-          What landed in {label} — every product, note, and primer, in one
+          What landed in {label}, every product, note, and primer, in one
           place.
         </p>
       </div>

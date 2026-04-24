@@ -64,7 +64,7 @@ export function ThemeToggle() {
 
 /**
  * Inline script injected into <head> to apply the saved theme
- * BEFORE React hydrates — avoids the "flash of light UI" when a user
+ * BEFORE React hydrates, avoids the "flash of light UI" when a user
  * has chosen dark. Keep this tiny; it runs on every navigation.
  */
 export const themeInitScript = `

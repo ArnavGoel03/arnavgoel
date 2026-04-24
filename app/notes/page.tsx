@@ -7,7 +7,7 @@ import type { NoteSummary } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "Notes",
-  description: `Short writing from ${site.shortName} — rough, unfinished, occasionally useful.`,
+  description: `Short writing from ${site.shortName}, rough, unfinished, occasionally useful.`,
   alternates: { canonical: "/notes" },
 };
 
@@ -52,7 +52,7 @@ export default function NotesPage() {
         Notes<span className="text-rose-400">.</span>
       </h1>
       <p className="mt-6 max-w-2xl font-serif text-xl italic leading-snug text-stone-600 sm:text-2xl">
-        Rough, occasional, mine. Posted when I have something worth saying — never on a schedule.
+        Rough, occasional, mine. Posted when I have something worth saying, never on a schedule.
       </p>
 
       {notes.length === 0 ? (

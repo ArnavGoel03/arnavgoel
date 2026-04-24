@@ -25,11 +25,11 @@ export default function PhotosPage() {
           <div className="mb-8 flex items-baseline justify-between gap-4 text-[11px] uppercase tracking-[0.22em] text-stone-500">
             <span className="flex items-baseline gap-2">
               <span className="text-rose-400">❋</span>
-              <span>Contact Sheet — DSLR</span>
+              <span>Contact Sheet, DSLR</span>
             </span>
             {earliest && latest && (
               <span className="font-mono text-stone-400">
-                {earliest.getFullYear()} – {latest.getFullYear()}
+                {earliest.getFullYear()}, {latest.getFullYear()}
               </span>
             )}
           </div>

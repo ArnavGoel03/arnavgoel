@@ -9,7 +9,7 @@ function fmt(iso: string): string {
 }
 
 /**
- * Chronological image grid — progress photos laid out left-to-right,
+ * Chronological image grid, progress photos laid out left-to-right,
  * earliest first. Primarily for skincare reviews where week-to-week
  * change is the whole point.
  */

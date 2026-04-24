@@ -23,7 +23,7 @@ export default function NotFound() {
       <p className="mt-6 max-w-xl text-lg leading-relaxed text-stone-600">
         The URL you tried isn&apos;t in this volume. Either the page never
         existed, the URL changed, or I quietly unpublished it. The site is
-        small enough that nothing here is hidden — try one of these:
+        small enough that nothing here is hidden, try one of these:
       </p>
 
       <ul className="mt-8 space-y-3 text-stone-700">
@@ -35,7 +35,7 @@ export default function NotFound() {
           >
             Skincare
           </Link>
-          <span className="italic text-stone-500">— the most-trafficked section</span>
+          <span className="italic text-stone-500">- the most-trafficked section</span>
         </li>
         <li className="flex items-baseline gap-3">
           <span aria-hidden className="text-rose-400">❋</span>
@@ -45,7 +45,7 @@ export default function NotFound() {
           >
             Notes
           </Link>
-          <span className="italic text-stone-500">— if you came for the writing</span>
+          <span className="italic text-stone-500">- if you came for the writing</span>
         </li>
         <li className="flex items-baseline gap-3">
           <span aria-hidden className="text-rose-400">❋</span>
@@ -55,7 +55,7 @@ export default function NotFound() {
           >
             Home
           </Link>
-          <span className="italic text-stone-500">— start from the beginning</span>
+          <span className="italic text-stone-500">- start from the beginning</span>
         </li>
       </ul>
     </Container>

@@ -7,7 +7,7 @@ import { getReviews } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Oral Care Reviews",
   description:
-    "Honest reviews of every oral care product I use — electric toothbrushes, toothpastes, mouthwash, floss. Rated out of 10 with pros, cons, and repurchase decisions.",
+    "Honest reviews of every oral care product I use, electric toothbrushes, toothpastes, mouthwash, floss. Rated out of 10 with pros, cons, and repurchase decisions.",
   alternates: { canonical: "/oral-care" },
 };
 
@@ -17,7 +17,7 @@ export default function OralCarePage() {
     <>
       <Container>
         <SectionMasthead
-          volume="Vol. III — Oral care"
+          volume="Vol. III, Oral care"
           title="Oral care"
           intro="Brushes, pastes, mouthwash, floss. What lives in my bathroom cabinet for teeth, breath, and gums."
           reviews={reviews}

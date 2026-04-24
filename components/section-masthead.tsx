@@ -86,7 +86,7 @@ function RatingCaveat({
 
   if (verdictedCount > 0) {
     return wrap(
-      "One word can't capture context, price, or routine — read the prose before the verdict.",
+      "One word can't capture context, price, or routine, read the prose before the verdict.",
     );
   }
   if (testingCount > 0) {

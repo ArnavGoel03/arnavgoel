@@ -7,7 +7,7 @@ import type { PrimerSummary } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "Primers",
-  description: `Short, high-signal reference pages on ingredients and stacks — written by ${site.shortName}.`,
+  description: `Short, high-signal reference pages on ingredients and stacks, written by ${site.shortName}.`,
   alternates: { canonical: "/primers" },
 };
 
@@ -124,7 +124,7 @@ export default function PrimersPage() {
       </h1>
       <p className="mt-6 max-w-2xl font-serif text-xl italic leading-snug text-stone-600 sm:text-2xl">
         High-signal reference pages on ingredients and stacks. No filler,
-        no marketing — the parts of a topic you actually need before a
+        no marketing, the parts of a topic you actually need before a
         review makes sense.
       </p>
 

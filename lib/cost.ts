@@ -17,7 +17,7 @@ export function parsePrice(price: string | undefined): number | null {
  * `servingsPerContainer` in frontmatter. If `dailyServings` is missing,
  * defaults to 1 (one dose per day).
  *
- * Returns null when there isn't enough info to compute — caller should
+ * Returns null when there isn't enough info to compute, caller should
  * hide the row.
  */
 export function costPerDay(

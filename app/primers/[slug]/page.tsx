@@ -18,9 +18,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const primer = getPrimer(slug);
   if (!primer) return {};
-  const description = primer.subtitle ?? `${primer.title} — a primer.`;
+  const description = primer.subtitle ?? `${primer.title} · a primer.`;
   return {
-    title: `${primer.title} — Primer`,
+    title: `${primer.title} · Primer`,
     description,
     alternates: { canonical: `/primers/${primer.slug}` },
     openGraph: {

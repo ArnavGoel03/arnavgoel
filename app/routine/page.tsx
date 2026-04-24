@@ -11,7 +11,7 @@ import {
 export const metadata: Metadata = {
   title: "Routines",
   description:
-    "What I actually do — morning, evening, and the running supplement stack.",
+    "What I actually do, morning, evening, and the running supplement stack.",
   alternates: { canonical: "/routine" },
 };
 

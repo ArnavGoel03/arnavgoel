@@ -30,7 +30,7 @@ export default function SearchPage() {
         Search<span className="text-rose-400">.</span>
       </h1>
       <p className="mt-6 mb-12 max-w-2xl font-serif text-lg italic leading-snug text-stone-600 sm:text-xl">
-        Everything on the shelf — products by name, brand, or ingredient;
+        Everything on the shelf, products by name, brand, or ingredient;
         primers by topic; notes by tag.
       </p>
 

@@ -30,7 +30,7 @@ afterEach(() => {
   }
 });
 
-describe("affiliatize — no-op cases", () => {
+describe("affiliatize, no-op cases", () => {
   it("returns the URL unchanged when no env vars are set", () => {
     const url = "https://www.amazon.com/dp/B09ZV8N75K";
     expect(affiliatize(url)).toBe(url);
@@ -57,7 +57,7 @@ describe("affiliatize — no-op cases", () => {
   });
 });
 
-describe("affiliatize — Amazon tagging", () => {
+describe("affiliatize, Amazon tagging", () => {
   it("appends tag to amazon.com URLs when AMAZON_US_TAG is set", () => {
     process.env.AMAZON_US_TAG = "arnav-20";
     const out = affiliatize("https://www.amazon.com/dp/B0B3R661JP");
@@ -85,7 +85,7 @@ describe("affiliatize — Amazon tagging", () => {
     expect(out).not.toContain("old-tag");
   });
 
-  it("doesn't cross-wire — .in tag must not touch .com URLs", () => {
+  it("doesn't cross-wire, .in tag must not touch .com URLs", () => {
     process.env.AMAZON_IN_TAG = "yash04e2-21";
     const out = affiliatize("https://www.amazon.com/dp/X");
     expect(out).not.toContain("yash04e2-21");
@@ -104,7 +104,7 @@ describe("affiliatize — Amazon tagging", () => {
   });
 });
 
-describe("affiliatize — non-Amazon aggregator templates", () => {
+describe("affiliatize, non-Amazon aggregator templates", () => {
   it("wraps Indian retailers with the INDIA_AFFILIATE_TEMPLATE", () => {
     process.env.INDIA_AFFILIATE_TEMPLATE =
       "https://linksredirect.com/?pub_id=ABC&url={url}";
@@ -125,7 +125,7 @@ describe("affiliatize — non-Amazon aggregator templates", () => {
     expect(out).toContain("skimlinks.example");
   });
 
-  it("never wraps an Amazon URL with a region template — Amazon owns its own tag flow", () => {
+  it("never wraps an Amazon URL with a region template, Amazon owns its own tag flow", () => {
     process.env.INDIA_AFFILIATE_TEMPLATE = "https://wrap.example/?url={url}";
     process.env.AMAZON_IN_TAG = "yash04e2-21";
     const out =

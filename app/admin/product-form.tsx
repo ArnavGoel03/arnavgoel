@@ -289,7 +289,7 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
               min="0"
               max="10"
               defaultValue={initial?.ratings?.effect ?? ""}
-              placeholder="0–10"
+              placeholder="0-10"
               className={inputCls}
             />
             <p className="mt-1 text-xs text-stone-500">Does it work?</p>
@@ -306,7 +306,7 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
               min="0"
               max="10"
               defaultValue={initial?.ratings?.value ?? ""}
-              placeholder="0–10"
+              placeholder="0-10"
               className={inputCls}
             />
             <p className="mt-1 text-xs text-stone-500">Worth the price?</p>
@@ -323,7 +323,7 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
               min="0"
               max="10"
               defaultValue={initial?.ratings?.tolerance ?? ""}
-              placeholder="0–10"
+              placeholder="0-10"
               className={inputCls}
             />
             <p className="mt-1 text-xs text-stone-500">Easy to live with?</p>
@@ -408,7 +408,7 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
             <span>
               <span className="font-medium">Retire this product.</span>{" "}
               <span className="text-stone-500">
-                Moves it off the category listing into /retired — still indexed,
+                Moves it off the category listing into /retired, still indexed,
                 still browsable, but signals you no longer keep it in rotation.
               </span>
             </span>
@@ -506,7 +506,7 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
 
       <Section
         title="Purchase links"
-        description="Bought-from URL is shown as the prominent button. India and West sections each accept multiple URLs (one per line) — readers see them all."
+        description="Bought-from URL is shown as the prominent button. India and West sections each accept multiple URLs (one per line), readers see them all."
       >
         <div>
           <label htmlFor="boughtFromUrl" className={labelCls}>

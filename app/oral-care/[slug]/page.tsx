@@ -25,9 +25,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const review = getReview("oral-care", slug);
   if (!review) return {};
-  const description = review.summary || `${review.brand} ${review.name} — review.`;
+  const description = review.summary || `${review.brand} ${review.name} review.`;
   return {
-    title: `${review.name} by ${review.brand} — Review`,
+    title: `${review.name} by ${review.brand}`,
     description,
     alternates: { canonical: `/oral-care/${review.slug}` },
     openGraph: {

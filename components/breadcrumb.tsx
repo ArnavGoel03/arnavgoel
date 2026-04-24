@@ -5,7 +5,7 @@ export type Crumb = { name: string; href: string };
 
 /**
  * Editorial breadcrumb. Renders a semantic <nav> + JSON-LD structured
- * data in one go — pass the full trail ending with the current page.
+ * data in one go, pass the full trail ending with the current page.
  */
 export function Breadcrumb({ trail }: { trail: Crumb[] }) {
   if (trail.length === 0) return null;

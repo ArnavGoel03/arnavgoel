@@ -206,7 +206,7 @@ export function ReviewMeta({ review }: { review: Review }) {
           <span className="italic">
             {availability!.replace(" only", "")}
           </span>{" "}
-          retailers — readers outside that region may need to import or find a
+          retailers, readers outside that region may need to import or find a
           local equivalent.
         </div>
       )}

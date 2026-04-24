@@ -3,7 +3,7 @@ import { Container } from "@/components/container";
 import { loginAction } from "./actions";
 
 export const metadata: Metadata = {
-  title: "Admin — Sign in",
+  title: "Admin · Sign in",
   robots: { index: false, follow: false },
 };
 
@@ -26,14 +26,14 @@ export default async function LoginPage({ searchParams }: Props) {
         Sign in<span className="text-rose-400">.</span>
       </h1>
       <p className="mb-8 font-serif text-lg italic text-stone-500">
-        Private — the dashboard that commits to GitHub.
+        Private, the dashboard that commits to GitHub.
       </p>
 
       {!passwordConfigured ? (
         <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
           <p className="font-medium">ADMIN_PASSWORD is not set.</p>
           <p className="mt-1 text-amber-800">
-            Auth is bypassed — anyone reaching this page goes straight to
+            Auth is bypassed, anyone reaching this page goes straight to
             /admin. Set <code className="font-mono">ADMIN_PASSWORD</code>{" "}
             in Vercel environment variables to require sign-in.
           </p>

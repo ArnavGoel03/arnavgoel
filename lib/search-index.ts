@@ -6,7 +6,7 @@ export type SearchItem = {
   id: string;
   type: SearchItemType;
   title: string;
-  subtitle: string; // brand / domain / tags — secondary display
+  subtitle: string; // brand / domain / tags, secondary display
   href: string;
   /** Lower-cased concatenation of every field that should match a query. */
   haystack: string;

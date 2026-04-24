@@ -23,13 +23,13 @@ export function ProductCard({ review }: { review: ReviewSummary }) {
           />
         ) : (
           <>
-            {/* Big brand watermark — fills the image well when no photo */}
+            {/* Big brand watermark, fills the image well when no photo */}
             <div className="absolute inset-0 flex items-center justify-center px-6">
               <span className="text-center font-serif text-4xl leading-[0.95] tracking-tight text-stone-300/80 sm:text-5xl">
                 {review.brand}
               </span>
             </div>
-            {/* Hairline cross corners — gives a "letterpress" hint */}
+            {/* Hairline cross corners, gives a "letterpress" hint */}
             <span aria-hidden className="absolute left-3 top-3 h-3 w-3 border-l border-t border-stone-300/70" />
             <span aria-hidden className="absolute right-3 top-3 h-3 w-3 border-r border-t border-stone-300/70" />
             <span aria-hidden className="absolute bottom-3 left-3 h-3 w-3 border-b border-l border-stone-300/70" />

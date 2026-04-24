@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { site } from "@/lib/site";
 
 export const runtime = "nodejs";
-export const alt = `${site.name} — ${site.tagline}`;
+export const alt = `${site.name}, ${site.tagline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -67,7 +67,7 @@ export default async function Image() {
               marginBottom: 12,
             }}
           >
-            An honest catalog of —
+            An honest catalog of
           </div>
           <div
             style={{

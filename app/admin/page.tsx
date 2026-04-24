@@ -18,7 +18,7 @@ export default function AdminPage() {
         <PageHeading
           eyebrow="Dashboard"
           title="Manage content"
-          description="Add or edit reviews and photos. Reviews commit to GitHub; photo uploads go to Vercel Blob at original quality. Site rebuilds in ~30–60s after each save."
+          description="Add or edit reviews and photos. Reviews commit to GitHub; photo uploads go to Vercel Blob at original quality. Site rebuilds in ~30-60s after each save."
         />
       </Container>
       <Container className="pb-20">

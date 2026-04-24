@@ -5,7 +5,7 @@ import { slugifyHeading } from "@/lib/utils";
 /**
  * Editorial sidenote / margin note. Use inline in MDX:
  *
- *   <Aside>Ceramides degrade in sunlight — hence opaque tubes.</Aside>
+ *   <Aside>Ceramides degrade in sunlight, hence opaque tubes.</Aside>
  *
  * Floats to the right gutter on wide screens so the main read isn't
  * interrupted; inlines above the next paragraph on mobile.
@@ -31,7 +31,7 @@ function Aside({
 
 /**
  * Stable, deterministic heading IDs so TOCs and deep-links work. We
- * only slugify when children is a single string — complex JSX headings
+ * only slugify when children is a single string, complex JSX headings
  * would need a full AST walk.
  */
 function textOf(node: React.ReactNode): string | null {

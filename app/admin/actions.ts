@@ -352,7 +352,7 @@ export async function createReview(
     slug,
     kind: d.kind,
     path: repoPath,
-    message: `Committed ${repoPath}. Live in ~30–60s once Vercel redeploys.`,
+    message: `Committed ${repoPath}. Live in ~30-60s once Vercel redeploys.`,
   };
 }
 
@@ -361,7 +361,7 @@ export async function updateReview(
   formData: FormData,
 ): Promise<ActionState> {
   const slug = (formData.get("slug") ?? "").toString().trim();
-  if (!slug) return { ok: false, error: "Missing slug — can't locate the file to update." };
+  if (!slug) return { ok: false, error: "Missing slug, can't locate the file to update." };
 
   const parsed = reviewSchema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) {
@@ -390,7 +390,7 @@ export async function updateReview(
     slug,
     kind: d.kind,
     path: repoPath,
-    message: `Updated ${repoPath}. Live in ~30–60s once Vercel redeploys.`,
+    message: `Updated ${repoPath}. Live in ~30-60s once Vercel redeploys.`,
   };
 }
 
@@ -501,6 +501,6 @@ export async function createPhoto(
   return {
     ok: true,
     path: repoPath,
-    message: `Uploaded and committed. Live in ~30–60s once Vercel redeploys.`,
+    message: `Uploaded and committed. Live in ~30-60s once Vercel redeploys.`,
   };
 }

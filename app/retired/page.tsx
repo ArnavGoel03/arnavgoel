@@ -33,7 +33,7 @@ export default function RetiredPage() {
       <p className="mt-6 mb-12 max-w-2xl font-serif text-lg italic leading-snug text-stone-600 sm:text-xl">
         Products I used for long enough to have an opinion, then moved on
         from. Some were good and replaced by better. Some just didn&apos;t
-        fit. Either way — here for context, not recommendation.
+        fit. Either way, here for context, not recommendation.
       </p>
 
       {items.length === 0 ? (

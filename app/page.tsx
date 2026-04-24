@@ -26,7 +26,7 @@ export default function HomePage() {
     <>
       <PersonJsonLd />
 
-      {/* Hero — magazine cover */}
+      {/* Hero, magazine cover */}
       <section className="relative overflow-hidden border-b border-stone-300 bg-gradient-to-b from-stone-50 via-stone-50 to-white">
         <Container className="pt-12 pb-20 sm:pt-16 sm:pb-28">
           {/* Masthead rule: location · issue · date */}
@@ -44,7 +44,7 @@ export default function HomePage() {
           <div className="max-w-3xl">
             {/* Italic editorial label */}
             <p className="font-serif text-xl italic text-stone-500 sm:text-2xl">
-              An honest catalog of —
+              An honest catalog of
             </p>
 
             <h1 className="mt-2 font-serif text-[14vw] leading-[0.92] tracking-[-0.045em] text-stone-900 sm:text-8xl">
@@ -56,7 +56,7 @@ export default function HomePage() {
               {site.bio}
             </p>
 
-            {/* Trust strip — newsstand-style */}
+            {/* Trust strip, newsstand-style */}
             <div className="mt-10 flex flex-wrap items-baseline gap-x-8 gap-y-3 border-y border-stone-200 py-5">
               <div className="flex items-baseline gap-2">
                 <span className="font-display text-2xl font-light tabular-nums text-stone-900">
@@ -161,7 +161,7 @@ export default function HomePage() {
             href="/skincare"
             eyebrow={`${skincareCount} reviews`}
             title="Skincare"
-            description="Cleansers, serums, moisturizers, sunscreens — every product that's lived on my face for a month."
+            description="Cleansers, serums, moisturizers, sunscreens, every product that's lived on my face for a month."
           />
           <SectionTile
             index={2}
@@ -175,7 +175,7 @@ export default function HomePage() {
             href="/oral-care"
             eyebrow={`${oralCareCount} reviews`}
             title="Oral care"
-            description="Electric brushes, pastes, mouthwash — for teeth, breath, and gums."
+            description="Electric brushes, pastes, mouthwash, for teeth, breath, and gums."
           />
           <SectionTile
             index={4}
@@ -189,7 +189,7 @@ export default function HomePage() {
             href="/notes"
             eyebrow={`${notesCount} entries`}
             title="Notes"
-            description="Slow writing — essays, stray thoughts, half-formed ideas."
+            description="Slow writing, essays, stray thoughts, half-formed ideas."
           />
           <SectionTile
             index={6}
@@ -211,12 +211,12 @@ export default function HomePage() {
             On repeat right now.
           </h2>
           <p className="mt-2 text-sm text-stone-500">
-            Press play — it opens right here.
+            Press play, it opens right here.
           </p>
         </div>
         <SpotifyEmbed
           playlistId="37i9dQZF1EIhvQz3p7tStL"
-          title="Ibiza Club Mix — my favorite playlist"
+          title="Ibiza Club Mix, my favorite playlist"
         />
       </Container>
 

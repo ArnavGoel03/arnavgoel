@@ -69,9 +69,9 @@ export const noteFrontmatter = z.object({
 
 /**
  * A Primer is a short, high-signal reference page.
- *   - `kind: "stack"` — a combined-together explainer (bone health, omega-3,
+ *   - `kind: "stack"`, a combined-together explainer (bone health, omega-3,
  *     the sleep stack). Usually includes a `stack` list of component parts.
- *   - `kind: "ingredient"` — a single-ingredient primer (niacinamide, retinoids,
+ *   - `kind: "ingredient"`, a single-ingredient primer (niacinamide, retinoids,
  *     ceramides, magnesium forms).
  * `domain` toggles between supplement / skincare context for grouping on
  * the index page.

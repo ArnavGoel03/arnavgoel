@@ -13,13 +13,13 @@ import type { Kind } from "./types";
 
 /**
  * Content-loading smoke tests. These run against the real content/ directory
- * on purpose — if a frontmatter field drifts or a new review has bad YAML,
+ * on purpose, if a frontmatter field drifts or a new review has bad YAML,
  * the tests fail before a bad deploy goes out.
  */
 
 const KINDS: Kind[] = ["skincare", "supplements", "oral-care"];
 
-describe("getReviews() — per kind", () => {
+describe("getReviews(), per kind", () => {
   for (const kind of KINDS) {
     it(`returns a valid array for ${kind} and all entries match the kind`, () => {
       const reviews = getReviews(kind);
@@ -45,7 +45,7 @@ describe("getReviews() — per kind", () => {
   }
 });
 
-describe("getReviews() — hidden filter", () => {
+describe("getReviews(), hidden filter", () => {
   it("public listing never includes hidden reviews", () => {
     for (const kind of KINDS) {
       const pub = getReviews(kind);
@@ -72,7 +72,7 @@ describe("getReviews() — hidden filter", () => {
   });
 });
 
-describe("getReview() — single lookup", () => {
+describe("getReview(), single lookup", () => {
   it("round-trips: every slug from getReviews() resolves", () => {
     for (const kind of KINDS) {
       const reviews = getReviews(kind);
