@@ -3,38 +3,29 @@
 import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 
-type Theme = "light" | "dark" | "system";
+type Theme = "light" | "dark";
 
 const STORAGE_KEY = "yashgoel-theme";
+// Dark is the house style: the editorial stone-on-near-black aesthetic
+// looks right by default. Users who prefer light can still toggle, and
+// the choice is persisted for next visit.
+const DEFAULT_THEME: Theme = "dark";
 
 function apply(theme: Theme) {
   const root = document.documentElement;
-  const resolved =
-    theme === "system"
-      ? window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light"
-      : theme;
-  root.classList.toggle("dark", resolved === "dark");
+  root.classList.toggle("dark", theme === "dark");
   root.dataset.theme = theme;
 }
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>("system");
+  const [theme, setTheme] = useState<Theme>(DEFAULT_THEME);
 
   useEffect(() => {
-    const stored = (localStorage.getItem(STORAGE_KEY) as Theme | null) ?? "system";
-    setTheme(stored);
-    apply(stored);
-
-    const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    const onChange = () => {
-      const current =
-        (localStorage.getItem(STORAGE_KEY) as Theme | null) ?? "system";
-      if (current === "system") apply("system");
-    };
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
+    const stored = localStorage.getItem(STORAGE_KEY) as Theme | null;
+    const initial: Theme =
+      stored === "light" || stored === "dark" ? stored : DEFAULT_THEME;
+    setTheme(initial);
+    apply(initial);
   }, []);
 
   function set(next: Theme) {
@@ -43,15 +34,7 @@ export function ThemeToggle() {
     apply(next);
   }
 
-  const resolved: "light" | "dark" =
-    theme === "dark"
-      ? "dark"
-      : theme === "light"
-        ? "light"
-        : typeof window !== "undefined" &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "light";
+  const resolved: "light" | "dark" = theme;
 
   const isLight = resolved === "light";
   const isDark = resolved === "dark";
@@ -105,10 +88,12 @@ export const themeInitScript = `
 (function(){
   try {
     var stored = localStorage.getItem('${STORAGE_KEY}');
-    var theme = stored || 'system';
-    var isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    if (isDark) document.documentElement.classList.add('dark');
+    var theme = (stored === 'light' || stored === 'dark') ? stored : '${DEFAULT_THEME}';
+    if (theme === 'dark') document.documentElement.classList.add('dark');
     document.documentElement.dataset.theme = theme;
-  } catch (e) {}
+  } catch (e) {
+    document.documentElement.classList.add('dark');
+    document.documentElement.dataset.theme = '${DEFAULT_THEME}';
+  }
 })();
 `;

@@ -24,6 +24,7 @@ const RETAILER_BY_HOST: Record<string, string> = {
   "target.com": "Target",
   "walmart.com": "Walmart",
   "sephora.com": "Sephora",
+  "sephora.in": "Sephora",
   "ulta.com": "Ulta",
 };
 
@@ -173,6 +174,7 @@ const INDIA_HOSTS = [
   "distausa.com",
   "myprotein.co.in",
   "healthkart.com",
+  "sephora.in",
 ];
 
 const USA_HOSTS = [

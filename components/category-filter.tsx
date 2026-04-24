@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Check, ChevronDown } from "lucide-react";
 import { ProductCard } from "./product-card";
 import { cn } from "@/lib/utils";
 import { costPerDay, parsePrice } from "@/lib/cost";
@@ -169,24 +170,12 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
 
       {ingredients.length > 2 && (
         <div className="flex flex-wrap items-center gap-2 text-sm">
-          <label
-            className="text-stone-500 dark:text-stone-400"
-            htmlFor="ingredient-filter"
-          >
-            Ingredient:
-          </label>
-          <select
-            id="ingredient-filter"
+          <span className="text-stone-500 dark:text-stone-400">Ingredient:</span>
+          <IngredientPicker
+            options={ingredients}
             value={ingredient}
-            onChange={(e) => setIngredient(e.target.value)}
-            className="rounded-full border border-stone-200 bg-white px-3 py-1 text-stone-700 transition-colors hover:border-stone-400 focus:border-stone-900 focus:outline-none dark:border-stone-800 dark:bg-stone-900 dark:text-stone-200 dark:hover:border-stone-600 dark:focus:border-stone-100"
-          >
-            {ingredients.map((i) => (
-              <option key={i} value={i}>
-                {i === "all" ? "Any" : i}
-              </option>
-            ))}
-          </select>
+            onChange={setIngredient}
+          />
         </div>
       )}
 
@@ -200,6 +189,102 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
             <ProductCard key={`${r.kind}-${r.slug}`} review={r} />
           ))}
         </div>
+      )}
+    </div>
+  );
+}
+
+/**
+ * Editorial pill dropdown for ingredient filtering. Replaces the
+ * native <select>, which jumped out visually against the site's
+ * stone-on-rose pill vocabulary. Opens below on click, closes on
+ * outside-click and on Escape.
+ */
+function IngredientPicker({
+  options,
+  value,
+  onChange,
+}: {
+  options: string[];
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onDoc = (e: MouseEvent) => {
+      if (!wrapRef.current) return;
+      if (!wrapRef.current.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", onDoc);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDoc);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  const label = value === "all" ? "Any" : value;
+
+  return (
+    <div className="relative inline-block" ref={wrapRef}>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        className={cn(
+          "inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-sm transition-colors",
+          value === "all"
+            ? "border-stone-200 bg-white text-stone-700 hover:border-stone-300 hover:text-stone-900 dark:border-stone-800 dark:bg-stone-900 dark:text-stone-300 dark:hover:border-stone-600 dark:hover:text-stone-100"
+            : "border-stone-900 bg-stone-900 text-white dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900",
+        )}
+      >
+        <span>{label}</span>
+        <ChevronDown
+          className={cn(
+            "h-3.5 w-3.5 transition-transform",
+            open ? "rotate-180" : "",
+          )}
+        />
+      </button>
+
+      {open && (
+        <ul
+          role="listbox"
+          className="absolute left-0 top-full z-30 mt-2 max-h-64 w-56 overflow-y-auto rounded-2xl border border-stone-200 bg-white py-2 shadow-lg dark:border-stone-800 dark:bg-stone-900"
+        >
+          {options.map((opt) => {
+            const selected = opt === value;
+            return (
+              <li key={opt}>
+                <button
+                  type="button"
+                  role="option"
+                  aria-selected={selected}
+                  onClick={() => {
+                    onChange(opt);
+                    setOpen(false);
+                  }}
+                  className={cn(
+                    "flex w-full items-center justify-between px-3 py-1.5 text-left text-sm transition-colors",
+                    selected
+                      ? "text-rose-700 dark:text-rose-400"
+                      : "text-stone-700 hover:bg-stone-50 dark:text-stone-200 dark:hover:bg-stone-800",
+                  )}
+                >
+                  <span>{opt === "all" ? "Any" : opt}</span>
+                  {selected && <Check className="h-3.5 w-3.5" />}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
       )}
     </div>
   );

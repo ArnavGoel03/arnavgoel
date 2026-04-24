@@ -28,7 +28,10 @@ export function SiteTourMount() {
         // ignore storage errors
       }
     }
-    const t = setTimeout(() => setShow(true), 600);
+    // Keep the delay short. 600ms let the page fully settle before the
+    // overlay appeared, which readers correctly read as "showing up
+    // late". 200ms is enough for layout + font load on cached fonts.
+    const t = setTimeout(() => setShow(true), 200);
     return () => clearTimeout(t);
   }, [pathname, search]);
 

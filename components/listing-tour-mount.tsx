@@ -30,9 +30,10 @@ export function ListingTourMount() {
         // ignore
       }
     }
-    // Slightly longer delay: listing pages render product cards below
-    // the fold, the tour step that highlights a card needs it mounted.
-    const t = setTimeout(() => setShow(true), 800);
+    // Kept short so the tour doesn't appear after the reader has
+    // already started scanning. 250ms is enough for the product-card
+    // grid to mount on most connections.
+    const t = setTimeout(() => setShow(true), 250);
     return () => clearTimeout(t);
   }, [search]);
 
