@@ -8,6 +8,9 @@ import { NoteJsonLd } from "@/components/json-ld";
 import { getAdjacentNotes, getNote, getNotes } from "@/lib/content";
 import { formatReadingTime } from "@/lib/reading-time";
 import { PrevNext } from "@/components/prev-next";
+import { CopyLink } from "@/components/copy-link";
+import { Breadcrumb } from "@/components/breadcrumb";
+import { ReadingProgress } from "@/components/reading-progress";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -46,15 +49,26 @@ export default async function NotePage({ params }: Props) {
 
   return (
     <article>
+      <ReadingProgress />
       <NoteJsonLd note={note} />
       <Container className="max-w-2xl py-10">
-        <Link
-          href="/notes"
-          className="inline-flex items-center gap-1.5 text-sm text-stone-500 transition-colors hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          All notes
-        </Link>
+        <Breadcrumb
+          trail={[
+            { name: "Home", href: "/" },
+            { name: "Notes", href: "/notes" },
+            { name: note.title, href: `/notes/${note.slug}` },
+          ]}
+        />
+        <div className="flex items-center justify-between gap-4">
+          <Link
+            href="/notes"
+            className="inline-flex items-center gap-1.5 text-sm text-stone-500 transition-colors hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            All notes
+          </Link>
+          <CopyLink path={`/notes/${note.slug}`} />
+        </div>
 
         <header className="mt-8 border-b border-stone-200 pb-8 dark:border-stone-800">
           <div className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-wider text-stone-500 dark:text-stone-400">

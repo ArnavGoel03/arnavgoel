@@ -16,6 +16,7 @@ import { getAdjacentReviews, getPrimersForProduct, getReview, getReviews } from 
 import { RelatedPrimers } from "@/components/related-primers";
 import { PrevNext } from "@/components/prev-next";
 import { CopyLink } from "@/components/copy-link";
+import { ReadingProgress } from "@/components/reading-progress";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -50,6 +51,7 @@ export default async function SupplementReviewPage({ params }: Props) {
 
   return (
     <article>
+      <ReadingProgress />
       <ReviewJsonLd review={review} />
       <Container className="py-10">
         <Breadcrumb

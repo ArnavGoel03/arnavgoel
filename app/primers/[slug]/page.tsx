@@ -10,6 +10,7 @@ import { getAdjacentPrimers, getPrimer, getPrimers } from "@/lib/content";
 import { formatReadingTime } from "@/lib/reading-time";
 import { PrevNext } from "@/components/prev-next";
 import { CopyLink } from "@/components/copy-link";
+import { ReadingProgress } from "@/components/reading-progress";
 import type { PrimerDomain } from "@/lib/types";
 
 const DOMAIN_LABEL: Record<PrimerDomain, string> = {
@@ -51,6 +52,7 @@ export default async function PrimerPage({ params }: Props) {
 
   return (
     <article>
+      <ReadingProgress />
       <Container className="max-w-4xl py-10">
         <Breadcrumb
           trail={[

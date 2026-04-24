@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { SiteTour, TOUR_STORAGE_KEY } from "./site-tour";
 
 /**
@@ -14,14 +14,16 @@ import { SiteTour, TOUR_STORAGE_KEY } from "./site-tour";
  */
 export function SiteTourMount() {
   const pathname = usePathname();
+  const search = useSearchParams();
   const [show, setShow] = useState(false);
 
   useEffect(() => {
     if (pathname !== "/") return;
-    // Explicit ?tour=1 override first, regardless of the seen flag.
-    const forced =
-      typeof window !== "undefined" &&
-      new URLSearchParams(window.location.search).get("tour") === "1";
+    // Explicit ?tour=1 always re-opens the tour, regardless of the seen
+    // flag. Watching searchParams here means clicking 'Take the tour'
+    // from the footer works even when the user is already on the home
+    // page (no full reload required).
+    const forced = search.get("tour") === "1";
     if (!forced) {
       try {
         if (localStorage.getItem(TOUR_STORAGE_KEY) === "seen") return;
@@ -32,7 +34,7 @@ export function SiteTourMount() {
     // Short delay so the page has laid out and the header refs exist.
     const t = setTimeout(() => setShow(true), 600);
     return () => clearTimeout(t);
-  }, [pathname]);
+  }, [pathname, search]);
 
   if (!show) return null;
   return <SiteTour onClose={() => setShow(false)} />;
