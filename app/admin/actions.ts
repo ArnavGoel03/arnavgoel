@@ -2,8 +2,42 @@
 
 import { z } from "zod";
 import { put } from "@vercel/blob";
+import { auth } from "@/auth";
 import { commitRepoFile, readRepoFile } from "@/lib/github";
 import { retailerForUrl } from "@/lib/retailers";
+
+/**
+ * Belt-and-braces auth guard: middleware already blocks unauthenticated
+ * traffic at /admin/*, but server actions can in principle be invoked
+ * from any referrer, so we double-check the session here before doing
+ * any work. An `ALLOWED_ADMIN_EMAIL` mismatch returns the same error as
+ * being fully signed-out: the action refuses to run.
+ */
+async function requireAdmin(): Promise<string | null> {
+  const session = await auth();
+  const email = session?.user?.email?.toLowerCase() ?? null;
+  if (!email) return "Not authorized. Sign in at /admin/login.";
+  const allowed = (process.env.ALLOWED_ADMIN_EMAIL ?? "")
+    .toLowerCase()
+    .split(",")
+    .map((e) => e.trim())
+    .filter(Boolean);
+  if (allowed.length === 0 || !allowed.includes(email)) {
+    return "Not authorized. Sign in at /admin/login.";
+  }
+  return null;
+}
+
+// Only image MIME types are accepted for product photos. SVG is
+// deliberately excluded (script-in-SVG is a classic stored-XSS vector
+// served straight from a public Blob CDN).
+const ALLOWED_UPLOAD_TYPES = new Set([
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/avif",
+  "image/gif",
+]);
 
 const reviewSchema = z.object({
   kind: z.enum(["skincare", "supplements", "oral-care"]),
@@ -321,6 +355,8 @@ export async function createReview(
   _prev: ActionState | null,
   formData: FormData,
 ): Promise<ActionState> {
+  const authError = await requireAdmin();
+  if (authError) return { ok: false, error: authError };
   const parsed = reviewSchema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) {
     return {
@@ -360,6 +396,8 @@ export async function updateReview(
   _prev: ActionState | null,
   formData: FormData,
 ): Promise<ActionState> {
+  const authError = await requireAdmin();
+  if (authError) return { ok: false, error: authError };
   const slug = (formData.get("slug") ?? "").toString().trim();
   if (!slug) return { ok: false, error: "Missing slug, can't locate the file to update." };
 
@@ -397,9 +435,25 @@ export async function updateReview(
 export async function uploadProductImage(
   formData: FormData,
 ): Promise<{ ok: boolean; url?: string; error?: string }> {
+  const authError = await requireAdmin();
+  if (authError) return { ok: false, error: authError };
   const file = formData.get("file");
   if (!(file instanceof File) || file.size === 0) {
     return { ok: false, error: "No file received." };
+  }
+  if (!ALLOWED_UPLOAD_TYPES.has(file.type)) {
+    return {
+      ok: false,
+      error: `Unsupported file type ${file.type || "(unknown)"}. Use JPEG, PNG, WebP, AVIF, or GIF.`,
+    };
+  }
+  // Cap at 8 MiB so a runaway upload can't chew through Blob quota.
+  const MAX_BYTES = 8 * 1024 * 1024;
+  if (file.size > MAX_BYTES) {
+    return {
+      ok: false,
+      error: `File is ${(file.size / 1024 / 1024).toFixed(1)} MiB, over the 8 MiB cap.`,
+    };
   }
   const origName = file.name || "upload";
   const ext = origName.includes(".") ? origName.split(".").pop()! : "bin";
@@ -427,9 +481,17 @@ export async function createPhoto(
   _prev: ActionState | null,
   formData: FormData,
 ): Promise<ActionState> {
+  const authError = await requireAdmin();
+  if (authError) return { ok: false, error: authError };
   const file = formData.get("file");
   if (!(file instanceof File) || file.size === 0) {
     return { ok: false, error: "Please choose an image file." };
+  }
+  if (!ALLOWED_UPLOAD_TYPES.has(file.type)) {
+    return {
+      ok: false,
+      error: `Unsupported file type ${file.type || "(unknown)"}. Use JPEG, PNG, WebP, AVIF, or GIF.`,
+    };
   }
   const parsed = photoSchema.safeParse({
     alt: formData.get("alt"),
