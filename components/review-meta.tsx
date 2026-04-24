@@ -7,9 +7,11 @@ import { cn } from "@/lib/utils";
 
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <div className="flex items-baseline justify-between gap-4 border-b border-stone-100 py-3 text-sm last:border-none">
-      <dt className="text-stone-500">{label}</dt>
-      <dd className="text-right font-medium text-stone-900">{value}</dd>
+    <div className="flex items-baseline justify-between gap-4 border-b border-stone-100 py-3 text-sm last:border-none dark:border-stone-800">
+      <dt className="text-stone-500 dark:text-stone-400">{label}</dt>
+      <dd className="text-right font-medium text-stone-900 dark:text-stone-100">
+        {value}
+      </dd>
     </div>
   );
 }
@@ -41,19 +43,21 @@ function PrimaryLink({
       href={link.href}
       target="_blank"
       rel={link.rel}
-      className="group flex w-full items-center justify-between gap-2 rounded-2xl border border-stone-900 bg-stone-900 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-stone-800"
+      className="group flex w-full items-center justify-between gap-2 rounded-2xl border border-stone-900 bg-stone-900 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-stone-800 dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white"
     >
       <span className="flex flex-col items-start text-left">
         <span>
           {label}
           {link.isAffiliate && (
-            <span className="ml-2 text-xs font-normal text-stone-400">
+            <span className="ml-2 text-xs font-normal text-stone-400 dark:text-stone-500">
               affiliate
             </span>
           )}
         </span>
         {sublabel && (
-          <span className="text-xs font-normal text-stone-400">{sublabel}</span>
+          <span className="text-xs font-normal text-stone-400 dark:text-stone-500">
+            {sublabel}
+          </span>
         )}
       </span>
       <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -123,7 +127,7 @@ export function ReviewMeta({ review }: { review: Review }) {
 
   return (
     <div className="space-y-4">
-      <dl className="rounded-2xl border border-stone-200 bg-white p-6">
+      <dl className="rounded-2xl border border-stone-200 bg-white p-6 dark:border-stone-800 dark:bg-stone-900">
         <Row label="Brand" value={review.brand} />
         <Row label="Category" value={<span className="capitalize">{review.category}</span>} />
         {review.price && <Row label="Price" value={review.price} />}
@@ -139,7 +143,7 @@ export function ReviewMeta({ review }: { review: Review }) {
               value={
                 <span>
                   {cpd}
-                  <span className="ml-1 text-xs font-normal italic text-stone-400">
+                  <span className="ml-1 text-xs font-normal italic text-stone-400 dark:text-stone-500">
                     {daily}
                   </span>
                 </span>
@@ -157,7 +161,13 @@ export function ReviewMeta({ review }: { review: Review }) {
           <Row
             label="Sold in"
             value={
-              <span className={isRegionLocked ? "text-amber-700" : undefined}>
+              <span
+                className={
+                  isRegionLocked
+                    ? "text-amber-700 dark:text-amber-400"
+                    : undefined
+                }
+              >
                 {availability}
               </span>
             }
@@ -168,9 +178,9 @@ export function ReviewMeta({ review }: { review: Review }) {
             label="Repurchase"
             value={
               review.repurchase ? (
-                <span className="text-emerald-700">Yes</span>
+                <span className="text-emerald-700 dark:text-emerald-400">Yes</span>
               ) : (
-                <span className="text-rose-700">No</span>
+                <span className="text-rose-700 dark:text-rose-400">No</span>
               )
             }
           />
@@ -187,7 +197,7 @@ export function ReviewMeta({ review }: { review: Review }) {
           <Row
             label="Updated"
             value={
-              <span className="italic text-stone-600">
+              <span className="italic text-stone-600 dark:text-stone-300">
                 {new Date(review.lastUpdated).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
@@ -200,7 +210,7 @@ export function ReviewMeta({ review }: { review: Review }) {
       </dl>
 
       {isRegionLocked && (
-        <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+        <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900 dark:border-amber-900/50 dark:bg-amber-950/30 dark:text-amber-200">
           <span className="font-medium">Heads up:</span> this product is only
           stocked by{" "}
           <span className="italic">
@@ -218,7 +228,7 @@ export function ReviewMeta({ review }: { review: Review }) {
           )}
           {india.length > 0 && (
             <div>
-              <p className="mb-2 text-xs uppercase tracking-wider text-stone-500">
+              <p className="mb-2 text-xs uppercase tracking-wider text-stone-500 dark:text-stone-400">
                 Buy in India
               </p>
               <div className="space-y-2">
@@ -230,7 +240,7 @@ export function ReviewMeta({ review }: { review: Review }) {
           )}
           {western.length > 0 && (
             <div>
-              <p className="mb-2 text-xs uppercase tracking-wider text-stone-500">
+              <p className="mb-2 text-xs uppercase tracking-wider text-stone-500 dark:text-stone-400">
                 Buy in the USA
               </p>
               <div className="space-y-2">
@@ -242,7 +252,7 @@ export function ReviewMeta({ review }: { review: Review }) {
           )}
           {uk.length > 0 && (
             <div>
-              <p className="mb-2 text-xs uppercase tracking-wider text-stone-500">
+              <p className="mb-2 text-xs uppercase tracking-wider text-stone-500 dark:text-stone-400">
                 Buy in the UK
               </p>
               <div className="space-y-2">

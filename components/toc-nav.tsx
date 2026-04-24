@@ -41,7 +41,7 @@ export function TocNav({
       aria-label="Table of contents"
       className={className}
     >
-      <p className="mb-3 text-[10px] uppercase tracking-[0.22em] text-stone-500">
+      <p className="mb-3 text-[10px] uppercase tracking-[0.22em] text-stone-500 dark:text-stone-400">
         <span className="mr-1.5 text-rose-400">❋</span>
         Contents
       </p>
@@ -53,7 +53,7 @@ export function TocNav({
           >
             <a
               href={`#${h.id}`}
-              className="text-stone-500 transition-colors hover:text-rose-700"
+              className="text-stone-500 transition-colors hover:text-rose-700 dark:text-stone-400 dark:hover:text-rose-400"
             >
               {h.text}
             </a>

@@ -20,16 +20,16 @@ export function PhotoTimeline({ review }: { review: Review }) {
   );
 
   return (
-    <section className="border-t border-stone-200 pt-10">
+    <section className="border-t border-stone-200 pt-10 dark:border-stone-800">
       <header className="mb-6">
-        <p className="mb-2 text-[10px] uppercase tracking-[0.22em] text-stone-500">
+        <p className="mb-2 text-[10px] uppercase tracking-[0.22em] text-stone-500 dark:text-stone-400">
           <span className="mr-1.5 text-rose-400">❋</span>
           Progress
         </p>
-        <h2 className="font-serif text-2xl text-stone-900 sm:text-3xl">
+        <h2 className="font-serif text-2xl text-stone-900 dark:text-stone-100 sm:text-3xl">
           Week by week<span className="text-rose-400">.</span>
         </h2>
-        <p className="mt-2 max-w-2xl font-serif text-base italic leading-relaxed text-stone-500">
+        <p className="mt-2 max-w-2xl font-serif text-base italic leading-relaxed text-stone-500 dark:text-stone-400">
           Same angle, same light, same time of day where possible. No retouch.
         </p>
       </header>
@@ -37,7 +37,7 @@ export function PhotoTimeline({ review }: { review: Review }) {
       <ol className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {photos.map((p, i) => (
           <li key={`${p.date}-${i}`} className="flex flex-col gap-2">
-            <div className="aspect-[3/4] overflow-hidden rounded-xl border border-stone-200 bg-stone-100">
+            <div className="aspect-[3/4] overflow-hidden rounded-xl border border-stone-200 bg-stone-100 dark:border-stone-800 dark:bg-stone-800">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={p.src}
@@ -46,11 +46,11 @@ export function PhotoTimeline({ review }: { review: Review }) {
               />
             </div>
             <div>
-              <p className="font-mono text-[11px] text-stone-500 tabular-nums">
+              <p className="font-mono text-[11px] text-stone-500 tabular-nums dark:text-stone-400">
                 {fmt(p.date)}
               </p>
               {p.note && (
-                <p className="mt-0.5 font-serif text-sm italic leading-snug text-stone-600">
+                <p className="mt-0.5 font-serif text-sm italic leading-snug text-stone-600 dark:text-stone-300">
                   {p.note}
                 </p>
               )}

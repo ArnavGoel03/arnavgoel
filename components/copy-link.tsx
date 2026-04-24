@@ -38,7 +38,7 @@ export function CopyLink({
       onClick={copy}
       aria-label={copied ? "Link copied" : "Copy link"}
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full border border-stone-200 bg-white px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-stone-500 transition-colors hover:border-stone-900 hover:text-stone-900",
+        "inline-flex items-center gap-1.5 rounded-full border border-stone-200 bg-white px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-stone-500 transition-colors hover:border-stone-900 hover:text-stone-900 dark:border-stone-800 dark:bg-stone-900 dark:text-stone-400 dark:hover:border-stone-400 dark:hover:text-stone-100",
         className,
       )}
     >

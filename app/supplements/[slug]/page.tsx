@@ -62,7 +62,7 @@ export default async function SupplementReviewPage({ params }: Props) {
         <div className="flex items-center justify-between gap-4">
           <Link
             href="/supplements"
-            className="inline-flex items-center gap-1.5 text-sm text-stone-500 transition-colors hover:text-stone-900"
+            className="inline-flex items-center gap-1.5 text-sm text-stone-500 transition-colors hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
           >
             <ArrowLeft className="h-4 w-4" />
             All supplements
@@ -70,18 +70,18 @@ export default async function SupplementReviewPage({ params }: Props) {
           <CopyLink path={`/supplements/${review.slug}`} />
         </div>
 
-        <header className="mt-8 border-b border-stone-200 pb-10">
-          <p className="mb-3 text-xs uppercase tracking-[0.2em] text-stone-500">
+        <header className="mt-8 border-b border-stone-200 pb-10 dark:border-stone-800">
+          <p className="mb-3 text-xs uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400">
             {review.brand} · {review.category}
           </p>
           <div className="flex items-start justify-between gap-6">
-            <h1 className="font-serif text-4xl leading-tight text-stone-900 sm:text-5xl">
+            <h1 className="font-serif text-4xl leading-tight text-stone-900 dark:text-stone-100 sm:text-5xl">
               {review.name}
             </h1>
             <VerdictPill verdict={review.verdict} size="lg" />
           </div>
           {review.summary && (
-            <p className="mt-6 max-w-2xl text-xl leading-relaxed text-stone-600">
+            <p className="mt-6 max-w-2xl text-xl leading-relaxed text-stone-600 dark:text-stone-300">
               {review.summary}
             </p>
           )}
@@ -99,15 +99,15 @@ export default async function SupplementReviewPage({ params }: Props) {
             <RelatedPrimers primers={relatedPrimers} />
             <ReviewChangelog review={review} />
             {review.ingredients && review.ingredients.length > 0 && (
-              <div className="rounded-2xl border border-stone-200 bg-white p-6">
-                <h3 className="mb-3 font-serif text-lg text-stone-900">
+              <div className="rounded-2xl border border-stone-200 bg-white p-6 dark:border-stone-800 dark:bg-stone-900">
+                <h3 className="mb-3 font-serif text-lg text-stone-900 dark:text-stone-100">
                   Active ingredients
                 </h3>
                 <ul className="flex flex-wrap gap-2">
                   {review.ingredients.map((i) => (
                     <li
                       key={i}
-                      className="rounded-full bg-stone-100 px-3 py-1 text-xs text-stone-700"
+                      className="rounded-full bg-stone-100 px-3 py-1 text-xs text-stone-700 dark:bg-stone-800 dark:text-stone-300"
                     >
                       {i}
                     </li>

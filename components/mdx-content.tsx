@@ -18,9 +18,9 @@ function Aside({
   label?: string;
 }) {
   return (
-    <aside className="not-prose my-5 rounded-md border-l-2 border-rose-300 bg-rose-50/60 px-4 py-3 font-serif text-sm italic leading-relaxed text-stone-700 sm:my-6 lg:float-right lg:clear-right lg:-mr-4 lg:ml-6 lg:w-60 lg:rounded-none lg:border-l lg:bg-transparent lg:px-0 lg:pl-4">
+    <aside className="not-prose my-5 rounded-md border-l-2 border-rose-300 bg-rose-50/60 px-4 py-3 font-serif text-sm italic leading-relaxed text-stone-700 dark:border-rose-400/60 dark:bg-rose-950/20 dark:text-stone-200 sm:my-6 lg:float-right lg:clear-right lg:-mr-4 lg:ml-6 lg:w-60 lg:rounded-none lg:border-l lg:bg-transparent lg:px-0 lg:pl-4 lg:dark:bg-transparent">
       {label && (
-        <p className="mb-1 font-sans text-[10px] uppercase not-italic tracking-[0.2em] text-rose-500">
+        <p className="mb-1 font-sans text-[10px] uppercase not-italic tracking-[0.2em] text-rose-500 dark:text-rose-300">
           {label}
         </p>
       )}

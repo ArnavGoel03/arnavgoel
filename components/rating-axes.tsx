@@ -13,8 +13,8 @@ export function RatingAxes({ review }: { review: Review }) {
   if (filled.length === 0) return null;
 
   return (
-    <div className="rounded-2xl border border-stone-200 bg-white p-6">
-      <h3 className="mb-3 font-serif text-lg text-stone-900">
+    <div className="rounded-2xl border border-stone-200 bg-white p-6 dark:border-stone-800 dark:bg-stone-900">
+      <h3 className="mb-3 font-serif text-lg text-stone-900 dark:text-stone-100">
         By axis<span className="text-rose-400">.</span>
       </h3>
       <dl className="space-y-3">
@@ -23,12 +23,16 @@ export function RatingAxes({ review }: { review: Review }) {
           return (
             <div key={a.key} className="flex items-baseline justify-between gap-4">
               <div>
-                <dt className="font-serif text-sm text-stone-900">{a.label}</dt>
-                <p className="text-xs italic text-stone-500">{a.hint}</p>
+                <dt className="font-serif text-sm text-stone-900 dark:text-stone-100">
+                  {a.label}
+                </dt>
+                <p className="text-xs italic text-stone-500 dark:text-stone-400">
+                  {a.hint}
+                </p>
               </div>
-              <dd className="flex items-baseline gap-1 font-display text-2xl font-light tabular-nums text-stone-900">
+              <dd className="flex items-baseline gap-1 font-display text-2xl font-light tabular-nums text-stone-900 dark:text-stone-100">
                 {score.toFixed(1)}
-                <span className="font-mono text-[10px] uppercase tracking-wider text-stone-400">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-stone-400 dark:text-stone-500">
                   / 10
                 </span>
               </dd>
@@ -36,7 +40,7 @@ export function RatingAxes({ review }: { review: Review }) {
           );
         })}
       </dl>
-      <p className="mt-4 border-t border-stone-100 pt-3 text-xs italic leading-relaxed text-stone-500">
+      <p className="mt-4 border-t border-stone-100 pt-3 text-xs italic leading-relaxed text-stone-500 dark:border-stone-800 dark:text-stone-400">
         Three axes, no average. The verdict up top is the shortcut;
         these explain why.
       </p>

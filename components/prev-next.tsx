@@ -26,24 +26,24 @@ export function PrevNext({
   return (
     <nav
       aria-label={label ?? "Pagination"}
-      className="mt-16 border-t border-stone-200 pt-8"
+      className="mt-16 border-t border-stone-200 pt-8 dark:border-stone-800"
     >
       <div className="grid gap-4 sm:grid-cols-2">
         {prev ? (
           <Link
             href={prev.href}
-            className="group flex flex-col items-start gap-1 rounded-xl border border-stone-200 bg-white p-5 transition-colors hover:border-stone-900"
+            className="group flex flex-col items-start gap-1 rounded-xl border border-stone-200 bg-white p-5 transition-colors hover:border-stone-900 dark:border-stone-800 dark:bg-stone-900 dark:hover:border-stone-400"
           >
-            <span className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] text-stone-400">
+            <span className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500">
               <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-0.5" />
               Older
             </span>
             {prev.subtitle && (
-              <span className="text-[10px] uppercase tracking-[0.18em] text-stone-400">
+              <span className="text-[10px] uppercase tracking-[0.18em] text-stone-400 dark:text-stone-500">
                 {prev.subtitle}
               </span>
             )}
-            <span className="font-serif text-lg leading-snug text-stone-900 transition-colors group-hover:text-rose-700">
+            <span className="font-serif text-lg leading-snug text-stone-900 transition-colors group-hover:text-rose-700 dark:text-stone-100 dark:group-hover:text-rose-400">
               {prev.title}
             </span>
           </Link>
@@ -54,18 +54,18 @@ export function PrevNext({
         {next ? (
           <Link
             href={next.href}
-            className="group flex flex-col items-end gap-1 rounded-xl border border-stone-200 bg-white p-5 text-right transition-colors hover:border-stone-900"
+            className="group flex flex-col items-end gap-1 rounded-xl border border-stone-200 bg-white p-5 text-right transition-colors hover:border-stone-900 dark:border-stone-800 dark:bg-stone-900 dark:hover:border-stone-400"
           >
-            <span className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] text-stone-400">
+            <span className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500">
               Newer
               <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
             </span>
             {next.subtitle && (
-              <span className="text-[10px] uppercase tracking-[0.18em] text-stone-400">
+              <span className="text-[10px] uppercase tracking-[0.18em] text-stone-400 dark:text-stone-500">
                 {next.subtitle}
               </span>
             )}
-            <span className="font-serif text-lg leading-snug text-stone-900 transition-colors group-hover:text-rose-700">
+            <span className="font-serif text-lg leading-snug text-stone-900 transition-colors group-hover:text-rose-700 dark:text-stone-100 dark:group-hover:text-rose-400">
               {next.title}
             </span>
           </Link>
