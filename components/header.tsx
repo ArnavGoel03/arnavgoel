@@ -35,7 +35,10 @@ export function Header() {
           </span>
         </Link>
         <div className="flex items-center gap-4">
-          <nav className="flex items-center overflow-x-auto text-[11px] uppercase tracking-[0.16em] text-stone-500 dark:text-stone-400">
+          <nav
+            data-tour="nav"
+            className="flex items-center overflow-x-auto text-[11px] uppercase tracking-[0.16em] text-stone-500 dark:text-stone-400"
+          >
             {nav.map((item, i) => (
               <span key={item.href} className="inline-flex items-center">
                 {i > 0 && (
@@ -58,11 +61,14 @@ export function Header() {
           <Link
             href="/search"
             aria-label="Search"
+            data-tour="search"
             className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-stone-500 transition-colors hover:bg-stone-100 hover:text-stone-900 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-100"
           >
             <Search className="h-4 w-4" />
           </Link>
-          <ThemeToggle />
+          <div data-tour="theme">
+            <ThemeToggle />
+          </div>
         </div>
       </Container>
     </header>

@@ -7,6 +7,7 @@ import { WebsiteJsonLd } from "@/components/json-ld";
 import { themeInitScript } from "@/components/theme-toggle";
 import { CompareProvider } from "@/components/compare-bar";
 import { CommandPaletteMount } from "@/components/command-palette-mount";
+import { SiteTourMount } from "@/components/site-tour-mount";
 import { site } from "@/lib/site";
 
 const inter = Inter({
@@ -104,6 +105,7 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
           <CommandPaletteMount />
+          <SiteTourMount />
         </CompareProvider>
       </body>
     </html>

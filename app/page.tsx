@@ -57,7 +57,10 @@ export default function HomePage() {
             </p>
 
             {/* Trust strip, newsstand-style */}
-            <div className="mt-10 flex flex-wrap items-baseline gap-x-8 gap-y-3 border-y border-stone-200 py-5 dark:border-stone-800">
+            <div
+              data-tour="stats"
+              className="mt-10 flex flex-wrap items-baseline gap-x-8 gap-y-3 border-y border-stone-200 py-5 dark:border-stone-800"
+            >
               <div className="flex items-baseline gap-2">
                 <span className="font-display text-2xl font-light tabular-nums text-stone-900 dark:text-stone-100">
                   {totalReviews}
@@ -90,7 +93,7 @@ export default function HomePage() {
               ))}
             </div>
 
-            <div className="mt-10 flex flex-wrap gap-3">
+            <div data-tour="cta" className="mt-10 flex flex-wrap gap-3">
               <Link
                 href="/skincare"
                 className="group inline-flex items-center gap-2 rounded-full bg-stone-900 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-stone-800 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white"

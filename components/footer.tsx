@@ -32,6 +32,13 @@ export function Footer() {
 
         <div className="flex flex-wrap gap-x-5 gap-y-2 border-t border-stone-200/70 pt-6 text-[10px] uppercase tracking-[0.2em] text-stone-400 dark:border-stone-900/40 dark:text-stone-500">
           <a
+            href="/?tour=1"
+            className="transition-colors hover:text-stone-700 dark:hover:text-stone-200"
+          >
+            Take the tour
+          </a>
+          <span className="text-stone-300 dark:text-stone-700">·</span>
+          <a
             href="/search"
             className="transition-colors hover:text-stone-700 dark:hover:text-stone-200"
           >
