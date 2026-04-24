@@ -146,7 +146,7 @@ export default function HomePage() {
       )}
 
       {/* Sections */}
-      <Container className="border-t border-stone-200/70 py-20 dark:border-stone-800/70">
+      <Container className="border-t border-stone-200/70 py-20 dark:border-stone-900/40">
         <div className="mb-10">
           <p className="mb-1 text-xs uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400">
             <span className="text-rose-400">✷</span> Sections
@@ -202,7 +202,7 @@ export default function HomePage() {
       </Container>
 
       {/* Listening */}
-      <Container className="border-t border-stone-200/70 py-20 dark:border-stone-800/70">
+      <Container className="border-t border-stone-200/70 py-20 dark:border-stone-900/40">
         <div className="mb-6">
           <p className="mb-1 text-xs uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400">
             <span className="text-rose-400">♪</span> Listening to
@@ -222,7 +222,7 @@ export default function HomePage() {
 
       {/* Recent notes */}
       {recentNotes.length > 0 && (
-        <Container className="border-t border-stone-200/70 py-20 dark:border-stone-800/70">
+        <Container className="border-t border-stone-200/70 py-20 dark:border-stone-900/40">
           <div className="mb-6 flex items-end justify-between">
             <div>
               <p className="mb-1 text-xs uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400">

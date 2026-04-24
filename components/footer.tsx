@@ -4,7 +4,7 @@ import { site } from "@/lib/site";
 
 export function Footer() {
   return (
-    <footer className="mt-24 border-t border-stone-200/70 py-14 text-sm text-stone-500 dark:border-stone-800/70 dark:text-stone-400">
+    <footer className="mt-24 border-t border-stone-200/70 py-14 text-sm text-stone-500 dark:border-stone-900/40 dark:text-stone-400">
       <Container className="flex flex-col gap-6">
         <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="flex items-baseline gap-2">
@@ -30,7 +30,7 @@ export function Footer() {
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-x-5 gap-y-2 border-t border-stone-200/70 pt-6 text-[10px] uppercase tracking-[0.2em] text-stone-400 dark:border-stone-800/70 dark:text-stone-500">
+        <div className="flex flex-wrap gap-x-5 gap-y-2 border-t border-stone-200/70 pt-6 text-[10px] uppercase tracking-[0.2em] text-stone-400 dark:border-stone-900/40 dark:text-stone-500">
           <a
             href="/search"
             className="transition-colors hover:text-stone-700 dark:hover:text-stone-200"
@@ -67,7 +67,7 @@ export function Footer() {
           </a>
         </div>
 
-        <div className="flex flex-col gap-3 border-t border-stone-200/70 pt-6 dark:border-stone-800/70 sm:flex-row sm:items-start sm:justify-between">
+        <div className="flex flex-col gap-3 border-t border-stone-200/70 pt-6 dark:border-stone-900/40 sm:flex-row sm:items-start sm:justify-between">
           <p className="max-w-xl text-xs leading-relaxed text-stone-400 dark:text-stone-500">
             Some buy links here are affiliate links, clicking through and
             purchasing may earn me a small commission at no extra cost to you.
