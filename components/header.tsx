@@ -35,17 +35,20 @@ export function Header() {
           </span>
         </Link>
         <div className="flex items-center gap-4">
-          <nav className="flex items-center overflow-x-auto text-[11px] uppercase tracking-[0.16em] text-stone-500">
+          <nav className="flex items-center overflow-x-auto text-[11px] uppercase tracking-[0.16em] text-stone-500 dark:text-stone-400">
             {nav.map((item, i) => (
               <span key={item.href} className="inline-flex items-center">
                 {i > 0 && (
-                  <span aria-hidden className="mx-3 text-stone-300">
+                  <span
+                    aria-hidden
+                    className="mx-3 text-stone-300 dark:text-stone-700"
+                  >
                     ·
                   </span>
                 )}
                 <Link
                   href={item.href}
-                  className="whitespace-nowrap py-1 transition-colors hover:text-stone-900"
+                  className="whitespace-nowrap py-1 transition-colors hover:text-stone-900 dark:hover:text-stone-100"
                 >
                   {item.label}
                 </Link>
@@ -55,7 +58,7 @@ export function Header() {
           <Link
             href="/search"
             aria-label="Search"
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-stone-500 transition-colors hover:bg-stone-100 hover:text-stone-900 dark:hover:bg-stone-800 dark:hover:text-stone-100"
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-stone-500 transition-colors hover:bg-stone-100 hover:text-stone-900 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-100"
           >
             <Search className="h-4 w-4" />
           </Link>

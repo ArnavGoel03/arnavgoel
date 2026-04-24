@@ -27,15 +27,15 @@ export default function HomePage() {
       <PersonJsonLd />
 
       {/* Hero, magazine cover */}
-      <section className="relative overflow-hidden border-b border-stone-300 bg-gradient-to-b from-stone-50 via-stone-50 to-white">
+      <section className="relative overflow-hidden border-b border-stone-300 bg-gradient-to-b from-stone-50 via-stone-50 to-white dark:border-stone-800 dark:from-stone-950 dark:via-stone-950 dark:to-stone-900">
         <Container className="pt-12 pb-20 sm:pt-16 sm:pb-28">
           {/* Masthead rule: location · issue · date */}
-          <div className="mb-10 flex items-baseline justify-between gap-4 text-[11px] uppercase tracking-[0.22em] text-stone-500">
+          <div className="mb-10 flex items-baseline justify-between gap-4 text-[11px] uppercase tracking-[0.22em] text-stone-500 dark:text-stone-400">
             <span className="flex items-baseline gap-2">
               <span className="text-rose-400">❋</span>
               <span>{site.location}</span>
             </span>
-            <span className="font-mono text-stone-400">
+            <span className="font-mono text-stone-400 dark:text-stone-500">
               Issue №{" "}
               {String(totalReviews + photosCount + notesCount).padStart(2, "0")}
             </span>
@@ -43,42 +43,42 @@ export default function HomePage() {
 
           <div className="max-w-3xl">
             {/* Italic editorial label */}
-            <p className="font-serif text-xl italic text-stone-500 sm:text-2xl">
+            <p className="font-serif text-xl italic text-stone-500 dark:text-stone-400 sm:text-2xl">
               An honest catalog of
             </p>
 
-            <h1 className="mt-2 font-serif text-[14vw] leading-[0.92] tracking-[-0.045em] text-stone-900 sm:text-8xl">
+            <h1 className="mt-2 font-serif text-[14vw] leading-[0.92] tracking-[-0.045em] text-stone-900 dark:text-stone-100 sm:text-8xl">
               {site.name}
               <span className="text-rose-400">.</span>
             </h1>
 
-            <p className="mt-8 max-w-2xl font-serif text-xl leading-snug text-stone-600 sm:text-2xl">
+            <p className="mt-8 max-w-2xl font-serif text-xl leading-snug text-stone-600 dark:text-stone-300 sm:text-2xl">
               {site.bio}
             </p>
 
             {/* Trust strip, newsstand-style */}
-            <div className="mt-10 flex flex-wrap items-baseline gap-x-8 gap-y-3 border-y border-stone-200 py-5">
+            <div className="mt-10 flex flex-wrap items-baseline gap-x-8 gap-y-3 border-y border-stone-200 py-5 dark:border-stone-800">
               <div className="flex items-baseline gap-2">
-                <span className="font-display text-2xl font-light tabular-nums text-stone-900">
+                <span className="font-display text-2xl font-light tabular-nums text-stone-900 dark:text-stone-100">
                   {totalReviews}
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.18em] text-stone-500">
+                <span className="text-[10px] uppercase tracking-[0.18em] text-stone-500 dark:text-stone-400">
                   reviews
                 </span>
               </div>
               <div className="flex items-baseline gap-2">
-                <span className="font-display text-2xl font-light tabular-nums text-stone-900">
+                <span className="font-display text-2xl font-light tabular-nums text-stone-900 dark:text-stone-100">
                   0
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.18em] text-stone-500">
+                <span className="text-[10px] uppercase tracking-[0.18em] text-stone-500 dark:text-stone-400">
                   sponsored
                 </span>
               </div>
               <div className="flex items-baseline gap-2">
-                <span className="font-display text-2xl font-light tabular-nums text-stone-900">
+                <span className="font-display text-2xl font-light tabular-nums text-stone-900 dark:text-stone-100">
                   ∞
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.18em] text-stone-500">
+                <span className="text-[10px] uppercase tracking-[0.18em] text-stone-500 dark:text-stone-400">
                   unfiltered opinions
                 </span>
               </div>
@@ -93,14 +93,14 @@ export default function HomePage() {
             <div className="mt-10 flex flex-wrap gap-3">
               <Link
                 href="/skincare"
-                className="group inline-flex items-center gap-2 rounded-full bg-stone-900 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-stone-800"
+                className="group inline-flex items-center gap-2 rounded-full bg-stone-900 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-stone-800 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white"
               >
                 Read the latest reviews
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
               <Link
                 href="/now"
-                className="inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-medium text-stone-900 transition-colors hover:border-stone-900"
+                className="inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white px-5 py-3 text-sm font-medium text-stone-900 transition-colors hover:border-stone-900 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 dark:hover:border-stone-400"
               >
                 What&apos;s on the shelf this month
               </Link>
@@ -109,7 +109,7 @@ export default function HomePage() {
         </Container>
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-rose-100/40 blur-3xl"
+          className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-rose-100/40 blur-3xl dark:bg-rose-900/20"
         />
       </section>
 
@@ -118,21 +118,21 @@ export default function HomePage() {
         <Container className="py-20">
           <div className="mb-8 flex items-end justify-between gap-6">
             <div>
-              <p className="mb-1 text-xs uppercase tracking-[0.2em] text-stone-500">
+              <p className="mb-1 text-xs uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400">
                 <span className="text-rose-400">★</span>{" "}
                 Just added
               </p>
-              <h2 className="font-serif text-3xl text-stone-900 sm:text-4xl">
+              <h2 className="font-serif text-3xl text-stone-900 dark:text-stone-100 sm:text-4xl">
                 On the shelf right now.
               </h2>
-              <p className="mt-2 max-w-xl text-sm text-stone-500">
+              <p className="mt-2 max-w-xl text-sm text-stone-500 dark:text-stone-400">
                 The most recent products through the routine. Each one used
                 long enough to have an honest opinion.
               </p>
             </div>
             <Link
               href="/skincare"
-              className="hidden whitespace-nowrap text-sm text-stone-500 transition-colors hover:text-stone-900 sm:inline-flex"
+              className="hidden whitespace-nowrap text-sm text-stone-500 transition-colors hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100 sm:inline-flex"
             >
               All reviews →
             </Link>
@@ -146,12 +146,12 @@ export default function HomePage() {
       )}
 
       {/* Sections */}
-      <Container className="border-t border-stone-200/70 py-20">
+      <Container className="border-t border-stone-200/70 py-20 dark:border-stone-800/70">
         <div className="mb-10">
-          <p className="mb-1 text-xs uppercase tracking-[0.2em] text-stone-500">
+          <p className="mb-1 text-xs uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400">
             <span className="text-rose-400">✷</span> Sections
           </p>
-          <h2 className="font-serif text-3xl text-stone-900 sm:text-4xl">
+          <h2 className="font-serif text-3xl text-stone-900 dark:text-stone-100 sm:text-4xl">
             Poke around.
           </h2>
         </div>
@@ -202,15 +202,15 @@ export default function HomePage() {
       </Container>
 
       {/* Listening */}
-      <Container className="border-t border-stone-200/70 py-20">
+      <Container className="border-t border-stone-200/70 py-20 dark:border-stone-800/70">
         <div className="mb-6">
-          <p className="mb-1 text-xs uppercase tracking-[0.2em] text-stone-500">
+          <p className="mb-1 text-xs uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400">
             <span className="text-rose-400">♪</span> Listening to
           </p>
-          <h2 className="font-serif text-3xl text-stone-900 sm:text-4xl">
+          <h2 className="font-serif text-3xl text-stone-900 dark:text-stone-100 sm:text-4xl">
             On repeat right now.
           </h2>
-          <p className="mt-2 text-sm text-stone-500">
+          <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
             Press play, it opens right here.
           </p>
         </div>
@@ -222,25 +222,25 @@ export default function HomePage() {
 
       {/* Recent notes */}
       {recentNotes.length > 0 && (
-        <Container className="border-t border-stone-200/70 py-20">
+        <Container className="border-t border-stone-200/70 py-20 dark:border-stone-800/70">
           <div className="mb-6 flex items-end justify-between">
             <div>
-              <p className="mb-1 text-xs uppercase tracking-[0.2em] text-stone-500">
+              <p className="mb-1 text-xs uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400">
                 <span className="text-rose-400">¶</span> Notes
               </p>
-              <h2 className="font-serif text-3xl text-stone-900 sm:text-4xl">
+              <h2 className="font-serif text-3xl text-stone-900 dark:text-stone-100 sm:text-4xl">
                 Recently written.
               </h2>
             </div>
             <Link
               href="/notes"
-              className="inline-flex items-center gap-1 text-sm text-stone-500 transition-colors hover:text-stone-900"
+              className="inline-flex items-center gap-1 text-sm text-stone-500 transition-colors hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
             >
               All notes
               <ArrowUpRight className="h-3.5 w-3.5" />
             </Link>
           </div>
-          <div className="rounded-2xl border border-stone-200 bg-white px-6">
+          <div className="rounded-2xl border border-stone-200 bg-white px-6 dark:border-stone-800 dark:bg-stone-900">
             {recentNotes.map((note) => (
               <NoteRow key={note.slug} note={note} />
             ))}
