@@ -12,17 +12,13 @@ import type { Review } from "@/lib/types";
 export function ProductHeroPhoto({ review }: { review: Review }) {
   if (!review.photo) return null;
   return (
-    <figure className="relative mt-10 overflow-hidden rounded-2xl border border-stone-200 bg-stone-50 dark:border-stone-800 dark:bg-stone-900">
-      <div className="relative mx-auto flex w-full items-center justify-center" style={{ maxHeight: "70vh" }}>
-        {/* Use unoptimized=true via plain img: the photo can come from
-            any external host (retailer CDN or our own Blob), and we want
-            graceful fallback rather than 404'ing on the optimizer for
-            unconfigured remote patterns. */}
+    <figure className="relative mt-8 overflow-hidden rounded-2xl border border-stone-200 bg-stone-50 dark:border-stone-800 dark:bg-stone-900">
+      <div className="relative mx-auto flex w-full items-center justify-center p-6 sm:p-8">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={review.photo}
           alt={`${review.brand} ${review.name}`}
-          className="block max-h-[70vh] w-full object-contain"
+          className="block max-h-[34vh] w-auto object-contain sm:max-h-[40vh]"
         />
       </div>
     </figure>
