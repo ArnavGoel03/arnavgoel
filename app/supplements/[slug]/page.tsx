@@ -10,6 +10,8 @@ import { ReviewChangelog } from "@/components/review-changelog";
 import { Breadcrumb } from "@/components/breadcrumb";
 import { ProsCons } from "@/components/pros-cons";
 import { ReaderNote } from "@/components/reader-note";
+import { RelatedReviews } from "@/components/related-reviews";
+import { getRelatedReviews } from "@/lib/related";
 import { PhotoTimeline } from "@/components/photo-timeline";
 import { MdxContent } from "@/components/mdx-content";
 import { ReviewJsonLd } from "@/components/json-ld";
@@ -52,6 +54,7 @@ export default async function SupplementReviewPage({ params }: Props) {
   if (!review) notFound();
   const relatedPrimers = getPrimersForProduct(review.slug);
   const { prev, next } = getAdjacentReviews("supplements", review.slug);
+  const related = getRelatedReviews(review);
 
   return (
     <article>
@@ -134,6 +137,7 @@ export default async function SupplementReviewPage({ params }: Props) {
           </aside>
         </div>
 
+        <RelatedReviews reviews={related} />
         <PrevNext
           prev={
             prev
