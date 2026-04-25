@@ -22,7 +22,15 @@ import { fileURLToPath } from "node:url";
 
 const REPO_ROOT = fileURLToPath(new URL("..", import.meta.url));
 const PUBLIC_PRODUCTS_DIR = join(REPO_ROOT, "public", "products");
-const KINDS = ["skincare", "supplements", "oral-care"];
+const KINDS = [
+  "skincare",
+  "supplements",
+  "oral-care",
+  "hair-care",
+  "body-care",
+  "essentials",
+  "miscellaneous",
+];
 
 const UA =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/605.1.15";
@@ -199,14 +207,18 @@ async function downloadImage(url, slug) {
 }
 
 function insertPhotoField(raw, photoPath) {
+  // External URLs contain `:` and need to be quoted to stay valid YAML.
+  // Local /products/... paths render fine unquoted but we always quote
+  // here to keep the inserted line uniform.
+  const value = /^https?:/.test(photoPath) ? JSON.stringify(photoPath) : photoPath;
   const lines = raw.split("\n");
   const idx = lines.findIndex((l) => /^category\s*:/.test(l));
   if (idx === -1) {
     const closingIdx = lines.findIndex((l, i) => i > 0 && l.trim() === "---");
     if (closingIdx === -1) return raw;
-    lines.splice(closingIdx, 0, `photo: ${photoPath}`);
+    lines.splice(closingIdx, 0, `photo: ${value}`);
   } else {
-    lines.splice(idx + 1, 0, `photo: ${photoPath}`);
+    lines.splice(idx + 1, 0, `photo: ${value}`);
   }
   return lines.join("\n");
 }
@@ -283,9 +295,22 @@ function searchQueriesFor(brand, name) {
   ];
 }
 
+/**
+ * REMOTE_MODE skips the local download/cache step and writes the
+ * upstream og:image URL straight into `photo:`. Use it when you want
+ * fast coverage now and plan to mirror to Blob later via
+ * scripts/mirror-remote-photos-to-blob.mjs. Defaults to off so the
+ * legacy `node scripts/scrape-product-photos.mjs` invocation still
+ * downloads to public/products/ and stays byte-perfect on disk.
+ */
+const REMOTE_MODE = process.argv.includes("--remote");
+
 async function tryUrl(pageUrl, slug, brandHint) {
   const og = await scrapeOgImage(pageUrl, brandHint);
   if (!og.ok) return { ok: false, error: og.error };
+  if (REMOTE_MODE) {
+    return { ok: true, publicPath: og.imageUrl, bytes: 0 };
+  }
   const dl = await downloadImage(og.imageUrl, slug);
   if (!dl.ok) return { ok: false, error: dl.error };
   return { ok: true, publicPath: dl.publicPath, bytes: dl.bytes };

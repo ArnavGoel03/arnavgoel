@@ -156,11 +156,50 @@ export default function AboutPage() {
           before the score.
         </p>
 
-        <SectionLabel num="04" label="Off the clock" />
+        <SectionLabel num="04" label="Off the clock, in the water" />
         <p>
-          Most weekends involve water in some form, kayaking, wakesurfing,
-          snorkelling, and, when time and depth permit, underwater basket
-          weaving.
+          If I am not at a desk, I am almost always near, in, or under water.
+          Most weekends involve some combination of:
+        </p>
+        <ul className="mt-4 space-y-3">
+          <li className="flex gap-3">
+            <span aria-hidden className="mt-1.5 text-rose-400">❋</span>
+            <span>
+              <strong className="font-serif text-stone-900 dark:text-stone-100">Snorkelling.</strong>{" "}
+              The closest thing to weightlessness I have found on this side of
+              actual scuba. Reef trips are the only travel I plan months in
+              advance.
+            </span>
+          </li>
+          <li className="flex gap-3">
+            <span aria-hidden className="mt-1.5 text-rose-400">❋</span>
+            <span>
+              <strong className="font-serif text-stone-900 dark:text-stone-100">Swimming.</strong>{" "}
+              The daily reset. Pool laps or open water, both work. The only
+              cardio I have ever stuck with for years rather than weeks.
+            </span>
+          </li>
+          <li className="flex gap-3">
+            <span aria-hidden className="mt-1.5 text-rose-400">❋</span>
+            <span>
+              <strong className="font-serif text-stone-900 dark:text-stone-100">Wake surfing.</strong>{" "}
+              The favourite. The wake behind a properly weighted boat is a
+              wave that never closes out. You can ride one for as long as your
+              legs hold up.
+            </span>
+          </li>
+          <li className="flex gap-3">
+            <span aria-hidden className="mt-1.5 text-rose-400">❋</span>
+            <span>
+              <strong className="font-serif text-stone-900 dark:text-stone-100">Wakeboarding.</strong>{" "}
+              When the wake surf line gets crowded. A different muscle group
+              and a different kind of bruised, but the same lake morning.
+            </span>
+          </li>
+        </ul>
+        <p className="mt-5 font-serif italic">
+          A surprising amount of the SPF and body-care reviews on this site
+          exist because of how often skin meets sun, salt, or chlorine.
         </p>
 
         <SectionLabel num="05" label="Sections" />
