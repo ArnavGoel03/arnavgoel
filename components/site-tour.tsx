@@ -306,6 +306,20 @@ export function SiteTour({
         <p className="mt-2 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
           {step.body}
         </p>
+        <div className="mt-4 flex items-center gap-2 text-[10px] uppercase tracking-[0.18em] text-stone-400 dark:text-stone-500">
+          <kbd className="rounded border border-stone-200 bg-stone-50 px-1.5 py-0.5 font-mono text-[10px] tracking-normal text-stone-500 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-400">
+            ←
+          </kbd>
+          <kbd className="rounded border border-stone-200 bg-stone-50 px-1.5 py-0.5 font-mono text-[10px] tracking-normal text-stone-500 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-400">
+            →
+          </kbd>
+          <span>navigate</span>
+          <span className="text-stone-300 dark:text-stone-700">·</span>
+          <kbd className="rounded border border-stone-200 bg-stone-50 px-1.5 py-0.5 font-mono text-[10px] tracking-normal text-stone-500 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-400">
+            esc
+          </kbd>
+          <span>close</span>
+        </div>
         <div className="mt-5 flex items-center justify-between">
           <button
             type="button"
