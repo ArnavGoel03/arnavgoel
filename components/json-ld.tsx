@@ -51,6 +51,86 @@ export function WebsiteJsonLd() {
     url: site.url,
     description: site.description,
     author: { "@type": "Person", name: site.name, url: site.url },
+    // Sitelinks searchbox: when Google decides to surface our brand
+    // search-by-name in the SERP, the box hits /search?q=<term> rather
+    // than dropping the user on Google's own results page.
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${site.url}/search?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: serialize(data) }}
+    />
+  );
+}
+
+/**
+ * ItemList JSON-LD for category listing pages (skincare, supplements,
+ * oral-care, hair-care, body-care). Helps search engines understand
+ * the listing-of-things relationship rather than treating the page as
+ * a flat blob of text.
+ */
+export function ItemListJsonLd({
+  name,
+  description,
+  url,
+  items,
+}: {
+  name: string;
+  description: string;
+  url: string;
+  items: { kind: string; slug: string; name: string; brand: string }[];
+}) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name,
+    description,
+    url: url.startsWith("http") ? url : `${site.url}${url}`,
+    numberOfItems: items.length,
+    itemListElement: items.map((it, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: `${site.url}/${it.kind}/${it.slug}`,
+      name: `${it.brand} ${it.name}`,
+    })),
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: serialize(data) }}
+    />
+  );
+}
+
+/**
+ * FAQ JSON-LD. Used on /about so the site's actual rules (no
+ * sponsorships, one-month minimum, etc.) surface as featured-snippet
+ * eligible Q&A in search results.
+ */
+export function FaqJsonLd({
+  qa,
+}: {
+  qa: { question: string; answer: string }[];
+}) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: qa.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
   };
   return (
     <script
