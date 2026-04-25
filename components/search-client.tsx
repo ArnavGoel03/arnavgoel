@@ -4,36 +4,8 @@ import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { Mic, Search as SearchIcon } from "lucide-react";
 import type { SearchItem, SearchItemType } from "@/lib/search-index";
+import { useSpeechRecognition } from "@/lib/use-speech-recognition";
 import { cn } from "@/lib/utils";
-
-// Minimal SpeechRecognition typings. The DOM lib doesn't ship them; we
-// only touch the surface we use.
-type SpeechResult = { transcript: string };
-type SpeechRecognitionEvent = {
-  results: ArrayLike<ArrayLike<SpeechResult> & { isFinal: boolean }>;
-  resultIndex: number;
-};
-type SpeechRecognitionLike = {
-  lang: string;
-  continuous: boolean;
-  interimResults: boolean;
-  start: () => void;
-  stop: () => void;
-  abort: () => void;
-  onresult: ((e: SpeechRecognitionEvent) => void) | null;
-  onerror: ((e: unknown) => void) | null;
-  onend: (() => void) | null;
-};
-type SpeechRecognitionCtor = new () => SpeechRecognitionLike;
-
-function getSpeechRecognition(): SpeechRecognitionCtor | null {
-  if (typeof window === "undefined") return null;
-  const w = window as unknown as {
-    SpeechRecognition?: SpeechRecognitionCtor;
-    webkitSpeechRecognition?: SpeechRecognitionCtor;
-  };
-  return w.SpeechRecognition ?? w.webkitSpeechRecognition ?? null;
-}
 
 const TYPE_FILTERS: { id: "all" | SearchItemType; label: string }[] = [
   { id: "all", label: "All" },
@@ -58,11 +30,12 @@ function score(item: SearchItem, terms: string[]): number {
 export function SearchClient({ items }: { items: SearchItem[] }) {
   const [query, setQuery] = useState("");
   const [type, setType] = useState<"all" | SearchItemType>("all");
-  const [voiceSupported, setVoiceSupported] = useState(false);
-  const [listening, setListening] = useState(false);
   const deferred = useDeferredValue(query);
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
+  const voice = useSpeechRecognition({ onTranscript: setQuery });
+  const voiceSupported = voice.supported;
+  const listening = voice.listening;
+  const toggleVoice = voice.toggle;
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -80,45 +53,6 @@ export function SearchClient({ items }: { items: SearchItem[] }) {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
-
-  useEffect(() => {
-    setVoiceSupported(getSpeechRecognition() !== null);
-    return () => recognitionRef.current?.abort();
-  }, []);
-
-  function toggleVoice() {
-    if (listening) {
-      recognitionRef.current?.stop();
-      return;
-    }
-    const Ctor = getSpeechRecognition();
-    if (!Ctor) return;
-    const rec = new Ctor();
-    // Single utterance with live interim updates: feels closer to a
-    // dictation field than waiting for a final transcript at the end.
-    rec.lang = "en-US";
-    rec.continuous = false;
-    rec.interimResults = true;
-    rec.onresult = (e) => {
-      let transcript = "";
-      for (let i = e.resultIndex; i < e.results.length; i++) {
-        transcript += e.results[i][0].transcript;
-      }
-      setQuery(transcript.trim());
-    };
-    rec.onerror = () => setListening(false);
-    rec.onend = () => {
-      setListening(false);
-      recognitionRef.current = null;
-    };
-    recognitionRef.current = rec;
-    setListening(true);
-    try {
-      rec.start();
-    } catch {
-      setListening(false);
-    }
-  }
 
   const results = useMemo(() => {
     const terms = deferred

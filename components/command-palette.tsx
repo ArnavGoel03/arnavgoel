@@ -8,8 +8,9 @@ import {
   useState,
 } from "react";
 import { useRouter } from "next/navigation";
-import { Search } from "lucide-react";
+import { Mic, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useSpeechRecognition } from "@/lib/use-speech-recognition";
 import type { SearchItem } from "@/lib/search-index";
 
 /**
@@ -28,6 +29,12 @@ export function CommandPalette({ items }: { items: SearchItem[] }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
   const router = useRouter();
+  const voice = useSpeechRecognition({
+    onTranscript: (t) => {
+      setQuery(t);
+      setCursor(0);
+    },
+  });
 
   // Global keybinding + a `palette:open` custom event so non-keyboard
   // entry points (the header search icon) can open the same palette
@@ -163,14 +170,34 @@ export function CommandPalette({ items }: { items: SearchItem[] }) {
               setCursor(0);
             }}
             onKeyDown={onKeyDown}
-            placeholder="Jump to a page, product, or primer…"
-            className="w-full bg-transparent py-4 pl-11 pr-14 text-base font-serif italic text-stone-900 placeholder:text-stone-400 focus:outline-none dark:text-stone-100"
+            placeholder={voice.listening ? "Listening…" : "Jump to a page, product, or primer…"}
+            className={cn(
+              "w-full bg-transparent py-4 pl-11 text-base font-serif italic text-stone-900 placeholder:text-stone-400 focus:outline-none dark:text-stone-100",
+              voice.supported ? "pr-24" : "pr-14",
+            )}
             type="search"
             aria-label="Search"
             aria-autocomplete="list"
             aria-controls="command-palette-list"
           />
-          <kbd className="pointer-events-none absolute right-4 top-1/2 hidden -translate-y-1/2 rounded border border-stone-200 bg-stone-50 px-1.5 py-0.5 font-mono text-[10px] text-stone-500 sm:inline dark:border-stone-700 dark:bg-stone-800 dark:text-stone-400 dark:border-stone-800 dark:bg-stone-900">
+          {voice.supported && (
+            <button
+              type="button"
+              onClick={voice.toggle}
+              aria-label={voice.listening ? "Stop voice input" : "Voice search"}
+              aria-pressed={voice.listening}
+              title="Voice search"
+              className={cn(
+                "absolute right-12 top-1/2 inline-flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full transition-colors",
+                voice.listening
+                  ? "bg-rose-500 text-white animate-pulse"
+                  : "text-stone-500 hover:bg-stone-100 hover:text-stone-900 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-100",
+              )}
+            >
+              <Mic className="h-3.5 w-3.5" />
+            </button>
+          )}
+          <kbd className="pointer-events-none absolute right-4 top-1/2 hidden -translate-y-1/2 rounded border border-stone-200 bg-stone-50 px-1.5 py-0.5 font-mono text-[10px] text-stone-500 sm:inline dark:border-stone-700 dark:bg-stone-800 dark:text-stone-400">
             esc
           </kbd>
         </div>
