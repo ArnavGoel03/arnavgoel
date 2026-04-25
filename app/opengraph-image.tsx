@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { RoseMark } from "@/lib/og-rose";
 import { site } from "@/lib/site";
 
 export const runtime = "nodejs";
@@ -49,8 +50,8 @@ export default async function Image() {
             fontFamily: "ui-sans-serif, -apple-system, system-ui, sans-serif",
           }}
         >
-          <div style={{ display: "flex", alignItems: "baseline", gap: 12 }}>
-            <span style={{ color: "#fb7185", fontSize: 22 }}>❋</span>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <RoseMark size={22} />
             <span>{site.location}</span>
           </div>
           <div style={{ fontFamily: "ui-monospace, monospace", color: "#a8a29e" }}>

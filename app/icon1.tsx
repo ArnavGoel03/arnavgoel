@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { RoseMark } from "@/lib/og-rose";
 
 export const runtime = "nodejs";
 export const size = { width: 192, height: 192 };
@@ -21,13 +22,9 @@ export default function Icon192() {
           justifyContent: "center",
           background:
             "radial-gradient(ellipse at 70% 20%, #2a2624 0%, #1c1917 55%, #171412 100%)",
-          color: "#fb7185",
-          fontSize: 120,
-          lineHeight: 1,
-          fontFamily: "Georgia, serif",
         }}
       >
-        ❋
+        <RoseMark size={120} />
       </div>
     ),
     size,

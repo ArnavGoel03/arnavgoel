@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 import type { Review } from "@/lib/types";
 import { pricesByRegion, REGION_TAG } from "@/lib/price";
+import { RoseMark } from "@/lib/og-rose";
 import { site } from "@/lib/site";
 
 export const OG_SIZE = { width: 1200, height: 630 };
@@ -75,8 +76,8 @@ export function reviewOgImage(review: Review) {
             fontFamily: "ui-sans-serif, -apple-system, system-ui, sans-serif",
           }}
         >
-          <div style={{ display: "flex", alignItems: "baseline", gap: 12 }}>
-            <span style={{ color: "#fb7185", fontSize: 22 }}>❋</span>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <RoseMark size={22} />
             <span>{review.brand}</span>
             <span style={{ color: "#d6d3d1" }}>·</span>
             <span>{review.category}</span>
@@ -169,7 +170,7 @@ export function reviewOgImage(review: Review) {
         <div
           style={{
             display: "flex",
-            alignItems: "baseline",
+            alignItems: "center",
             gap: 28,
             paddingTop: 22,
             borderTop: "1px solid #e7e5e4",
@@ -180,7 +181,7 @@ export function reviewOgImage(review: Review) {
             fontFamily: "ui-sans-serif, -apple-system, system-ui, sans-serif",
           }}
         >
-          <span style={{ color: "#fb7185" }}>❋</span>
+          <RoseMark size={18} />
           <span>An honest catalog</span>
           <span style={{ color: "#d6d3d1" }}>·</span>
           <span>{site.location}</span>

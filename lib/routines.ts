@@ -18,7 +18,7 @@ export const ROUTINE_DESCRIPTIONS: Record<RoutineSlug, string> = {
   stack:
     "Supplements I take daily, together, as one running protocol. Order, timing, and what they're for.",
   shower:
-    "Everything that lives next to the showerhead, body washes, scrubs, shampoos, conditioners, in-shower treatments. The wash-rinse-repeat layer of the routine.",
+    "What is actually in the rotation right now, the bottles I reach for under running water this week, not every wash and scrub I have ever bought.",
 };
 
 export function getRoutinesList(): RoutineSlug[] {
