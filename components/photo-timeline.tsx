@@ -42,6 +42,8 @@ export function PhotoTimeline({ review }: { review: Review }) {
               <img
                 src={p.src}
                 alt={p.note ?? `Progress photo from ${fmt(p.date)}`}
+                loading="lazy"
+                decoding="async"
                 className="h-full w-full object-cover"
               />
             </div>

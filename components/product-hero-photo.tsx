@@ -23,6 +23,8 @@ export function ProductHeroPhoto({ review }: { review: Review }) {
         <img
           src={review.photo}
           alt={`${review.brand} ${review.name}`}
+          fetchPriority="high"
+          decoding="async"
           className="block h-full w-full object-contain mix-blend-multiply"
         />
       </div>

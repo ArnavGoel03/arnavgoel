@@ -33,6 +33,8 @@ export function ProductCard({ review }: { review: ReviewSummary }) {
             <img
               src={review.photo}
               alt={`${review.brand} ${review.name}, ${review.category}`}
+              loading="lazy"
+              decoding="async"
               className="h-full w-full object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-[1.03]"
             />
           </div>
