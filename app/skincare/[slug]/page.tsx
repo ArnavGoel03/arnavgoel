@@ -15,6 +15,7 @@ import { MdxContent } from "@/components/mdx-content";
 import { ReviewJsonLd } from "@/components/json-ld";
 import { getAdjacentReviews, getPrimersForProduct, getReview, getReviews } from "@/lib/content";
 import { RelatedPrimers } from "@/components/related-primers";
+import { TocNav } from "@/components/toc-nav";
 import { PrevNext } from "@/components/prev-next";
 import { CopyLink } from "@/components/copy-link";
 import { ReadingProgress } from "@/components/reading-progress";
@@ -106,6 +107,7 @@ export default async function SkincareReviewPage({ params }: Props) {
             <ProsCons pros={review.pros} cons={review.cons} />
           </div>
           <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
+            <TocNav body={review.body} />
             <ReviewMeta review={review} />
             <RatingAxes review={review} />
             <RelatedPrimers primers={relatedPrimers} />

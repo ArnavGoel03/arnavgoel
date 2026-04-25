@@ -702,13 +702,13 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
           </div>
 
           {state?.ok === false && (
-            <div className="mb-3 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+            <div className="mb-3 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-400">
               {state.error}
             </div>
           )}
 
           {state?.ok && (
-            <div className="mb-3 rounded-lg border border-green-200 bg-green-50 px-3 py-2 text-sm text-green-800">
+            <div className="mb-3 rounded-lg border border-green-200 bg-green-50 px-3 py-2 text-sm text-green-800 dark:border-green-900/50 dark:bg-green-950/30 dark:text-green-400">
               {state.message}{" "}
               {state.kind && state.slug && (
                 <Link

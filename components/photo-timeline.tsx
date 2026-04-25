@@ -1,4 +1,5 @@
 import type { Review } from "@/lib/types";
+import { PhotoTimelineItem } from "./photo-timeline-item";
 
 function fmt(iso: string): string {
   return new Date(iso).toLocaleDateString("en-US", {
@@ -37,16 +38,10 @@ export function PhotoTimeline({ review }: { review: Review }) {
       <ol className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {photos.map((p, i) => (
           <li key={`${p.date}-${i}`} className="flex flex-col gap-2">
-            <div className="aspect-[3/4] overflow-hidden rounded-xl border border-stone-200 bg-stone-100 dark:border-stone-800 dark:bg-stone-800">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={p.src}
-                alt={p.note ?? `Progress photo from ${fmt(p.date)}`}
-                loading="lazy"
-                decoding="async"
-                className="h-full w-full object-cover"
-              />
-            </div>
+            <PhotoTimelineItem
+              src={p.src}
+              alt={p.note ?? `Progress photo from ${fmt(p.date)}`}
+            />
             <div>
               <p className="font-mono text-[11px] text-stone-500 tabular-nums dark:text-stone-400">
                 {fmt(p.date)}

@@ -325,6 +325,19 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
         )}
       </div>
 
+      {/* Screen-reader-only live announcement of the filter result.
+          Sighted users see the grid update; AT users get the count
+          spoken when they tap a chip. */}
+      <p
+        aria-live="polite"
+        aria-atomic="true"
+        className="sr-only"
+      >
+        {filtered.length === 0
+          ? "No products match the current filters."
+          : `${filtered.length} ${filtered.length === 1 ? "product" : "products"} shown.`}
+      </p>
+
       {filtered.length === 0 ? (
         <div className="py-20 text-center">
           <p className="font-display text-7xl font-light leading-none tracking-tight text-stone-200 dark:text-stone-800">

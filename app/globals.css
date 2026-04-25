@@ -147,6 +147,16 @@
     animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 
+  /* Per-product hero photo morphs from listing-card to detail-page
+     when the named element exists on both routes. The view-transition
+     name is set inline by ProductCard + ProductHeroPhoto so the
+     browser knows to pair the two elements across the navigation. */
+  ::view-transition-old(product-photo),
+  ::view-transition-new(product-photo) {
+    animation-duration: 320ms;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
   /* Tour card mount: opacity-only fade so the JS-set inline transforms
      for placement (translate(-50%,-50%) on center, raw left/top on
      anchored cards) remain valid throughout the animation. */

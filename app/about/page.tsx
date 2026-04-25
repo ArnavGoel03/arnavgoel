@@ -73,12 +73,9 @@ export default function AboutPage() {
         Hi, I&apos;m {site.shortName}<span className="text-rose-400">.</span>
       </h1>
 
-      <div className="mt-10 max-w-2xl text-lg leading-relaxed text-stone-700 dark:text-stone-300">
+      <div className="prose-with-drop-cap mt-10 max-w-2xl text-lg leading-relaxed text-stone-700 dark:text-stone-300">
         <p>
-          <span className="float-left mr-3 mt-1 font-display text-7xl font-light leading-[0.8] text-stone-900 dark:text-stone-100 sm:text-8xl">
-            I
-          </span>
-          live in {site.location}. This is the corner of the internet where I
+          I live in {site.location}. This is the corner of the internet where I
           write about the products I actually use, skincare, supplements, oral
           care, and the photos and rough notes I make in between. Slower than a
           feed. More honest than a sponsored review.

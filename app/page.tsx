@@ -187,62 +187,24 @@ export default function HomePage() {
           </h2>
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <SectionTile
-            index={1}
-            href="/skincare"
-            eyebrow={`${skincareCount} reviews`}
-            title="Skincare"
-            description="Cleansers, serums, moisturizers, sunscreens, every product that's lived on my face for a month."
-          />
-          <SectionTile
-            index={2}
-            href="/supplements"
-            eyebrow={`${supplementsCount} reviews`}
-            title="Supplements"
-            description="Vitamins, minerals, nootropics. What I took, how long, and what I actually felt."
-          />
-          <SectionTile
-            index={3}
-            href="/oral-care"
-            eyebrow={`${oralCareCount} reviews`}
-            title="Oral care"
-            description="Electric brushes, pastes, mouthwash, for teeth, breath, and gums."
-          />
-          <SectionTile
-            index={4}
-            href="/hair-care"
-            eyebrow={`${hairCareCount} reviews`}
-            title="Hair care"
-            description="Conditioners, masks, treatments, what lives in the shower for hair, scalp, and ends."
-          />
-          <SectionTile
-            index={5}
-            href="/body-care"
-            eyebrow={`${bodyCareCount} reviews`}
-            title="Body care"
-            description="Body washes, lotions, scrubs, the everyday cleanse-and-moisturise from the neck down."
-          />
-          <SectionTile
-            index={6}
-            href="/photos"
-            eyebrow={`${photosCount} photos`}
-            title="Photos"
-            description="DSLR shots from wherever I happened to be carrying the camera."
-          />
-          <SectionTile
-            index={7}
-            href="/notes"
-            eyebrow={`${notesCount} entries`}
-            title="Notes"
-            description="Slow writing, essays, stray thoughts, half-formed ideas."
-          />
-          <SectionTile
-            index={8}
-            href="/now"
-            eyebrow="this month"
-            title="Now"
-            description="What I'm currently working on, listening to, thinking about, and consciously not doing."
-          />
+          {[
+            { index: 1, href: "/skincare", eyebrow: `${skincareCount} reviews`, title: "Skincare", description: "Cleansers, serums, moisturizers, sunscreens, every product that's lived on my face for a month." },
+            { index: 2, href: "/supplements", eyebrow: `${supplementsCount} reviews`, title: "Supplements", description: "Vitamins, minerals, nootropics. What I took, how long, and what I actually felt." },
+            { index: 3, href: "/oral-care", eyebrow: `${oralCareCount} reviews`, title: "Oral care", description: "Electric brushes, pastes, mouthwash, for teeth, breath, and gums." },
+            { index: 4, href: "/hair-care", eyebrow: `${hairCareCount} reviews`, title: "Hair care", description: "Conditioners, masks, treatments, what lives in the shower for hair, scalp, and ends." },
+            { index: 5, href: "/body-care", eyebrow: `${bodyCareCount} reviews`, title: "Body care", description: "Body washes, lotions, scrubs, the everyday cleanse-and-moisturise from the neck down." },
+            { index: 6, href: "/photos", eyebrow: `${photosCount} photos`, title: "Photos", description: "DSLR shots from wherever I happened to be carrying the camera." },
+            { index: 7, href: "/notes", eyebrow: `${notesCount} entries`, title: "Notes", description: "Slow writing, essays, stray thoughts, half-formed ideas." },
+            { index: 8, href: "/now", eyebrow: "this month", title: "Now", description: "What I'm currently working on, listening to, thinking about, and consciously not doing." },
+          ].map((tile, i) => (
+            <div
+              key={tile.href}
+              className="card-stagger-in"
+              style={{ "--stagger": `${i * 35}ms` } as React.CSSProperties}
+            >
+              <SectionTile {...tile} />
+            </div>
+          ))}
         </div>
       </Container>
 

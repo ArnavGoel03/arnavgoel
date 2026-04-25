@@ -99,7 +99,7 @@ export function PhotoForm() {
           required
         />
         {probeError && (
-          <p className="mt-2 text-xs text-amber-700">{probeError}</p>
+          <p className="mt-2 text-xs text-amber-700 dark:text-amber-400">{probeError}</p>
         )}
       </div>
 
@@ -188,13 +188,13 @@ export function PhotoForm() {
       </div>
 
       {state?.ok === false && (
-        <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+        <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-400">
           {state.error}
         </div>
       )}
 
       {state?.ok && (
-        <div className="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800">
+        <div className="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800 dark:border-green-900/50 dark:bg-green-950/30 dark:text-green-400">
           {state.message}
         </div>
       )}
