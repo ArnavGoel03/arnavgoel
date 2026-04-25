@@ -29,6 +29,10 @@ const RETAILER_BY_HOST: Record<string, string> = {
   "sephora.com": "Sephora",
   "sephora.in": "Sephora",
   "ulta.com": "Ulta",
+  "blinkit.com": "Blinkit",
+  "zepto.in": "Zepto",
+  "swiggy.com": "Swiggy Instamart",
+  "perfora.in": "Perfora",
 };
 
 export function retailerForUrl(url: string): string {
@@ -247,6 +251,10 @@ const BRAND_TEXT_COLOR: Record<string, string> = {
   "Philips Sonicare": "text-cyan-700 dark:text-cyan-400",
   "Crest": "text-red-600 dark:text-red-400",
   "DenTek": "text-red-700 dark:text-red-400",
+  "Perfora": "text-stone-900 dark:text-stone-100",
+  "Blinkit": "text-yellow-600 dark:text-yellow-400",
+  "Zepto": "text-fuchsia-700 dark:text-fuchsia-400",
+  "Swiggy Instamart": "text-orange-600 dark:text-orange-400",
   // Hair care
   "Olaplex": "text-stone-900 dark:text-stone-100",
   "Kristin Ess": "text-rose-500 dark:text-rose-300",
@@ -317,6 +325,10 @@ export const INDIA_HOSTS = [
   "myprotein.co.in",
   "healthkart.com",
   "sephora.in",
+  "blinkit.com",
+  "zepto.in",
+  "swiggy.com",
+  "perfora.in",
 ];
 
 export const USA_HOSTS = [
