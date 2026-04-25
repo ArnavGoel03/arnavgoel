@@ -119,7 +119,15 @@ export function SectionMasthead({
   const stats = computeStats(reviews);
 
   return (
-    <div className="border-b border-stone-300 py-12 dark:border-stone-800 sm:py-16">
+    <div className="relative border-b border-stone-300 py-12 dark:border-stone-800 sm:py-16">
+      {/* Section-level rose wash, mirrors the homepage hero so the
+          editorial identity carries through to /skincare, /supplements,
+          /oral-care, /hair-care without introducing any new accent
+          colour. Light mode runs warmer, dark mode keeps it whisper. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-32 -top-20 -z-10 h-[28rem] w-[28rem] rounded-full bg-rose-200/55 blur-3xl dark:bg-rose-900/20"
+      />
       <TopRule left={volume} right={issueDate()} />
 
       <h1 className="font-serif text-[12vw] leading-[0.92] tracking-[-0.04em] text-stone-900 dark:text-stone-100 sm:text-8xl">

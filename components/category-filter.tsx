@@ -30,6 +30,7 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
   const [sort, setSort] = useState<SortKey>("recent");
   const [region, setRegion] = useState<RegionFilter>("all");
   const [ingredient, setIngredient] = useState<string>("all");
+  const [brand, setBrand] = useState<string>("all");
 
   const categories = useMemo(() => {
     const set = new Set(reviews.map((r) => r.category));
@@ -40,6 +41,11 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
     const set = new Set<string>();
     for (const r of reviews) for (const i of r.ingredients ?? []) set.add(i);
     return ["all", ...Array.from(set).sort()];
+  }, [reviews]);
+
+  const brands = useMemo(() => {
+    const set = new Set(reviews.map((r) => r.brand));
+    return ["all", ...Array.from(set).sort((a, b) => a.localeCompare(b))];
   }, [reviews]);
 
   const counts = useMemo(
@@ -58,6 +64,9 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
     }
     if (ingredient !== "all") {
       base = base.filter((r) => (r.ingredients ?? []).includes(ingredient));
+    }
+    if (brand !== "all") {
+      base = base.filter((r) => r.brand === brand);
     }
     if (sort === "verdict") {
       return [...base].sort(
@@ -94,7 +103,7 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
       });
     }
     return base;
-  }, [reviews, active, sort, region, ingredient]);
+  }, [reviews, active, sort, region, ingredient, brand]);
 
   return (
     <div className="space-y-6">
@@ -175,16 +184,29 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
         ))}
       </div>
 
-      {ingredients.length > 2 && (
-        <div className="flex flex-wrap items-center gap-2 text-sm">
-          <span className="text-stone-500 dark:text-stone-400">Ingredient:</span>
-          <IngredientPicker
-            options={ingredients}
-            value={ingredient}
-            onChange={setIngredient}
-          />
-        </div>
-      )}
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
+        {brands.length > 2 && (
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-stone-500 dark:text-stone-400">Brand:</span>
+            <IngredientPicker
+              options={brands}
+              value={brand}
+              onChange={setBrand}
+              placeholder="Any brand"
+            />
+          </div>
+        )}
+        {ingredients.length > 2 && (
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-stone-500 dark:text-stone-400">Ingredient:</span>
+            <IngredientPicker
+              options={ingredients}
+              value={ingredient}
+              onChange={setIngredient}
+            />
+          </div>
+        )}
+      </div>
 
       {filtered.length === 0 ? (
         <p className="py-16 text-center text-stone-500 dark:text-stone-400">
@@ -211,10 +233,12 @@ function IngredientPicker({
   options,
   value,
   onChange,
+  placeholder,
 }: {
   options: string[];
   value: string;
   onChange: (v: string) => void;
+  placeholder?: string;
 }) {
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement | null>(null);
@@ -236,7 +260,7 @@ function IngredientPicker({
     };
   }, [open]);
 
-  const label = value === "all" ? "Any" : value;
+  const label = value === "all" ? (placeholder ?? "Any") : value;
 
   return (
     <div className="relative inline-block" ref={wrapRef}>
@@ -285,7 +309,7 @@ function IngredientPicker({
                       : "text-stone-700 hover:bg-stone-50 dark:text-stone-200 dark:hover:bg-stone-800",
                   )}
                 >
-                  <span>{opt === "all" ? "Any" : opt}</span>
+                  <span>{opt === "all" ? (placeholder ?? "Any") : opt}</span>
                   {selected && <Check className="h-3.5 w-3.5" />}
                 </button>
               </li>

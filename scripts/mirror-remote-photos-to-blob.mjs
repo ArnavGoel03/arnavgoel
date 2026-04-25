@@ -31,6 +31,7 @@ const CONTENT_DIRS = [
   join(REPO_ROOT, "content", "skincare"),
   join(REPO_ROOT, "content", "supplements"),
   join(REPO_ROOT, "content", "oral-care"),
+  join(REPO_ROOT, "content", "hair-care"),
 ];
 
 const EXT_BY_MIME = {

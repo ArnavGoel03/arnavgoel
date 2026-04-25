@@ -122,9 +122,18 @@ export default function HomePage() {
             </div>
           </div>
         </Container>
+        {/* Editorial rose wash. Top-right blob runs in both modes
+            (matches the original); the second bottom-left blob is
+            light-mode only because the user explicitly did not want
+            dark mode touched. dark:hidden hides the second one
+            entirely under the night theme. */}
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-rose-100/40 blur-3xl dark:bg-rose-900/20"
+          className="pointer-events-none absolute -right-40 -top-40 h-[34rem] w-[34rem] rounded-full bg-rose-200/70 blur-3xl dark:bg-rose-900/20"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -bottom-24 -left-24 h-[22rem] w-[22rem] rounded-full bg-rose-100/60 blur-3xl dark:hidden"
         />
       </section>
 
