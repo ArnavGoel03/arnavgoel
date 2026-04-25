@@ -274,6 +274,21 @@ const BRAND_TEXT_COLOR: Record<string, string> = {
   "Room Essentials": "text-stone-700 dark:text-stone-300",
   "Lasko": "text-stone-700 dark:text-stone-300",
   "Apple": "text-stone-900 dark:text-stone-100",
+  "PlayStation": "text-blue-700 dark:text-blue-400",
+  "Waterpik": "text-cyan-700 dark:text-cyan-400",
+  "WHOOSH!": "text-orange-600 dark:text-orange-400",
+  "Fotbor": "text-stone-700 dark:text-stone-300",
+  "XIXVON": "text-stone-700 dark:text-stone-300",
+  "Electrolux": "text-stone-800 dark:text-stone-200",
+  "Dreo": "text-sky-700 dark:text-sky-400",
+  "Tweezerman": "text-stone-700 dark:text-stone-300",
+  "WHOOP": "text-red-700 dark:text-red-400",
+  "Zulay Kitchen": "text-orange-600 dark:text-orange-400",
+  "FADOTY": "text-stone-700 dark:text-stone-300",
+  "ESR": "text-blue-700 dark:text-blue-400",
+  "NIKE": "text-stone-900 dark:text-stone-100",
+  "Ghirardelli": "text-amber-800 dark:text-amber-500",
+  "Bumble and bumble.": "text-yellow-600 dark:text-yellow-400",
 };
 
 const DEFAULT_BRAND_COLOR = "text-stone-500 dark:text-stone-400";
