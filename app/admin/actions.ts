@@ -322,7 +322,7 @@ export type ActionState = {
   error?: string;
   message?: string;
   slug?: string;
-  kind?: "skincare" | "supplements" | "oral-care" | "hair-care" | "body-care" | "essentials";
+  kind?: "skincare" | "supplements" | "oral-care" | "hair-care" | "body-care" | "essentials" | "miscellaneous";
   path?: string;
 };
 
