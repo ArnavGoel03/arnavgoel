@@ -202,7 +202,17 @@ export default function AboutPage() {
           exist because of how often skin meets sun, salt, or chlorine.
         </p>
 
-        <SectionLabel num="05" label="Sections" />
+        <SectionLabel num="05" label="A taste warning" />
+        <p>
+          I run on dark humour. The kind that lands flat in mixed company and
+          makes my friends snort the wrong way at brunch. If a review here
+          ever cracks at its own expense, that is the lens, not a slip. The
+          rules above (no sponsorships, one month minimum, real cons) are not
+          self-deprecation; they are the only thing I take entirely
+          straight-faced.
+        </p>
+
+        <SectionLabel num="06" label="Sections" />
         <p>
           <a href="/skincare" className={linkClass}>Skincare</a>,{" "}
           <a href="/supplements" className={linkClass}>supplements</a>,{" "}
@@ -215,7 +225,7 @@ export default function AboutPage() {
           <a href="/links" className={linkClass}>Links</a> if you want to find me elsewhere.
         </p>
 
-        <SectionLabel num="06" label="Frequently asked" />
+        <SectionLabel num="07" label="Frequently asked" />
         {/* Visible FAQ list, mirroring the JSON-LD above so search engines
             and AI crawlers see the same content the reader sees. */}
         <dl className="mt-4 space-y-6">
@@ -231,7 +241,7 @@ export default function AboutPage() {
           ))}
         </dl>
 
-        <SectionLabel num="07" label="My day job" />
+        <SectionLabel num="08" label="My day job" />
         <p>
           I write software when I&apos;m not writing about ceramide
           concentrations.{" "}
@@ -247,7 +257,7 @@ export default function AboutPage() {
           is where that side lives.
         </p>
 
-        <SectionLabel num="08" label="Get in touch" />
+        <SectionLabel num="09" label="Get in touch" />
         <p>
           Email or any of the socials on the{" "}
           <a href="/links" className={linkClass}>

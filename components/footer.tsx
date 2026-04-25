@@ -2,12 +2,26 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Container } from "./container";
 import { FooterSearchLink } from "./footer-search-link";
+import { SubscribeForm } from "./subscribe-form";
 import { site } from "@/lib/site";
 
 export function Footer() {
   return (
     <footer className="mt-24 border-t border-stone-200/70 py-14 text-sm text-stone-500 dark:border-stone-900/40 dark:text-stone-400">
       <Container className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4 border-b border-stone-200/70 pb-6 sm:flex-row sm:items-end sm:justify-between dark:border-stone-900/40">
+          <div className="max-w-md">
+            <p className="mb-1 text-[10px] uppercase tracking-[0.22em] text-stone-400 dark:text-stone-500">
+              <span className="text-rose-400">❋</span> Stay in the loop
+            </p>
+            <p className="font-serif text-base italic text-stone-600 dark:text-stone-300">
+              One email per published review. No tracking. Unsubscribe in one
+              click.
+            </p>
+          </div>
+          <SubscribeForm variant="inline" source="footer" />
+        </div>
+
         <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="flex items-baseline gap-2">
             <span className="font-serif text-2xl italic text-stone-700 dark:text-stone-200">

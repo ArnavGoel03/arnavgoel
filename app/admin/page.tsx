@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Inbox, LogOut, Trash2 } from "lucide-react";
+import { Inbox, LogOut, Mail, Trash2 } from "lucide-react";
 import { Container } from "@/components/container";
 import { PageHeading } from "@/components/page-heading";
 import { AdminTabs } from "./tabs";
@@ -49,6 +49,13 @@ export default async function AdminPage() {
               >
                 <Inbox className="h-3 w-3" />
                 Inbox
+              </Link>
+              <Link
+                href="/admin/subscribers"
+                className="inline-flex items-center gap-1.5 rounded-full border border-stone-200 px-3 py-1 text-xs text-stone-600 transition-colors hover:border-stone-900 hover:text-stone-900"
+              >
+                <Mail className="h-3 w-3" />
+                Subscribers
               </Link>
               <Link
                 href="/admin/trash"

@@ -24,6 +24,14 @@ rule. Otherwise: ship, then report what shipped.
 - The rules in `/about` are real. A review that sounds like a paid placement breaks the site's whole premise.
 - Do not invent the user's experience. When the user says "add this product, I use it" without supplying details, write a plausible review and explicitly disclose in your reply that the specifics (dosing schedule, weeks-to-effect, repurchase decision) are inferred and need their confirmation.
 
+# Verdict words: do NOT auto-assign recommend or okay
+
+`verdict: recommend` and `verdict: okay` are user signals, not author inferences. **Never write them into a new review unless the user has explicitly told you to** (in this turn or a previous one), or unless the user has used qualitative language like "I love it," "it's great," "would buy again," "it's fine," "it's okay." Returns plus the user using "shitty" / "horrible" / "bad" still allow `verdict: bad` (per the existing rule that the no-verdict-from-return rule was explicitly removed).
+
+If you are unsure, leave `verdict` unset so the listing renders as "Still testing" until the user gives a real signal. The same restraint applies to the `ratings.effect/value/tolerance` axes when you would only be guessing the numbers.
+
+The user called this out after several rounds of me autonomously stamping new products as `recommend` based on my own read of the listing. Treat verdicts as the user's voice; treat the body copy as your draft.
+
 # One product, one card
 
 Never create two listings for what is fundamentally the same product. **Same brand + same active compound = one MDX file**, no matter how many flavors, sizes, or pack counts I have bought.
