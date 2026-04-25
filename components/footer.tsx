@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Container } from "./container";
+import { FooterSearchLink } from "./footer-search-link";
 import { site } from "@/lib/site";
 
 export function Footer() {
@@ -39,12 +40,7 @@ export function Footer() {
             Take the tour
           </Link>
           <span className="text-stone-300 dark:text-stone-700">·</span>
-          <a
-            href="/search"
-            className="transition-colors hover:text-stone-700 dark:hover:text-stone-200"
-          >
-            Search
-          </a>
+          <FooterSearchLink />
           <span className="text-stone-300 dark:text-stone-700">·</span>
           <a
             href="/issue"

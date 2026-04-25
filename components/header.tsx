@@ -111,9 +111,9 @@ export function Header() {
                     aria-current={active ? "page" : undefined}
                     data-tour={item.tourId}
                     className={
-                      "whitespace-nowrap py-1 transition-colors " +
+                      "relative whitespace-nowrap py-1 transition-colors " +
                       (active
-                        ? "text-stone-900 dark:text-stone-100"
+                        ? "text-stone-900 dark:text-stone-100 after:absolute after:-bottom-px after:left-0 after:right-0 after:h-px after:bg-rose-400"
                         : "hover:text-stone-900 dark:hover:text-stone-100")
                     }
                   >
