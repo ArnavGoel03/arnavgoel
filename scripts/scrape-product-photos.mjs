@@ -1,26 +1,23 @@
 #!/usr/bin/env node
 /**
  * Best-effort scraper that fills in `photo:` for any review missing
- * one. For each MDX file without a photo field, walk its retailer URLs
- * (boughtFromUrl, then westernLinks, indiaLinks, ukLinks in that
- * order), fetch the page with a Chrome-ish User-Agent, parse the
- * `og:image` (or `twitter:image` as fallback) meta tag, download the
- * referenced image, save it under `public/products/<slug>.<ext>`, and
- * insert `photo: /products/<slug>.<ext>` into the frontmatter.
+ * one. Strategy per product:
  *
- * Sites that block scrapers (Amazon especially) just fail silently and
- * the next URL is tried. Not every product will end up with a photo;
- * the script prints a per-product summary at the end.
+ *   1. Walk the retailer URLs in the MDX (boughtFromUrl, then
+ *      western/india/uk links) and try og:image on each.
+ *   2. If that fails, fall back to DuckDuckGo HTML search with
+ *      progressively-broadening queries (Nykaa, iHerb, brand+name
+ *      open) and try og:image on the first result.
  *
- * Run from the repo root:
+ * Sites that block scrapers (Amazon especially) silently fail and the
+ * next URL is tried. Per-product summary printed at the end.
  *
  *   node scripts/scrape-product-photos.mjs
  */
 
 import { readFile, readdir, writeFile } from "node:fs/promises";
-import { existsSync, mkdirSync } from "node:fs";
-import { writeFileSync } from "node:fs";
-import { join, basename } from "node:path";
+import { existsSync, mkdirSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const REPO_ROOT = fileURLToPath(new URL("..", import.meta.url));
@@ -54,10 +51,6 @@ async function fetchWithTimeout(url, opts = {}) {
 if (!existsSync(PUBLIC_PRODUCTS_DIR))
   mkdirSync(PUBLIC_PRODUCTS_DIR, { recursive: true });
 
-/**
- * Parse the YAML-ish frontmatter block at the top of an MDX file. We
- * only care about a few fields and don't need a full parser.
- */
 function readFrontmatter(src) {
   const m = src.match(/^---\n([\s\S]*?)\n---/);
   if (!m) return { fm: "", body: src, hasFm: false };
@@ -73,15 +66,8 @@ function getString(fm, key) {
   return m ? m[1].trim() : null;
 }
 
-/**
- * Pull every URL out of a `kind: [{ url: "...", ... }]` style block.
- * Naive but works for the well-formed frontmatter we control.
- */
 function getLinkUrls(fm, key) {
-  const re = new RegExp(
-    `^${key}\\s*:\\s*\\n((?:\\s+-\\s.*\\n?)+)`,
-    "m",
-  );
+  const re = new RegExp(`^${key}\\s*:\\s*\\n((?:\\s+-\\s.*\\n?)+)`, "m");
   const blockMatch = fm.match(re);
   if (!blockMatch) return [];
   const block = blockMatch[1];
@@ -113,8 +99,6 @@ function pickContentTypeExt(contentType) {
 }
 
 function extractMeta(html, prop) {
-  // <meta property="og:image" content="...">
-  // (also handles single-quoted, attribute-order swapped variants)
   const patterns = [
     new RegExp(
       `<meta[^>]+property=["']${prop}["'][^>]+content=["']([^"']+)["']`,
@@ -140,7 +124,7 @@ function extractMeta(html, prop) {
   return null;
 }
 
-async function scrapeOgImage(pageUrl) {
+async function scrapeOgImage(pageUrl, brandHint) {
   let res;
   try {
     res = await fetchWithTimeout(pageUrl, { headers: FETCH_HEADERS });
@@ -154,7 +138,37 @@ async function scrapeOgImage(pageUrl) {
     extractMeta(html, "twitter:image") ||
     extractMeta(html, "twitter:image:src");
   if (!og) return { ok: false, error: "no og:image" };
-  // Resolve relative URL.
+
+  // Brand verification: when a hint is provided (search-result path),
+  // require the page title or og:title to mention the brand. Stops the
+  // search from accepting Nykaa/Sephora's closest-match-on-the-site
+  // products that happen to be the wrong brand.
+  if (brandHint) {
+    const ogTitle =
+      extractMeta(html, "og:title") ||
+      extractMeta(html, "twitter:title") ||
+      "";
+    const titleTagMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
+    const haystack = (
+      ogTitle +
+      " " +
+      (titleTagMatch ? titleTagMatch[1] : "")
+    ).toLowerCase();
+    const needles = brandHint
+      .toLowerCase()
+      .split(/\s+/)
+      .filter((w) => w.length > 2);
+    const hits = needles.filter((n) => haystack.includes(n)).length;
+    // Require at least the first word of the brand to appear (handles
+    // 'La Roche-Posay' → 'la' is too generic, but 'roche' or 'posay'
+    // should match; multi-word brands need ≥1 distinctive token).
+    const distinctive = needles.filter((n) => n.length > 3);
+    const ok = distinctive.some((n) => haystack.includes(n)) || hits >= 1;
+    if (!ok) {
+      return { ok: false, error: `brand mismatch (title: "${haystack.slice(0, 80)}")` };
+    }
+  }
+
   let absolute;
   try {
     absolute = new URL(og, pageUrl).toString();
@@ -185,21 +199,96 @@ async function downloadImage(url, slug) {
 }
 
 function insertPhotoField(raw, photoPath) {
-  // Insert `photo: <path>` after the first `category:` line, which
-  // every review has. Works for both quoted and bare values.
   const lines = raw.split("\n");
   const idx = lines.findIndex((l) => /^category\s*:/.test(l));
   if (idx === -1) {
-    // Fall back: insert just before the closing ---.
-    const closingIdx = lines.findIndex(
-      (l, i) => i > 0 && l.trim() === "---",
-    );
+    const closingIdx = lines.findIndex((l, i) => i > 0 && l.trim() === "---");
     if (closingIdx === -1) return raw;
     lines.splice(closingIdx, 0, `photo: ${photoPath}`);
   } else {
     lines.splice(idx + 1, 0, `photo: ${photoPath}`);
   }
   return lines.join("\n");
+}
+
+function isAdUrl(href) {
+  // DuckDuckGo sponsored results route through y.js; Bing ads route
+  // through bing.com/aclick. Both have nothing to do with the actual
+  // product and tend to land on irrelevant store pages, which is how
+  // we ended up scraping a 'BeMinimalist Alpha Arbutin' image for a
+  // Tirtir Vitamin C serum on the first run.
+  return (
+    href.includes("duckduckgo.com/y.js") ||
+    href.includes("bing.com/aclick") ||
+    href.includes("ad_provider=") ||
+    href.includes("ad_domain=")
+  );
+}
+
+/**
+ * DuckDuckGo HTML search: returns the first non-ad result URL,
+ * decoding the tracker wrapper. Returns null if nothing found.
+ */
+async function ddgFirstResult(query) {
+  const url = `https://html.duckduckgo.com/html/?q=${encodeURIComponent(query)}`;
+  let res;
+  try {
+    res = await fetchWithTimeout(url, { headers: FETCH_HEADERS });
+  } catch {
+    return null;
+  }
+  if (!res.ok) return null;
+  const html = await res.text();
+  const matches = [
+    ...html.matchAll(/<a[^>]+class="[^"]*result__a[^"]*"[^>]+href="([^"]+)"/g),
+  ];
+  for (const m of matches) {
+    let href = m[1];
+    const uddg = href.match(/uddg=([^&]+)/);
+    if (uddg) href = decodeURIComponent(uddg[1]);
+    if (href.startsWith("//")) href = "https:" + href;
+    if (isAdUrl(href)) continue;
+    return href;
+  }
+  return null;
+}
+
+/**
+ * Build a sequence of search queries to try. Goes Nykaa first (good
+ * og:image coverage), then iHerb (supplements), then a generic
+ * brand+name search.
+ */
+function searchQueriesFor(brand, name) {
+  const base = `${brand} ${name}`;
+  return [
+    `${base} site:nykaa.com`,
+    `${base} site:iherb.com`,
+    `${base} site:sephora.com`,
+    `${base} site:cultbeauty.co.uk`,
+    `${base} site:lookfantastic.com`,
+    `${base} site:walmart.com`,
+    `${base} site:target.com`,
+    `${base} site:bodybuilding.com`,
+    `${base} site:gnc.com`,
+    `${base} site:hollandandbarrett.com`,
+    `${base} site:laroche-posay.us`,
+    `${base} site:nutricost.com`,
+    `${base} site:thorne.com`,
+    `${base} site:sportsresearch.com`,
+    `${base} site:tirtir.global`,
+    `${base} site:vivanaturals.com`,
+    `${base} site:optimumnutrition.com`,
+    `${base} site:herocosmetics.com`,
+    `${base} buy`,
+  ];
+}
+
+async function tryUrl(pageUrl, slug, brandHint) {
+  const og = await scrapeOgImage(pageUrl, brandHint);
+  if (!og.ok) return { ok: false, error: og.error };
+  const dl = await downloadImage(og.imageUrl, slug);
+  if (!dl.ok) return { ok: false, error: dl.error };
+  return { ok: true, publicPath: dl.publicPath, bytes: dl.bytes };
 }
 
 async function processFile(kind, file) {
@@ -212,42 +301,67 @@ async function processFile(kind, file) {
     return { slug, status: "skip", reason: "already has photo" };
   }
 
-  const candidates = [
+  const brand = getString(fm.fm, "brand") ?? "";
+  const name = getString(fm.fm, "name") ?? "";
+
+  // Phase 1: retailer URLs from the MDX.
+  const directCandidates = [
     getString(fm.fm, "boughtFromUrl"),
     ...getLinkUrls(fm.fm, "westernLinks"),
     ...getLinkUrls(fm.fm, "indiaLinks"),
     ...getLinkUrls(fm.fm, "ukLinks"),
   ].filter(Boolean);
 
-  if (candidates.length === 0) {
-    return { slug, status: "fail", reason: "no candidate URLs" };
+  const errors = [];
+  for (const pageUrl of directCandidates) {
+    // No brand check for direct retailer URLs from the MDX, those are
+    // explicitly the right product and pre-vetted by the author.
+    const result = await tryUrl(pageUrl, slug, null);
+    if (result.ok) {
+      const patched = src.replace(
+        fm.raw,
+        `---\n${insertPhotoField(fm.fm, result.publicPath)}\n---`,
+      );
+      await writeFile(fullPath, patched, "utf8");
+      return {
+        slug,
+        status: "ok",
+        photoPath: result.publicPath,
+        via: pageUrl,
+        bytes: result.bytes,
+      };
+    }
+    errors.push(`direct ${pageUrl}: ${result.error}`);
   }
 
-  const errors = [];
-  for (const pageUrl of candidates) {
-    const og = await scrapeOgImage(pageUrl);
-    if (!og.ok) {
-      errors.push(`${pageUrl}: ${og.error}`);
-      continue;
+  // Phase 2: search-based fallback.
+  if (brand && name) {
+    for (const query of searchQueriesFor(brand, name)) {
+      const found = await ddgFirstResult(query);
+      if (!found) {
+        errors.push(`search "${query}": no result`);
+        continue;
+      }
+      // Skip if the search result itself loops back to a known-bad host.
+      const result = await tryUrl(found, slug, brand);
+      if (result.ok) {
+        const patched = src.replace(
+          fm.raw,
+          `---\n${insertPhotoField(fm.fm, result.publicPath)}\n---`,
+        );
+        await writeFile(fullPath, patched, "utf8");
+        return {
+          slug,
+          status: "ok",
+          photoPath: result.publicPath,
+          via: `${found} (via "${query}")`,
+          bytes: result.bytes,
+        };
+      }
+      errors.push(`search "${query}" → ${found}: ${result.error}`);
+      // small delay between search attempts
+      await sleep(400);
     }
-    const dl = await downloadImage(og.imageUrl, slug);
-    if (!dl.ok) {
-      errors.push(`${pageUrl}: ${dl.error}`);
-      continue;
-    }
-    // Patch the MDX.
-    const patched = src.replace(
-      fm.raw,
-      `---\n${insertPhotoField(fm.fm, dl.publicPath)}\n---`,
-    );
-    await writeFile(fullPath, patched, "utf8");
-    return {
-      slug,
-      status: "ok",
-      photoPath: dl.publicPath,
-      via: pageUrl,
-      bytes: dl.bytes,
-    };
   }
 
   return { slug, status: "fail", reason: errors.join(" | ") };
@@ -263,13 +377,12 @@ for (const kind of KINDS) {
     const result = await processFile(kind, file);
     summary[result.status].push(result);
     if (result.status === "ok") {
-      console.log(`✓ ${result.photoPath} (${(result.bytes / 1024).toFixed(0)} KiB)`);
+      console.log(`✓ ${result.photoPath} (${(result.bytes / 1024).toFixed(0)} KiB)  via ${result.via}`);
     } else if (result.status === "skip") {
       console.log(`- skip (${result.reason})`);
     } else {
-      console.log(`✗ ${result.reason}`);
+      console.log(`✗ ${result.reason.slice(0, 200)}${result.reason.length > 200 ? "..." : ""}`);
     }
-    // Be polite: brief delay between requests.
     await sleep(250);
   }
 }
@@ -279,8 +392,6 @@ console.log(`✓ ${summary.ok.length} fetched`);
 console.log(`- ${summary.skip.length} skipped (already had photo)`);
 console.log(`✗ ${summary.fail.length} failed`);
 if (summary.fail.length) {
-  console.log("\nFailed:");
-  for (const f of summary.fail) {
-    console.log(`  ${f.slug}: ${f.reason}`);
-  }
+  console.log("\nStill missing:");
+  for (const f of summary.fail) console.log(`  ${f.slug}`);
 }
