@@ -268,8 +268,18 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
         </p>
       ) : (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((r) => (
-            <ProductCard key={`${r.kind}-${r.slug}`} review={r} />
+          {filtered.map((r, i) => (
+            <div
+              key={`${r.kind}-${r.slug}`}
+              className="card-stagger-in"
+              style={
+                {
+                  "--stagger": `${Math.min(i * 28, 360)}ms`,
+                } as React.CSSProperties
+              }
+            >
+              <ProductCard review={r} />
+            </div>
           ))}
         </div>
       )}
