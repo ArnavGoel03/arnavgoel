@@ -22,7 +22,13 @@ export function SocialLink({
           №&nbsp;{String(index).padStart(2, "0")}
         </span>
       )}
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-stone-200 bg-white text-stone-700 transition-colors group-hover:border-stone-900 group-hover:bg-stone-900 group-hover:text-white dark:text-stone-300 dark:border-stone-800 dark:bg-stone-900">
+      <div
+        className={
+          "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-stone-200 bg-white transition-colors group-hover:border-stone-900 group-hover:bg-stone-900 dark:border-stone-800 dark:bg-stone-900 " +
+          (social.iconColor ?? "text-stone-700 dark:text-stone-300") +
+          " group-hover:!text-white"
+        }
+      >
         <Icon className="h-4 w-4" />
       </div>
       <div className="min-w-0 flex-1">
@@ -46,7 +52,10 @@ export function SocialIconLink({ social }: { social: Social }) {
       rel={isExternal ? "noopener noreferrer" : undefined}
       aria-label={social.label}
       title={social.label}
-      className="flex h-10 w-10 items-center justify-center rounded-full border border-stone-200 bg-white text-stone-700 transition-colors hover:border-stone-900 hover:bg-stone-900 hover:text-white dark:text-stone-300 dark:border-stone-800 dark:bg-stone-900 dark:hover:border-stone-400"
+      className={
+        "flex h-10 w-10 items-center justify-center rounded-full border border-stone-200 bg-white transition-colors hover:border-stone-900 hover:bg-stone-900 hover:!text-white dark:border-stone-800 dark:bg-stone-900 dark:hover:border-stone-400 " +
+        (social.iconColor ?? "text-stone-700 dark:text-stone-300")
+      }
     >
       <Icon className="h-4 w-4" />
     </a>

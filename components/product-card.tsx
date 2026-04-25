@@ -23,7 +23,7 @@ export function ProductCard({ review }: { review: ReviewSummary }) {
           // so a dark photo well would surround them with stark contrast.
           // Keeping it cream regardless of theme reads as an intentional
           // magazine "product spotlight" frame.
-          <div className="absolute inset-0 flex items-center justify-center p-5 sm:p-7">
+          <div className="absolute inset-0 flex items-center justify-center p-2 sm:p-3">
             {/* mix-blend-multiply makes the source white background blend
                 into the cream well, so the product silhouette floats
                 cleanly on the card instead of sitting on a hard
@@ -37,17 +37,19 @@ export function ProductCard({ review }: { review: ReviewSummary }) {
           </div>
         ) : (
           <>
-            {/* Big brand watermark, fills the image well when no photo. */}
+            {/* Big brand watermark, fills the image well when no photo.
+                The cream well needs a darker watermark than a stone-300
+                ghost, otherwise it disappears. */}
             <div className="absolute inset-0 flex items-center justify-center px-6">
-              <span className="text-center font-serif text-4xl leading-[0.95] tracking-tight text-stone-300/80 sm:text-5xl">
+              <span className="text-center font-serif text-4xl leading-[0.95] tracking-tight text-stone-400/90 sm:text-5xl">
                 {review.brand}
               </span>
             </div>
             {/* Hairline cross corners, gives a "letterpress" hint. */}
-            <span aria-hidden className="absolute left-3 top-3 h-3 w-3 border-l border-t border-stone-300/70" />
-            <span aria-hidden className="absolute right-3 top-3 h-3 w-3 border-r border-t border-stone-300/70" />
-            <span aria-hidden className="absolute bottom-3 left-3 h-3 w-3 border-b border-l border-stone-300/70" />
-            <span aria-hidden className="absolute bottom-3 right-3 h-3 w-3 border-b border-r border-stone-300/70" />
+            <span aria-hidden className="absolute left-3 top-3 h-3 w-3 border-l border-t border-stone-400/60" />
+            <span aria-hidden className="absolute right-3 top-3 h-3 w-3 border-r border-t border-stone-400/60" />
+            <span aria-hidden className="absolute bottom-3 left-3 h-3 w-3 border-b border-l border-stone-400/60" />
+            <span aria-hidden className="absolute bottom-3 right-3 h-3 w-3 border-b border-r border-stone-400/60" />
           </>
         )}
         {/* Floating rating / pending badge in top-right */}
