@@ -39,7 +39,7 @@ export default function HomePage() {
 
       {/* Hero, magazine cover */}
       <section className="relative overflow-hidden border-b border-stone-300 bg-gradient-to-b from-stone-50 via-stone-50 to-white dark:border-stone-800 dark:from-stone-950 dark:via-stone-950 dark:to-stone-900">
-        <Container className="pt-12 pb-20 sm:pt-16 sm:pb-28">
+        <Container className="relative z-10 pt-12 pb-20 sm:pt-16 sm:pb-28">
           {/* Masthead rule: location · issue · date */}
           <div className="mb-10 flex items-baseline justify-between gap-4 text-[11px] uppercase tracking-[0.22em] text-stone-500 dark:text-stone-400">
             <span className="flex items-baseline gap-2">
@@ -123,18 +123,19 @@ export default function HomePage() {
             </div>
           </div>
         </Container>
-        {/* Editorial rose wash. Top-right blob runs in both modes
-            (matches the original); the second bottom-left blob is
-            light-mode only because the user explicitly did not want
-            dark mode touched. dark:hidden hides the second one
-            entirely under the night theme. */}
+        {/* Editorial rose wash. Sits behind the content (z-0) so the
+            soft tint never crawls over the headline or stats — that
+            was the contrast hit reported on light mode. Top-right blob
+            runs in both modes; the bottom-left companion is light-only
+            because the user did not want dark mode touched.
+            dark:hidden removes the second blob entirely at night. */}
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-40 -top-40 h-[34rem] w-[34rem] rounded-full bg-rose-200/70 blur-3xl dark:bg-rose-900/20"
+          className="pointer-events-none absolute -right-40 -top-40 z-0 h-[34rem] w-[34rem] rounded-full bg-rose-200/45 blur-3xl dark:bg-rose-900/20"
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute -bottom-24 -left-24 h-[22rem] w-[22rem] rounded-full bg-rose-100/60 blur-3xl dark:hidden"
+          className="pointer-events-none absolute -bottom-24 -left-24 z-0 h-[22rem] w-[22rem] rounded-full bg-rose-100/40 blur-3xl dark:hidden"
         />
       </section>
 
