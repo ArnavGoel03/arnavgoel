@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { Container } from "@/components/container";
 import { SectionMasthead } from "@/components/section-masthead";
 import { CategoryFilter } from "@/components/category-filter";
+import { ItemListJsonLd } from "@/components/json-ld";
 import { ListingTourMount } from "@/components/listing-tour-mount";
 import { getReviews } from "@/lib/content";
 
@@ -17,6 +18,12 @@ export default function SupplementsPage() {
   const reviews = getReviews("supplements");
   return (
     <>
+      <ItemListJsonLd
+        name="Supplement Reviews"
+        description="First-person supplement reviews. Vitamins, minerals, nootropics, adaptogens, every protocol logged with dose, duration, and what was actually felt."
+        url="/supplements"
+        items={reviews}
+      />
       <Container>
         <SectionMasthead
           volume="Vol. II, Supplements"

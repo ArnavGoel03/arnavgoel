@@ -32,7 +32,7 @@ export function ProductCard({ review }: { review: ReviewSummary }) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={review.photo}
-              alt={`${review.brand} ${review.name}`}
+              alt={`${review.brand} ${review.name}, ${review.category}`}
               className="h-full w-full object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-[1.03]"
             />
           </div>

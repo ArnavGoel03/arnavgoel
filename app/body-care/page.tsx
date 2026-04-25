@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { Container } from "@/components/container";
 import { SectionMasthead } from "@/components/section-masthead";
 import { CategoryFilter } from "@/components/category-filter";
+import { ItemListJsonLd } from "@/components/json-ld";
 import { ListingTourMount } from "@/components/listing-tour-mount";
 import { getReviews } from "@/lib/content";
 
@@ -17,6 +18,12 @@ export default function BodyCarePage() {
   const reviews = getReviews("body-care");
   return (
     <>
+      <ItemListJsonLd
+        name="Body Care Reviews"
+        description="First-person body-care reviews. Body washes, lotions, scrubs, the everyday cleanse-and-moisturise from the neck down."
+        url="/body-care"
+        items={reviews}
+      />
       <Container>
         <SectionMasthead
           volume="Vol. V, Body care"

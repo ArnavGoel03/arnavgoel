@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { Container } from "@/components/container";
 import { SectionMasthead } from "@/components/section-masthead";
 import { CategoryFilter } from "@/components/category-filter";
+import { ItemListJsonLd } from "@/components/json-ld";
 import { ListingTourMount } from "@/components/listing-tour-mount";
 import { getReviews } from "@/lib/content";
 
@@ -17,6 +18,12 @@ export default function OralCarePage() {
   const reviews = getReviews("oral-care");
   return (
     <>
+      <ItemListJsonLd
+        name="Oral Care Reviews"
+        description="First-person oral-care reviews. Electric toothbrushes, toothpastes, mouthwash, floss, every tube and brush head used long enough to have an honest opinion."
+        url="/oral-care"
+        items={reviews}
+      />
       <Container>
         <SectionMasthead
           volume="Vol. III, Oral care"

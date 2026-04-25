@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { Container } from "@/components/container";
 import { SectionMasthead } from "@/components/section-masthead";
 import { CategoryFilter } from "@/components/category-filter";
+import { ItemListJsonLd } from "@/components/json-ld";
 import { ListingTourMount } from "@/components/listing-tour-mount";
 import { getReviews } from "@/lib/content";
 
@@ -17,6 +18,12 @@ export default function HairCarePage() {
   const reviews = getReviews("hair-care");
   return (
     <>
+      <ItemListJsonLd
+        name="Hair Care Reviews"
+        description="First-person hair-care reviews. Conditioners, masks, treatments, shampoos, every product through the shower routine for at least a month."
+        url="/hair-care"
+        items={reviews}
+      />
       <Container>
         <SectionMasthead
           volume="Vol. IV, Hair care"

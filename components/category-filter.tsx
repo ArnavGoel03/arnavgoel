@@ -105,36 +105,65 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
     return base;
   }, [reviews, active, sort, region, ingredient, brand]);
 
+  // Anything beyond default sort = "recent" / region = "all" / brand =
+  // "all" / ingredient = "all" counts as a non-default filter, used to
+  // surface a "Reset" affordance and to gate the secondary toolbar's
+  // visual emphasis. Category isn't included because it's already a
+  // first-class row.
+  const activeFilterCount =
+    (sort !== "recent" ? 1 : 0) +
+    (region !== "all" ? 1 : 0) +
+    (brand !== "all" ? 1 : 0) +
+    (ingredient !== "all" ? 1 : 0);
+
+  function resetAll() {
+    setActive("all");
+    setSort("recent");
+    setRegion("all");
+    setBrand("all");
+    setIngredient("all");
+  }
+
   return (
-    <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <div data-tour-listing="categories" className="flex flex-wrap gap-2">
-          {categories.map((c) => (
-            <button
-              key={c}
-              onClick={() => setActive(c)}
-              className={cn(
-                "rounded-full border px-3 py-1 text-sm capitalize transition-colors",
-                active === c
-                  ? "border-stone-900 bg-stone-900 text-white dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900"
-                  : "border-stone-200 bg-white text-stone-600 hover:border-stone-300 hover:text-stone-900 dark:border-stone-800 dark:bg-stone-900 dark:text-stone-400 dark:hover:border-stone-600 dark:hover:text-stone-100",
-              )}
-            >
-              {c}
-            </button>
-          ))}
-        </div>
+    <div className="space-y-5">
+      {/* Row 1: category pills, the primary filter. Everything else
+          (sort / region / brand / ingredient) lives in the compact
+          toolbar below. */}
+      <div data-tour-listing="categories" className="flex flex-wrap gap-2">
+        {categories.map((c) => (
+          <button
+            key={c}
+            onClick={() => setActive(c)}
+            className={cn(
+              "rounded-full border px-3 py-1 text-sm capitalize transition-colors",
+              active === c
+                ? "border-stone-900 bg-stone-900 text-white dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900"
+                : "border-stone-200 bg-white text-stone-600 hover:border-stone-300 hover:text-stone-900 dark:border-stone-800 dark:bg-stone-900 dark:text-stone-400 dark:hover:border-stone-600 dark:hover:text-stone-100",
+            )}
+          >
+            {c}
+          </button>
+        ))}
+      </div>
+
+      {/* Row 2: secondary-filter toolbar. Single line at desktop width,
+          wraps gracefully on mobile. Each pill group separated by a
+          subtle divider so the four jobs (sort / region / brand /
+          ingredient) read as four jobs, not one wall of pills. */}
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-3 border-y border-stone-200 py-3 text-sm dark:border-stone-800">
         <div
           data-tour-listing="sort"
-          className="flex flex-wrap items-center gap-2 text-sm text-stone-500 dark:text-stone-400"
+          className="flex flex-wrap items-center gap-1 text-stone-500 dark:text-stone-400"
         >
-          <span>Sort:</span>
+          <span className="mr-1 text-xs uppercase tracking-[0.18em] text-stone-400 dark:text-stone-500">
+            Sort
+          </span>
           {SORT_OPTIONS.map((opt) => (
             <button
               key={opt.id}
               onClick={() => setSort(opt.id)}
               className={cn(
-                "rounded-full px-3 py-1 transition-colors",
+                "rounded-full px-2.5 py-0.5 transition-colors",
                 sort === opt.id
                   ? "bg-stone-100 text-stone-900 dark:bg-stone-800 dark:text-stone-100"
                   : "hover:text-stone-900 dark:hover:text-stone-100",
@@ -144,67 +173,92 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
             </button>
           ))}
         </div>
-      </div>
 
-      <div
-        data-tour-listing="region"
-        className="flex flex-wrap items-center gap-2 text-sm"
-      >
-        <span className="text-stone-500 dark:text-stone-400">Available in:</span>
-        {(
-          [
-            { id: "all", label: "All", count: reviews.length },
-            { id: "india", label: "India", count: counts.india },
-            { id: "usa", label: "USA", count: counts.usa },
-            { id: "uk", label: "UK", count: counts.uk },
-          ] as const
-        ).map((r) => (
-          <button
-            key={r.id}
-            onClick={() => setRegion(r.id)}
-            className={cn(
-              "inline-flex items-center gap-1.5 rounded-full border px-3 py-1 transition-colors",
-              region === r.id
-                ? "border-stone-900 bg-stone-900 text-white dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900"
-                : "border-stone-200 bg-white text-stone-600 hover:border-stone-300 hover:text-stone-900 dark:border-stone-800 dark:bg-stone-900 dark:text-stone-400 dark:hover:border-stone-600 dark:hover:text-stone-100",
-            )}
-          >
-            {r.label}
-            <span
+        <span aria-hidden className="hidden h-4 w-px bg-stone-200 dark:bg-stone-800 sm:inline" />
+
+        <div
+          data-tour-listing="region"
+          className="flex flex-wrap items-center gap-1.5"
+        >
+          <span className="mr-1 text-xs uppercase tracking-[0.18em] text-stone-400 dark:text-stone-500">
+            Region
+          </span>
+          {(
+            [
+              { id: "all", label: "All", count: reviews.length },
+              { id: "india", label: "India", count: counts.india },
+              { id: "usa", label: "USA", count: counts.usa },
+              { id: "uk", label: "UK", count: counts.uk },
+            ] as const
+          ).map((r) => (
+            <button
+              key={r.id}
+              onClick={() => setRegion(r.id)}
               className={cn(
-                "text-xs",
+                "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 transition-colors",
                 region === r.id
-                  ? "text-stone-300 dark:text-stone-500"
-                  : "text-stone-400 dark:text-stone-500",
+                  ? "border-stone-900 bg-stone-900 text-white dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900"
+                  : "border-stone-200 bg-white text-stone-600 hover:border-stone-300 hover:text-stone-900 dark:border-stone-800 dark:bg-stone-900 dark:text-stone-400 dark:hover:border-stone-600 dark:hover:text-stone-100",
               )}
             >
-              {r.count}
+              {r.label}
+              <span
+                className={cn(
+                  "text-[10px] tabular-nums",
+                  region === r.id
+                    ? "text-stone-300 dark:text-stone-500"
+                    : "text-stone-400 dark:text-stone-500",
+                )}
+              >
+                {r.count}
+              </span>
+            </button>
+          ))}
+        </div>
+
+        {brands.length > 2 && (
+          <>
+            <span aria-hidden className="hidden h-4 w-px bg-stone-200 dark:bg-stone-800 sm:inline" />
+            <div className="flex items-center gap-1.5">
+              <span className="text-xs uppercase tracking-[0.18em] text-stone-400 dark:text-stone-500">
+                Brand
+              </span>
+              <IngredientPicker
+                options={brands}
+                value={brand}
+                onChange={setBrand}
+                placeholder="Any"
+              />
+            </div>
+          </>
+        )}
+
+        {ingredients.length > 2 && (
+          <>
+            <span aria-hidden className="hidden h-4 w-px bg-stone-200 dark:bg-stone-800 sm:inline" />
+            <div className="flex items-center gap-1.5">
+              <span className="text-xs uppercase tracking-[0.18em] text-stone-400 dark:text-stone-500">
+                Ingredient
+              </span>
+              <IngredientPicker
+                options={ingredients}
+                value={ingredient}
+                onChange={setIngredient}
+              />
+            </div>
+          </>
+        )}
+
+        {activeFilterCount > 0 && (
+          <button
+            onClick={resetAll}
+            className="ml-auto inline-flex items-center gap-1 text-xs uppercase tracking-[0.18em] text-stone-500 transition-colors hover:text-rose-600 dark:text-stone-400 dark:hover:text-rose-400"
+          >
+            Reset
+            <span className="rounded-full bg-stone-100 px-1.5 py-0.5 text-[10px] tabular-nums text-stone-700 dark:bg-stone-800 dark:text-stone-200">
+              {activeFilterCount}
             </span>
           </button>
-        ))}
-      </div>
-
-      <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
-        {brands.length > 2 && (
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-stone-500 dark:text-stone-400">Brand:</span>
-            <IngredientPicker
-              options={brands}
-              value={brand}
-              onChange={setBrand}
-              placeholder="Any brand"
-            />
-          </div>
-        )}
-        {ingredients.length > 2 && (
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-stone-500 dark:text-stone-400">Ingredient:</span>
-            <IngredientPicker
-              options={ingredients}
-              value={ingredient}
-              onChange={setIngredient}
-            />
-          </div>
         )}
       </div>
 

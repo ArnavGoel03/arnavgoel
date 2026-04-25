@@ -1,7 +1,39 @@
 import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/container";
+import { FaqJsonLd } from "@/components/json-ld";
 import { site } from "@/lib/site";
+
+// FAQ list, mirrored to JSON-LD so the answers are eligible for
+// featured snippets and AI-search citations. Keep questions phrased
+// the way readers actually search ("how often / why / who / does this
+// take sponsorships"), not the way the about page narrates them.
+const faqs: { question: string; answer: string }[] = [
+  {
+    question: `Does ${site.name} take sponsorships or PR samples?`,
+    answer: `No. Every product on this site was paid for by the author. If a brand sends a sample, the product does not get reviewed. There are no sponsored posts, paid placements, or PR boxes covered here.`,
+  },
+  {
+    question: "How long does a product have to be used before it gets reviewed?",
+    answer: "At least one month. The site exists because most product writing online is either paid placement pretending not to be, or one-week first impressions. A review here only earns its verdict after the product has lived in the routine for a full month or longer.",
+  },
+  {
+    question: `What categories does ${site.name} cover?`,
+    answer: "Five active categories: skincare, supplements, oral care, hair care, and body care, plus a /now page for what is currently on the shelf and /photos for DSLR shots from in between.",
+  },
+  {
+    question: "How does the rating system work?",
+    answer: 'Each review carries a verdict word ("recommend", "okay", or "bad") and three rating axes: effect (does it do what it claims), value (price-per-result), and tolerance (how the skin or body handled it). The site deliberately avoids combined headline numbers because a single rating compresses too much.',
+  },
+  {
+    question: "Where can I buy the products that get recommended?",
+    answer: "Every review carries regional buy links for India, USA, and UK where available. The boughtFromUrl field on each listing reflects where the author actually purchased the product. If a brand only sells in one region, the product card surfaces an honest 'India only' or 'USA only' label.",
+  },
+  {
+    question: "What happens when the author stops using a product?",
+    answer: "The review marks the product as retired and explains why. Retired listings stay accessible at /retired so the audit trail is preserved; they do not disappear from the site.",
+  },
+];
 
 export const metadata: Metadata = {
   title: "About",
@@ -26,6 +58,7 @@ const linkClass =
 export default function AboutPage() {
   return (
     <Container className="max-w-3xl py-12 sm:py-16">
+      <FaqJsonLd qa={faqs} />
       <div className="mb-8 flex items-baseline justify-between gap-4 text-[11px] uppercase tracking-[0.22em] text-stone-500 dark:text-stone-400">
         <span className="flex items-baseline gap-2">
           <span className="text-rose-400">❋</span>
@@ -133,18 +166,36 @@ export default function AboutPage() {
           weaving.
         </p>
 
-        <SectionLabel num="04" label="Sections" />
+        <SectionLabel num="05" label="Sections" />
         <p>
           <a href="/skincare" className={linkClass}>Skincare</a>,{" "}
           <a href="/supplements" className={linkClass}>supplements</a>,{" "}
-          <a href="/oral-care" className={linkClass}>oral care</a>, the reviews.{" "}
+          <a href="/oral-care" className={linkClass}>oral care</a>,{" "}
+          <a href="/hair-care" className={linkClass}>hair care</a>,{" "}
+          <a href="/body-care" className={linkClass}>body care</a>, the reviews.{" "}
           <a href="/photos" className={linkClass}>Photos</a> for the ones I shot on a DSLR.{" "}
           <a href="/notes" className={linkClass}>Notes</a> for the slower writing.{" "}
           <a href="/now" className={linkClass}>Now</a> for what&apos;s on the shelf this month.{" "}
           <a href="/links" className={linkClass}>Links</a> if you want to find me elsewhere.
         </p>
 
-        <SectionLabel num="05" label="My day job" />
+        <SectionLabel num="06" label="Frequently asked" />
+        {/* Visible FAQ list, mirroring the JSON-LD above so search engines
+            and AI crawlers see the same content the reader sees. */}
+        <dl className="mt-4 space-y-6">
+          {faqs.map((item) => (
+            <div key={item.question}>
+              <dt className="font-serif text-lg italic text-stone-900 dark:text-stone-100">
+                {item.question}
+              </dt>
+              <dd className="mt-2 leading-relaxed text-stone-700 dark:text-stone-300">
+                {item.answer}
+              </dd>
+            </div>
+          ))}
+        </dl>
+
+        <SectionLabel num="07" label="My day job" />
         <p>
           I write software when I&apos;m not writing about ceramide
           concentrations.{" "}
@@ -160,7 +211,7 @@ export default function AboutPage() {
           is where that side lives.
         </p>
 
-        <SectionLabel num="06" label="Get in touch" />
+        <SectionLabel num="08" label="Get in touch" />
         <p>
           Email or any of the socials on the{" "}
           <a href="/links" className={linkClass}>

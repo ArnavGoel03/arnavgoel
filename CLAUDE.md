@@ -6,6 +6,15 @@ A first-person review site (yashgoel.com → currently deployed at skincare-supp
 
 The signature mark across the site is a small rose ❋ glyph; it appears in the header, every page masthead, hover states, and the footer. The accent color is rose only, everything else is stone-neutral. Don't introduce new accent colors.
 
+# Working style
+
+Don't ask for permission. When the user gives a directive, execute it
+end-to-end and push. No "want me to start?", no confirmation rounds, no
+"should I keep going?" trailers. The only acceptable interrupts are
+genuine ambiguities the user could not have predicted, or destructive
+operations covered by the "Ask before destructive Vercel/infra ops"
+rule. Otherwise: ship, then report what shipped.
+
 # Voice when writing reviews
 
 - First-person, present-tense for current habits, past for one-offs.

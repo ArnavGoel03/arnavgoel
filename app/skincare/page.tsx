@@ -4,6 +4,7 @@ import { Container } from "@/components/container";
 import { SectionMasthead } from "@/components/section-masthead";
 import { CategoryFilter } from "@/components/category-filter";
 import { ListingTourMount } from "@/components/listing-tour-mount";
+import { ItemListJsonLd } from "@/components/json-ld";
 import { getReviews } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -17,6 +18,12 @@ export default function SkincarePage() {
   const reviews = getReviews("skincare");
   return (
     <>
+      <ItemListJsonLd
+        name="Skincare Reviews"
+        description="First-person skincare reviews. Every product lived on the author's face for at least a month before earning a verdict."
+        url="/skincare"
+        items={reviews}
+      />
       <Container>
         <SectionMasthead
           volume="Vol. I, Skincare"
