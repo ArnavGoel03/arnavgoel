@@ -24,20 +24,29 @@ export function ProductCard({ review }: { review: ReviewSummary }) {
           // so a dark photo well would surround them with stark contrast.
           // Keeping it cream regardless of theme reads as an intentional
           // magazine "product spotlight" frame.
-          <div className="absolute inset-0 flex items-center justify-center p-2 sm:p-3">
-            {/* mix-blend-multiply makes the source white background blend
-                into the cream well, so the product silhouette floats
-                cleanly on the card instead of sitting on a hard
-                rectangle. */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={review.photo}
-              alt={`${review.brand} ${review.name}, ${review.category}`}
-              loading="lazy"
-              decoding="async"
-              className="h-full w-full object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-[1.03]"
-            />
-          </div>
+          <>
+            <div className="absolute inset-0 flex items-center justify-center p-2 sm:p-3">
+              {/* mix-blend-multiply makes the source white background blend
+                  into the cream well, so the product silhouette floats
+                  cleanly on the card instead of sitting on a hard
+                  rectangle. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={review.photo}
+                alt={`${review.brand} ${review.name}, ${review.category}`}
+                loading="lazy"
+                decoding="async"
+                className="h-full w-full object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-[1.03]"
+              />
+            </div>
+            {/* Corner registration marks. Hidden by default; fade in
+                on hover. Reads as a magazine-grid accent that doesn't
+                fight the product photo when at rest. */}
+            <span aria-hidden className="card-corner-mark left-3 top-3 border-l border-t" />
+            <span aria-hidden className="card-corner-mark right-3 top-3 border-r border-t" />
+            <span aria-hidden className="card-corner-mark bottom-3 left-3 border-b border-l" />
+            <span aria-hidden className="card-corner-mark bottom-3 right-3 border-b border-r" />
+          </>
         ) : (
           <>
             {/* Big brand watermark, fills the image well when no photo.

@@ -37,13 +37,18 @@ export default function HomePage() {
     <>
       <PersonJsonLd />
 
-      {/* Hero, magazine cover */}
-      <section className="relative overflow-hidden border-b border-stone-300 bg-gradient-to-b from-stone-50 via-stone-50 to-white dark:border-stone-800 dark:from-stone-950 dark:via-stone-950 dark:to-stone-900">
+      {/* Hero, magazine cover. `bg-paper-grain` overlays a 1 KB SVG
+          noise so the rose wash reads as printed paper, not a flat
+          gradient — the analog texture is what separates editorial
+          from generic. */}
+      <section className="bg-paper-grain relative overflow-hidden border-b border-stone-300 bg-gradient-to-b from-stone-50 via-stone-50 to-white dark:border-stone-800 dark:from-stone-950 dark:via-stone-950 dark:to-stone-900">
         <Container className="relative z-10 pt-12 pb-20 sm:pt-16 sm:pb-28">
           {/* Masthead rule: location · issue · date */}
           <div className="mb-10 flex items-baseline justify-between gap-4 text-[11px] uppercase tracking-[0.22em] text-stone-500 dark:text-stone-400">
             <span className="flex items-baseline gap-2">
-              <span className="text-rose-400">❋</span>
+              {/* Hero rose drifts on a 60s loop — ambient, not a
+                  spinner. Reduced-motion sees a still mark. */}
+              <span className="rose-drift text-rose-400">❋</span>
               <span>{site.location}</span>
             </span>
             <span className="font-mono text-stone-400 dark:text-stone-500">

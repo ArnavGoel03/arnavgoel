@@ -203,4 +203,173 @@
   h2.font-serif {
     letter-spacing: -0.025em;
   }
+
+  /* ───── Editorial polish: brand-tied selection + focus ───── */
+
+  /* Selecting text on the site tints the highlight rose so the
+     accent reads even outside the ❋ glyph. Stone-900 keeps the
+     selected text legible against the rose ground. */
+  ::selection {
+    background-color: rgb(254 205 211 / 0.85);
+    color: rgb(28 25 23);
+  }
+  .dark ::selection {
+    background-color: rgb(190 18 60 / 0.55);
+    color: rgb(255 241 242);
+  }
+
+  /* Default focus ring is browser-blue and clashes with the rose
+     accent. Replace globally with a tight rose hairline + 2px offset.
+     Only applies to keyboard focus (focus-visible) so mouse clicks
+     don't paint every button rose. */
+  :where(a, button, [role="button"], [tabindex], input, textarea, select):focus-visible {
+    outline: 2px solid rgb(251 113 133 / 0.85);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Paper grain. A 1 KB inline SVG noise overlay applied to hero
+     blocks, gives them a subtle analog magazine texture without
+     hitting the network. mix-blend-multiply lets the noise sit on top
+     of the existing rose wash without blowing out the type. */
+  .bg-paper-grain {
+    position: relative;
+    isolation: isolate;
+  }
+  .bg-paper-grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.045 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 160px 160px;
+    mix-blend-mode: multiply;
+    opacity: 0.85;
+    z-index: 0;
+  }
+  .dark .bg-paper-grain::after {
+    /* Lighter dot-noise so the texture lands as scattered specks on
+       the dark plate instead of crushed black-on-black. */
+    background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: screen;
+    opacity: 0.5;
+  }
+
+  /* Editorial section divider: hairline rule with a centered rose
+     mark, the way a print magazine breaks an article into beats.
+     Use as <hr class="editorial-rule" />. The rose ❋ is rendered as
+     a pseudo-element so the markup stays a single semantic <hr>. */
+  hr.editorial-rule {
+    position: relative;
+    border: 0;
+    margin-block: 3rem;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgb(214 211 209) 18%,
+      rgb(214 211 209) 82%,
+      transparent
+    );
+  }
+  .dark hr.editorial-rule {
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgb(68 64 60) 18%,
+      rgb(68 64 60) 82%,
+      transparent
+    );
+  }
+  hr.editorial-rule::after {
+    content: "❋";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--background);
+    padding: 0 0.75rem;
+    font-size: 0.875rem;
+    color: rgb(251 113 133);
+    line-height: 1;
+  }
+
+  /* Drop cap utility for editorial body copy. Apply to a paragraph's
+     class list (`<p class="prose-drop-cap">…`) for the magazine-style
+     oversized first letter. Pairs with Fraunces to keep the SOFT axis
+     vibe consistent with the rest of the display type. */
+  .prose-drop-cap::first-letter {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: 4.25rem;
+    line-height: 0.85;
+    float: left;
+    margin: 0.35rem 0.6rem 0 0;
+    color: rgb(28 25 23);
+    font-feature-settings: "ss01", "lnum";
+  }
+  .dark .prose-drop-cap::first-letter {
+    color: rgb(245 245 244);
+  }
+
+  /* Slow rotate for the ❋ glyph, used on the homepage hero so the
+     mark feels living, not stamped. 60s is slow enough to register
+     as ambient rather than a spinner. Reduced-motion users get a
+     static mark via the rule above. */
+  @keyframes rose-drift {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .rose-drift {
+    animation: rose-drift 60s linear infinite;
+    transform-origin: 50% 50%;
+    display: inline-block;
+  }
+
+  /* Sliding underline for editorial links inside long-form prose
+     (mdx-content / about). The default is a static decoration; this
+     extends it into a hover-reveal so the link feels designed, not
+     defaulted. Only applied via .editorial-link to avoid touching
+     UI link buttons. */
+  .editorial-link {
+    position: relative;
+    color: inherit;
+    text-decoration: none;
+    background-image: linear-gradient(
+      currentColor,
+      currentColor
+    );
+    background-position: 0 100%;
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    transition: background-size 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .editorial-link:hover,
+  .editorial-link:focus-visible {
+    background-size: 100% 1px;
+  }
+
+  /* Product-card hover: corner registration marks for cards that
+     have a real photo (the no-photo state already paints these as a
+     letterpress hint). Defined as a utility so card markup stays
+     compact. */
+  .card-corner-mark {
+    position: absolute;
+    width: 0.65rem;
+    height: 0.65rem;
+    opacity: 0;
+    transition: opacity 240ms cubic-bezier(0.22, 1, 0.36, 1);
+    border-color: rgb(168 162 158);
+    pointer-events: none;
+  }
+  .group:hover .card-corner-mark {
+    opacity: 0.7;
+  }
+  .dark .card-corner-mark {
+    border-color: rgb(120 113 108);
+  }
 }
