@@ -1,4 +1,4 @@
-export type Kind = "skincare" | "supplements" | "oral-care";
+export type Kind = "skincare" | "supplements" | "oral-care" | "hair-care";
 
 export interface BuyLink {
   retailer: string;

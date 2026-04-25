@@ -48,7 +48,7 @@ const ALLOWED_UPLOAD_TYPES = new Set([
 ]);
 
 const reviewSchema = z.object({
-  kind: z.enum(["skincare", "supplements", "oral-care"]),
+  kind: z.enum(["skincare", "supplements", "oral-care", "hair-care"]),
   name: z.string().trim().min(1, "required"),
   brand: z.string().trim().min(1, "required"),
   category: z.string().trim().min(1, "required"),
@@ -321,7 +321,7 @@ export type ActionState = {
   error?: string;
   message?: string;
   slug?: string;
-  kind?: "skincare" | "supplements" | "oral-care";
+  kind?: "skincare" | "supplements" | "oral-care" | "hair-care";
   path?: string;
 };
 

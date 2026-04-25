@@ -19,7 +19,9 @@ export default function HomePage() {
   const skincareCount = getReviews("skincare").length;
   const supplementsCount = getReviews("supplements").length;
   const oralCareCount = getReviews("oral-care").length;
-  const totalReviews = skincareCount + supplementsCount + oralCareCount;
+  const hairCareCount = getReviews("hair-care").length;
+  const totalReviews =
+    skincareCount + supplementsCount + oralCareCount + hairCareCount;
   const notesCount = getNotes().length;
   const photosCount = photos.length;
   // Hero strip stats: every value comes from the actual content set so
@@ -192,20 +194,27 @@ export default function HomePage() {
           />
           <SectionTile
             index={4}
+            href="/hair-care"
+            eyebrow={`${hairCareCount} reviews`}
+            title="Hair care"
+            description="Conditioners, masks, treatments, what lives in the shower for hair, scalp, and ends."
+          />
+          <SectionTile
+            index={5}
             href="/photos"
             eyebrow={`${photosCount} photos`}
             title="Photos"
             description="DSLR shots from wherever I happened to be carrying the camera."
           />
           <SectionTile
-            index={5}
+            index={6}
             href="/notes"
             eyebrow={`${notesCount} entries`}
             title="Notes"
             description="Slow writing, essays, stray thoughts, half-formed ideas."
           />
           <SectionTile
-            index={6}
+            index={7}
             href="/now"
             eyebrow="this month"
             title="Now"

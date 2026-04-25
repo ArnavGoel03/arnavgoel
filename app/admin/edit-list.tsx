@@ -6,6 +6,7 @@ const SECTIONS: { kind: Kind; label: string }[] = [
   { kind: "skincare", label: "Skincare" },
   { kind: "supplements", label: "Supplements" },
   { kind: "oral-care", label: "Oral care" },
+  { kind: "hair-care", label: "Hair care" },
 ];
 
 function verdictDisplay(review: ReviewSummary): string {

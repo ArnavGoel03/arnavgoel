@@ -53,7 +53,7 @@ function Optional() {
 
 export type ProductFormInitial = {
   slug: string;
-  kind: "skincare" | "supplements" | "oral-care";
+  kind: "skincare" | "supplements" | "oral-care" | "hair-care";
   name: string;
   brand: string;
   category: string;
@@ -88,9 +88,9 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
     isEdit ? updateReview : createReview,
     null,
   );
-  const [kind, setKind] = useState<"skincare" | "supplements" | "oral-care">(
-    initial?.kind ?? "skincare",
-  );
+  const [kind, setKind] = useState<
+    "skincare" | "supplements" | "oral-care" | "hair-care"
+  >(initial?.kind ?? "skincare");
   const [brand, setBrand] = useState(initial?.brand ?? "");
   const [name, setName] = useState(initial?.name ?? "");
 
@@ -116,6 +116,7 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
                 { value: "skincare", label: "Skincare" },
                 { value: "supplements", label: "Supplements" },
                 { value: "oral-care", label: "Oral care" },
+                { value: "hair-care", label: "Hair care" },
               ] as const
             ).map((k) => (
               <button

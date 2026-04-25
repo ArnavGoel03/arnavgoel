@@ -12,6 +12,7 @@ const nav: { href: string; label: string; tourId?: string }[] = [
   { href: "/skincare", label: "Skincare", tourId: "tab-skincare" },
   { href: "/supplements", label: "Supplements", tourId: "tab-supplements" },
   { href: "/oral-care", label: "Oral care", tourId: "tab-oralcare" },
+  { href: "/hair-care", label: "Hair care", tourId: "tab-haircare" },
   { href: "/routine", label: "Routine" },
   { href: "/primers", label: "Primers" },
   { href: "/photos", label: "Photos" },

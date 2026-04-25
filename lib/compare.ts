@@ -11,7 +11,12 @@ export function parseCompareId(id: CompareId): { kind: Kind; slug: string } | nu
   const [kind, ...rest] = id.split("/");
   const slug = rest.join("/");
   if (!slug) return null;
-  if (kind !== "skincare" && kind !== "supplements" && kind !== "oral-care")
+  if (
+    kind !== "skincare" &&
+    kind !== "supplements" &&
+    kind !== "oral-care" &&
+    kind !== "hair-care"
+  )
     return null;
   return { kind: kind as Kind, slug };
 }
