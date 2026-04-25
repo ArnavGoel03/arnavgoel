@@ -12,13 +12,13 @@ import type { Review } from "@/lib/types";
 export function ProductHeroPhoto({ review }: { review: Review }) {
   if (!review.photo) return null;
   return (
-    <figure className="relative mx-auto mt-8 max-w-md overflow-hidden rounded-2xl border border-stone-200 bg-gradient-to-br from-stone-50 via-stone-50 to-stone-100 dark:border-stone-800 sm:max-w-lg">
-      <div className="relative flex aspect-[4/5] w-full items-center justify-center p-6 sm:p-10">
+    <figure className="relative mx-auto mt-8 max-w-xs overflow-hidden rounded-2xl border border-stone-200 bg-gradient-to-br from-stone-50 via-stone-50 to-stone-100 dark:border-stone-800 sm:max-w-sm">
+      <div className="relative flex aspect-square w-full items-center justify-center p-3 sm:p-4">
         {/* mix-blend-multiply collapses the source's pure-white product
             background into the cream well, so the bottle silhouette
             appears to float on the page instead of sitting on a stark
-            inner rectangle. Aspect-ratio + max-w keeps the frame tight
-            so portrait product shots feel framed, not lost. */}
+            inner rectangle. Square aspect + tight padding keeps both
+            portrait bottles and landscape boxes filling the frame. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={review.photo}
