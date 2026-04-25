@@ -95,6 +95,21 @@ export default function RootLayout({
       className={`${inter.variable} ${jetbrainsMono.variable} ${instrumentSerif.variable} ${fraunces.variable} antialiased`}
     >
       <head>
+        {/* Preconnect to the Vercel Blob CDN that hosts every product
+            photo. The handshake (DNS + TCP + TLS) costs 100-300 ms and
+            blocks the first image fetch otherwise — preconnecting
+            kicks it off in parallel with the HTML response so the LCP
+            image lands sooner on every page. crossOrigin is required
+            for the connection to be reusable for fetches. */}
+        <link
+          rel="preconnect"
+          href="https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="dns-prefetch"
+          href="https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com"
+        />
         <script
           dangerouslySetInnerHTML={{ __html: themeInitScript }}
         />

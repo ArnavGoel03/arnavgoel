@@ -32,7 +32,7 @@ export function SocialLink({
         <Icon className="h-4 w-4" />
       </div>
       <div className="min-w-0 flex-1">
-        <h3 className="font-serif text-2xl leading-tight tracking-tight text-stone-900 transition-colors group-hover:text-rose-700 sm:text-3xl dark:text-stone-100">
+        <h3 className="font-serif text-2xl leading-tight tracking-tight text-stone-900 transition-colors group-hover:text-rose-700 dark:group-hover:text-rose-400 sm:text-3xl dark:text-stone-100">
           {social.label}
         </h3>
         <p className="mt-1 font-serif italic text-stone-600 dark:text-stone-300">{social.handle}</p>

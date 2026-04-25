@@ -255,7 +255,7 @@ export function SiteTour({
 
       <div
         style={cardStyle}
-        className="relative rounded-2xl border border-stone-200 bg-white p-5 shadow-2xl dark:border-stone-800 dark:bg-stone-900"
+        className="relative animate-[tour-card_220ms_cubic-bezier(0.22,1,0.36,1)] rounded-2xl border border-stone-200 bg-white p-5 shadow-2xl dark:border-stone-800 dark:bg-stone-900"
       >
         {arrowDirection === "up" && (
           <>

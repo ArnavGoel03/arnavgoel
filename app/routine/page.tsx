@@ -53,7 +53,7 @@ export default function RoutineIndexPage() {
                   №&nbsp;{String(i + 1).padStart(2, "0")}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <h3 className="font-serif text-3xl leading-tight tracking-tight text-stone-900 transition-colors group-hover:text-rose-700 sm:text-4xl dark:text-stone-100">
+                  <h3 className="font-serif text-3xl leading-tight tracking-tight text-stone-900 transition-colors group-hover:text-rose-700 dark:group-hover:text-rose-400 sm:text-4xl dark:text-stone-100">
                     {ROUTINE_LABELS[r]}
                   </h3>
                   <p className="mt-3 max-w-2xl font-serif text-base italic leading-relaxed text-stone-500 dark:text-stone-400">

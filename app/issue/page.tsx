@@ -61,7 +61,7 @@ export default function IssueIndexPage() {
                     №&nbsp;{String(periods.length - i).padStart(2, "0")}
                   </span>
                   <div className="min-w-0 flex-1">
-                    <h3 className="font-serif text-2xl leading-tight tracking-tight text-stone-900 transition-colors group-hover:text-rose-700 sm:text-3xl dark:text-stone-100">
+                    <h3 className="font-serif text-2xl leading-tight tracking-tight text-stone-900 transition-colors group-hover:text-rose-700 dark:group-hover:text-rose-400 sm:text-3xl dark:text-stone-100">
                       {formatPeriodLabel(period)}
                     </h3>
                     <p className="mt-1 text-xs uppercase tracking-[0.18em] text-stone-400 dark:text-stone-500">

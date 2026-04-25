@@ -41,7 +41,7 @@ function ReviewLink({ review }: { review: ReviewSummary }) {
           <p className="text-[10px] uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500">
             {review.brand} · {review.category}
           </p>
-          <h4 className="mt-0.5 font-serif text-lg text-stone-900 transition-colors group-hover:text-rose-700 dark:text-stone-100">
+          <h4 className="mt-0.5 font-serif text-lg text-stone-900 transition-colors group-hover:text-rose-700 dark:group-hover:text-rose-400 dark:text-stone-100">
             {review.name}
           </h4>
         </div>
@@ -148,7 +148,7 @@ export default async function IssuePage({ params }: Props) {
                       <p className="text-[10px] uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500">
                         {p.domain} · {p.kind}
                       </p>
-                      <h4 className="mt-0.5 font-serif text-lg text-stone-900 transition-colors group-hover:text-rose-700 dark:text-stone-100">
+                      <h4 className="mt-0.5 font-serif text-lg text-stone-900 transition-colors group-hover:text-rose-700 dark:group-hover:text-rose-400 dark:text-stone-100">
                         {p.title}
                       </h4>
                     </div>
@@ -172,7 +172,7 @@ export default async function IssuePage({ params }: Props) {
                     className="group flex items-baseline justify-between gap-4"
                   >
                     <div>
-                      <h4 className="font-serif text-lg text-stone-900 transition-colors group-hover:text-rose-700 dark:text-stone-100">
+                      <h4 className="font-serif text-lg text-stone-900 transition-colors group-hover:text-rose-700 dark:group-hover:text-rose-400 dark:text-stone-100">
                         {n.title}
                       </h4>
                       {n.description && (

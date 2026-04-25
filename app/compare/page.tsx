@@ -221,7 +221,7 @@ export default async function ComparePage({ searchParams }: Props) {
                       <span
                         className={
                           label?.endsWith("only")
-                            ? "text-amber-700"
+                            ? "text-amber-700 dark:text-amber-400"
                             : undefined
                         }
                       >

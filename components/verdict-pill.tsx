@@ -42,13 +42,13 @@ export function VerdictPill({
         <span
           aria-hidden
           className={cn(
-            "h-1.5 w-1.5 rounded-full bg-amber-400",
+            "h-1.5 w-1.5 rounded-full bg-amber-400 dark:bg-amber-500",
             size === "lg" && "h-2 w-2",
           )}
         />
         <span
           className={cn(
-            "font-serif italic leading-none text-stone-500",
+            "font-serif italic leading-none text-stone-500 dark:text-stone-400",
             size === "lg"
               ? "text-2xl sm:text-3xl"
               : size === "md"

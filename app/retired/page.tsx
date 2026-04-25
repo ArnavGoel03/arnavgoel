@@ -53,7 +53,7 @@ export default function RetiredPage() {
                     <p className="text-[10px] uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500">
                       {review.brand} · {review.category}
                     </p>
-                    <h3 className="mt-0.5 font-serif text-xl text-stone-900 transition-colors group-hover:text-rose-700 sm:text-2xl dark:text-stone-100">
+                    <h3 className="mt-0.5 font-serif text-xl text-stone-900 transition-colors group-hover:text-rose-700 dark:group-hover:text-rose-400 sm:text-2xl dark:text-stone-100">
                       {review.name}
                     </h3>
                     {review.retiredReason && (
