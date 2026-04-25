@@ -18,6 +18,7 @@ const RETAILER_BY_HOST: Record<string, string> = {
   "distausa.com": "DistaUSA",
   "drsheths.com": "Dr. Sheth's",
   "thewholetruthfoods.com": "The Whole Truth",
+  "croma.com": "Croma",
   "myprotein.com": "Myprotein",
   "myprotein.co.in": "Myprotein",
   "myprotein.co.uk": "Myprotein",
@@ -159,6 +160,11 @@ const RETAILER_THEME: Record<
     hover: "hover:border-yellow-500 hover:bg-yellow-100",
     bar: "bg-yellow-600",
   },
+  Croma: {
+    idle: "border-emerald-300 bg-emerald-50 text-emerald-900",
+    hover: "hover:border-emerald-500 hover:bg-emerald-100",
+    bar: "bg-emerald-600",
+  },
 };
 
 const DEFAULT_THEME = {
@@ -247,6 +253,12 @@ const BRAND_TEXT_COLOR: Record<string, string> = {
   "L'Oreal Professionnel": "text-amber-700 dark:text-amber-500",
   "Padagis": "text-stone-600 dark:text-stone-400",
   "Head & Shoulders": "text-blue-700 dark:text-blue-400",
+  "Philips": "text-cyan-700 dark:text-cyan-400",
+  "Unisom": "text-blue-800 dark:text-blue-400",
+  "Manscaped": "text-stone-800 dark:text-stone-200",
+  "Steripod": "text-emerald-600 dark:text-emerald-400",
+  "up & up": "text-red-600 dark:text-red-400",
+  "Tinkle": "text-pink-500 dark:text-pink-400",
   // Body care
   "Dove": "text-yellow-700 dark:text-yellow-400",
   "Native": "text-stone-700 dark:text-stone-300",
@@ -254,6 +266,14 @@ const BRAND_TEXT_COLOR: Record<string, string> = {
   "MCaffeine": "text-amber-800 dark:text-amber-500",
   "NIVEA": "text-blue-800 dark:text-blue-400",
   "Nykaa": "text-pink-600 dark:text-pink-400",
+  // Essentials
+  "Brita": "text-blue-700 dark:text-blue-400",
+  "Anker": "text-stone-800 dark:text-stone-200",
+  "Brightroom": "text-stone-700 dark:text-stone-300",
+  "Threshold": "text-stone-700 dark:text-stone-300",
+  "Room Essentials": "text-stone-700 dark:text-stone-300",
+  "Lasko": "text-stone-700 dark:text-stone-300",
+  "Apple": "text-stone-900 dark:text-stone-100",
 };
 
 const DEFAULT_BRAND_COLOR = "text-stone-500 dark:text-stone-400";
@@ -262,7 +282,7 @@ export function brandTextColor(brand: string): string {
   return BRAND_TEXT_COLOR[brand] ?? DEFAULT_BRAND_COLOR;
 }
 
-const INDIA_HOSTS = [
+export const INDIA_HOSTS = [
   "amazon.in",
   "nykaa.com",
   "myntra.com",
@@ -273,12 +293,13 @@ const INDIA_HOSTS = [
   "distausa.com",
   "drsheths.com",
   "thewholetruthfoods.com",
+  "croma.com",
   "myprotein.co.in",
   "healthkart.com",
   "sephora.in",
 ];
 
-const USA_HOSTS = [
+export const USA_HOSTS = [
   "amazon.com",
   "amzn.to",
   "target.com",
@@ -288,7 +309,7 @@ const USA_HOSTS = [
   "thorne.com",
 ];
 
-const UK_HOSTS = [
+export const UK_HOSTS = [
   "amazon.co.uk",
   "boots.com",
   "lookfantastic.com",

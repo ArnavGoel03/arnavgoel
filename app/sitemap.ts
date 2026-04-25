@@ -50,7 +50,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     if (v === "bad") return 0.5;
     return 0.55; // still testing
   };
-  const reviewRoutes: MetadataRoute.Sitemap = (["skincare", "supplements", "oral-care", "hair-care", "body-care"] as const).flatMap(
+  const reviewRoutes: MetadataRoute.Sitemap = (["skincare", "supplements", "oral-care", "hair-care", "body-care", "essentials"] as const).flatMap(
     (kind) =>
       getReviews(kind).map((r) => ({
         url: `${site.url}/${kind}/${r.slug}`,

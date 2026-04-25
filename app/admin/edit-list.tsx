@@ -8,6 +8,7 @@ const SECTIONS: { kind: Kind; label: string }[] = [
   { kind: "oral-care", label: "Oral care" },
   { kind: "hair-care", label: "Hair care" },
   { kind: "body-care", label: "Body care" },
+  { kind: "essentials", label: "Essentials" },
 ];
 
 function verdictDisplay(review: ReviewSummary): string {

@@ -1,12 +1,31 @@
-const INDIAN_RETAILER_HOSTS = [
-  "nykaa.com",
-  "myntra.com",
-  "flipkart.com",
-  "ajio.com",
-  "naturaltein.in",
-  "earthful.me",
-  "distausa.com",
-];
+import { INDIA_HOSTS, UK_HOSTS, USA_HOSTS } from "./retailers";
+
+/**
+ * Wraps every outbound buy link in the appropriate affiliate program
+ * the moment its env var is set in Vercel. Two-mechanism design:
+ *
+ *   1. Amazon tags. Each marketplace (com / in / co.uk) takes a ?tag=
+ *      query param. We inject it directly when the corresponding
+ *      AMAZON_*_TAG env var exists.
+ *
+ *   2. Aggregator templates. Cuelinks / EarnKaro / Skimlinks / Sovrn /
+ *      RewardStyle all wrap arbitrary retailer URLs with their own
+ *      redirector. The site stores the template per region:
+ *        INDIA_AFFILIATE_TEMPLATE   = "https://linksredirect.com/?…&url={url}"
+ *        WESTERN_AFFILIATE_TEMPLATE = "https://go.skimresources.com/?…&url={url}"
+ *        UK_AFFILIATE_TEMPLATE      = "https://go.skimresources.com/?…&url={url}"
+ *      `{url}` in the template is replaced by the URL-encoded original
+ *      destination.
+ *
+ * If no env var is set for a host, the original URL passes through
+ * unchanged — so the site is shippable today and only starts earning
+ * once the program is approved and the env var lands.
+ *
+ * The retailer-host source of truth lives in `lib/retailers.ts`
+ * (INDIA_HOSTS / USA_HOSTS / UK_HOSTS). Importing them here keeps the
+ * affiliate map and the region detection in lockstep — adding a new
+ * retailer to the listing automatically extends affiliate coverage.
+ */
 
 function withAmazonTag(url: string, tag: string): string {
   try {
@@ -25,10 +44,14 @@ function withTemplate(url: string, template: string): string {
 
 function hostOf(url: string): string | null {
   try {
-    return new URL(url).hostname.toLowerCase();
+    return new URL(url).hostname.toLowerCase().replace(/^www\./, "");
   } catch {
     return null;
   }
+}
+
+function hostMatches(host: string, list: readonly string[]): boolean {
+  return list.some((h) => host === h || host.endsWith(`.${h}`));
 }
 
 export function affiliatize(rawUrl: string | undefined | null): string | undefined {
@@ -36,35 +59,41 @@ export function affiliatize(rawUrl: string | undefined | null): string | undefin
   const host = hostOf(rawUrl);
   if (!host) return rawUrl;
 
-  if (host.endsWith("amazon.com") || host === "amzn.to") {
+  // Amazon: native ?tag= injection per marketplace.
+  if (host === "amazon.com" || host.endsWith(".amazon.com") || host === "amzn.to") {
     const tag = process.env.AMAZON_US_TAG;
     if (tag) return withAmazonTag(rawUrl, tag);
+    return rawUrl;
   }
-
-  if (host.endsWith("amazon.in")) {
+  if (host === "amazon.in" || host.endsWith(".amazon.in")) {
     const tag = process.env.AMAZON_IN_TAG;
     if (tag) return withAmazonTag(rawUrl, tag);
+    return rawUrl;
   }
-
-  if (host.endsWith("amazon.co.uk")) {
+  if (host === "amazon.co.uk" || host.endsWith(".amazon.co.uk")) {
     const tag = process.env.AMAZON_UK_TAG;
     if (tag) return withAmazonTag(rawUrl, tag);
+    return rawUrl;
   }
 
-  if (INDIAN_RETAILER_HOSTS.some((d) => host === d || host.endsWith(`.${d}`))) {
+  // Non-Amazon retailers route through their region's aggregator
+  // template. INDIA / USA / UK host lists come straight from
+  // `lib/retailers.ts` so adding a retailer there auto-extends
+  // affiliate coverage here.
+  if (hostMatches(host, INDIA_HOSTS)) {
     const template = process.env.INDIA_AFFILIATE_TEMPLATE;
     if (template) return withTemplate(rawUrl, template);
+    return rawUrl;
   }
-
-  if (process.env.WESTERN_AFFILIATE_TEMPLATE) {
-    if (
-      host.endsWith("target.com") ||
-      host.endsWith("walmart.com") ||
-      host.endsWith("sephora.com") ||
-      host.endsWith("ulta.com")
-    ) {
-      return withTemplate(rawUrl, process.env.WESTERN_AFFILIATE_TEMPLATE);
-    }
+  if (hostMatches(host, USA_HOSTS)) {
+    const template = process.env.WESTERN_AFFILIATE_TEMPLATE;
+    if (template) return withTemplate(rawUrl, template);
+    return rawUrl;
+  }
+  if (hostMatches(host, UK_HOSTS)) {
+    const template = process.env.UK_AFFILIATE_TEMPLATE;
+    if (template) return withTemplate(rawUrl, template);
+    return rawUrl;
   }
 
   return rawUrl;

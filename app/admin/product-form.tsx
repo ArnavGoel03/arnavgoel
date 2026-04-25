@@ -53,7 +53,7 @@ function Optional() {
 
 export type ProductFormInitial = {
   slug: string;
-  kind: "skincare" | "supplements" | "oral-care" | "hair-care" | "body-care";
+  kind: "skincare" | "supplements" | "oral-care" | "hair-care" | "body-care" | "essentials";
   name: string;
   brand: string;
   category: string;
@@ -89,7 +89,7 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
     null,
   );
   const [kind, setKind] = useState<
-    "skincare" | "supplements" | "oral-care" | "hair-care" | "body-care"
+    "skincare" | "supplements" | "oral-care" | "hair-care" | "body-care" | "essentials"
   >(initial?.kind ?? "skincare");
   const [brand, setBrand] = useState(initial?.brand ?? "");
   const [name, setName] = useState(initial?.name ?? "");
@@ -118,6 +118,7 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
                 { value: "oral-care", label: "Oral care" },
                 { value: "hair-care", label: "Hair care" },
                 { value: "body-care", label: "Body care" },
+                { value: "essentials", label: "Essentials" },
               ] as const
             ).map((k) => (
               <button

@@ -41,6 +41,7 @@ export default async function RoutinePage({ params }: Props) {
   const oralCare = items.filter((r) => r.kind === "oral-care");
   const hairCare = items.filter((r) => r.kind === "hair-care");
   const bodyCare = items.filter((r) => r.kind === "body-care");
+  const essentials = items.filter((r) => r.kind === "essentials");
 
   return (
     <Container className="max-w-3xl py-12 sm:py-16">
@@ -88,6 +89,9 @@ export default async function RoutinePage({ params }: Props) {
           )}
           {bodyCare.length > 0 && (
             <Section label="Body care" items={bodyCare} />
+          )}
+          {essentials.length > 0 && (
+            <Section label="Essentials" items={essentials} />
           )}
         </div>
       )}

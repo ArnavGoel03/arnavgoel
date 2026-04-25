@@ -28,6 +28,7 @@ const nav: NavItem[] = [
   { href: "/oral-care", label: "Oral care", tourId: "tab-oralcare", weight: "primary" },
   { href: "/hair-care", label: "Hair care", tourId: "tab-haircare", weight: "primary" },
   { href: "/body-care", label: "Body care", tourId: "tab-bodycare", weight: "primary" },
+  { href: "/essentials", label: "Essentials", tourId: "tab-essentials", weight: "primary" },
   { href: "/routine", label: "Routine", weight: "secondary" },
   { href: "/primers", label: "Primers", weight: "secondary" },
   { href: "/photos", label: "Photos", weight: "secondary" },

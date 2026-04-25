@@ -21,8 +21,9 @@ export default function HomePage() {
   const oralCareCount = getReviews("oral-care").length;
   const hairCareCount = getReviews("hair-care").length;
   const bodyCareCount = getReviews("body-care").length;
+  const essentialsCount = getReviews("essentials").length;
   const totalReviews =
-    skincareCount + supplementsCount + oralCareCount + hairCareCount + bodyCareCount;
+    skincareCount + supplementsCount + oralCareCount + hairCareCount + bodyCareCount + essentialsCount;
   const notesCount = getNotes().length;
   const photosCount = photos.length;
   // Hero strip stats: every value comes from the actual content set so
@@ -192,10 +193,11 @@ export default function HomePage() {
             { index: 2, href: "/supplements", eyebrow: `${supplementsCount} reviews`, title: "Supplements", description: "Vitamins, minerals, nootropics. What I took, how long, and what I actually felt." },
             { index: 3, href: "/oral-care", eyebrow: `${oralCareCount} reviews`, title: "Oral care", description: "Electric brushes, pastes, mouthwash, for teeth, breath, and gums." },
             { index: 4, href: "/hair-care", eyebrow: `${hairCareCount} reviews`, title: "Hair care", description: "Conditioners, masks, treatments, what lives in the shower for hair, scalp, and ends." },
-            { index: 5, href: "/body-care", eyebrow: `${bodyCareCount} reviews`, title: "Body care", description: "Body washes, lotions, scrubs, the everyday cleanse-and-moisturise from the neck down." },
-            { index: 6, href: "/photos", eyebrow: `${photosCount} photos`, title: "Photos", description: "DSLR shots from wherever I happened to be carrying the camera." },
-            { index: 7, href: "/notes", eyebrow: `${notesCount} entries`, title: "Notes", description: "Slow writing, essays, stray thoughts, half-formed ideas." },
-            { index: 8, href: "/now", eyebrow: "this month", title: "Now", description: "What I'm currently working on, listening to, thinking about, and consciously not doing." },
+            { index: 5, href: "/body-care", eyebrow: `${bodyCareCount} reviews`, title: "Body care", description: "Body washes, lotions, scrubs, trimmers, the everyday cleanse-and-moisturise from the neck down." },
+            { index: 6, href: "/essentials", eyebrow: `${essentialsCount} reviews`, title: "Essentials", description: "Random utility objects from daily life: chargers, laundry bags, the small things that earn or fail their shelf space." },
+            { index: 7, href: "/photos", eyebrow: `${photosCount} photos`, title: "Photos", description: "DSLR shots from wherever I happened to be carrying the camera." },
+            { index: 8, href: "/notes", eyebrow: `${notesCount} entries`, title: "Notes", description: "Slow writing, essays, stray thoughts, half-formed ideas." },
+            { index: 9, href: "/now", eyebrow: "this month", title: "Now", description: "What I'm currently working on, listening to, thinking about, and consciously not doing." },
           ].map((tile, i) => (
             <div
               key={tile.href}

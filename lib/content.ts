@@ -78,6 +78,7 @@ export function getRetiredReviews(): ReviewSummary[] {
     ...readReviews("oral-care"),
     ...readReviews("hair-care"),
     ...readReviews("body-care"),
+    ...readReviews("essentials"),
   ])
     .filter((r) => r.retired && !r.hidden)
     .map(({ body: _body, ...rest }) => rest);
@@ -94,6 +95,7 @@ export function getAllReviews(): ReviewSummary[] {
     ...getReviews("oral-care"),
     ...getReviews("hair-care"),
     ...getReviews("body-care"),
+    ...getReviews("essentials"),
   ]);
 }
 

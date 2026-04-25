@@ -40,6 +40,7 @@ export async function GET(): Promise<Response> {
     { kind: "oral-care" as const, label: "Oral care", path: "/oral-care" },
     { kind: "hair-care" as const, label: "Hair care", path: "/hair-care" },
     { kind: "body-care" as const, label: "Body care", path: "/body-care" },
+    { kind: "essentials" as const, label: "Essentials", path: "/essentials" },
   ];
   for (const c of cats) {
     const items = getReviews(c.kind);

@@ -3,7 +3,8 @@ export type Kind =
   | "supplements"
   | "oral-care"
   | "hair-care"
-  | "body-care";
+  | "body-care"
+  | "essentials";
 
 export interface BuyLink {
   retailer: string;
