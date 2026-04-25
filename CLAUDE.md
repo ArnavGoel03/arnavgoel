@@ -60,6 +60,16 @@ The same rule applies to adding a *new* fourth market (Canada, EU, AUS): touch e
 
 The only required frontmatter fields: `name`, `brand`, `category`, `rating`, `datePublished`. Everything else is optional. Don't pad with placeholders if you don't have real data.
 
+## Always log the purchase date in `changelog`
+
+Whenever the purchase date is known (Amazon order screenshot, Target receipt, in-store note, anything), record it as a `changelog` entry, e.g. `{ date: "2025-12-09", note: "Bought" }`. For consolidated listings with multiple flavors / sizes / re-buys, add one entry per purchase so the rotation history is visible.
+
+- `datePublished` is when the *listing* went up; `changelog[].date` is when the *user actually bought* it. Don't conflate them.
+- Use ISO `YYYY-MM-DD` when you have the day; `YYYY-MM` is acceptable when only the month is known.
+- For a consolidated listing, append a new changelog entry on every re-buy rather than overwriting the existing one.
+
+Why this matters: the changelog is the audit trail that proves the user has actually been on a product long enough to review it (per the "one month minimum" rule on `/about`). Skipping the date makes the listing read like a placeholder.
+
 # Affiliate setup (current state)
 
 - `AMAZON_IN_TAG=yash04e2-21` (signup pending Amazon's approval, this is the tag the user picked)
