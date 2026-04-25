@@ -29,8 +29,9 @@ export function CommandPalette({ items }: { items: SearchItem[] }) {
   const listRef = useRef<HTMLUListElement>(null);
   const router = useRouter();
 
-  // Global keybinding + prefetch on mount so the palette is responsive
-  // the first time it opens.
+  // Global keybinding + a `palette:open` custom event so non-keyboard
+  // entry points (the header search icon) can open the same palette
+  // instead of navigating to a separate /search page.
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       // Don't steal Cmd+K from form fields, unless the palette is
@@ -46,8 +47,15 @@ export function CommandPalette({ items }: { items: SearchItem[] }) {
         }
       }
     }
+    function onOpen() {
+      setOpen(true);
+    }
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener("palette:open", onOpen);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("palette:open", onOpen);
+    };
   }, [open]);
 
   useEffect(() => {

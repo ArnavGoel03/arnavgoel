@@ -98,14 +98,31 @@ export function Header() {
             })}
           </nav>
 
-          <Link
-            href="/search"
-            aria-label="Search"
+          <button
+            type="button"
+            aria-label="Open search"
             data-tour="search"
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-stone-500 transition-colors hover:bg-stone-100 hover:text-stone-900 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-100"
+            onClick={() => {
+              window.dispatchEvent(new Event("palette:open"));
+            }}
+            className="group hidden h-8 shrink-0 items-center gap-2 rounded-full border border-stone-200 bg-white pl-3 pr-1.5 text-[11px] uppercase tracking-[0.16em] text-stone-500 transition-colors hover:border-stone-300 hover:text-stone-900 sm:inline-flex dark:border-stone-800 dark:bg-stone-900 dark:text-stone-400 dark:hover:border-stone-600 dark:hover:text-stone-100"
+          >
+            <Search className="h-3.5 w-3.5" />
+            <span>Search</span>
+            <kbd className="rounded border border-stone-200 bg-stone-50 px-1.5 py-0.5 font-mono text-[10px] tracking-normal text-stone-500 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-400">
+              ⌘K
+            </kbd>
+          </button>
+          <button
+            type="button"
+            aria-label="Open search"
+            onClick={() => {
+              window.dispatchEvent(new Event("palette:open"));
+            }}
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-stone-500 transition-colors hover:bg-stone-100 hover:text-stone-900 sm:hidden dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-100"
           >
             <Search className="h-4 w-4" />
-          </Link>
+          </button>
           <div data-tour="theme">
             <ThemeToggle />
           </div>

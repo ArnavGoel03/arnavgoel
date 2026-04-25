@@ -246,6 +246,7 @@ const BRAND_TEXT_COLOR: Record<string, string> = {
   "Kristin Ess": "text-rose-500 dark:text-rose-300",
   "L'Oreal Professionnel": "text-amber-700 dark:text-amber-500",
   "Padagis": "text-stone-600 dark:text-stone-400",
+  "Head & Shoulders": "text-blue-700 dark:text-blue-400",
   // Body care
   "Dove": "text-yellow-700 dark:text-yellow-400",
   "Native": "text-stone-700 dark:text-stone-300",
