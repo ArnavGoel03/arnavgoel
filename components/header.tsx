@@ -143,7 +143,7 @@ export function Header() {
       {/* Mobile menu drawer */}
       {menuOpen && (
         <div
-          className="fixed inset-x-0 top-16 z-40 border-b border-stone-200 bg-white shadow-sm dark:border-stone-800 dark:bg-stone-950 lg:hidden"
+          className="fixed inset-x-0 top-16 z-40 origin-top animate-[menu-slide_180ms_cubic-bezier(0.22,1,0.36,1)] border-b border-stone-200 bg-white shadow-sm dark:border-stone-800 dark:bg-stone-950 lg:hidden"
           style={{ maxHeight: "calc(100dvh - 4rem)", overflowY: "auto" }}
         >
           <Container>

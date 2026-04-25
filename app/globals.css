@@ -147,6 +147,21 @@
     animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 
+  /* Mobile menu drawer: slide + fade in from the header edge. The
+     transform-origin at top means the panel scales down toward the
+     trigger button, which reads as the menu "expanding from" the
+     hamburger rather than appearing in mid-air. */
+  @keyframes menu-slide {
+    from {
+      opacity: 0;
+      transform: translateY(-8px) scaleY(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scaleY(1);
+    }
+  }
+
   /* Accessibility: users with reduced-motion preference get instant transitions. */
   @media (prefers-reduced-motion: reduce) {
     *,
