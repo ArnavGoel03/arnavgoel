@@ -128,7 +128,10 @@ export async function listTrashed(): Promise<TrashEntry[]> {
   const out: TrashEntry[] = [];
   let cursor: string | undefined = undefined;
   do {
-    const page = await list({ prefix: TRASH_PREFIX, cursor });
+    const page: Awaited<ReturnType<typeof list>> = await list({
+      prefix: TRASH_PREFIX,
+      cursor,
+    });
     for (const blob of page.blobs) {
       const parsed = parseTrashKey(blob.pathname);
       if (!parsed) continue;
@@ -163,7 +166,10 @@ export async function purgeExpiredTrash(): Promise<{
   let scanned = 0;
   let cursor: string | undefined = undefined;
   do {
-    const page = await list({ prefix: TRASH_PREFIX, cursor });
+    const page: Awaited<ReturnType<typeof list>> = await list({
+      prefix: TRASH_PREFIX,
+      cursor,
+    });
     for (const blob of page.blobs) {
       scanned++;
       const parsed = parseTrashKey(blob.pathname);
