@@ -8,18 +8,32 @@ import { Container } from "./container";
 import { ThemeToggle } from "./theme-toggle";
 import { site } from "@/lib/site";
 
-const nav: { href: string; label: string; tourId?: string }[] = [
-  { href: "/skincare", label: "Skincare", tourId: "tab-skincare" },
-  { href: "/supplements", label: "Supplements", tourId: "tab-supplements" },
-  { href: "/oral-care", label: "Oral care", tourId: "tab-oralcare" },
-  { href: "/hair-care", label: "Hair care", tourId: "tab-haircare" },
-  { href: "/body-care", label: "Body care", tourId: "tab-bodycare" },
-  { href: "/routine", label: "Routine" },
-  { href: "/primers", label: "Primers" },
-  { href: "/photos", label: "Photos" },
-  { href: "/notes", label: "Notes" },
-  { href: "/now", label: "Now" },
-  { href: "/about", label: "About" },
+type NavItem = {
+  href: string;
+  label: string;
+  tourId?: string;
+  /**
+   * Nav weight controls which breakpoints reveal the link.
+   *   "primary"   — visible at lg+ (the five product categories,
+   *                 always present in the masthead).
+   *   "secondary" — joins primary at xl+; collapses into the mobile
+   *                 drawer below xl so the lg row stays uncluttered.
+   */
+  weight: "primary" | "secondary";
+};
+
+const nav: NavItem[] = [
+  { href: "/skincare", label: "Skincare", tourId: "tab-skincare", weight: "primary" },
+  { href: "/supplements", label: "Supplements", tourId: "tab-supplements", weight: "primary" },
+  { href: "/oral-care", label: "Oral care", tourId: "tab-oralcare", weight: "primary" },
+  { href: "/hair-care", label: "Hair care", tourId: "tab-haircare", weight: "primary" },
+  { href: "/body-care", label: "Body care", tourId: "tab-bodycare", weight: "primary" },
+  { href: "/routine", label: "Routine", weight: "secondary" },
+  { href: "/primers", label: "Primers", weight: "secondary" },
+  { href: "/photos", label: "Photos", weight: "secondary" },
+  { href: "/notes", label: "Notes", weight: "secondary" },
+  { href: "/now", label: "Now", weight: "secondary" },
+  { href: "/about", label: "About", weight: "secondary" },
 ];
 
 export function Header() {
@@ -62,20 +76,32 @@ export function Header() {
         </Link>
 
         <div className="flex items-center gap-2 lg:gap-4">
-          {/* Desktop nav, inline, hides below lg */}
-          <nav
-            className="hidden items-center overflow-x-auto text-[11px] uppercase tracking-[0.16em] text-stone-500 lg:flex dark:text-stone-400"
-          >
+          {/* Desktop nav. Primary (5 product categories) shows at lg+;
+              secondary (Routine / Primers / Photos / Notes / Now /
+              About) joins at xl+. Below lg the hamburger menu carries
+              everything. */}
+          <nav className="hidden items-center text-[11px] uppercase tracking-[0.16em] text-stone-500 lg:flex dark:text-stone-400">
             {nav.map((item, i) => {
               const active =
                 pathname === item.href ||
                 (item.href !== "/" && pathname.startsWith(item.href));
+              const isSecondary = item.weight === "secondary";
               return (
-                <span key={item.href} className="inline-flex items-center">
+                <span
+                  key={item.href}
+                  className={
+                    isSecondary
+                      ? "hidden xl:inline-flex items-center"
+                      : "inline-flex items-center"
+                  }
+                >
                   {i > 0 && (
                     <span
                       aria-hidden
-                      className="mx-3 text-stone-300 dark:text-stone-700"
+                      className={
+                        "text-stone-300 dark:text-stone-700 " +
+                        (isSecondary ? "mx-3 hidden xl:inline" : "mx-3")
+                      }
                     >
                       ·
                     </span>
@@ -96,6 +122,18 @@ export function Header() {
                 </span>
               );
             })}
+            {/* "More" link visible only at lg (hidden at xl when the
+                secondary items appear inline). Routes to /about as a
+                catch-all landing for the smaller meta sections. */}
+            <span className="ml-3 inline-flex items-center xl:hidden">
+              <span aria-hidden className="mr-3 text-stone-300 dark:text-stone-700">·</span>
+              <Link
+                href="/about"
+                className="whitespace-nowrap py-1 text-stone-400 transition-colors hover:text-stone-900 dark:text-stone-500 dark:hover:text-stone-100"
+              >
+                More →
+              </Link>
+            </span>
           </nav>
 
           <button
