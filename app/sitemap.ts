@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getNotes, getPrimers, getReviews } from "@/lib/content";
 import { getAllIssuePeriods } from "@/lib/issues";
-import { getRoutinesList } from "@/lib/routines";
+import { getRoutinesList, getSubroutinesList } from "@/lib/routines";
 import { site } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -27,11 +27,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${site.url}/compare`, lastModified: now, priority: 0.4 },
     { url: `${site.url}/links`, lastModified: now, priority: 0.7 },
   ];
-  const routineRoutes: MetadataRoute.Sitemap = getRoutinesList().map((r) => ({
-    url: `${site.url}/routine/${r}`,
-    lastModified: now,
-    priority: 0.7,
-  }));
+  const routineRoutes: MetadataRoute.Sitemap = [
+    ...getRoutinesList().map((r) => ({
+      url: `${site.url}/routine/${r}`,
+      lastModified: now,
+      priority: 0.7,
+    })),
+    ...getSubroutinesList().map((s) => ({
+      url: `${site.url}/routine/${s}`,
+      lastModified: now,
+      priority: 0.6,
+    })),
+  ];
   const issueRoutes: MetadataRoute.Sitemap = getAllIssuePeriods().map(
     (period) => ({
       url: `${site.url}/issue/${period}`,

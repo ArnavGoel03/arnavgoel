@@ -4,65 +4,62 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Container } from "@/components/container";
 import {
-  ROUTINE_DESCRIPTIONS,
-  ROUTINE_LABELS,
-  getReviewsInRoutine,
-  getRoutinesList,
-  getSubroutinesForParent,
-  type RoutineSlug,
+  getReviewsInSubroutine,
+  getSubroutine,
+  getSubroutinesList,
+  type SubroutineSlug,
 } from "@/lib/routines";
+import type { ReviewSummary } from "@/lib/types";
 
-type Props = { params: Promise<{ slug: string }> };
-
-const VALID: RoutineSlug[] = ["morning", "evening", "stack", "shower"];
+type Props = { params: Promise<{ parent: string; child: string }> };
 
 export async function generateStaticParams() {
-  return getRoutinesList().map((slug) => ({ slug }));
+  return getSubroutinesList().map((s) => {
+    const [parent, child] = s.split("/");
+    return { parent, child };
+  });
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  if (!VALID.includes(slug as RoutineSlug)) return {};
-  const label = ROUTINE_LABELS[slug as RoutineSlug];
+  const { parent, child } = await params;
+  const def = getSubroutine(`${parent}/${child}`);
+  if (!def) return {};
   return {
-    title: `${label} routine`,
-    description: ROUTINE_DESCRIPTIONS[slug as RoutineSlug],
-    alternates: { canonical: `/routine/${slug}` },
+    title: `${def.label} routine`,
+    description: def.description,
+    alternates: { canonical: `/routine/${parent}/${child}` },
   };
 }
 
-export default async function RoutinePage({ params }: Props) {
-  const { slug } = await params;
-  if (!VALID.includes(slug as RoutineSlug)) notFound();
-  const routine = slug as RoutineSlug;
-  const items = getReviewsInRoutine(routine);
-  const subroutines = getSubroutinesForParent(routine);
+const SKINCARE_ORDER: Record<string, number> = {
+  "face wash": 10,
+  cleanser: 11,
+  "chemical exfoliant": 20,
+  "chemical peel": 21,
+  "face scrub": 22,
+  dermaplaning: 23,
+  tool: 24,
+  "face mask": 30,
+  "sheet mask": 31,
+  toner: 40,
+  patches: 50,
+  serum: 60,
+  prescription: 70,
+  "eye cream": 80,
+  moisturizer: 90,
+  aftershave: 95,
+  "lip scrub": 96,
+  "lip balm": 97,
+  sunscreen: 100,
+};
 
-  // Application order for skincare: cleanse → exfoliate → tone →
-  // treat → moisturize → protect. The list view should read top-down
-  // as the literal sequence the products are applied, with a step
-  // number on each row so the order is obvious without prose.
-  const SKINCARE_ORDER: Record<string, number> = {
-    "face wash": 10,
-    cleanser: 11,
-    "chemical exfoliant": 20,
-    "chemical peel": 21,
-    "face scrub": 22,
-    dermaplaning: 23,
-    tool: 24,
-    "face mask": 30,
-    "sheet mask": 31,
-    toner: 40,
-    patches: 50,
-    serum: 60,
-    prescription: 70,
-    "eye cream": 80,
-    moisturizer: 90,
-    aftershave: 95,
-    "lip scrub": 96,
-    "lip balm": 97,
-    sunscreen: 100,
-  };
+export default async function SubroutinePage({ params }: Props) {
+  const { parent, child } = await params;
+  const def = getSubroutine(`${parent}/${child}`);
+  if (!def) notFound();
+  const slug = `${parent}/${child}` as SubroutineSlug;
+  const items = getReviewsInSubroutine(slug);
+
   const skincare = items
     .filter((r) => r.kind === "skincare")
     .sort(
@@ -76,53 +73,44 @@ export default async function RoutinePage({ params }: Props) {
   const bodyCare = items.filter((r) => r.kind === "body-care");
   const essentials = items.filter((r) => r.kind === "essentials");
   const miscellaneous = items.filter((r) => r.kind === "miscellaneous");
-  const numberSteps = routine === "morning" || routine === "evening";
 
   return (
     <Container className="max-w-3xl py-12 sm:py-16">
       <Link
-        href="/routine"
+        href={`/routine/${parent}`}
         className="inline-flex items-center gap-1.5 text-sm text-stone-500 transition-colors hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
       >
         <ArrowLeft className="h-4 w-4" />
-        All routines
+        Back to {parent}
       </Link>
 
       <div className="mt-8 border-b border-stone-300 pb-10 dark:border-stone-800">
         <div className="mb-4 flex items-baseline justify-between gap-4 text-[11px] uppercase tracking-[0.22em] text-stone-500 dark:text-stone-400">
           <span className="flex items-baseline gap-2">
             <span className="text-rose-400">❋</span>
-            <span>Routine</span>
+            <span>Subroutine</span>
+          </span>
+          <span className="font-mono text-stone-400 dark:text-stone-500">
+            {parent} / {child}
           </span>
         </div>
-        <h1 className="font-serif text-4xl leading-[1.02] tracking-tight text-stone-900 sm:text-6xl dark:text-stone-100">
-          {ROUTINE_LABELS[routine]}
+        <h1 className="font-serif text-4xl leading-[1.02] tracking-tight text-stone-900 sm:text-5xl dark:text-stone-100">
+          {def.label}
           <span className="text-rose-400">.</span>
         </h1>
         <p className="mt-6 max-w-2xl font-serif text-lg italic leading-snug text-stone-600 sm:text-xl dark:text-stone-300">
-          {ROUTINE_DESCRIPTIONS[routine]}
+          {def.description}
         </p>
-        {subroutines.length > 0 && (
-          <div className="mt-8 flex flex-wrap items-baseline gap-x-4 gap-y-2 text-[11px] uppercase tracking-[0.18em] text-stone-500 dark:text-stone-400">
-            <span className="text-stone-400 dark:text-stone-500">
-              Variations:
-            </span>
-            {subroutines.map((s) => (
-              <Link
-                key={s.slug}
-                href={`/routine/${s.slug}`}
-                className="border-b border-transparent pb-px transition-colors hover:border-rose-400 hover:text-stone-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-400 dark:hover:text-stone-100"
-              >
-                {s.label.replace(/^.+?, /, "")}
-              </Link>
-            ))}
-          </div>
-        )}
       </div>
 
       {items.length === 0 ? (
         <p className="mt-16 py-12 text-center text-stone-500 dark:text-stone-400">
-          Nothing tagged into this routine yet.
+          Nothing tagged into this subroutine yet. Edit `lib/routines.ts` to
+          adjust the filter, or tag the relevant products with one of:{" "}
+          {def.filter.mode === "goal"
+            ? def.filter.goals.join(", ")
+            : "the listed slugs"}
+          .
         </p>
       ) : (
         <div className="mt-12 space-y-10">
@@ -130,9 +118,9 @@ export default async function RoutinePage({ params }: Props) {
             <Section
               label="Skincare"
               items={skincare}
-              numbered={numberSteps}
+              numbered={def.numberSteps}
               caption={
-                numberSteps
+                def.numberSteps
                   ? "In application order. Each step waits ~30 seconds before the next."
                   : undefined
               }
@@ -169,7 +157,7 @@ function Section({
   caption,
 }: {
   label: string;
-  items: ReturnType<typeof getReviewsInRoutine>;
+  items: ReviewSummary[];
   numbered?: boolean;
   caption?: string;
 }) {
@@ -200,9 +188,6 @@ function Section({
                   {String(i + 1).padStart(2, "0")}
                 </span>
               )}
-              {/* Thumbnail. Real photo when present, else a serif brand
-                  monogram on a stone tile, so every row reads visually
-                  rather than as a wall of text. */}
               <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg border border-stone-200 bg-stone-50 dark:border-stone-800 dark:bg-stone-800 sm:h-20 sm:w-20">
                 {r.photo ? (
                   // eslint-disable-next-line @next/next/no-img-element
