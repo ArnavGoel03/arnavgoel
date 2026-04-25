@@ -233,7 +233,38 @@ export function ReviewJsonLd({ review }: { review: Review }) {
   if (additionalProperty.length > 0)
     itemReviewed.additionalProperty = additionalProperty;
 
-  const data = {
+  // Surface the verdict + 0-10 axis ratings as a schema.org Rating so
+  // crawlers (Google, Bing, AEO bots) can ingest the recommendation
+  // directly. We map the three-axis rubric to a single 0-5 scale by
+  // averaging whichever axes are present, then fall back to the verdict
+  // if no axis ratings have been filled in. "Still testing" reviews
+  // omit the rating entirely so we don't claim a verdict we have not
+  // committed to.
+  const axes = [
+    review.ratings?.effect,
+    review.ratings?.value,
+    review.ratings?.tolerance,
+  ].filter((n): n is number => typeof n === "number");
+  let ratingValue: number | null = null;
+  if (axes.length > 0) {
+    ratingValue = axes.reduce((s, n) => s + n, 0) / axes.length / 2;
+  } else if (review.verdict === "recommend") {
+    ratingValue = 4.5;
+  } else if (review.verdict === "okay") {
+    ratingValue = 3;
+  } else if (review.verdict === "bad") {
+    ratingValue = 1.5;
+  }
+  const reviewRating = ratingValue !== null
+    ? {
+        "@type": "Rating",
+        ratingValue: ratingValue.toFixed(1),
+        bestRating: "5",
+        worstRating: "1",
+      }
+    : null;
+
+  const data: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Review",
     itemReviewed,
@@ -244,6 +275,7 @@ export function ReviewJsonLd({ review }: { review: Review }) {
     reviewBody: review.summary || `${review.brand} ${review.name}`,
     publisher: { "@type": "Organization", name: site.name, url: site.url },
   };
+  if (reviewRating) data.reviewRating = reviewRating;
   return (
     <script
       type="application/ld+json"
