@@ -5,6 +5,18 @@ export interface BuyLink {
   url: string;
 }
 
+/**
+ * Per-region price object. Each field holds the locally-priced string
+ * with its native currency symbol intact, e.g. `{ in: "₹2,400", us:
+ * "$34", uk: "£28" }`. Honest about which markets we have data for:
+ * missing entries simply don't render.
+ */
+export interface RegionalPrice {
+  in?: string;
+  us?: string;
+  uk?: string;
+}
+
 export interface Review {
   kind: Kind;
   slug: string;
@@ -20,7 +32,7 @@ export interface Review {
   hidden?: boolean;
   retired?: boolean;
   retiredReason?: string;
-  price?: string;
+  price?: string | RegionalPrice;
   servingsPerContainer?: number;
   dailyServings?: number;
   skinType?: string[];

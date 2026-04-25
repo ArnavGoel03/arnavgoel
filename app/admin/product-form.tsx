@@ -62,7 +62,7 @@ export type ProductFormInitial = {
   hidden?: boolean;
   retired?: boolean;
   retiredReason?: string;
-  price?: string;
+  price?: string | { in?: string; us?: string; uk?: string };
   servingsPerContainer?: number;
   dailyServings?: number;
   skinType?: string[];
@@ -188,16 +188,50 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
             />
           </div>
           <div>
-            <label htmlFor="price" className={labelCls}>
+            <span className={labelCls}>
               Price <Optional />
-            </label>
-            <input
-              id="price"
-              name="price"
-              defaultValue={initial?.price ?? ""}
-              placeholder="$20"
-              className={inputCls}
-            />
+            </span>
+            <div className="grid grid-cols-3 gap-2">
+              <input
+                id="priceIn"
+                name="priceIn"
+                aria-label="Price in India"
+                defaultValue={
+                  typeof initial?.price === "string"
+                    ? ""
+                    : (initial?.price?.in ?? "")
+                }
+                placeholder="₹2,400"
+                className={inputCls}
+              />
+              <input
+                id="priceUs"
+                name="priceUs"
+                aria-label="Price in USA"
+                defaultValue={
+                  typeof initial?.price === "string"
+                    ? initial.price
+                    : (initial?.price?.us ?? "")
+                }
+                placeholder="$34"
+                className={inputCls}
+              />
+              <input
+                id="priceUk"
+                name="priceUk"
+                aria-label="Price in UK"
+                defaultValue={
+                  typeof initial?.price === "string"
+                    ? ""
+                    : (initial?.price?.uk ?? "")
+                }
+                placeholder="£28"
+                className={inputCls}
+              />
+            </div>
+            <p className="mt-1 text-xs text-stone-500">
+              Per region with native currency. Leave blank where unsold.
+            </p>
           </div>
         </div>
 

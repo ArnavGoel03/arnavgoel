@@ -1,5 +1,7 @@
 import type { Note, Review } from "@/lib/types";
 import { parsePrice, currencyFor } from "@/lib/cost";
+import { priceFor } from "@/lib/price";
+import type { Region } from "@/lib/retailers";
 import { site } from "@/lib/site";
 import { socials } from "@/lib/socials";
 
@@ -102,25 +104,28 @@ export function BreadcrumbJsonLd({
 }
 
 export function ReviewJsonLd({ review }: { review: Review }) {
-  const allLinks = [
-    ...review.indiaLinks,
-    ...review.westernLinks,
-    ...review.ukLinks,
+  const linksByRegion: Array<{ region: Region; links: typeof review.indiaLinks }> = [
+    { region: "india", links: review.indiaLinks },
+    { region: "usa", links: review.westernLinks },
+    { region: "uk", links: review.ukLinks },
   ];
 
-  const offers = allLinks.map((l) => {
-    const offer: Record<string, unknown> = {
-      "@type": "Offer",
-      url: l.url,
-      seller: { "@type": "Organization", name: l.retailer },
-      availability: "https://schema.org/InStock",
-    };
-    const numeric = parsePrice(review.price);
-    if (numeric !== null) {
-      offer.price = numeric.toFixed(2);
-      offer.priceCurrency = priceCurrencyCode(review.price);
-    }
-    return offer;
+  const offers = linksByRegion.flatMap(({ region, links }) => {
+    const regionalPrice = priceFor(review.price, region);
+    return links.map((l) => {
+      const offer: Record<string, unknown> = {
+        "@type": "Offer",
+        url: l.url,
+        seller: { "@type": "Organization", name: l.retailer },
+        availability: "https://schema.org/InStock",
+      };
+      const numeric = parsePrice(regionalPrice);
+      if (numeric !== null) {
+        offer.price = numeric.toFixed(2);
+        offer.priceCurrency = priceCurrencyCode(regionalPrice);
+      }
+      return offer;
+    });
   });
 
   const productImage = review.photo

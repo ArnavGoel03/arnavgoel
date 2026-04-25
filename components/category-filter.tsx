@@ -5,6 +5,7 @@ import { Check, ChevronDown } from "lucide-react";
 import { ProductCard } from "./product-card";
 import { cn } from "@/lib/utils";
 import { costPerDay, parsePrice } from "@/lib/cost";
+import { defaultPrice, priceFor } from "@/lib/price";
 import { availableInRegion, type Region } from "@/lib/retailers";
 import type { ReviewSummary } from "@/lib/types";
 
@@ -67,8 +68,13 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
     }
     if (sort === "price") {
       return [...base].sort((a, b) => {
-        const pa = parsePrice(a.price);
-        const pb = parsePrice(b.price);
+        // When a region filter is active, sort by that region's price so
+        // shoppers see the cheapest in their own market on top. Otherwise
+        // fall back to whichever region we have data for.
+        const priceStr = (r: ReviewSummary) =>
+          region === "all" ? defaultPrice(r.price) : priceFor(r.price, region);
+        const pa = parsePrice(priceStr(a));
+        const pb = parsePrice(priceStr(b));
         // Items without a price sink to the bottom.
         if (pa === null && pb === null) return 0;
         if (pa === null) return 1;
@@ -78,8 +84,9 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
     }
     if (sort === "cost-per-day") {
       return [...base].sort((a, b) => {
-        const ca = costPerDay(a);
-        const cb = costPerDay(b);
+        const ctx = region === "all" ? undefined : region;
+        const ca = costPerDay(a, ctx);
+        const cb = costPerDay(b, ctx);
         if (ca === null && cb === null) return 0;
         if (ca === null) return 1;
         if (cb === null) return -1;

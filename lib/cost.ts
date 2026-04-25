@@ -1,4 +1,6 @@
 import type { Review } from "@/lib/types";
+import type { Region } from "@/lib/retailers";
+import { defaultPrice, priceFor } from "@/lib/price";
 
 /**
  * Pull a numeric price out of a string like "$35", "$1,295.00", "Rs. 499",
@@ -13,17 +15,22 @@ export function parsePrice(price: string | undefined): number | null {
 }
 
 /**
- * Cost per day in the same currency as `price`. Requires
+ * Cost per day in the same currency as the chosen price. Requires
  * `servingsPerContainer` in frontmatter. If `dailyServings` is missing,
  * defaults to 1 (one dose per day).
  *
- * Returns null when there isn't enough info to compute, caller should
- * hide the row.
+ * `region` selects which regional price to use; defaults to the best
+ * available (US, then IN, then UK). Returns null when there isn't
+ * enough info to compute, caller should hide the row.
  */
 export function costPerDay(
   review: Pick<Review, "price" | "servingsPerContainer" | "dailyServings">,
+  region?: Region,
 ): number | null {
-  const price = parsePrice(review.price);
+  const priceStr = region
+    ? priceFor(review.price, region)
+    : defaultPrice(review.price);
+  const price = parsePrice(priceStr);
   const servings = review.servingsPerContainer;
   if (!price || !servings || servings <= 0) return null;
   const daily = review.dailyServings && review.dailyServings > 0
@@ -44,10 +51,14 @@ export function currencyFor(price: string | undefined): string {
 
 export function formatCostPerDay(
   review: Pick<Review, "price" | "servingsPerContainer" | "dailyServings">,
+  region?: Region,
 ): string | null {
-  const cpd = costPerDay(review);
+  const cpd = costPerDay(review, region);
   if (cpd === null) return null;
-  const symbol = currencyFor(review.price);
+  const priceStr = region
+    ? priceFor(review.price, region)
+    : defaultPrice(review.price);
+  const symbol = currencyFor(priceStr);
   // Two decimals feel right for anything under $10/day; above that,
   // round to whole currency units to avoid false precision.
   return cpd < 10 ? `${symbol}${cpd.toFixed(2)}` : `${symbol}${Math.round(cpd)}`;

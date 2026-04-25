@@ -92,7 +92,9 @@ const reviewSchema = z.object({
     z.boolean(),
   ),
   retiredReason: z.string().trim().optional(),
-  price: z.string().trim().optional(),
+  priceIn: z.string().trim().optional(),
+  priceUs: z.string().trim().optional(),
+  priceUk: z.string().trim().optional(),
   servingsPerContainer: z
     .string()
     .optional()
@@ -214,7 +216,7 @@ function buildReviewMdx(d: {
   hidden?: boolean;
   retired?: boolean;
   retiredReason?: string;
-  price?: string;
+  price?: { in?: string; us?: string; uk?: string };
   servingsPerContainer?: number;
   dailyServings?: number;
   skinType: string[];
@@ -253,7 +255,12 @@ function buildReviewMdx(d: {
   if (d.hidden) lines.push(`hidden: true`);
   if (d.retired) lines.push(`retired: true`);
   if (d.retiredReason) lines.push(`retiredReason: ${yamlString(d.retiredReason)}`);
-  if (d.price) lines.push(`price: ${yamlString(d.price)}`);
+  if (d.price && (d.price.in || d.price.us || d.price.uk)) {
+    lines.push("price:");
+    if (d.price.in) lines.push(`  in: ${yamlString(d.price.in)}`);
+    if (d.price.us) lines.push(`  us: ${yamlString(d.price.us)}`);
+    if (d.price.uk) lines.push(`  uk: ${yamlString(d.price.uk)}`);
+  }
   if (typeof d.servingsPerContainer === "number")
     lines.push(`servingsPerContainer: ${d.servingsPerContainer}`);
   if (typeof d.dailyServings === "number")
@@ -338,7 +345,14 @@ function buildContentFromForm(d: z.infer<typeof reviewSchema>): string {
     hidden: d.hidden,
     retired: d.retired,
     retiredReason: d.retiredReason || undefined,
-    price: d.price || undefined,
+    price:
+      d.priceIn || d.priceUs || d.priceUk
+        ? {
+            in: d.priceIn || undefined,
+            us: d.priceUs || undefined,
+            uk: d.priceUk || undefined,
+          }
+        : undefined,
     servingsPerContainer: d.servingsPerContainer,
     dailyServings: d.dailyServings,
     skinType: d.kind === "skincare" ? parseList(d.skinType) : [],

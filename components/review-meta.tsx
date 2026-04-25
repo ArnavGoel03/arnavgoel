@@ -3,6 +3,7 @@ import type { BuyLink, Review } from "@/lib/types";
 import { affiliatize } from "@/lib/affiliate";
 import { formatCostPerDay } from "@/lib/cost";
 import { availabilityLabel, themeForRetailer } from "@/lib/retailers";
+import { hasAnyPrice, pricesByRegion, REGION_TAG } from "@/lib/price";
 import { cn } from "@/lib/utils";
 
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
@@ -130,7 +131,23 @@ export function ReviewMeta({ review }: { review: Review }) {
       <dl className="rounded-2xl border border-stone-200 bg-white p-6 dark:border-stone-800 dark:bg-stone-900">
         <Row label="Brand" value={review.brand} />
         <Row label="Category" value={<span className="capitalize">{review.category}</span>} />
-        {review.price && <Row label="Price" value={review.price} />}
+        {hasAnyPrice(review.price) && (
+          <Row
+            label="Pricing"
+            value={
+              <span className="flex flex-col items-end gap-0.5">
+                {pricesByRegion(review.price).map(({ region, value }) => (
+                  <span key={region} className="tabular-nums">
+                    <span>{value}</span>
+                    <span className="ml-1.5 text-[10px] font-normal uppercase tracking-[0.16em] text-stone-400 dark:text-stone-500">
+                      {REGION_TAG[region]}
+                    </span>
+                  </span>
+                ))}
+              </span>
+            }
+          />
+        )}
         {(() => {
           const cpd = formatCostPerDay(review);
           if (!cpd) return null;

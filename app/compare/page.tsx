@@ -6,6 +6,7 @@ import { parseCompareId, parseIdsParam } from "@/lib/compare";
 import { getReview } from "@/lib/content";
 import { formatCostPerDay } from "@/lib/cost";
 import { availabilityLabel } from "@/lib/retailers";
+import { pricesByRegion, REGION_TAG } from "@/lib/price";
 import type { Review } from "@/lib/types";
 
 export const metadata: Metadata = {
@@ -179,11 +180,28 @@ export default async function ComparePage({ searchParams }: Props) {
               </Row>
 
               <Row label="Price">
-                {reviews.map((r) => (
-                  <Cell key={`${r.kind}-${r.slug}-p`}>
-                    {r.price ?? dashEl()}
-                  </Cell>
-                ))}
+                {reviews.map((r) => {
+                  const prices = pricesByRegion(r.price);
+                  if (prices.length === 0) {
+                    return (
+                      <Cell key={`${r.kind}-${r.slug}-p`}>{dashEl()}</Cell>
+                    );
+                  }
+                  return (
+                    <Cell key={`${r.kind}-${r.slug}-p`}>
+                      <span className="flex flex-col gap-0.5 tabular-nums">
+                        {prices.map(({ region, value }) => (
+                          <span key={region}>
+                            <span>{value}</span>
+                            <span className="ml-1.5 text-[10px] font-normal uppercase tracking-[0.16em] text-stone-400 dark:text-stone-500">
+                              {REGION_TAG[region]}
+                            </span>
+                          </span>
+                        ))}
+                      </span>
+                    </Cell>
+                  );
+                })}
               </Row>
               <Row label="Cost / day">
                 {reviews.map((r) => {

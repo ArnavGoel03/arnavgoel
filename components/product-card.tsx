@@ -2,6 +2,7 @@ import Link from "next/link";
 import { VerdictPill } from "./verdict-pill";
 import { CompareToggle } from "./compare-bar";
 import { availabilityLabel, brandTextColor } from "@/lib/retailers";
+import { pricesByRegion } from "@/lib/price";
 import { toCompareId } from "@/lib/compare";
 import type { ReviewSummary } from "@/lib/types";
 
@@ -88,6 +89,24 @@ export function ProductCard({ review }: { review: ReviewSummary }) {
             Full review coming after a month of real use.
           </p>
         ) : null}
+        {(() => {
+          const prices = pricesByRegion(review.price);
+          if (prices.length === 0) return null;
+          return (
+            <p className="mt-2 flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-sm tabular-nums text-stone-700 dark:text-stone-300">
+              {prices.map(({ region, value }, i) => (
+                <span key={region} className="inline-flex items-baseline">
+                  {i > 0 && (
+                    <span aria-hidden className="mr-2 text-stone-300 dark:text-stone-600">
+                      ·
+                    </span>
+                  )}
+                  <span className="font-medium">{value}</span>
+                </span>
+              ))}
+            </p>
+          );
+        })()}
         {availability && (
           <p
             className={

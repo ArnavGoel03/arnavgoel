@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import type { Review } from "@/lib/types";
+import { pricesByRegion, REGION_TAG } from "@/lib/price";
 import { site } from "@/lib/site";
 
 export const OG_SIZE = { width: 1200, height: 630 };
@@ -28,6 +29,7 @@ export function reviewOgImage(review: Review) {
   const verdictLabel = verdict ? VERDICT_LABEL[verdict] : "Still testing";
   const verdictDot = verdict ? VERDICT_DOT[verdict] : "#fbbf24";
   const verdictText = verdict ? VERDICT_TEXT[verdict] : "#78716c";
+  const prices = pricesByRegion(review.price);
 
   return new ImageResponse(
     (
@@ -120,19 +122,44 @@ export function reviewOgImage(review: Review) {
               }}
             />
             <span>{verdictLabel}</span>
-            {review.price && (
+            {prices.length > 0 && (
               <>
                 <span style={{ color: "#d6d3d1", fontStyle: "normal" }}>·</span>
-                <span
+                <div
                   style={{
+                    display: "flex",
+                    alignItems: "baseline",
+                    gap: 14,
                     fontFamily: "ui-monospace, monospace",
                     fontStyle: "normal",
                     color: "#57534e",
                     fontSize: 28,
                   }}
                 >
-                  {review.price}
-                </span>
+                  {prices.map(({ region, value }, i) => (
+                    <div
+                      key={region}
+                      style={{ display: "flex", alignItems: "baseline", gap: 6 }}
+                    >
+                      {i > 0 && (
+                        <span style={{ color: "#d6d3d1" }}>·</span>
+                      )}
+                      <span>{value}</span>
+                      <span
+                        style={{
+                          fontFamily:
+                            "ui-sans-serif, -apple-system, system-ui, sans-serif",
+                          color: "#a8a29e",
+                          fontSize: 16,
+                          letterSpacing: 2,
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        {REGION_TAG[region]}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </>
             )}
           </div>

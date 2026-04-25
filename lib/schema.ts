@@ -12,7 +12,16 @@ export const reviewFrontmatter = z.object({
       tolerance: z.number().min(0).max(10).optional(),
     })
     .optional(),
-  price: z.string().optional(),
+  price: z
+    .union([
+      z.string(),
+      z.object({
+        in: z.string().optional(),
+        us: z.string().optional(),
+        uk: z.string().optional(),
+      }),
+    ])
+    .optional(),
   servingsPerContainer: z.number().positive().optional(),
   dailyServings: z.number().positive().optional(),
   skinType: z.array(z.string()).optional(),
