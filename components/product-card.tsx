@@ -16,27 +16,34 @@ export function ProductCard({ review }: { review: ReviewSummary }) {
       data-tour-listing="card"
       className="group relative flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white transition-all hover:-translate-y-0.5 hover:border-stone-400 hover:shadow-sm dark:border-stone-800 dark:bg-stone-900 dark:hover:border-stone-600"
     >
-      <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-stone-50 via-stone-50 to-stone-100 dark:from-stone-900 dark:via-stone-900 dark:to-stone-800">
+      <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-stone-50 via-stone-50 to-stone-100">
         {review.photo ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={review.photo}
-            alt={`${review.brand} ${review.name}`}
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-          />
+          // Always-cream photo well, in both light and dark themes.
+          // Product shots almost always come on white from the retailer,
+          // so a dark photo well would surround them with stark contrast.
+          // Keeping it cream regardless of theme reads as an intentional
+          // magazine "product spotlight" frame.
+          <div className="absolute inset-0 flex items-center justify-center p-5 sm:p-7">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={review.photo}
+              alt={`${review.brand} ${review.name}`}
+              className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-[1.03]"
+            />
+          </div>
         ) : (
           <>
-            {/* Big brand watermark, fills the image well when no photo */}
+            {/* Big brand watermark, fills the image well when no photo. */}
             <div className="absolute inset-0 flex items-center justify-center px-6">
-              <span className="text-center font-serif text-4xl leading-[0.95] tracking-tight text-stone-300/80 dark:text-stone-700/80 sm:text-5xl">
+              <span className="text-center font-serif text-4xl leading-[0.95] tracking-tight text-stone-300/80 sm:text-5xl">
                 {review.brand}
               </span>
             </div>
-            {/* Hairline cross corners, gives a "letterpress" hint */}
-            <span aria-hidden className="absolute left-3 top-3 h-3 w-3 border-l border-t border-stone-300/70 dark:border-stone-700/70" />
-            <span aria-hidden className="absolute right-3 top-3 h-3 w-3 border-r border-t border-stone-300/70 dark:border-stone-700/70" />
-            <span aria-hidden className="absolute bottom-3 left-3 h-3 w-3 border-b border-l border-stone-300/70 dark:border-stone-700/70" />
-            <span aria-hidden className="absolute bottom-3 right-3 h-3 w-3 border-b border-r border-stone-300/70 dark:border-stone-700/70" />
+            {/* Hairline cross corners, gives a "letterpress" hint. */}
+            <span aria-hidden className="absolute left-3 top-3 h-3 w-3 border-l border-t border-stone-300/70" />
+            <span aria-hidden className="absolute right-3 top-3 h-3 w-3 border-r border-t border-stone-300/70" />
+            <span aria-hidden className="absolute bottom-3 left-3 h-3 w-3 border-b border-l border-stone-300/70" />
+            <span aria-hidden className="absolute bottom-3 right-3 h-3 w-3 border-b border-r border-stone-300/70" />
           </>
         )}
         {/* Floating rating / pending badge in top-right */}

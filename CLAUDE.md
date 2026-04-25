@@ -29,6 +29,21 @@ If you're adding a review for an India-only or USA-only brand, do not invent ret
 
 The `lib/retailers.ts` file owns the host → retailer name + region map and the per-brand button color theme. Add new retailers there before you add their URLs to MDX.
 
+## Comprehensive market support is mandatory
+
+If you add support for a market, you support it **everywhere**. A market is not a checkbox you tick by adding a buy link, it is an audience that has to feel the site was built for them. That means, for every supported region (currently India / USA / UK):
+
+- **Buy links** in the right region array (`indiaLinks` / `westernLinks` / `ukLinks`)
+- **Local price** in `price.in` / `price.us` / `price.uk` with the correct currency symbol (₹ / $ / £)
+- **Retailer name + theme** in `lib/retailers.ts` for any retailer you introduce
+- **Region label + region detection** updated in `lib/retailers.ts` (INDIA_HOSTS / USA_HOSTS / UK_HOSTS, REGION_NAME, availabilityLabel)
+- **Affiliate template** (`AMAZON_*_TAG`, region affiliate template envs) wired or explicitly noted as pending
+- **Admin form** edit page exposes the new fields so the user can fill them in via `/admin`
+
+Half-coverage is worse than no coverage. A page that shows a `£` price next to an Amazon-US-only buy button reads as broken. If the data for a region truly does not exist (the product is genuinely unavailable there), leave the field empty and the existing `availabilityLabel()` callouts surface "USA only" / "India only" honestly. Never paper over a missing region with USD as a stand-in.
+
+The same rule applies to adding a *new* fourth market (Canada, EU, AUS): touch every layer above before shipping the first link.
+
 # Adding a review (precedence order)
 
 1. **Best**: user invokes the dashboard at `/admin` or `/admin/edit/{kind}/{slug}` and the form runs the `createReview` / `updateReview` server action which commits to GitHub.
