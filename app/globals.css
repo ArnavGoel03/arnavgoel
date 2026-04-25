@@ -294,21 +294,21 @@
     line-height: 1;
   }
 
-  /* Drop cap utility for editorial body copy. Apply to a paragraph's
-     class list (`<p class="prose-drop-cap">…`) for the magazine-style
-     oversized first letter. Pairs with Fraunces to keep the SOFT axis
-     vibe consistent with the rest of the display type. */
-  .prose-drop-cap::first-letter {
+  /* Drop cap. Wrapper class — apply to the prose container; the
+     drop cap lands on the first paragraph's first letter. Fraunces
+     SOFT 50 + lnum so the cap sits flush against the body copy with
+     proper optical alignment. */
+  .prose-with-drop-cap > p:first-of-type::first-letter {
     font-family: var(--font-display);
     font-weight: 300;
-    font-size: 4.25rem;
-    line-height: 0.85;
+    font-size: 4.5rem;
+    line-height: 0.82;
     float: left;
-    margin: 0.35rem 0.6rem 0 0;
+    margin: 0.32rem 0.65rem 0 -0.05rem;
     color: rgb(28 25 23);
     font-feature-settings: "ss01", "lnum";
   }
-  .dark .prose-drop-cap::first-letter {
+  .dark .prose-with-drop-cap > p:first-of-type::first-letter {
     color: rgb(245 245 244);
   }
 

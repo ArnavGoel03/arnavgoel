@@ -67,9 +67,25 @@ const mdxComponents = {
   },
 };
 
-export function MdxContent({ source }: { source: string }) {
+export function MdxContent({
+  source,
+  withDropCap = false,
+}: {
+  source: string;
+  /**
+   * When true, the first paragraph of the rendered MDX gets a serif
+   * drop cap. Off by default — only product detail pages opt in,
+   * since notes and primers benefit from a tighter intro density.
+   */
+  withDropCap?: boolean;
+}) {
   return (
-    <div className="prose prose-stone max-w-none prose-headings:font-serif prose-headings:font-normal prose-h2:mt-10 prose-h2:scroll-mt-28 prose-h2:text-2xl prose-h3:text-xl prose-h3:scroll-mt-28 prose-p:leading-relaxed prose-a:text-stone-900 prose-a:underline-offset-4 prose-strong:text-stone-900 dark:prose-invert dark:prose-a:text-stone-100 dark:prose-strong:text-stone-100">
+    <div
+      className={
+        "prose prose-stone max-w-none prose-headings:font-serif prose-headings:font-normal prose-h2:mt-10 prose-h2:scroll-mt-28 prose-h2:text-2xl prose-h3:text-xl prose-h3:scroll-mt-28 prose-p:leading-relaxed prose-a:text-stone-900 prose-a:underline-offset-4 prose-strong:text-stone-900 dark:prose-invert dark:prose-a:text-stone-100 dark:prose-strong:text-stone-100" +
+        (withDropCap ? " prose-with-drop-cap" : "")
+      }
+    >
       <MDXRemote
         source={source}
         options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}

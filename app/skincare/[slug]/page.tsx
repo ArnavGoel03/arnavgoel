@@ -101,7 +101,7 @@ export default async function SkincareReviewPage({ params }: Props) {
 
         <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_320px]">
           <div className="space-y-10">
-            <MdxContent source={review.body} />
+            <MdxContent source={review.body} withDropCap />
             <PhotoTimeline review={review} />
             <ProsCons pros={review.pros} cons={review.cons} />
           </div>
