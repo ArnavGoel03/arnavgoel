@@ -51,7 +51,10 @@ const nextConfig: NextConfig = {
           },
           {
             key: "Permissions-Policy",
-            value: "camera=(), microphone=(), geolocation=(), interest-cohort=()",
+            // microphone=(self) so /search can use the Web Speech API
+            // for voice queries; other powerful sensors stay denied.
+            value:
+              "camera=(), microphone=(self), geolocation=(), interest-cohort=()",
           },
           { key: "Content-Security-Policy", value: cspValue },
           {

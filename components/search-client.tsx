@@ -2,9 +2,38 @@
 
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { Search as SearchIcon } from "lucide-react";
+import { Mic, Search as SearchIcon } from "lucide-react";
 import type { SearchItem, SearchItemType } from "@/lib/search-index";
 import { cn } from "@/lib/utils";
+
+// Minimal SpeechRecognition typings. The DOM lib doesn't ship them; we
+// only touch the surface we use.
+type SpeechResult = { transcript: string };
+type SpeechRecognitionEvent = {
+  results: ArrayLike<ArrayLike<SpeechResult> & { isFinal: boolean }>;
+  resultIndex: number;
+};
+type SpeechRecognitionLike = {
+  lang: string;
+  continuous: boolean;
+  interimResults: boolean;
+  start: () => void;
+  stop: () => void;
+  abort: () => void;
+  onresult: ((e: SpeechRecognitionEvent) => void) | null;
+  onerror: ((e: unknown) => void) | null;
+  onend: (() => void) | null;
+};
+type SpeechRecognitionCtor = new () => SpeechRecognitionLike;
+
+function getSpeechRecognition(): SpeechRecognitionCtor | null {
+  if (typeof window === "undefined") return null;
+  const w = window as unknown as {
+    SpeechRecognition?: SpeechRecognitionCtor;
+    webkitSpeechRecognition?: SpeechRecognitionCtor;
+  };
+  return w.SpeechRecognition ?? w.webkitSpeechRecognition ?? null;
+}
 
 const TYPE_FILTERS: { id: "all" | SearchItemType; label: string }[] = [
   { id: "all", label: "All" },
@@ -29,8 +58,11 @@ function score(item: SearchItem, terms: string[]): number {
 export function SearchClient({ items }: { items: SearchItem[] }) {
   const [query, setQuery] = useState("");
   const [type, setType] = useState<"all" | SearchItemType>("all");
+  const [voiceSupported, setVoiceSupported] = useState(false);
+  const [listening, setListening] = useState(false);
   const deferred = useDeferredValue(query);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -48,6 +80,45 @@ export function SearchClient({ items }: { items: SearchItem[] }) {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
+
+  useEffect(() => {
+    setVoiceSupported(getSpeechRecognition() !== null);
+    return () => recognitionRef.current?.abort();
+  }, []);
+
+  function toggleVoice() {
+    if (listening) {
+      recognitionRef.current?.stop();
+      return;
+    }
+    const Ctor = getSpeechRecognition();
+    if (!Ctor) return;
+    const rec = new Ctor();
+    // Single utterance with live interim updates: feels closer to a
+    // dictation field than waiting for a final transcript at the end.
+    rec.lang = "en-US";
+    rec.continuous = false;
+    rec.interimResults = true;
+    rec.onresult = (e) => {
+      let transcript = "";
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        transcript += e.results[i][0].transcript;
+      }
+      setQuery(transcript.trim());
+    };
+    rec.onerror = () => setListening(false);
+    rec.onend = () => {
+      setListening(false);
+      recognitionRef.current = null;
+    };
+    recognitionRef.current = rec;
+    setListening(true);
+    try {
+      rec.start();
+    } catch {
+      setListening(false);
+    }
+  }
 
   const results = useMemo(() => {
     const terms = deferred
@@ -72,14 +143,43 @@ export function SearchClient({ items }: { items: SearchItem[] }) {
           ref={inputRef}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search reviews, primers, notes…"
-          className="w-full rounded-full border border-stone-200 bg-white py-4 pl-14 pr-5 font-serif text-xl italic text-stone-900 placeholder:text-stone-400 focus:border-stone-900 focus:outline-none dark:text-stone-100 dark:border-stone-800 dark:bg-stone-900"
+          placeholder={
+            listening ? "Listening…" : "Search reviews, primers, notes…"
+          }
+          className={cn(
+            "w-full rounded-full border bg-white py-4 pl-14 font-serif text-xl italic text-stone-900 placeholder:text-stone-400 focus:outline-none dark:text-stone-100 dark:bg-stone-900",
+            voiceSupported ? "pr-16" : "pr-5",
+            listening
+              ? "border-rose-400 dark:border-rose-400"
+              : "border-stone-200 focus:border-stone-900 dark:border-stone-800",
+          )}
           type="search"
           aria-label="Search"
         />
-        <kbd className="pointer-events-none absolute right-5 top-1/2 hidden -translate-y-1/2 rounded border border-stone-200 bg-stone-50 px-1.5 py-0.5 font-mono text-[10px] text-stone-500 sm:inline dark:text-stone-400 dark:border-stone-800 dark:bg-stone-900">
+        <kbd
+          className={cn(
+            "pointer-events-none absolute top-1/2 hidden -translate-y-1/2 rounded border border-stone-200 bg-stone-50 px-1.5 py-0.5 font-mono text-[10px] text-stone-500 sm:inline dark:text-stone-400 dark:border-stone-800 dark:bg-stone-900",
+            voiceSupported ? "right-16" : "right-5",
+          )}
+        >
           /
         </kbd>
+        {voiceSupported && (
+          <button
+            type="button"
+            onClick={toggleVoice}
+            aria-label={listening ? "Stop voice search" : "Start voice search"}
+            aria-pressed={listening}
+            className={cn(
+              "absolute right-3 top-1/2 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-full transition-colors",
+              listening
+                ? "bg-rose-500 text-white shadow-[0_0_0_4px_rgba(244,63,94,0.18)] animate-pulse"
+                : "text-stone-400 hover:bg-stone-100 hover:text-stone-700 dark:text-stone-500 dark:hover:bg-stone-800 dark:hover:text-stone-200",
+            )}
+          >
+            <Mic className="h-5 w-5" />
+          </button>
+        )}
       </div>
 
       <div className="flex flex-wrap gap-2 text-sm">
