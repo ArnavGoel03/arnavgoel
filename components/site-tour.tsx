@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 export type TourStep = {
@@ -16,9 +16,12 @@ function clamp(n: number, lo: number, hi: number) {
 
 /**
  * Generic tour UI. Walks a reader through an ordered list of steps,
- * anchoring a floating card and a pulsing ring to a target element for
- * each step. Portals to document.body so nothing in the page tree
- * clips it, positions are recomputed on scroll + resize.
+ * anchoring a floating card to a target element for each step and
+ * darkening + blurring everything outside the target so the eye lands
+ * on the spotlight. Portals to document.body so nothing in the page
+ * tree clips it; positions are recomputed on scroll + resize via rAF
+ * to avoid the per-event re-render jitter of the previous setTimeout
+ * implementation.
  */
 export function SiteTour({
   steps,
@@ -32,6 +35,7 @@ export function SiteTour({
   const [index, setIndex] = useState(0);
   const [rect, setRect] = useState<DOMRect | null>(null);
   const [viewport, setViewport] = useState({ w: 0, h: 0 });
+  const rafRef = useRef<number | null>(null);
 
   const step = steps[index];
 
@@ -45,26 +49,58 @@ export function SiteTour({
       setRect(null);
       return;
     }
-    el.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    const t = setTimeout(() => {
-      setRect(el.getBoundingClientRect());
-    }, 320);
-    return () => clearTimeout(t);
+    setRect(el.getBoundingClientRect());
   }, [step]);
 
+  // Scroll the target into view once per step change, then keep the
+  // rect synced via rAF for ~800ms so the smooth scroll has time to
+  // settle without us spamming setState on every animation frame
+  // forever.
+  useEffect(() => {
+    if (!step?.selector) {
+      setRect(null);
+      return;
+    }
+    const el = document.querySelector(step.selector) as HTMLElement | null;
+    if (!el) {
+      setRect(null);
+      return;
+    }
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+    const start = performance.now();
+    let frame: number;
+    const tick = () => {
+      setRect(el.getBoundingClientRect());
+      if (performance.now() - start < 800) {
+        frame = requestAnimationFrame(tick);
+      }
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [step]);
+
+  // rAF-batched scroll/resize syncing. Falls in line with the browser's
+  // paint cadence, kills the every-event re-render that produced the
+  // jitter the user reported.
   useEffect(() => {
     setViewport({ w: window.innerWidth, h: window.innerHeight });
+    const schedule = () => {
+      if (rafRef.current !== null) return;
+      rafRef.current = requestAnimationFrame(() => {
+        rafRef.current = null;
+        updateRect();
+      });
+    };
     const onResize = () => {
       setViewport({ w: window.innerWidth, h: window.innerHeight });
-      updateRect();
+      schedule();
     };
-    const onScroll = () => updateRect();
-    updateRect();
     window.addEventListener("resize", onResize);
-    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("scroll", schedule, { passive: true });
     return () => {
       window.removeEventListener("resize", onResize);
-      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("scroll", schedule);
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
     };
   }, [updateRect]);
 
@@ -109,17 +145,34 @@ export function SiteTour({
   let arrowDirection: "up" | "down" | null = null;
   let arrowOffsetPx = CARD_W / 2;
 
-  const highlightStyle: React.CSSProperties | null =
+  // Spotlight: a single fixed-position box at the target, with a giant
+  // box-shadow flooding everything outside. The transition keeps the
+  // box silky on step changes; pointer-events: none lets the user
+  // interact with the target through the visual mask.
+  const HIGHLIGHT_PADDING = 8;
+  const spotlightStyle: React.CSSProperties | null =
     rect && placement !== "center"
       ? {
           position: "fixed",
-          left: rect.left - 6,
-          top: rect.top - 6,
-          width: rect.width + 12,
-          height: rect.height + 12,
+          left: rect.left - HIGHLIGHT_PADDING,
+          top: rect.top - HIGHLIGHT_PADDING,
+          width: rect.width + HIGHLIGHT_PADDING * 2,
+          height: rect.height + HIGHLIGHT_PADDING * 2,
+          borderRadius: 14,
+          boxShadow: "0 0 0 9999px rgba(28, 25, 23, 0.55)",
+          transition:
+            "left 280ms cubic-bezier(0.22, 1, 0.36, 1), top 280ms cubic-bezier(0.22, 1, 0.36, 1), width 280ms cubic-bezier(0.22, 1, 0.36, 1), height 280ms cubic-bezier(0.22, 1, 0.36, 1)",
           pointerEvents: "none",
         }
       : null;
+  const ringStyle: React.CSSProperties | null = spotlightStyle
+    ? {
+        ...spotlightStyle,
+        boxShadow: "none",
+        outline: "1.5px solid rgba(251, 113, 133, 0.85)",
+        outlineOffset: 0,
+      }
+    : null;
 
   if (rect && placement === "bottom") {
     cardLeft = clamp(
@@ -174,24 +227,30 @@ export function SiteTour({
       aria-modal="true"
       aria-labelledby="tour-title"
     >
-      <button
-        type="button"
-        aria-label="Close tour"
-        onClick={() => finish(true)}
-        className="absolute inset-0 bg-stone-900/40 backdrop-blur-[2px] transition-opacity dark:bg-black/70"
-      />
-
-      {highlightStyle && (
+      {spotlightStyle ? (
         <>
-          <div
-            style={highlightStyle}
-            className="pointer-events-none rounded-xl ring-2 ring-rose-400 ring-offset-4 ring-offset-white transition-all duration-300 dark:ring-offset-stone-950"
+          {/* Transparent full-screen click-catcher. Sits below the
+              spotlight visually but receives clicks anywhere outside
+              the lit area to close the tour. The spotlight itself is
+              pointer-events:none so clicks at the target pass through
+              to the page. */}
+          <button
+            type="button"
+            aria-label="Close tour"
+            onClick={() => finish(true)}
+            className="absolute inset-0 cursor-default bg-transparent"
           />
-          <div
-            style={highlightStyle}
-            className="pointer-events-none animate-ping rounded-xl ring-2 ring-rose-400/70"
-          />
+          <div style={spotlightStyle} aria-hidden />
+          {ringStyle && <div style={ringStyle} aria-hidden />}
         </>
+      ) : (
+        // Center placement: no target, dim the whole screen with blur.
+        <button
+          type="button"
+          aria-label="Close tour"
+          onClick={() => finish(true)}
+          className="absolute inset-0 bg-stone-900/45 backdrop-blur-[2px] transition-opacity dark:bg-black/70"
+        />
       )}
 
       <div
