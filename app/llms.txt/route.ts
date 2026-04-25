@@ -41,6 +41,7 @@ export async function GET(): Promise<Response> {
     { kind: "hair-care" as const, label: "Hair care", path: "/hair-care" },
     { kind: "body-care" as const, label: "Body care", path: "/body-care" },
     { kind: "essentials" as const, label: "Essentials", path: "/essentials" },
+    { kind: "miscellaneous" as const, label: "Miscellaneous", path: "/miscellaneous" },
   ];
   for (const c of cats) {
     const items = getReviews(c.kind);

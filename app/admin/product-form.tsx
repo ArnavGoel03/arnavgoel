@@ -119,6 +119,7 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
                 { value: "hair-care", label: "Hair care" },
                 { value: "body-care", label: "Body care" },
                 { value: "essentials", label: "Essentials" },
+                { value: "miscellaneous", label: "Miscellaneous" },
               ] as const
             ).map((k) => (
               <button

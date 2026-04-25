@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { Menu, Search, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ChevronDown, Menu, Search, X } from "lucide-react";
 import { Container } from "./container";
 import { ThemeToggle } from "./theme-toggle";
 import { site } from "@/lib/site";
@@ -13,11 +13,12 @@ type NavItem = {
   label: string;
   tourId?: string;
   /**
-   * Nav weight controls which breakpoints reveal the link.
-   *   "primary"   — visible at lg+ (the five product categories,
+   * Nav weight controls which surface a link lives on.
+   *   "primary"   — visible inline at lg+ (the six product categories,
    *                 always present in the masthead).
-   *   "secondary" — joins primary at xl+; collapses into the mobile
-   *                 drawer below xl so the lg row stays uncluttered.
+   *   "secondary" — hidden on lg+ behind a single "More ▾" button so
+   *                 the masthead never looks overloaded. Mobile drawer
+   *                 (below lg) shows everything regardless.
    */
   weight: "primary" | "secondary";
 };
@@ -29,6 +30,7 @@ const nav: NavItem[] = [
   { href: "/hair-care", label: "Hair care", tourId: "tab-haircare", weight: "primary" },
   { href: "/body-care", label: "Body care", tourId: "tab-bodycare", weight: "primary" },
   { href: "/essentials", label: "Essentials", tourId: "tab-essentials", weight: "primary" },
+  { href: "/miscellaneous", label: "Miscellaneous", weight: "secondary" },
   { href: "/routine", label: "Routine", weight: "secondary" },
   { href: "/primers", label: "Primers", weight: "secondary" },
   { href: "/photos", label: "Photos", weight: "secondary" },
@@ -40,14 +42,14 @@ const nav: NavItem[] = [
 export function Header() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
+  const moreRef = useRef<HTMLDivElement>(null);
 
-  // Close the mobile menu on route change so it doesn't linger open
-  // after a nav tap.
   useEffect(() => {
     setMenuOpen(false);
+    setMoreOpen(false);
   }, [pathname]);
 
-  // Lock body scroll while the mobile menu is open.
   useEffect(() => {
     if (menuOpen) {
       const prev = document.body.style.overflow;
@@ -57,6 +59,33 @@ export function Header() {
       };
     }
   }, [menuOpen]);
+
+  // Click-outside + Escape to dismiss the More dropdown.
+  useEffect(() => {
+    if (!moreOpen) return;
+    function onClick(e: MouseEvent) {
+      if (moreRef.current && !moreRef.current.contains(e.target as Node)) {
+        setMoreOpen(false);
+      }
+    }
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setMoreOpen(false);
+    }
+    document.addEventListener("mousedown", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [moreOpen]);
+
+  const primaryItems = nav.filter((n) => n.weight === "primary");
+  const secondaryItems = nav.filter((n) => n.weight === "secondary");
+  const secondaryActive = secondaryItems.some(
+    (item) =>
+      pathname === item.href ||
+      (item.href !== "/" && pathname.startsWith(item.href)),
+  );
 
   return (
     <header className="sticky top-0 z-40 border-b border-stone-200/70 bg-white/80 backdrop-blur dark:border-stone-900/40 dark:bg-stone-950/80">
@@ -77,32 +106,20 @@ export function Header() {
         </Link>
 
         <div className="flex items-center gap-2 lg:gap-4">
-          {/* Desktop nav. Primary (5 product categories) shows at lg+;
-              secondary (Routine / Primers / Photos / Notes / Now /
-              About) joins at xl+. Below lg the hamburger menu carries
-              everything. */}
+          {/* Desktop nav: six product categories inline at lg+, plus a
+              single More ▾ trigger for the meta sections. The trigger is
+              the relief valve that keeps the masthead from spilling. */}
           <nav className="hidden items-center text-[11px] uppercase tracking-[0.16em] text-stone-500 lg:flex dark:text-stone-400">
-            {nav.map((item, i) => {
+            {primaryItems.map((item, i) => {
               const active =
                 pathname === item.href ||
                 (item.href !== "/" && pathname.startsWith(item.href));
-              const isSecondary = item.weight === "secondary";
               return (
-                <span
-                  key={item.href}
-                  className={
-                    isSecondary
-                      ? "hidden xl:inline-flex items-center"
-                      : "inline-flex items-center"
-                  }
-                >
+                <span key={item.href} className="inline-flex items-center">
                   {i > 0 && (
                     <span
                       aria-hidden
-                      className={
-                        "text-stone-300 dark:text-stone-700 " +
-                        (isSecondary ? "mx-3 hidden xl:inline" : "mx-3")
-                      }
+                      className="mx-3 text-stone-300 dark:text-stone-700"
                     >
                       ·
                     </span>
@@ -123,18 +140,62 @@ export function Header() {
                 </span>
               );
             })}
-            {/* "More" link visible only at lg (hidden at xl when the
-                secondary items appear inline). Routes to /about as a
-                catch-all landing for the smaller meta sections. */}
-            <span className="ml-3 inline-flex items-center xl:hidden">
-              <span aria-hidden className="mr-3 text-stone-300 dark:text-stone-700">·</span>
-              <Link
-                href="/about"
-                className="whitespace-nowrap py-1 text-stone-400 transition-colors hover:text-stone-900 dark:text-stone-500 dark:hover:text-stone-100"
-              >
-                More →
-              </Link>
+            <span
+              aria-hidden
+              className="mx-3 text-stone-300 dark:text-stone-700"
+            >
+              ·
             </span>
+            <div ref={moreRef} className="relative inline-flex items-center">
+              <button
+                type="button"
+                onClick={() => setMoreOpen((v) => !v)}
+                aria-haspopup="menu"
+                aria-expanded={moreOpen}
+                className={
+                  "inline-flex items-center gap-1 whitespace-nowrap py-1 transition-colors " +
+                  (secondaryActive || moreOpen
+                    ? "text-stone-900 dark:text-stone-100"
+                    : "hover:text-stone-900 dark:hover:text-stone-100")
+                }
+              >
+                More
+                <ChevronDown
+                  className={
+                    "h-3 w-3 transition-transform " +
+                    (moreOpen ? "rotate-180" : "")
+                  }
+                />
+              </button>
+              {moreOpen && (
+                <div
+                  role="menu"
+                  className="absolute right-0 top-full z-50 mt-2 min-w-[180px] origin-top-right rounded-xl border border-stone-200 bg-white py-2 shadow-lg dark:border-stone-800 dark:bg-stone-950"
+                >
+                  {secondaryItems.map((item) => {
+                    const active =
+                      pathname === item.href ||
+                      (item.href !== "/" && pathname.startsWith(item.href));
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        role="menuitem"
+                        aria-current={active ? "page" : undefined}
+                        className={
+                          "block px-4 py-2 text-[11px] uppercase tracking-[0.16em] transition-colors " +
+                          (active
+                            ? "text-rose-600 dark:text-rose-400"
+                            : "text-stone-600 hover:bg-stone-50 hover:text-stone-900 dark:text-stone-400 dark:hover:bg-stone-900 dark:hover:text-stone-100")
+                        }
+                      >
+                        {item.label}
+                      </Link>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           </nav>
 
           <button

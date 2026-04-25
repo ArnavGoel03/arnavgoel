@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-const VALID_KINDS: Kind[] = ["skincare", "supplements", "oral-care", "hair-care", "body-care", "essentials"];
+const VALID_KINDS: Kind[] = ["skincare", "supplements", "oral-care", "hair-care", "body-care", "essentials", "miscellaneous"];
 
 type Props = { params: Promise<{ kind: string; slug: string }> };
 

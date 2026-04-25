@@ -36,12 +36,45 @@ export default async function RoutinePage({ params }: Props) {
   const routine = slug as RoutineSlug;
   const items = getReviewsInRoutine(routine);
 
-  const skincare = items.filter((r) => r.kind === "skincare");
+  // Application order for skincare: cleanse → exfoliate → tone →
+  // treat → moisturize → protect. The list view should read top-down
+  // as the literal sequence the products are applied, with a step
+  // number on each row so the order is obvious without prose.
+  const SKINCARE_ORDER: Record<string, number> = {
+    "face wash": 10,
+    cleanser: 11,
+    "chemical exfoliant": 20,
+    "chemical peel": 21,
+    "face scrub": 22,
+    dermaplaning: 23,
+    tool: 24,
+    "face mask": 30,
+    "sheet mask": 31,
+    toner: 40,
+    patches: 50,
+    serum: 60,
+    prescription: 70,
+    "eye cream": 80,
+    moisturizer: 90,
+    aftershave: 95,
+    "lip scrub": 96,
+    "lip balm": 97,
+    sunscreen: 100,
+  };
+  const skincare = items
+    .filter((r) => r.kind === "skincare")
+    .sort(
+      (a, b) =>
+        (SKINCARE_ORDER[a.category] ?? 999) -
+        (SKINCARE_ORDER[b.category] ?? 999),
+    );
   const supplements = items.filter((r) => r.kind === "supplements");
   const oralCare = items.filter((r) => r.kind === "oral-care");
   const hairCare = items.filter((r) => r.kind === "hair-care");
   const bodyCare = items.filter((r) => r.kind === "body-care");
   const essentials = items.filter((r) => r.kind === "essentials");
+  const miscellaneous = items.filter((r) => r.kind === "miscellaneous");
+  const numberSteps = routine === "morning" || routine === "evening";
 
   return (
     <Container className="max-w-3xl py-12 sm:py-16">
@@ -76,7 +109,16 @@ export default async function RoutinePage({ params }: Props) {
       ) : (
         <div className="mt-12 space-y-10">
           {skincare.length > 0 && (
-            <Section label="Skincare" items={skincare} />
+            <Section
+              label="Skincare"
+              items={skincare}
+              numbered={numberSteps}
+              caption={
+                numberSteps
+                  ? "In application order. Each step waits ~30 seconds before the next."
+                  : undefined
+              }
+            />
           )}
           {supplements.length > 0 && (
             <Section label="Supplements" items={supplements} />
@@ -93,6 +135,9 @@ export default async function RoutinePage({ params }: Props) {
           {essentials.length > 0 && (
             <Section label="Essentials" items={essentials} />
           )}
+          {miscellaneous.length > 0 && (
+            <Section label="Miscellaneous" items={miscellaneous} />
+          )}
         </div>
       )}
     </Container>
@@ -102,22 +147,41 @@ export default async function RoutinePage({ params }: Props) {
 function Section({
   label,
   items,
+  numbered = false,
+  caption,
 }: {
   label: string;
   items: ReturnType<typeof getReviewsInRoutine>;
+  numbered?: boolean;
+  caption?: string;
 }) {
   return (
     <section>
-      <h2 className="mb-4 border-b border-stone-200 pb-2 font-display text-3xl font-light tracking-tight text-stone-900 dark:text-stone-100 dark:border-stone-800">
-        {label}
-      </h2>
+      <div className="mb-4 flex items-baseline justify-between gap-3 border-b border-stone-200 pb-2 dark:border-stone-800">
+        <h2 className="font-display text-3xl font-light tracking-tight text-stone-900 dark:text-stone-100">
+          {label}
+        </h2>
+        {caption && (
+          <p className="hidden text-[10px] uppercase tracking-[0.2em] text-stone-500 sm:block dark:text-stone-400">
+            {caption}
+          </p>
+        )}
+      </div>
       <ol className="divide-y divide-stone-100 dark:divide-stone-800">
-        {items.map((r) => (
+        {items.map((r, i) => (
           <li key={`${r.kind}-${r.slug}`} className="py-4">
             <Link
               href={`/${r.kind}/${r.slug}`}
               className="group flex items-center gap-4"
             >
+              {numbered && (
+                <span
+                  aria-hidden
+                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-stone-300 bg-white font-mono text-[11px] tabular-nums text-stone-500 transition-colors group-hover:border-rose-300 group-hover:text-rose-600 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-400 dark:group-hover:border-rose-700 dark:group-hover:text-rose-400"
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+              )}
               {/* Thumbnail. Real photo when present, else a serif brand
                   monogram on a stone tile, so every row reads visually
                   rather than as a wall of text. */}

@@ -22,8 +22,9 @@ export default function HomePage() {
   const hairCareCount = getReviews("hair-care").length;
   const bodyCareCount = getReviews("body-care").length;
   const essentialsCount = getReviews("essentials").length;
+  const miscellaneousCount = getReviews("miscellaneous").length;
   const totalReviews =
-    skincareCount + supplementsCount + oralCareCount + hairCareCount + bodyCareCount + essentialsCount;
+    skincareCount + supplementsCount + oralCareCount + hairCareCount + bodyCareCount + essentialsCount + miscellaneousCount;
   const notesCount = getNotes().length;
   const photosCount = photos.length;
   // Hero strip stats: every value comes from the actual content set so
@@ -194,10 +195,11 @@ export default function HomePage() {
             { index: 3, href: "/oral-care", eyebrow: `${oralCareCount} reviews`, title: "Oral care", description: "Electric brushes, pastes, mouthwash, for teeth, breath, and gums." },
             { index: 4, href: "/hair-care", eyebrow: `${hairCareCount} reviews`, title: "Hair care", description: "Conditioners, masks, treatments, what lives in the shower for hair, scalp, and ends." },
             { index: 5, href: "/body-care", eyebrow: `${bodyCareCount} reviews`, title: "Body care", description: "Body washes, lotions, scrubs, trimmers, the everyday cleanse-and-moisturise from the neck down." },
-            { index: 6, href: "/essentials", eyebrow: `${essentialsCount} reviews`, title: "Essentials", description: "Random utility objects from daily life: chargers, laundry bags, the small things that earn or fail their shelf space." },
-            { index: 7, href: "/photos", eyebrow: `${photosCount} photos`, title: "Photos", description: "DSLR shots from wherever I happened to be carrying the camera." },
-            { index: 8, href: "/notes", eyebrow: `${notesCount} entries`, title: "Notes", description: "Slow writing, essays, stray thoughts, half-formed ideas." },
-            { index: 9, href: "/now", eyebrow: "this month", title: "Now", description: "What I'm currently working on, listening to, thinking about, and consciously not doing." },
+            { index: 6, href: "/essentials", eyebrow: `${essentialsCount} reviews`, title: "Essentials", description: "Cornerstone daily-life devices: laptop, earbuds, wearable, charger, water filter, fan. The pieces I'd replace within a week if they broke." },
+            { index: 7, href: "/miscellaneous", eyebrow: `${miscellaneousCount} reviews`, title: "Miscellaneous", description: "Random utility objects, gadgets, accessories. The smaller things that earn or fail their shelf space." },
+            { index: 8, href: "/photos", eyebrow: `${photosCount} photos`, title: "Photos", description: "DSLR shots from wherever I happened to be carrying the camera." },
+            { index: 9, href: "/notes", eyebrow: `${notesCount} entries`, title: "Notes", description: "Slow writing, essays, stray thoughts, half-formed ideas." },
+            { index: 10, href: "/now", eyebrow: "this month", title: "Now", description: "What I'm currently working on, listening to, thinking about, and consciously not doing." },
           ].map((tile, i) => (
             <div
               key={tile.href}

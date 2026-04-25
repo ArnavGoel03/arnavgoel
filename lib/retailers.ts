@@ -289,6 +289,12 @@ const BRAND_TEXT_COLOR: Record<string, string> = {
   "NIKE": "text-stone-900 dark:text-stone-100",
   "Ghirardelli": "text-amber-800 dark:text-amber-500",
   "Bumble and bumble.": "text-yellow-600 dark:text-yellow-400",
+  "L3": "text-stone-800 dark:text-stone-200",
+  "Generic": "text-stone-500 dark:text-stone-400",
+  "FANCOLE": "text-stone-700 dark:text-stone-300",
+  "CERETIA": "text-stone-700 dark:text-stone-300",
+  "FADOTY": "text-stone-700 dark:text-stone-300",
+  "Urbanstrive": "text-stone-700 dark:text-stone-300",
 };
 
 const DEFAULT_BRAND_COLOR = "text-stone-500 dark:text-stone-400";

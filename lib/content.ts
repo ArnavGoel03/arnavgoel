@@ -61,12 +61,32 @@ function sortPhotoFirst<T extends { photo?: string }>(list: T[]): T[] {
 }
 
 /**
+ * Verdict-tier sort. Surfaces what the author actually endorses at the
+ * top of each listing, then okay-ish picks, then anything still under
+ * test, then the "tried and rejected" tail. Stable, so date-desc and
+ * photo-first ordering survive inside each verdict tier.
+ */
+const VERDICT_RANK: Record<string, number> = {
+  recommend: 0,
+  okay: 1,
+  bad: 3,
+};
+
+function sortByVerdict<T extends { verdict?: string }>(list: T[]): T[] {
+  return [...list].sort((a, b) => {
+    const ra = a.verdict ? VERDICT_RANK[a.verdict] ?? 2 : 2;
+    const rb = b.verdict ? VERDICT_RANK[b.verdict] ?? 2 : 2;
+    return ra - rb;
+  });
+}
+
+/**
  * Public-facing listings exclude any review with `hidden: true` in its
  * frontmatter. The `/admin` dashboard uses `getAllReviewsIncludingHidden()` so
  * the author can still toggle them back on.
  */
 export function getReviews(kind: Kind): ReviewSummary[] {
-  return sortPhotoFirst(sortByDateDesc(readReviews(kind)))
+  return sortByVerdict(sortPhotoFirst(sortByDateDesc(readReviews(kind))))
     .filter((r) => !r.hidden && !r.retired)
     .map(({ body: _body, ...rest }) => rest);
 }
@@ -79,6 +99,7 @@ export function getRetiredReviews(): ReviewSummary[] {
     ...readReviews("hair-care"),
     ...readReviews("body-care"),
     ...readReviews("essentials"),
+    ...readReviews("miscellaneous"),
   ])
     .filter((r) => r.retired && !r.hidden)
     .map(({ body: _body, ...rest }) => rest);
@@ -96,6 +117,7 @@ export function getAllReviews(): ReviewSummary[] {
     ...getReviews("hair-care"),
     ...getReviews("body-care"),
     ...getReviews("essentials"),
+    ...getReviews("miscellaneous"),
   ]);
 }
 

@@ -48,7 +48,7 @@ const ALLOWED_UPLOAD_TYPES = new Set([
 ]);
 
 const reviewSchema = z.object({
-  kind: z.enum(["skincare", "supplements", "oral-care", "hair-care", "body-care", "essentials"]),
+  kind: z.enum(["skincare", "supplements", "oral-care", "hair-care", "body-care", "essentials", "miscellaneous"]),
   name: z.string().trim().min(1, "required"),
   brand: z.string().trim().min(1, "required"),
   category: z.string().trim().min(1, "required"),

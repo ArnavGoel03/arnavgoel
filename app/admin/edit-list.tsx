@@ -9,6 +9,7 @@ const SECTIONS: { kind: Kind; label: string }[] = [
   { kind: "hair-care", label: "Hair care" },
   { kind: "body-care", label: "Body care" },
   { kind: "essentials", label: "Essentials" },
+  { kind: "miscellaneous", label: "Miscellaneous" },
 ];
 
 function verdictDisplay(review: ReviewSummary): string {
