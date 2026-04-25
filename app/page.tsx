@@ -224,18 +224,18 @@ export default function HomePage() {
             description="DSLR shots from wherever I happened to be carrying the camera."
           />
           <SectionTile
-            index={6}
+            index={7}
             href="/notes"
             eyebrow={`${notesCount} entries`}
             title="Notes"
             description="Slow writing, essays, stray thoughts, half-formed ideas."
           />
           <SectionTile
-            index={7}
+            index={8}
             href="/now"
             eyebrow="this month"
             title="Now"
-            description="What I'm currently reading, taking, listening to, and thinking about."
+            description="What I'm currently working on, listening to, thinking about, and consciously not doing."
           />
         </div>
       </Container>
