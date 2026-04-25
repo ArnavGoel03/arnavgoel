@@ -15,9 +15,9 @@ const DOTS: Record<Verdict, string> = {
 };
 
 const TEXT: Record<Verdict, string> = {
-  recommend: "text-emerald-700",
-  okay: "text-amber-700",
-  bad: "text-rose-700",
+  recommend: "text-emerald-700 dark:text-emerald-400",
+  okay: "text-amber-700 dark:text-amber-400",
+  bad: "text-rose-700 dark:text-rose-400",
 };
 
 export function VerdictPill({
