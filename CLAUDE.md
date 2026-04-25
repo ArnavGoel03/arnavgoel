@@ -15,6 +15,14 @@ The signature mark across the site is a small rose ❋ glyph; it appears in the 
 - The rules in `/about` are real. A review that sounds like a paid placement breaks the site's whole premise.
 - Do not invent the user's experience. When the user says "add this product, I use it" without supplying details, write a plausible review and explicitly disclose in your reply that the specifics (dosing schedule, weeks-to-effect, repurchase decision) are inferred and need their confirmation.
 
+# One product, one card
+
+Never create two listings for what is fundamentally the same product. **Same brand + same active compound = one MDX file**, no matter how many flavors, sizes, or pack counts I have bought.
+
+- **Flavor variants** (Cola vs Lemon, Cookies & Cream vs Vanilla) → one listing. Mention both in the body and add separate `changelog` entries with the purchase dates so the rotation is visible.
+- **Size / count variants** (60 ct vs 90 ct vs 180 ct, 1 kg vs 2 kg) → one listing. Multiple `indiaLinks` / `westernLinks` entries with the retailer name disambiguating the size, e.g. `{ retailer: "Amazon (90 ct)", url: ... }`. The Nutricost magnesium glycinate review already does this; copy that pattern.
+- **Different active stack from the same brand IS a different product** (Carbamide Forte "Calcium-Mag-Zinc + D3 K2" and Carbamide Forte "Calcium + D3 K2 + B12" share Ca/D3/K2 but the rest of the actives are not the same, so they get separate listings). When in doubt, ask before consolidating, splitting later is fine, merging later loses changelog history.
+
 # Regional retailer handling
 
 The site has buy links for three regions: India, USA, UK (`indiaLinks`, `westernLinks`, `ukLinks` in frontmatter, yes, the field is named `westernLinks` for legacy reasons; it means USA).
