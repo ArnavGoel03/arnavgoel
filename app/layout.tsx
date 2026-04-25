@@ -9,6 +9,7 @@ import { themeInitScript } from "@/components/theme-toggle";
 import { CompareProvider } from "@/components/compare-bar";
 import { CommandPaletteMount } from "@/components/command-palette-mount";
 import { SiteTourMount } from "@/components/site-tour-mount";
+import { BackToTop } from "@/components/back-to-top";
 import { site } from "@/lib/site";
 
 const inter = Inter({
@@ -121,6 +122,7 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
           <CommandPaletteMount />
+          <BackToTop />
           {/* Suspense wrap is required because SiteTourMount calls
               useSearchParams(); without it, static prerender of /404
               bails and the whole build fails. */}
