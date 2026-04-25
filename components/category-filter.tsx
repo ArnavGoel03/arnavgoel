@@ -263,9 +263,21 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
       </div>
 
       {filtered.length === 0 ? (
-        <p className="py-16 text-center text-stone-500 dark:text-stone-400">
-          Nothing matches that filter.
-        </p>
+        <div className="py-20 text-center">
+          <p className="font-display text-7xl font-light leading-none tracking-tight text-stone-200 dark:text-stone-800">
+            00
+          </p>
+          <p className="mt-4 font-serif text-lg italic text-stone-500 dark:text-stone-400">
+            Nothing matches that filter.
+          </p>
+          <button
+            type="button"
+            onClick={resetAll}
+            className="mt-5 inline-flex items-center gap-1 rounded-full border border-stone-200 px-4 py-1.5 text-xs uppercase tracking-[0.18em] text-stone-600 transition-colors hover:border-stone-900 hover:text-stone-900 dark:border-stone-800 dark:text-stone-300 dark:hover:border-stone-400 dark:hover:text-stone-100"
+          >
+            Reset filters
+          </button>
+        </div>
       ) : (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((r, i) => (
