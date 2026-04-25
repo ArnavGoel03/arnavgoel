@@ -5,6 +5,7 @@ import { put } from "@vercel/blob";
 import { auth } from "@/auth";
 import { commitRepoFile, readRepoFile } from "@/lib/github";
 import { retailerForUrl } from "@/lib/retailers";
+import { restoreBlob, softDeleteBlob } from "@/lib/trash";
 
 /**
  * Belt-and-braces auth guard: middleware already blocks unauthenticated
@@ -14,6 +15,13 @@ import { retailerForUrl } from "@/lib/retailers";
  * being fully signed-out: the action refuses to run.
  */
 async function requireAdmin(): Promise<string | null> {
+  // Kill switch: setting ADMIN_DISABLED=1 in Vercel (or .env.local)
+  // disables every write action regardless of session, with no code
+  // change required. Use it as a panic button if admin is ever
+  // suspected compromised.
+  if (process.env.ADMIN_DISABLED === "1") {
+    return "Admin is currently disabled. Contact the site owner.";
+  }
   const session = await auth();
   const email = session?.user?.email?.toLowerCase() ?? null;
   if (!email) return "Not authorized. Sign in at /admin/login.";
@@ -472,6 +480,68 @@ export async function uploadProductImage(
       contentType: file.type || undefined,
     });
     return { ok: true, url: blob.url };
+  } catch (err) {
+    return { ok: false, error: (err as Error).message };
+  }
+}
+
+function isOurBlobUrl(url: string): boolean {
+  try {
+    return new URL(url)
+      .hostname.toLowerCase()
+      .endsWith(".public.blob.vercel-storage.com");
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Soft-delete a previously-uploaded product image. The asset is moved
+ * to a __trash/<deletedAt-iso>__<originalKey> location in Blob, where
+ * a daily cron will physically delete it after a 30-day grace window.
+ * Until then it's restorable from /admin/trash.
+ *
+ * Returns the new (trash) URL so the admin UI can stash it for an
+ * undo flow. Locked to our Blob host so a stray call can't be turned
+ * into an arbitrary URL fetcher.
+ */
+export async function deleteProductImage(
+  url: string,
+): Promise<{ ok: boolean; trashUrl?: string; error?: string }> {
+  const authError = await requireAdmin();
+  if (authError) return { ok: false, error: authError };
+  if (!url) return { ok: false, error: "No URL provided." };
+  if (!isOurBlobUrl(url)) {
+    return {
+      ok: false,
+      error: "Only Vercel Blob URLs can be moved to trash from here.",
+    };
+  }
+  try {
+    const { trashUrl } = await softDeleteBlob(url);
+    return { ok: true, trashUrl };
+  } catch (err) {
+    return { ok: false, error: (err as Error).message };
+  }
+}
+
+/**
+ * Restore a previously soft-deleted asset back to its original
+ * pathname. Returns the restored public URL so the admin UI can put it
+ * straight back into the form.
+ */
+export async function restoreProductImage(
+  trashUrl: string,
+): Promise<{ ok: boolean; publicUrl?: string; error?: string }> {
+  const authError = await requireAdmin();
+  if (authError) return { ok: false, error: authError };
+  if (!trashUrl) return { ok: false, error: "No URL provided." };
+  if (!isOurBlobUrl(trashUrl)) {
+    return { ok: false, error: "Only Vercel Blob URLs can be restored." };
+  }
+  try {
+    const { publicUrl } = await restoreBlob(trashUrl);
+    return { ok: true, publicUrl };
   } catch (err) {
     return { ok: false, error: (err as Error).message };
   }

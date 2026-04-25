@@ -14,13 +14,21 @@ import { photos } from "@/lib/photos";
 
 export default function HomePage() {
   const recentNotes = getNotes().slice(0, 4);
-  const recentReviews = getAllReviews().slice(0, 3);
+  const allReviews = getAllReviews();
+  const recentReviews = allReviews.slice(0, 3);
   const skincareCount = getReviews("skincare").length;
   const supplementsCount = getReviews("supplements").length;
   const oralCareCount = getReviews("oral-care").length;
   const totalReviews = skincareCount + supplementsCount + oralCareCount;
   const notesCount = getNotes().length;
   const photosCount = photos.length;
+  // Hero strip stats: every value comes from the actual content set so
+  // the line stays honest as the catalog grows. No more hardcoded
+  // "0 sponsored / ∞ unfiltered" placeholders.
+  const recommendCount = allReviews.filter(
+    (r) => r.verdict === "recommend",
+  ).length;
+  const testingCount = allReviews.filter((r) => !r.verdict).length;
 
   return (
     <>
@@ -56,7 +64,9 @@ export default function HomePage() {
               {site.bio}
             </p>
 
-            {/* Trust strip, newsstand-style */}
+            {/* Trust strip, newsstand-style. All counts derive from the
+                live content set, so the line stays accurate as products
+                are added or move between verdict states. */}
             <div
               data-tour="stats"
               className="mt-10 flex flex-wrap items-baseline gap-x-8 gap-y-3 border-y border-stone-200 py-5 dark:border-stone-800"
@@ -71,18 +81,18 @@ export default function HomePage() {
               </div>
               <div className="flex items-baseline gap-2">
                 <span className="font-display text-2xl font-light tabular-nums text-stone-900 dark:text-stone-100">
-                  0
+                  {recommendCount}
                 </span>
                 <span className="text-[10px] uppercase tracking-[0.18em] text-stone-500 dark:text-stone-400">
-                  sponsored
+                  recommend
                 </span>
               </div>
               <div className="flex items-baseline gap-2">
                 <span className="font-display text-2xl font-light tabular-nums text-stone-900 dark:text-stone-100">
-                  ∞
+                  {testingCount}
                 </span>
                 <span className="text-[10px] uppercase tracking-[0.18em] text-stone-500 dark:text-stone-400">
-                  unfiltered opinions
+                  still testing
                 </span>
               </div>
             </div>

@@ -104,13 +104,30 @@ function Section({
           <li key={`${r.kind}-${r.slug}`} className="py-4">
             <Link
               href={`/${r.kind}/${r.slug}`}
-              className="group flex items-baseline justify-between gap-4"
+              className="group flex items-center gap-4"
             >
+              {/* Thumbnail. Real photo when present, else a serif brand
+                  monogram on a stone tile, so every row reads visually
+                  rather than as a wall of text. */}
+              <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg border border-stone-200 bg-stone-50 dark:border-stone-800 dark:bg-stone-800 sm:h-20 sm:w-20">
+                {r.photo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={r.photo}
+                    alt={`${r.brand} ${r.name}`}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                  />
+                ) : (
+                  <span className="absolute inset-0 flex items-center justify-center font-serif text-xl text-stone-300 dark:text-stone-600">
+                    {r.brand.charAt(0)}
+                  </span>
+                )}
+              </div>
               <div className="min-w-0 flex-1">
                 <p className="text-[10px] uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500">
                   {r.brand} · {r.category}
                 </p>
-                <h3 className="mt-0.5 font-serif text-lg text-stone-900 transition-colors group-hover:text-rose-700 dark:text-stone-100">
+                <h3 className="mt-0.5 font-serif text-lg text-stone-900 transition-colors group-hover:text-rose-700 dark:text-stone-100 dark:group-hover:text-rose-400">
                   {r.name}
                 </h3>
               </div>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { LogOut } from "lucide-react";
+import Link from "next/link";
+import { LogOut, Trash2 } from "lucide-react";
 import { Container } from "@/components/container";
 import { PageHeading } from "@/components/page-heading";
 import { AdminTabs } from "./tabs";
@@ -41,15 +42,24 @@ export default async function AdminPage() {
                 <span className="font-medium text-stone-900">{email}</span>
               </span>
             </div>
-            <form action={doSignOut}>
-              <button
-                type="submit"
+            <div className="flex items-center gap-2">
+              <Link
+                href="/admin/trash"
                 className="inline-flex items-center gap-1.5 rounded-full border border-stone-200 px-3 py-1 text-xs text-stone-600 transition-colors hover:border-stone-900 hover:text-stone-900"
               >
-                <LogOut className="h-3 w-3" />
-                Sign out
-              </button>
-            </form>
+                <Trash2 className="h-3 w-3" />
+                Trash
+              </Link>
+              <form action={doSignOut}>
+                <button
+                  type="submit"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-stone-200 px-3 py-1 text-xs text-stone-600 transition-colors hover:border-stone-900 hover:text-stone-900"
+                >
+                  <LogOut className="h-3 w-3" />
+                  Sign out
+                </button>
+              </form>
+            </div>
           </div>
         )}
         <AdminTabs editList={<EditList />} />

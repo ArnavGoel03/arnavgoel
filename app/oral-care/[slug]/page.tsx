@@ -17,6 +17,7 @@ import { RelatedPrimers } from "@/components/related-primers";
 import { PrevNext } from "@/components/prev-next";
 import { CopyLink } from "@/components/copy-link";
 import { ReadingProgress } from "@/components/reading-progress";
+import { ProductHeroPhoto } from "@/components/product-hero-photo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -88,6 +89,8 @@ export default async function OralCareReviewPage({ params }: Props) {
             </p>
           )}
         </header>
+
+        <ProductHeroPhoto review={review} />
 
         <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_320px]">
           <div className="space-y-10">
