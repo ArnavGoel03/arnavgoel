@@ -47,12 +47,26 @@ function sortByDateDesc<T extends { datePublished: string }>(list: T[]): T[] {
 }
 
 /**
+ * Stable lift of photoed reviews to the top of the list. Visual grid
+ * reads as a portfolio when the cards with real product shots come
+ * first; the watermark-only cards form a quieter tail. Pair this after
+ * sortByDateDesc so the within-group order stays "recent first."
+ */
+function sortPhotoFirst<T extends { photo?: string }>(list: T[]): T[] {
+  return [...list].sort((a, b) => {
+    const ap = a.photo ? 0 : 1;
+    const bp = b.photo ? 0 : 1;
+    return ap - bp;
+  });
+}
+
+/**
  * Public-facing listings exclude any review with `hidden: true` in its
  * frontmatter. The `/admin` dashboard uses `getAllReviewsIncludingHidden()` so
  * the author can still toggle them back on.
  */
 export function getReviews(kind: Kind): ReviewSummary[] {
-  return sortByDateDesc(readReviews(kind))
+  return sortPhotoFirst(sortByDateDesc(readReviews(kind)))
     .filter((r) => !r.hidden && !r.retired)
     .map(({ body: _body, ...rest }) => rest);
 }
