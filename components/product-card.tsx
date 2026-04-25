@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { VerdictPill } from "./verdict-pill";
 import { CompareToggle } from "./compare-bar";
-import { availabilityLabel } from "@/lib/retailers";
+import { availabilityLabel, brandTextColor } from "@/lib/retailers";
 import { toCompareId } from "@/lib/compare";
 import type { ReviewSummary } from "@/lib/types";
 
@@ -24,11 +24,15 @@ export function ProductCard({ review }: { review: ReviewSummary }) {
           // Keeping it cream regardless of theme reads as an intentional
           // magazine "product spotlight" frame.
           <div className="absolute inset-0 flex items-center justify-center p-5 sm:p-7">
+            {/* mix-blend-multiply makes the source white background blend
+                into the cream well, so the product silhouette floats
+                cleanly on the card instead of sitting on a hard
+                rectangle. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={review.photo}
               alt={`${review.brand} ${review.name}`}
-              className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-[1.03]"
+              className="h-full w-full object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-[1.03]"
             />
           </div>
         ) : (
@@ -58,7 +62,12 @@ export function ProductCard({ review }: { review: ReviewSummary }) {
 
       <div className="flex flex-1 flex-col gap-2 p-5">
         <div className="flex items-center justify-between gap-3">
-          <span className="text-[11px] uppercase tracking-[0.18em] text-stone-500 dark:text-stone-400">
+          <span
+            className={
+              "text-[11px] font-medium uppercase tracking-[0.18em] " +
+              brandTextColor(review.brand)
+            }
+          >
             {review.brand}
           </span>
           <span className="text-[10px] uppercase tracking-wider text-stone-400 dark:text-stone-500">

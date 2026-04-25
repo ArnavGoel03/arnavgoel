@@ -8,6 +8,7 @@ import { ReviewMeta } from "@/components/review-meta";
 import { RatingAxes } from "@/components/rating-axes";
 import { ReviewChangelog } from "@/components/review-changelog";
 import { Breadcrumb } from "@/components/breadcrumb";
+import { brandTextColor } from "@/lib/retailers";
 import { ProsCons } from "@/components/pros-cons";
 import { PhotoTimeline } from "@/components/photo-timeline";
 import { MdxContent } from "@/components/mdx-content";
@@ -74,8 +75,14 @@ export default async function SkincareReviewPage({ params }: Props) {
         </div>
 
         <header className="mt-8 border-b border-stone-200 pb-10 dark:border-stone-800">
-          <p className="mb-3 text-xs uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400">
-            {review.brand} · {review.category}
+          <p className="mb-3 text-xs uppercase tracking-[0.2em]">
+            <span className={"font-medium " + brandTextColor(review.brand)}>
+              {review.brand}
+            </span>
+            <span className="text-stone-400 dark:text-stone-500">
+              {" "}
+              · {review.category}
+            </span>
           </p>
           <div className="flex items-start justify-between gap-6">
             <h1 className="font-serif text-4xl leading-tight text-stone-900 dark:text-stone-100 sm:text-5xl">

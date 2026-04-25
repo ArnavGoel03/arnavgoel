@@ -163,6 +163,57 @@ export function themeForRetailer(name: string): {
   return RETAILER_THEME[name] ?? DEFAULT_THEME;
 }
 
+/**
+ * Brand → accent text color (Tailwind class), used to color the brand
+ * eyebrow on product cards / detail pages so each card carries the
+ * brand's visual identity at a glance. Same content-color philosophy
+ * as the retailer button themes above: not part of site chrome (which
+ * stays rose+stone) but a derived signal from the product itself.
+ *
+ * If a brand isn't listed, we fall back to neutral stone so missing
+ * entries fail safely instead of breaking the layout.
+ */
+const BRAND_TEXT_COLOR: Record<string, string> = {
+  // Skincare
+  "La Roche-Posay": "text-sky-700 dark:text-sky-400",
+  "TIRTIR": "text-red-600 dark:text-red-400",
+  "BAIMEI": "text-emerald-600 dark:text-emerald-400",
+  "Mighty Patch": "text-amber-600 dark:text-amber-400",
+  "Hero Cosmetics": "text-amber-600 dark:text-amber-400",
+  "Anua": "text-emerald-700 dark:text-emerald-400",
+  "Beauty of Joseon": "text-rose-500 dark:text-rose-300",
+  "Caudalie": "text-emerald-700 dark:text-emerald-400",
+  "The Ordinary": "text-stone-800 dark:text-stone-200",
+  "CeraVe": "text-blue-700 dark:text-blue-400",
+  "Cetaphil": "text-blue-700 dark:text-blue-400",
+  "Paula's Choice": "text-fuchsia-700 dark:text-fuchsia-400",
+  "Skin1004": "text-emerald-600 dark:text-emerald-400",
+  // Supplements
+  "Nutricost": "text-blue-700 dark:text-blue-400",
+  "Sports Research": "text-orange-600 dark:text-orange-400",
+  "Magtein": "text-violet-600 dark:text-violet-400",
+  "Myprotein": "text-red-600 dark:text-red-400",
+  "Optimum Nutrition": "text-yellow-600 dark:text-yellow-400",
+  "Thorne": "text-stone-700 dark:text-stone-300",
+  "Earthful": "text-emerald-700 dark:text-emerald-400",
+  "Naturaltein": "text-emerald-600 dark:text-emerald-400",
+  "DistaUSA": "text-stone-600 dark:text-stone-400",
+  "Viva Naturals": "text-green-700 dark:text-green-400",
+  "MuscleBlaze": "text-orange-600 dark:text-orange-400",
+  // Oral care
+  "Oral-B": "text-blue-700 dark:text-blue-400",
+  "Sensodyne": "text-cyan-700 dark:text-cyan-400",
+  "Listerine": "text-amber-600 dark:text-amber-400",
+  "Colgate": "text-red-600 dark:text-red-400",
+  "Philips Sonicare": "text-cyan-700 dark:text-cyan-400",
+};
+
+const DEFAULT_BRAND_COLOR = "text-stone-500 dark:text-stone-400";
+
+export function brandTextColor(brand: string): string {
+  return BRAND_TEXT_COLOR[brand] ?? DEFAULT_BRAND_COLOR;
+}
+
 const INDIA_HOSTS = [
   "amazon.in",
   "nykaa.com",
