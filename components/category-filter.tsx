@@ -25,12 +25,75 @@ const SORT_OPTIONS: { id: SortKey; label: string }[] = [
   { id: "cost-per-day", label: "Cost / day" },
 ];
 
+// Short URL keys keep the query string compact when the user shares a
+// link. `c` for category, `sort`, `region`, `brand`, `ing` for
+// ingredient. Defaults are omitted entirely so a clean URL stays
+// clean.
+const URL_KEY = {
+  category: "c",
+  sort: "sort",
+  region: "region",
+  brand: "brand",
+  ingredient: "ing",
+} as const;
+
+const VALID_SORTS = new Set<SortKey>([
+  "recent",
+  "verdict",
+  "price",
+  "cost-per-day",
+]);
+const VALID_REGIONS = new Set<RegionFilter>(["all", "india", "usa", "uk"]);
+
 export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
   const [active, setActive] = useState<string>("all");
   const [sort, setSort] = useState<SortKey>("recent");
   const [region, setRegion] = useState<RegionFilter>("all");
   const [ingredient, setIngredient] = useState<string>("all");
   const [brand, setBrand] = useState<string>("all");
+  const hydratedRef = useRef(false);
+
+  // Hydrate filter state from the URL on mount, so a shared
+  // /skincare?region=usa&sort=price link lands the reader on exactly
+  // that filtered view. Only runs once; subsequent state changes are
+  // pushed back out via the next effect.
+  useEffect(() => {
+    const sp = new URLSearchParams(window.location.search);
+    const c = sp.get(URL_KEY.category);
+    const s = sp.get(URL_KEY.sort);
+    const r = sp.get(URL_KEY.region);
+    const b = sp.get(URL_KEY.brand);
+    const ing = sp.get(URL_KEY.ingredient);
+    if (c) setActive(c);
+    if (s && VALID_SORTS.has(s as SortKey)) setSort(s as SortKey);
+    if (r && VALID_REGIONS.has(r as RegionFilter)) {
+      setRegion(r as RegionFilter);
+    }
+    if (b) setBrand(b);
+    if (ing) setIngredient(ing);
+    hydratedRef.current = true;
+  }, []);
+
+  // Push filter state to the URL whenever it changes. Use
+  // history.replaceState so we don't pollute the browser back-button
+  // with one entry per chip click. Default values stay out of the URL
+  // so a clean view has a clean URL.
+  useEffect(() => {
+    if (!hydratedRef.current) return;
+    const sp = new URLSearchParams();
+    if (active !== "all") sp.set(URL_KEY.category, active);
+    if (sort !== "recent") sp.set(URL_KEY.sort, sort);
+    if (region !== "all") sp.set(URL_KEY.region, region);
+    if (brand !== "all") sp.set(URL_KEY.brand, brand);
+    if (ingredient !== "all") sp.set(URL_KEY.ingredient, ingredient);
+    const qs = sp.toString();
+    const next = qs
+      ? `${window.location.pathname}?${qs}${window.location.hash}`
+      : `${window.location.pathname}${window.location.hash}`;
+    if (next !== window.location.pathname + window.location.search + window.location.hash) {
+      window.history.replaceState(null, "", next);
+    }
+  }, [active, sort, region, brand, ingredient]);
 
   const categories = useMemo(() => {
     const set = new Set(reviews.map((r) => r.category));
