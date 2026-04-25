@@ -293,7 +293,6 @@ const BRAND_TEXT_COLOR: Record<string, string> = {
   "Generic": "text-stone-500 dark:text-stone-400",
   "FANCOLE": "text-stone-700 dark:text-stone-300",
   "CERETIA": "text-stone-700 dark:text-stone-300",
-  "FADOTY": "text-stone-700 dark:text-stone-300",
   "Urbanstrive": "text-stone-700 dark:text-stone-300",
 };
 

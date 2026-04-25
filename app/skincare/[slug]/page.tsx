@@ -10,6 +10,7 @@ import { ReviewChangelog } from "@/components/review-changelog";
 import { Breadcrumb } from "@/components/breadcrumb";
 import { brandTextColor } from "@/lib/retailers";
 import { ProsCons } from "@/components/pros-cons";
+import { ReaderNote } from "@/components/reader-note";
 import { PhotoTimeline } from "@/components/photo-timeline";
 import { MdxContent } from "@/components/mdx-content";
 import { ReviewJsonLd } from "@/components/json-ld";
@@ -105,6 +106,7 @@ export default async function SkincareReviewPage({ params }: Props) {
             <MdxContent source={review.body} withDropCap />
             <PhotoTimeline review={review} />
             <ProsCons pros={review.pros} cons={review.cons} />
+            <ReaderNote kind="skincare" slug={review.slug} />
           </div>
           <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
             <TocNav body={review.body} />

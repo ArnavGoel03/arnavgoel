@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { LogOut, Trash2 } from "lucide-react";
+import { Inbox, LogOut, Trash2 } from "lucide-react";
 import { Container } from "@/components/container";
 import { PageHeading } from "@/components/page-heading";
 import { AdminTabs } from "./tabs";
@@ -43,6 +43,13 @@ export default async function AdminPage() {
               </span>
             </div>
             <div className="flex items-center gap-2">
+              <Link
+                href="/admin/inbox"
+                className="inline-flex items-center gap-1.5 rounded-full border border-stone-200 px-3 py-1 text-xs text-stone-600 transition-colors hover:border-stone-900 hover:text-stone-900"
+              >
+                <Inbox className="h-3 w-3" />
+                Inbox
+              </Link>
               <Link
                 href="/admin/trash"
                 className="inline-flex items-center gap-1.5 rounded-full border border-stone-200 px-3 py-1 text-xs text-stone-600 transition-colors hover:border-stone-900 hover:text-stone-900"
