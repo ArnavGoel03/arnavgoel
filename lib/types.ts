@@ -1,4 +1,9 @@
-export type Kind = "skincare" | "supplements" | "oral-care" | "hair-care";
+export type Kind =
+  | "skincare"
+  | "supplements"
+  | "oral-care"
+  | "hair-care"
+  | "body-care";
 
 export interface BuyLink {
   retailer: string;
@@ -37,7 +42,7 @@ export interface Review {
   dailyServings?: number;
   skinType?: string[];
   goal?: string[];
-  routines: ("morning" | "evening" | "stack")[];
+  routines: ("morning" | "evening" | "stack" | "shower")[];
   photo?: string;
   photoTimeline: { date: string; src: string; note?: string }[];
   boughtFromUrl?: string;

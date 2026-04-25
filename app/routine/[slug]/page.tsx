@@ -13,7 +13,7 @@ import {
 
 type Props = { params: Promise<{ slug: string }> };
 
-const VALID: RoutineSlug[] = ["morning", "evening", "stack"];
+const VALID: RoutineSlug[] = ["morning", "evening", "stack", "shower"];
 
 export async function generateStaticParams() {
   return getRoutinesList().map((slug) => ({ slug }));
@@ -39,6 +39,8 @@ export default async function RoutinePage({ params }: Props) {
   const skincare = items.filter((r) => r.kind === "skincare");
   const supplements = items.filter((r) => r.kind === "supplements");
   const oralCare = items.filter((r) => r.kind === "oral-care");
+  const hairCare = items.filter((r) => r.kind === "hair-care");
+  const bodyCare = items.filter((r) => r.kind === "body-care");
 
   return (
     <Container className="max-w-3xl py-12 sm:py-16">
@@ -80,6 +82,12 @@ export default async function RoutinePage({ params }: Props) {
           )}
           {oralCare.length > 0 && (
             <Section label="Oral care" items={oralCare} />
+          )}
+          {hairCare.length > 0 && (
+            <Section label="Hair care" items={hairCare} />
+          )}
+          {bodyCare.length > 0 && (
+            <Section label="Body care" items={bodyCare} />
           )}
         </div>
       )}

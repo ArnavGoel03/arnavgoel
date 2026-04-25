@@ -15,7 +15,8 @@ export function parseCompareId(id: CompareId): { kind: Kind; slug: string } | nu
     kind !== "skincare" &&
     kind !== "supplements" &&
     kind !== "oral-care" &&
-    kind !== "hair-care"
+    kind !== "hair-care" &&
+    kind !== "body-care"
   )
     return null;
   return { kind: kind as Kind, slug };

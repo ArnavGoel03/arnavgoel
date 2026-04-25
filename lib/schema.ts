@@ -27,7 +27,7 @@ export const reviewFrontmatter = z.object({
   skinType: z.array(z.string()).optional(),
   goal: z.array(z.string()).optional(),
   routines: z
-    .array(z.enum(["morning", "evening", "stack"]))
+    .array(z.enum(["morning", "evening", "stack", "shower"]))
     .default([]),
   photo: z.string().optional(),
   photoTimeline: z

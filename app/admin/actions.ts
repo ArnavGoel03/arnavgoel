@@ -48,7 +48,7 @@ const ALLOWED_UPLOAD_TYPES = new Set([
 ]);
 
 const reviewSchema = z.object({
-  kind: z.enum(["skincare", "supplements", "oral-care", "hair-care"]),
+  kind: z.enum(["skincare", "supplements", "oral-care", "hair-care", "body-care"]),
   name: z.string().trim().min(1, "required"),
   brand: z.string().trim().min(1, "required"),
   category: z.string().trim().min(1, "required"),
@@ -118,8 +118,9 @@ const reviewSchema = z.object({
     .optional()
     .transform((v) => {
       const arr = v === undefined ? [] : Array.isArray(v) ? v : [v];
-      return arr.filter((s): s is "morning" | "evening" | "stack" =>
-        s === "morning" || s === "evening" || s === "stack",
+      return arr.filter(
+        (s): s is "morning" | "evening" | "stack" | "shower" =>
+          s === "morning" || s === "evening" || s === "stack" || s === "shower",
       );
     }),
   photo: z.string().trim().optional(),
@@ -221,7 +222,7 @@ function buildReviewMdx(d: {
   dailyServings?: number;
   skinType: string[];
   goal: string[];
-  routines: ("morning" | "evening" | "stack")[];
+  routines: ("morning" | "evening" | "stack" | "shower")[];
   photo?: string;
   boughtFromUrl?: string;
   indiaLinks: { retailer: string; url: string }[];
@@ -321,7 +322,7 @@ export type ActionState = {
   error?: string;
   message?: string;
   slug?: string;
-  kind?: "skincare" | "supplements" | "oral-care" | "hair-care";
+  kind?: "skincare" | "supplements" | "oral-care" | "hair-care" | "body-care";
   path?: string;
 };
 

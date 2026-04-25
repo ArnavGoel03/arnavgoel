@@ -16,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${site.url}/supplements`, lastModified: now, priority: 0.8 },
     { url: `${site.url}/oral-care`, lastModified: now, priority: 0.8 },
     { url: `${site.url}/hair-care`, lastModified: now, priority: 0.8 },
+    { url: `${site.url}/body-care`, lastModified: now, priority: 0.8 },
     { url: `${site.url}/primers`, lastModified: now, priority: 0.8 },
     { url: `${site.url}/issue`, lastModified: now, priority: 0.7 },
     { url: `${site.url}/routine`, lastModified: now, priority: 0.8 },
@@ -49,7 +50,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     if (v === "bad") return 0.5;
     return 0.55; // still testing
   };
-  const reviewRoutes: MetadataRoute.Sitemap = (["skincare", "supplements", "oral-care", "hair-care"] as const).flatMap(
+  const reviewRoutes: MetadataRoute.Sitemap = (["skincare", "supplements", "oral-care", "hair-care", "body-care"] as const).flatMap(
     (kind) =>
       getReviews(kind).map((r) => ({
         url: `${site.url}/${kind}/${r.slug}`,

@@ -5,7 +5,7 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Now",
-  description: `What ${site.shortName} is working on, reading, and thinking about right now.`,
+  description: `What ${site.shortName} is working on, listening to, and thinking about right now.`,
   alternates: { canonical: "/now" },
 };
 
@@ -14,9 +14,8 @@ const lastUpdated = "2026-04-23";
 const sections = [
   { num: "01", label: "Working on" },
   { num: "02", label: "Listening to" },
-  { num: "03", label: "Reading" },
-  { num: "04", label: "Thinking about" },
-  { num: "05", label: "Not doing" },
+  { num: "03", label: "Thinking about" },
+  { num: "04", label: "Not doing" },
 ] as const;
 
 function NumberedHeading({ num, label }: { num: string; label: string }) {
@@ -94,16 +93,6 @@ export default function NowPage() {
         <section>
           <NumberedHeading num={sections[2].num} label={sections[2].label} />
           <ul className="space-y-3 text-stone-700 dark:text-stone-300">
-            <li>Somewhere in the middle of a few books.</li>
-            <li className="text-stone-400 italic dark:text-stone-500">
-              (placeholder, replace with current reads)
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <NumberedHeading num={sections[3].num} label={sections[3].label} />
-          <ul className="space-y-3 text-stone-700 dark:text-stone-300">
             <li>
               How to make software that feels quiet, that does its job and
               gets out of the way.
@@ -113,7 +102,7 @@ export default function NowPage() {
         </section>
 
         <section>
-          <NumberedHeading num={sections[4].num} label={sections[4].label} />
+          <NumberedHeading num={sections[3].num} label={sections[3].label} />
           <ul className="space-y-3 text-stone-700 dark:text-stone-300">
             <li>
               Anything involving LeetCode grinds. Anything that doesn&apos;t

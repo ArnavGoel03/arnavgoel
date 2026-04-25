@@ -53,7 +53,7 @@ function Optional() {
 
 export type ProductFormInitial = {
   slug: string;
-  kind: "skincare" | "supplements" | "oral-care" | "hair-care";
+  kind: "skincare" | "supplements" | "oral-care" | "hair-care" | "body-care";
   name: string;
   brand: string;
   category: string;
@@ -67,7 +67,7 @@ export type ProductFormInitial = {
   dailyServings?: number;
   skinType?: string[];
   goal?: string[];
-  routines?: ("morning" | "evening" | "stack")[];
+  routines?: ("morning" | "evening" | "stack" | "shower")[];
   photo?: string;
   boughtFromUrl?: string;
   indiaLinks?: { retailer: string; url: string }[];
@@ -89,7 +89,7 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
     null,
   );
   const [kind, setKind] = useState<
-    "skincare" | "supplements" | "oral-care" | "hair-care"
+    "skincare" | "supplements" | "oral-care" | "hair-care" | "body-care"
   >(initial?.kind ?? "skincare");
   const [brand, setBrand] = useState(initial?.brand ?? "");
   const [name, setName] = useState(initial?.name ?? "");
@@ -117,6 +117,7 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
                 { value: "supplements", label: "Supplements" },
                 { value: "oral-care", label: "Oral care" },
                 { value: "hair-care", label: "Hair care" },
+                { value: "body-care", label: "Body care" },
               ] as const
             ).map((k) => (
               <button
@@ -506,7 +507,7 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
             Routines <Optional />
           </span>
           <div className="flex flex-wrap gap-4 pt-2 text-sm text-stone-700">
-            {(["morning", "evening", "stack"] as const).map((r) => (
+            {(["morning", "evening", "stack", "shower"] as const).map((r) => (
               <label key={r} className="flex items-center gap-1.5 capitalize">
                 <input
                   type="checkbox"
