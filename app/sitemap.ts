@@ -27,6 +27,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${site.url}/compare`, lastModified: now, priority: 0.4 },
     { url: `${site.url}/links`, lastModified: now, priority: 0.7 },
     { url: `${site.url}/subscribe`, lastModified: now, priority: 0.6 },
+    { url: `${site.url}/uses`, lastModified: now, priority: 0.7 },
+    { url: `${site.url}/colophon`, lastModified: now, priority: 0.5 },
+    { url: `${site.url}/reading`, lastModified: now, priority: 0.7 },
+    { url: `${site.url}/watching`, lastModified: now, priority: 0.7 },
+    { url: `${site.url}/glossary`, lastModified: now, priority: 0.7 },
+    { url: `${site.url}/routine-simulator`, lastModified: now, priority: 0.7 },
+    { url: `${site.url}/best-of/2026`, lastModified: now, priority: 0.8 },
   ];
   const routineRoutes: MetadataRoute.Sitemap = [
     ...getRoutinesList().map((r) => ({

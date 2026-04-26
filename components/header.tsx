@@ -32,11 +32,18 @@ const nav: NavItem[] = [
   { href: "/essentials", label: "Essentials", tourId: "tab-essentials", weight: "primary" },
   { href: "/routine", label: "Routine", weight: "primary" },
   { href: "/miscellaneous", label: "Miscellaneous", weight: "secondary" },
+  { href: "/routine-simulator", label: "Routine simulator", weight: "secondary" },
   { href: "/primers", label: "Primers", weight: "secondary" },
+  { href: "/glossary", label: "Glossary", weight: "secondary" },
+  { href: "/best-of/2026", label: "Best of 2026", weight: "secondary" },
   { href: "/photos", label: "Photos", weight: "secondary" },
+  { href: "/reading", label: "Reading", weight: "secondary" },
+  { href: "/watching", label: "Watching", weight: "secondary" },
   { href: "/notes", label: "Notes", weight: "secondary" },
   { href: "/now", label: "Now", weight: "secondary" },
+  { href: "/uses", label: "Uses", weight: "secondary" },
   { href: "/about", label: "About", weight: "secondary" },
+  { href: "/colophon", label: "Colophon", weight: "secondary" },
 ];
 
 export function Header() {
