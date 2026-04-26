@@ -64,13 +64,6 @@ export function Footer() {
           </a>
           <span className="text-stone-300 dark:text-stone-700">·</span>
           <a
-            href="/retired"
-            className="transition-colors hover:text-stone-700 dark:hover:text-stone-200"
-          >
-            Retired
-          </a>
-          <span className="text-stone-300 dark:text-stone-700">·</span>
-          <a
             href="/links"
             className="transition-colors hover:text-stone-700 dark:hover:text-stone-200"
           >

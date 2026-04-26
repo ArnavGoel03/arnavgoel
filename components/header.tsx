@@ -8,19 +8,32 @@ import { Container } from "./container";
 import { ThemeToggle } from "./theme-toggle";
 import { site } from "@/lib/site";
 
+type NavGroup = "tools" | "personal" | "meta";
+
 type NavItem = {
   href: string;
   label: string;
   tourId?: string;
   /**
-   * Nav weight controls which surface a link lives on.
-   *   "primary"   — visible inline at lg+ (the six product categories,
-   *                 always present in the masthead).
-   *   "secondary" — hidden on lg+ behind a single "More ▾" button so
-   *                 the masthead never looks overloaded. Mobile drawer
+   * Nav weight controls the surface a link lives on:
+   *   "primary"   — visible inline at lg+ (six product categories +
+   *                 Routine, always present in the masthead).
+   *   "secondary" — hidden behind a single "More ▾" button on lg+ so
+   *                 the masthead never overflows. Mobile drawer
    *                 (below lg) shows everything regardless.
+   *
+   * Secondary items also carry a `group` so the More dropdown reads
+   * as three labeled clusters (Tools / Personal / Meta) instead of a
+   * flat list of 14 things.
    */
   weight: "primary" | "secondary";
+  group?: NavGroup;
+};
+
+const GROUP_LABEL: Record<NavGroup, string> = {
+  tools: "Tools",
+  personal: "Personal",
+  meta: "Meta",
 };
 
 const nav: NavItem[] = [
@@ -31,20 +44,26 @@ const nav: NavItem[] = [
   { href: "/body-care", label: "Body care", tourId: "tab-bodycare", weight: "primary" },
   { href: "/essentials", label: "Essentials", tourId: "tab-essentials", weight: "primary" },
   { href: "/routine", label: "Routine", weight: "primary" },
-  { href: "/miscellaneous", label: "Miscellaneous", weight: "secondary" },
-  { href: "/routine-builder", label: "Routine builder", weight: "secondary" },
-  { href: "/routine-simulator", label: "Routine simulator", weight: "secondary" },
-  { href: "/primers", label: "Primers", weight: "secondary" },
-  { href: "/glossary", label: "Glossary", weight: "secondary" },
-  { href: "/best-of/2026", label: "Best of 2026", weight: "secondary" },
-  { href: "/photos", label: "Photos", weight: "secondary" },
-  { href: "/reading", label: "Reading", weight: "secondary" },
-  { href: "/watching", label: "Watching", weight: "secondary" },
-  { href: "/notes", label: "Notes", weight: "secondary" },
-  { href: "/now", label: "Now", weight: "secondary" },
-  { href: "/uses", label: "Uses", weight: "secondary" },
-  { href: "/about", label: "About", weight: "secondary" },
-  { href: "/colophon", label: "Colophon", weight: "secondary" },
+
+  // Tools — interactive, builders, references.
+  { href: "/routine-builder", label: "Routine builder", weight: "secondary", group: "tools" },
+  { href: "/routine-simulator", label: "Routine simulator", weight: "secondary", group: "tools" },
+  { href: "/glossary", label: "Glossary", weight: "secondary", group: "tools" },
+  { href: "/primers", label: "Primers", weight: "secondary", group: "tools" },
+  { href: "/miscellaneous", label: "Miscellaneous", weight: "secondary", group: "tools" },
+
+  // Personal — voice and life surfaces.
+  { href: "/library", label: "Library", weight: "secondary", group: "personal" },
+  { href: "/photos", label: "Photos", weight: "secondary", group: "personal" },
+  { href: "/now", label: "Now", weight: "secondary", group: "personal" },
+  { href: "/uses", label: "Uses", weight: "secondary", group: "personal" },
+
+  // Meta — about the site itself.
+  { href: "/best-of/2026", label: "Best of 2026", weight: "secondary", group: "meta" },
+  { href: "/notes", label: "Notes", weight: "secondary", group: "meta" },
+  { href: "/issue", label: "Archive", weight: "secondary", group: "meta" },
+  { href: "/about", label: "About", weight: "secondary", group: "meta" },
+  { href: "/colophon", label: "Colophon", weight: "secondary", group: "meta" },
 ];
 
 export function Header() {
@@ -68,7 +87,6 @@ export function Header() {
     }
   }, [menuOpen]);
 
-  // Click-outside + Escape to dismiss the More dropdown.
   useEffect(() => {
     if (!moreOpen) return;
     function onClick(e: MouseEvent) {
@@ -95,6 +113,15 @@ export function Header() {
       (item.href !== "/" && pathname.startsWith(item.href)),
   );
 
+  // Group secondary items, preserving order within each group.
+  const groupOrder: NavGroup[] = ["tools", "personal", "meta"];
+  const grouped = groupOrder
+    .map((g) => ({
+      group: g,
+      items: secondaryItems.filter((s) => s.group === g),
+    }))
+    .filter((g) => g.items.length > 0);
+
   return (
     <header className="sticky top-0 z-40 border-b border-stone-200/70 bg-white/80 backdrop-blur dark:border-stone-900/40 dark:bg-stone-950/80">
       <Container className="flex h-16 items-center justify-between gap-6">
@@ -114,9 +141,6 @@ export function Header() {
         </Link>
 
         <div className="flex items-center gap-2 lg:gap-4">
-          {/* Desktop nav: six product categories inline at lg+, plus a
-              single More ▾ trigger for the meta sections. The trigger is
-              the relief valve that keeps the masthead from spilling. */}
           <nav className="hidden items-center text-[11px] uppercase tracking-[0.16em] text-stone-500 lg:flex dark:text-stone-400">
             {primaryItems.map((item, i) => {
               const active =
@@ -178,29 +202,40 @@ export function Header() {
               {moreOpen && (
                 <div
                   role="menu"
-                  className="absolute right-0 top-full z-50 mt-2 min-w-[180px] origin-top-right rounded-xl border border-stone-200 bg-white py-2 shadow-lg dark:border-stone-800 dark:bg-stone-950"
+                  className="absolute right-0 top-full z-50 mt-2 grid origin-top-right grid-cols-1 gap-x-6 gap-y-2 rounded-xl border border-stone-200 bg-white p-3 shadow-lg sm:grid-cols-3 dark:border-stone-800 dark:bg-stone-950"
+                  style={{ minWidth: 480 }}
                 >
-                  {secondaryItems.map((item) => {
-                    const active =
-                      pathname === item.href ||
-                      (item.href !== "/" && pathname.startsWith(item.href));
-                    return (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        role="menuitem"
-                        aria-current={active ? "page" : undefined}
-                        className={
-                          "block px-4 py-2 text-[11px] uppercase tracking-[0.16em] transition-colors " +
-                          (active
-                            ? "text-rose-600 dark:text-rose-400"
-                            : "text-stone-600 hover:bg-stone-50 hover:text-stone-900 dark:text-stone-400 dark:hover:bg-stone-900 dark:hover:text-stone-100")
-                        }
-                      >
-                        {item.label}
-                      </Link>
-                    );
-                  })}
+                  {grouped.map(({ group, items }) => (
+                    <section key={group} className="min-w-[140px]">
+                      <p className="mb-1 px-2 pt-1 font-mono text-[9px] uppercase tracking-[0.22em] text-stone-400 dark:text-stone-500">
+                        {GROUP_LABEL[group]}
+                      </p>
+                      <ul className="space-y-0">
+                        {items.map((item) => {
+                          const active =
+                            pathname === item.href ||
+                            (item.href !== "/" && pathname.startsWith(item.href));
+                          return (
+                            <li key={item.href}>
+                              <Link
+                                href={item.href}
+                                role="menuitem"
+                                aria-current={active ? "page" : undefined}
+                                className={
+                                  "block rounded-md px-2 py-1.5 text-[11px] uppercase tracking-[0.16em] transition-colors " +
+                                  (active
+                                    ? "text-rose-600 dark:text-rose-400"
+                                    : "text-stone-600 hover:bg-stone-50 hover:text-stone-900 dark:text-stone-400 dark:hover:bg-stone-900 dark:hover:text-stone-100")
+                                }
+                              >
+                                {item.label}
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </section>
+                  ))}
                 </div>
               )}
             </div>
@@ -235,7 +270,6 @@ export function Header() {
             <ThemeToggle />
           </div>
 
-          {/* Mobile menu trigger, hides at lg */}
           <button
             type="button"
             onClick={() => setMenuOpen((v) => !v)}
@@ -248,7 +282,6 @@ export function Header() {
         </div>
       </Container>
 
-      {/* Mobile menu drawer */}
       {menuOpen && (
         <div
           className="fixed inset-x-0 top-16 z-40 origin-top animate-[menu-slide_180ms_cubic-bezier(0.22,1,0.36,1)] border-b border-stone-200 bg-white shadow-sm dark:border-stone-800 dark:bg-stone-950 lg:hidden"
@@ -257,7 +290,7 @@ export function Header() {
           <Container>
             <nav aria-label="Site navigation" className="py-4">
               <ol className="divide-y divide-stone-100 dark:divide-stone-800">
-                {nav.map((item) => {
+                {primaryItems.map((item) => {
                   const active =
                     pathname === item.href ||
                     (item.href !== "/" && pathname.startsWith(item.href));
@@ -289,6 +322,46 @@ export function Header() {
                   );
                 })}
               </ol>
+              {grouped.map(({ group, items }) => (
+                <section key={group} className="mt-6">
+                  <p className="mb-2 font-mono text-[9px] uppercase tracking-[0.22em] text-stone-400 dark:text-stone-500">
+                    {GROUP_LABEL[group]}
+                  </p>
+                  <ol className="divide-y divide-stone-100 dark:divide-stone-800">
+                    {items.map((item) => {
+                      const active =
+                        pathname === item.href ||
+                        (item.href !== "/" && pathname.startsWith(item.href));
+                      return (
+                        <li key={item.href}>
+                          <Link
+                            href={item.href}
+                            aria-current={active ? "page" : undefined}
+                            className="flex items-baseline justify-between gap-4 py-3"
+                          >
+                            <span
+                              className={
+                                "font-serif text-base " +
+                                (active
+                                  ? "text-rose-700 dark:text-rose-400"
+                                  : "text-stone-700 dark:text-stone-200")
+                              }
+                            >
+                              {item.label}
+                            </span>
+                            <span
+                              aria-hidden
+                              className="font-mono text-[10px] uppercase tracking-[0.22em] text-stone-400 dark:text-stone-500"
+                            >
+                              {item.href}
+                            </span>
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ol>
+                </section>
+              ))}
             </nav>
           </Container>
         </div>
