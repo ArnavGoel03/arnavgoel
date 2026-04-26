@@ -15,6 +15,35 @@ genuine ambiguities the user could not have predicted, or destructive
 operations covered by the "Ask before destructive Vercel/infra ops"
 rule. Otherwise: ship, then report what shipped.
 
+# Persist every user directive into this file
+
+Anything the user says about how the site should look, behave, or be
+maintained, every preference, every "remove this", every "always do X",
+every "never do Y", every product fact (the user actually has the M4
+MacBook, not the M2; verdict on Z is `recommend`; etc.), every taste
+call (favourite colour, favourite chocolate, favourite playlist) gets
+captured here in CLAUDE.md the same turn it is said. The user
+explicitly does not want these decisions held only in conversation
+state, where they evaporate the moment context compacts.
+
+The right section is whichever one fits:
+
+- **Surfaces the user has explicitly removed** — for "kill /X" or "I
+  don't want a Y page".
+- **Voice when writing reviews / Verdict words / One product, one card
+  / Regional retailer handling** — for content rules.
+- A new top-level section with a clear `# Heading` if nothing existing
+  fits. Better one extra section than a buried bullet.
+
+Update `~/.claude/projects/-Users-arnavgoel-Documents-skincare-supplement-reviews/memory/`
+with a matching memory file at the same time so cross-conversation
+recall does not depend on this single file. CLAUDE.md is the canonical
+record; the memory directory is the index.
+
+If a directive contradicts something already written here, edit the
+existing section rather than appending a second one. The file should
+read like a maintained rulebook, not a changelog of corrections.
+
 # Surfaces the user has explicitly removed (do not re-add)
 
 The user has, over time, deleted entire surfaces because they read as
