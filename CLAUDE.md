@@ -99,6 +99,14 @@ these routes as a permanent decision, do not re-create them in any form
   the site's editorial choices less copy-pasteable. The original copy
   is preserved at `_local/colophon.md` (gitignored) for the user's
   reference. Never re-publish it as a route.
+- **`/issue` (the Archive)** — monthly digest of every review/primer
+  grouped by month. Removed; the catalog is browsable by category and
+  search already, the archive added a layer no one used. Never re-add.
+- **`/listening`** — cron-driven Spotify "recent tracks + top of the
+  month" page. Removed: the user did not want a separate route just
+  for what is on Spotify. The simple `<SpotifyEmbed>` on the homepage
+  and `/now` is enough. Do not re-introduce a Spotify cron, refresh
+  endpoint, or `content/_listening.json`.
 
 If a future ask resembles one of these (a "what's new" page, a "tools I
 use" list, a stack/typography breakdown), surface the prior decision in

@@ -4,10 +4,6 @@
     {
       "path": "/api/cron/blob-cleanup",
       "schedule": "0 3 * * *"
-    },
-    {
-      "path": "/api/listening/refresh",
-      "schedule": "7 4 * * *"
     }
   ]
 }

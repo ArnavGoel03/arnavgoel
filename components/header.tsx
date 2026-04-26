@@ -55,13 +55,11 @@ const nav: NavItem[] = [
 
   // Personal — voice and life surfaces.
   { href: "/library", label: "Library", weight: "secondary", group: "personal" },
-  { href: "/listening", label: "Listening", weight: "secondary", group: "personal" },
   { href: "/photos", label: "Photos", weight: "secondary", group: "personal" },
   { href: "/now", label: "Now", weight: "secondary", group: "personal" },
 
   // Meta — about the site itself.
   { href: "/best-of/2026", label: "Best of 2026", weight: "secondary", group: "meta" },
-  { href: "/issue", label: "Archive", weight: "secondary", group: "meta" },
   { href: "/about", label: "About", weight: "secondary", group: "meta" },
 ];
 

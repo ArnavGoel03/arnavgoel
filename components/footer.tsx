@@ -57,13 +57,6 @@ export function Footer() {
           <FooterSearchLink />
           <span className="text-stone-300 dark:text-stone-700">·</span>
           <a
-            href="/issue"
-            className="transition-colors hover:text-stone-700 dark:hover:text-stone-200"
-          >
-            Archive
-          </a>
-          <span className="text-stone-300 dark:text-stone-700">·</span>
-          <a
             href="/links"
             className="transition-colors hover:text-stone-700 dark:hover:text-stone-200"
           >
