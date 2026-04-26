@@ -63,6 +63,30 @@ When adding a new ingredient or term:
 3. Do not duplicate the definition in product MDX, listing-card copy,
    or anywhere else. Link to `/glossary#<slug>` instead.
 
+# Listening section is inline only
+
+The "what is on repeat" feature lives as `<ListeningSection>` on the
+homepage. It reads `content/_listening.json` written by the Vercel
+cron at `/api/listening/refresh` (daily, `7 4 * * *` UTC). If the
+snapshot is missing or empty, the section gracefully falls back to a
+static `<SpotifyEmbed>` of the user's go-to playlist so the surface
+never shows an empty state.
+
+To wire the live cron in production, set in Vercel:
+
+- `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET` from a Spotify
+  developer app (https://developer.spotify.com/dashboard).
+- `SPOTIFY_REFRESH_TOKEN` from a one-time Authorization Code flow
+  with scopes `user-read-recently-played` and `user-top-read`.
+- `CRON_SECRET` (any random string), Vercel sends it as
+  `Authorization: Bearer <CRON_SECRET>` so unauthenticated traffic
+  cannot hit the refresh endpoint.
+
+Without those, the cron 503s, the snapshot stays whatever last
+shipped in the repo (or empty), and the homepage falls back. Never
+re-introduce a `/listening` route, an `/api/listening` UI surface,
+or a "Listening" link in the header.
+
 # `/library` and any data the user authors
 
 `/library` reads from `content/_library.json` (user-owned, edited
@@ -102,11 +126,11 @@ these routes as a permanent decision, do not re-create them in any form
 - **`/issue` (the Archive)** — monthly digest of every review/primer
   grouped by month. Removed; the catalog is browsable by category and
   search already, the archive added a layer no one used. Never re-add.
-- **`/listening`** — cron-driven Spotify "recent tracks + top of the
-  month" page. Removed: the user did not want a separate route just
-  for what is on Spotify. The simple `<SpotifyEmbed>` on the homepage
-  and `/now` is enough. Do not re-introduce a Spotify cron, refresh
-  endpoint, or `content/_listening.json`.
+- **`/listening` as a standalone route** — the user does not want a
+  separate page for Spotify data. The Spotify cron and snapshot are
+  fine, but the surface lives **inline** on the homepage as
+  `<ListeningSection>`, never as `/listening`. Do not re-add the
+  standalone route.
 
 If a future ask resembles one of these (a "what's new" page, a "tools I
 use" list, a stack/typography breakdown), surface the prior decision in

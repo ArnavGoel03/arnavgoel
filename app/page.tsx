@@ -4,7 +4,7 @@ import { Container } from "@/components/container";
 import { SocialIconLink } from "@/components/social-link";
 import { SectionTile } from "@/components/section-tile";
 import { ProductCard } from "@/components/product-card";
-import { SpotifyEmbed } from "@/components/spotify-embed";
+import { ListeningSection } from "@/components/listening-section";
 import { PersonJsonLd } from "@/components/json-ld";
 import { site } from "@/lib/site";
 import { socials } from "@/lib/socials";
@@ -208,25 +208,10 @@ export default function HomePage() {
         </div>
       </Container>
 
-      {/* Listening */}
-      <Container className="border-t border-stone-200/70 py-20 dark:border-stone-900/40">
-        <div className="mb-6">
-          <p className="mb-1 text-xs uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400">
-            <span className="text-rose-400">♪</span> Listening to
-          </p>
-          <h2 className="font-serif text-3xl text-stone-900 dark:text-stone-100 sm:text-4xl">
-            On repeat right now.
-          </h2>
-          <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
-            Press play, it opens right here.
-          </p>
-        </div>
-        <SpotifyEmbed
-          playlistId="37i9dQZF1EIhvQz3p7tStL"
-          title="Ibiza Club Mix, my favorite playlist"
-        />
-      </Container>
-
+      <ListeningSection
+        fallbackPlaylistId="37i9dQZF1EIhvQz3p7tStL"
+        fallbackTitle="Ibiza Club Mix, my favorite playlist"
+      />
     </>
   );
 }
