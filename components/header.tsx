@@ -32,6 +32,7 @@ const nav: NavItem[] = [
   { href: "/essentials", label: "Essentials", tourId: "tab-essentials", weight: "primary" },
   { href: "/routine", label: "Routine", weight: "primary" },
   { href: "/miscellaneous", label: "Miscellaneous", weight: "secondary" },
+  { href: "/routine-builder", label: "Routine builder", weight: "secondary" },
   { href: "/routine-simulator", label: "Routine simulator", weight: "secondary" },
   { href: "/primers", label: "Primers", weight: "secondary" },
   { href: "/glossary", label: "Glossary", weight: "secondary" },
