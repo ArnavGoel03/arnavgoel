@@ -15,26 +15,29 @@ export const metadata: Metadata = {
 };
 
 /**
- * Categories that count as "styling" — separated from treatment so the
- * page reads as two chapters instead of one undifferentiated bin.
- * Adding a new styling-class category later means appending here.
+ * Three-chapter layout. `tool` (trimmers, IPL, dermaplaning blades)
+ * and `styling` (sprays, powders, waxes) each get their own filter
+ * rail so the page reads as a sequence: wash & treat → style → cut &
+ * trim, instead of a single mixed bin.
  */
 const STYLING_CATEGORIES = new Set(["styling", "hair styling"]);
+const TOOL_CATEGORIES = new Set(["tool", "tools", "trimmer"]);
 
 export default function HairCarePage() {
   const reviews = getReviews("hair-care");
+  const isStyling = (c: string) => STYLING_CATEGORIES.has(c.toLowerCase());
+  const isTool = (c: string) => TOOL_CATEGORIES.has(c.toLowerCase());
   const treatment = reviews.filter(
-    (r) => !STYLING_CATEGORIES.has(r.category.toLowerCase()),
+    (r) => !isStyling(r.category) && !isTool(r.category),
   );
-  const styling = reviews.filter((r) =>
-    STYLING_CATEGORIES.has(r.category.toLowerCase()),
-  );
+  const styling = reviews.filter((r) => isStyling(r.category));
+  const tools = reviews.filter((r) => isTool(r.category));
 
   return (
     <>
       <ItemListJsonLd
         name="Hair Care Reviews"
-        description="First-person hair-care reviews. Conditioners, masks, treatments, shampoos, plus the styling kit, every product through the shower routine for at least a month."
+        description="First-person hair-care reviews. Conditioners, masks, treatments, shampoos, plus the styling kit and the trimmers, every product through the shower routine for at least a month."
         url="/hair-care"
         items={reviews}
       />
@@ -42,7 +45,7 @@ export default function HairCarePage() {
         <SectionMasthead
           volume="Vol. IV, Hair care"
           title="Hair care"
-          intro="Conditioners, masks, treatments, the supporting cast of products that live in the shower for hair, scalp, and ends. Styling sits in its own chapter below."
+          intro="Conditioners, masks, treatments, the supporting cast of products for hair, scalp, and ends. Styling and tools each sit in their own chapter below."
           reviews={reviews}
         />
       </Container>
@@ -61,13 +64,29 @@ export default function HairCarePage() {
           <Container>
             <hr className="border-stone-200 dark:border-stone-800" />
           </Container>
-          <Container className="py-10 pb-24">
+          <Container className="py-10 pb-12">
             <ChapterEyebrow
               number="ii"
               label="Styling"
               tagline="What goes in after the shower, when the hair is dry."
             />
             <CategoryFilter reviews={styling} />
+          </Container>
+        </>
+      )}
+
+      {tools.length > 0 && (
+        <>
+          <Container>
+            <hr className="border-stone-200 dark:border-stone-800" />
+          </Container>
+          <Container className="py-10 pb-24">
+            <ChapterEyebrow
+              number="iii"
+              label="Tools"
+              tagline="Trimmers, clippers, the hardware. Built to outlast the bottles."
+            />
+            <CategoryFilter reviews={tools} />
           </Container>
         </>
       )}
