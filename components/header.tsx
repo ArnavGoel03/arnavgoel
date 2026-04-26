@@ -47,6 +47,7 @@ const nav: NavItem[] = [
 
   // Tools — interactive, builders, references.
   { href: "/routine-builder", label: "Routine builder", weight: "secondary", group: "tools" },
+  { href: "/stack-builder", label: "Stack builder", weight: "secondary", group: "tools" },
   { href: "/routine-simulator", label: "Routine simulator", weight: "secondary", group: "tools" },
   { href: "/glossary", label: "Glossary", weight: "secondary", group: "tools" },
   { href: "/primers", label: "Primers", weight: "secondary", group: "tools" },
@@ -54,12 +55,14 @@ const nav: NavItem[] = [
 
   // Personal — voice and life surfaces.
   { href: "/library", label: "Library", weight: "secondary", group: "personal" },
+  { href: "/listening", label: "Listening", weight: "secondary", group: "personal" },
   { href: "/photos", label: "Photos", weight: "secondary", group: "personal" },
   { href: "/now", label: "Now", weight: "secondary", group: "personal" },
   { href: "/uses", label: "Uses", weight: "secondary", group: "personal" },
 
   // Meta — about the site itself.
   { href: "/best-of/2026", label: "Best of 2026", weight: "secondary", group: "meta" },
+  { href: "/changelog", label: "Changelog", weight: "secondary", group: "meta" },
   { href: "/notes", label: "Notes", weight: "secondary", group: "meta" },
   { href: "/issue", label: "Archive", weight: "secondary", group: "meta" },
   { href: "/about", label: "About", weight: "secondary", group: "meta" },
