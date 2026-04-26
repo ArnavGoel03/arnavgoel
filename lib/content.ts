@@ -1,11 +1,9 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
-import { noteFrontmatter, primerFrontmatter, reviewFrontmatter } from "./schema";
+import { primerFrontmatter, reviewFrontmatter } from "./schema";
 import type {
   Kind,
-  Note,
-  NoteSummary,
   Primer,
   PrimerSummary,
   Review,
@@ -24,19 +22,6 @@ function readReviews(kind: Kind): Review[] {
     const fm = reviewFrontmatter.parse(data);
     const slug = file.replace(/\.mdx$/, "");
     return { kind, slug, body: content.trim(), ...fm };
-  });
-}
-
-function readNotes(): Note[] {
-  const dir = path.join(ROOT, "notes");
-  if (!fs.existsSync(dir)) return [];
-  const files = fs.readdirSync(dir).filter((f) => f.endsWith(".mdx"));
-  return files.map((file) => {
-    const raw = fs.readFileSync(path.join(dir, file), "utf8");
-    const { data, content } = matter(raw);
-    const fm = noteFrontmatter.parse(data);
-    const slug = file.replace(/\.mdx$/, "");
-    return { slug, body: content.trim(), ...fm };
   });
 }
 
@@ -127,14 +112,6 @@ export function getAllReviewsIncludingHidden(kind: Kind): ReviewSummary[] {
   );
 }
 
-export function getNotes(): NoteSummary[] {
-  return sortByDateDesc(readNotes()).map(({ body: _body, ...rest }) => rest);
-}
-
-export function getNote(slug: string): Note | null {
-  return readNotes().find((n) => n.slug === slug) ?? null;
-}
-
 // ────────────────────────────────────────────────────────────────────────────
 // Primers, short, high-signal reference pages on ingredients and stacks.
 // ────────────────────────────────────────────────────────────────────────────
@@ -199,8 +176,4 @@ export function getAdjacentReviews(
 
 export function getAdjacentPrimers(slug: string): Adjacent<PrimerSummary> {
   return findAdjacent(getPrimers(), slug);
-}
-
-export function getAdjacentNotes(slug: string): Adjacent<NoteSummary> {
-  return findAdjacent(getNotes(), slug);
 }

@@ -69,13 +69,6 @@ export const reviewFrontmatter = z.object({
   summary: z.string().default(""),
 });
 
-export const noteFrontmatter = z.object({
-  title: z.string().min(1),
-  description: z.string().min(1),
-  datePublished: z.string(),
-  tags: z.array(z.string()).default([]),
-});
-
 /**
  * A Primer is a short, high-signal reference page.
  *   - `kind: "stack"`, a combined-together explainer (bone health, omega-3,
@@ -98,4 +91,3 @@ export const primerFrontmatter = z.object({
 });
 
 export type ReviewFrontmatter = z.infer<typeof reviewFrontmatter>;
-export type NoteFrontmatter = z.infer<typeof noteFrontmatter>;

@@ -1,19 +1,17 @@
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/container";
 import { SocialIconLink } from "@/components/social-link";
-import { NoteRow } from "@/components/note-card";
 import { SectionTile } from "@/components/section-tile";
 import { ProductCard } from "@/components/product-card";
 import { SpotifyEmbed } from "@/components/spotify-embed";
 import { PersonJsonLd } from "@/components/json-ld";
 import { site } from "@/lib/site";
 import { socials } from "@/lib/socials";
-import { getAllReviews, getNotes, getReviews } from "@/lib/content";
+import { getAllReviews, getReviews } from "@/lib/content";
 import { photos } from "@/lib/photos";
 
 export default function HomePage() {
-  const recentNotes = getNotes().slice(0, 4);
   const allReviews = getAllReviews();
   const recentReviews = allReviews.slice(0, 3);
   const skincareCount = getReviews("skincare").length;
@@ -25,7 +23,6 @@ export default function HomePage() {
   const miscellaneousCount = getReviews("miscellaneous").length;
   const totalReviews =
     skincareCount + supplementsCount + oralCareCount + hairCareCount + bodyCareCount + essentialsCount + miscellaneousCount;
-  const notesCount = getNotes().length;
   const photosCount = photos.length;
   // Hero strip stats: every value comes from the actual content set so
   // the line stays honest as the catalog grows. No more hardcoded
@@ -55,7 +52,7 @@ export default function HomePage() {
             </span>
             <span className="font-mono text-stone-400 dark:text-stone-500">
               Issue №{" "}
-              {String(totalReviews + photosCount + notesCount).padStart(2, "0")}
+              {String(totalReviews + photosCount).padStart(2, "0")}
             </span>
           </div>
 
@@ -198,8 +195,7 @@ export default function HomePage() {
             { index: 6, href: "/essentials", eyebrow: `${essentialsCount} reviews`, title: "Essentials", description: "Cornerstone daily-life devices: laptop, earbuds, wearable, charger, water filter, fan. The pieces I'd replace within a week if they broke." },
             { index: 7, href: "/miscellaneous", eyebrow: `${miscellaneousCount} reviews`, title: "Miscellaneous", description: "Random utility objects, gadgets, accessories. The smaller things that earn or fail their shelf space." },
             { index: 8, href: "/photos", eyebrow: `${photosCount} photos`, title: "Photos", description: "DSLR shots from wherever I happened to be carrying the camera." },
-            { index: 9, href: "/notes", eyebrow: `${notesCount} entries`, title: "Notes", description: "Slow writing, essays, stray thoughts, half-formed ideas." },
-            { index: 10, href: "/now", eyebrow: "this month", title: "Now", description: "What I'm currently working on, listening to, thinking about, and consciously not doing." },
+            { index: 9, href: "/now", eyebrow: "this month", title: "Now", description: "What I'm currently working on, listening to, thinking about, and consciously not doing." },
           ].map((tile, i) => (
             <div
               key={tile.href}
@@ -231,33 +227,6 @@ export default function HomePage() {
         />
       </Container>
 
-      {/* Recent notes */}
-      {recentNotes.length > 0 && (
-        <Container className="border-t border-stone-200/70 py-20 dark:border-stone-900/40">
-          <div className="mb-6 flex items-end justify-between">
-            <div>
-              <p className="mb-1 text-xs uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400">
-                <span className="text-rose-400">¶</span> Notes
-              </p>
-              <h2 className="font-serif text-3xl text-stone-900 dark:text-stone-100 sm:text-4xl">
-                Recently written.
-              </h2>
-            </div>
-            <Link
-              href="/notes"
-              className="inline-flex items-center gap-1 text-sm text-stone-500 transition-colors hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
-            >
-              All notes
-              <ArrowUpRight className="h-3.5 w-3.5" />
-            </Link>
-          </div>
-          <div className="rounded-2xl border border-stone-200 bg-white px-6 dark:border-stone-800 dark:bg-stone-900">
-            {recentNotes.map((note) => (
-              <NoteRow key={note.slug} note={note} />
-            ))}
-          </div>
-        </Container>
-      )}
     </>
   );
 }

@@ -2,7 +2,7 @@
 
 # About this site
 
-A first-person review site (yashgoel.com → currently deployed at skincare-supplement-reviews.vercel.app). Magazine-editorial aesthetic. Seven product categories — skincare, supplements, oral care, hair care (split into Treatment and Styling chapters), body care, essentials (cornerstone daily devices like the laptop, earbuds, primary charger), and miscellaneous (random utility objects, accessories, gadgets) — plus /routine (with subroutine variants like /routine/morning/post-workout), /primers, /notes, /photos, a /now page, /subscribe for the email list, and a private /admin dashboard for adding content. The user (Yash on this site, Arnav at arnavgoel.dev) writes every review after using a product for at least a month.
+A first-person review site (yashgoel.com → currently deployed at skincare-supplement-reviews.vercel.app). Magazine-editorial aesthetic. Seven product categories — skincare, supplements, oral care, hair care (split into Treatment and Styling chapters), body care, essentials (cornerstone daily devices like the laptop, earbuds, primary charger), and miscellaneous (random utility objects, accessories, gadgets) — plus /routine (with subroutine variants like /routine/morning/post-workout), /primers, /photos, a /now page, /subscribe for the email list, and a private /admin dashboard for adding content. The user (Yash on this site, Arnav at arnavgoel.dev) writes every review after using a product for at least a month.
 
 The signature mark across the site is a small rose ❋ glyph; it appears in the header, every page masthead, hover states, and the footer. The accent color is rose only, everything else is stone-neutral. Don't introduce new accent colors.
 
@@ -14,6 +14,30 @@ end-to-end and push. No "want me to start?", no confirmation rounds, no
 genuine ambiguities the user could not have predicted, or destructive
 operations covered by the "Ask before destructive Vercel/infra ops"
 rule. Otherwise: ship, then report what shipped.
+
+# Surfaces the user has explicitly removed (do not re-add)
+
+The user has, over time, deleted entire surfaces because they read as
+filler, AI-generated, or replicable boilerplate. Treat the absence of
+these routes as a permanent decision, do not re-create them in any form
+(no link in nav, no MDX, no replacement-with-different-name):
+
+- **`/changelog`** — a site-wide "what's new" feed pulled from git log.
+  The user does not want a public changelog page. Per-product
+  `changelog[]` frontmatter (purchase history) stays. A site-level
+  changelog page does not. Never re-add.
+- **`/notes`** — short-form blog posts. Removed because they read as
+  AI-generated filler. Long-form thinking belongs in `/primers`; product
+  takes belong in reviews. Never re-add a third format.
+- **`/uses`** — a uses.tech-style hardware/software list. Removed.
+- **`/colophon`** — type-and-build meta page. Removed publicly to make
+  the site's editorial choices less copy-pasteable. The original copy
+  is preserved at `_local/colophon.md` (gitignored) for the user's
+  reference. Never re-publish it as a route.
+
+If a future ask resembles one of these (a "what's new" page, a "tools I
+use" list, a stack/typography breakdown), surface the prior decision in
+your reply rather than silently building it.
 
 # Voice when writing reviews
 

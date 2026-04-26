@@ -11,7 +11,6 @@ const TYPE_FILTERS: { id: "all" | SearchItemType; label: string }[] = [
   { id: "all", label: "All" },
   { id: "review", label: "Reviews" },
   { id: "primer", label: "Primers" },
-  { id: "note", label: "Notes" },
 ];
 
 function score(item: SearchItem, terms: string[]): number {
@@ -78,7 +77,7 @@ export function SearchClient({ items }: { items: SearchItem[] }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={
-            listening ? "Listening…" : "Search reviews, primers, notes…"
+            listening ? "Listening…" : "Search reviews and primers…"
           }
           className={cn(
             "w-full rounded-full border bg-white py-4 pl-14 font-serif text-xl italic text-stone-900 placeholder:text-stone-400 focus:outline-none dark:text-stone-100 dark:bg-stone-900",

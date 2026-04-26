@@ -1,6 +1,6 @@
-import { getAllReviews, getNotes, getPrimers } from "@/lib/content";
+import { getAllReviews, getPrimers } from "@/lib/content";
 
-export type SearchItemType = "review" | "note" | "primer";
+export type SearchItemType = "review" | "primer";
 
 export type SearchItem = {
   id: string;
@@ -43,20 +43,6 @@ export function buildSearchIndex(): SearchItem[] {
         .join(" "),
       verdict: r.verdict,
       category: r.category,
-    });
-  }
-
-  for (const n of getNotes()) {
-    out.push({
-      id: `note:${n.slug}`,
-      type: "note",
-      title: n.title,
-      subtitle: `Note · ${n.tags.join(", ") || "writing"}`,
-      href: `/notes/${n.slug}`,
-      haystack: [n.title, n.description, ...n.tags]
-        .map(norm)
-        .filter(Boolean)
-        .join(" "),
     });
   }
 

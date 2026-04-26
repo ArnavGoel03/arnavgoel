@@ -35,8 +35,8 @@ export default function IssueIndexPage() {
         Issues<span className="text-rose-400">.</span>
       </h1>
       <p className="mt-6 max-w-2xl font-serif text-xl italic leading-snug text-stone-600 sm:text-2xl dark:text-stone-300">
-        A running index of each month, every product, note, and primer that
-        landed here, grouped by when it joined the shelf.
+        A running index of each month, every product and primer that landed
+        here, grouped by when it joined the shelf.
       </p>
 
       {periods.length === 0 ? (
@@ -47,10 +47,7 @@ export default function IssueIndexPage() {
         <ol className="mt-16 divide-y divide-stone-200 border-t border-stone-300 dark:border-stone-800 dark:divide-stone-800">
           {periods.map((period, i) => {
             const issue = getIssueForPeriod(period)!;
-            const count =
-              issue.reviews.length +
-              issue.notes.length +
-              issue.primers.length;
+            const count = issue.reviews.length + issue.primers.length;
             return (
               <li key={period}>
                 <Link
@@ -66,8 +63,6 @@ export default function IssueIndexPage() {
                     </h3>
                     <p className="mt-1 text-xs uppercase tracking-[0.18em] text-stone-400 dark:text-stone-500">
                       {issue.reviews.length} reviews
-                      {issue.notes.length > 0 &&
-                        ` · ${issue.notes.length} notes`}
                       {issue.primers.length > 0 &&
                         ` · ${issue.primers.length} primers`}
                     </p>

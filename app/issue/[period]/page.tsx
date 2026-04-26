@@ -21,11 +21,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const issue = getIssueForPeriod(period);
   if (!issue) return {};
   const label = formatPeriodLabel(period);
-  const count =
-    issue.reviews.length + issue.notes.length + issue.primers.length;
+  const count = issue.reviews.length + issue.primers.length;
   return {
     title: `${label} · Issue`,
-    description: `${count} items landed on the site in ${label}: reviews, notes, and primers.`,
+    description: `${count} items landed on the site in ${label}: reviews and primers.`,
     alternates: { canonical: `/issue/${period}` },
   };
 }
@@ -87,8 +86,7 @@ export default async function IssuePage({ params }: Props) {
           <span className="text-rose-400">.</span>
         </h1>
         <p className="mt-6 max-w-2xl font-serif text-xl italic leading-snug text-stone-600 sm:text-2xl dark:text-stone-300">
-          What landed in {label}, every product, note, and primer, in one
-          place.
+          What landed in {label}, every product and primer, in one place.
         </p>
       </div>
 
@@ -159,34 +157,6 @@ export default async function IssuePage({ params }: Props) {
           </section>
         )}
 
-        {issue.notes.length > 0 && (
-          <section>
-            <h2 className="mb-4 border-b border-stone-200 pb-2 font-display text-3xl font-light tracking-tight text-stone-900 dark:text-stone-100 dark:border-stone-800">
-              Notes
-            </h2>
-            <ol className="divide-y divide-stone-100 dark:divide-stone-800">
-              {issue.notes.map((n) => (
-                <li key={n.slug} className="py-3">
-                  <Link
-                    href={`/notes/${n.slug}`}
-                    className="group flex items-baseline justify-between gap-4"
-                  >
-                    <div>
-                      <h4 className="font-serif text-lg text-stone-900 transition-colors group-hover:text-rose-700 dark:group-hover:text-rose-400 dark:text-stone-100">
-                        {n.title}
-                      </h4>
-                      {n.description && (
-                        <p className="mt-0.5 text-sm text-stone-600 dark:text-stone-300">
-                          {n.description}
-                        </p>
-                      )}
-                    </div>
-                  </Link>
-                </li>
-              ))}
-            </ol>
-          </section>
-        )}
       </div>
     </Container>
   );

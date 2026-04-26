@@ -1,4 +1,4 @@
-import { getNotes, getPrimers, getReviews } from "@/lib/content";
+import { getPrimers, getReviews } from "@/lib/content";
 import { site } from "@/lib/site";
 
 /**
@@ -58,18 +58,6 @@ export async function GET(): Promise<Response> {
       const verdict = r.verdict ?? "still testing";
       lines.push(
         `- [${r.brand} — ${r.name}](${site.url}/${r.kind}/${r.slug}) — ${verdict}`,
-      );
-    }
-    lines.push("");
-  }
-
-  const notes = getNotes();
-  if (notes.length > 0) {
-    lines.push("## Notes");
-    lines.push("");
-    for (const n of notes) {
-      lines.push(
-        `- [${n.title}](${site.url}/notes/${n.slug}) — ${n.description}`,
       );
     }
     lines.push("");

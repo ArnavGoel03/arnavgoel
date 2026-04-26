@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getNotes, getPrimers, getReviews } from "@/lib/content";
+import { getPrimers, getReviews } from "@/lib/content";
 import { getAllIssuePeriods } from "@/lib/issues";
 import { getRoutinesList, getSubroutinesList } from "@/lib/routines";
 import { site } from "@/lib/site";
@@ -10,7 +10,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${site.url}/`, lastModified: now, priority: 1 },
     { url: `${site.url}/about`, lastModified: now, priority: 0.8 },
     { url: `${site.url}/now`, lastModified: now, priority: 0.9 },
-    { url: `${site.url}/notes`, lastModified: now, priority: 0.8 },
     { url: `${site.url}/photos`, lastModified: now, priority: 0.8 },
     { url: `${site.url}/skincare`, lastModified: now, priority: 0.8 },
     { url: `${site.url}/supplements`, lastModified: now, priority: 0.8 },
@@ -27,15 +26,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${site.url}/compare`, lastModified: now, priority: 0.4 },
     { url: `${site.url}/links`, lastModified: now, priority: 0.7 },
     { url: `${site.url}/subscribe`, lastModified: now, priority: 0.6 },
-    { url: `${site.url}/uses`, lastModified: now, priority: 0.7 },
-    { url: `${site.url}/colophon`, lastModified: now, priority: 0.5 },
     { url: `${site.url}/library`, lastModified: now, priority: 0.7 },
     { url: `${site.url}/glossary`, lastModified: now, priority: 0.7 },
     { url: `${site.url}/routine-simulator`, lastModified: now, priority: 0.7 },
     { url: `${site.url}/routine-builder`, lastModified: now, priority: 0.8 },
     { url: `${site.url}/stack-builder`, lastModified: now, priority: 0.8 },
     { url: `${site.url}/listening`, lastModified: now, priority: 0.6 },
-    { url: `${site.url}/changelog`, lastModified: now, priority: 0.5 },
     { url: `${site.url}/best-of/2026`, lastModified: now, priority: 0.8 },
   ];
   const routineRoutes: MetadataRoute.Sitemap = [
@@ -57,11 +53,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     }),
   );
-  const noteRoutes: MetadataRoute.Sitemap = getNotes().map((n) => ({
-    url: `${site.url}/notes/${n.slug}`,
-    lastModified: new Date(n.datePublished),
-    priority: 0.7,
-  }));
   // Weight reviews by verdict: products I stand behind deserve more crawl
   // budget than "still testing" placeholders.
   const priorityForVerdict = (v?: "recommend" | "okay" | "bad"): number => {
@@ -85,7 +76,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
   return [
     ...staticRoutes,
-    ...noteRoutes,
     ...reviewRoutes,
     ...primerRoutes,
     ...issueRoutes,

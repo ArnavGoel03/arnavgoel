@@ -19,7 +19,7 @@ const faqs: { question: string; answer: string }[] = [
   },
   {
     question: `What categories does ${site.name} cover?`,
-    answer: "Seven product categories: skincare, supplements, oral care, hair care (split into Treatment and Styling), body care, essentials (the cornerstone daily-life devices like the laptop and earbuds), and miscellaneous (random utility objects, gadgets, accessories). Plus /routine for what I actually do in order, /primers for ingredient-level reference pages, /photos for DSLR shots, /notes for the slower writing, and /now for what is on the shelf this month.",
+    answer: "Seven product categories: skincare, supplements, oral care, hair care (split into Treatment and Styling), body care, essentials (the cornerstone daily-life devices like the laptop and earbuds), and miscellaneous (random utility objects, gadgets, accessories). Plus /routine for what I actually do in order, /primers for ingredient-level reference pages, /photos for DSLR shots, and /now for what is on the shelf this month.",
   },
   {
     question: "How does the rating system work?",
@@ -78,9 +78,8 @@ export default function AboutPage() {
           I live in {site.location}. This is the corner of the internet where
           I write about the products I actually use, skincare, supplements,
           oral care, hair care, body care, essentials, and the small
-          miscellaneous things in between, plus the photos and rough notes I
-          make on the side. Slower than a feed. More honest than a sponsored
-          review.
+          miscellaneous things in between, plus the photos I make on the
+          side. Slower than a feed. More honest than a sponsored review.
         </p>
 
         <SectionLabel num="01" label="The rules I write by" />
@@ -272,7 +271,6 @@ export default function AboutPage() {
           <a href="/primers" className={linkClass}>Primers</a> for ingredient
           and stack reference pages.{" "}
           <a href="/photos" className={linkClass}>Photos</a> for DSLR shots.{" "}
-          <a href="/notes" className={linkClass}>Notes</a> for slower writing.{" "}
           <a href="/now" className={linkClass}>Now</a> for what&apos;s on the
           shelf this month.{" "}
           <a href="/subscribe" className={linkClass}>Subscribe</a> if you want

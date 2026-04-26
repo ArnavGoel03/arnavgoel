@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { VerdictPill } from "./verdict-pill";
 import { CompareToggle } from "./compare-bar";
+import { ProductCardPhoto } from "./product-card-photo";
 import { availabilityLabel, brandTextColor } from "@/lib/retailers";
 import { pricesByRegion } from "@/lib/price";
 import { toCompareId } from "@/lib/compare";
+import { collectCardPhotos } from "@/lib/card-photos";
 import type { ReviewSummary } from "@/lib/types";
 
 export function ProductCard({ review }: { review: ReviewSummary }) {
@@ -11,6 +13,7 @@ export function ProductCard({ review }: { review: ReviewSummary }) {
   const availability = availabilityLabel(review);
   const isRegionLocked = availability?.endsWith("only") ?? false;
   const isPending = !review.verdict;
+  const photos = collectCardPhotos(review);
   return (
     <Link
       href={href}
@@ -18,35 +21,16 @@ export function ProductCard({ review }: { review: ReviewSummary }) {
       className="group relative flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white transition-all hover:-translate-y-0.5 hover:border-stone-400 hover:shadow-sm dark:border-stone-800 dark:bg-stone-900 dark:hover:border-stone-600"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-stone-50 via-stone-50 to-stone-100">
-        {review.photo ? (
+        {photos.length > 0 ? (
           // Always-cream photo well, in both light and dark themes.
           // Product shots almost always come on white from the retailer,
           // so a dark photo well would surround them with stark contrast.
           // Keeping it cream regardless of theme reads as an intentional
           // magazine "product spotlight" frame.
-          <>
-            <div className="absolute inset-0 flex items-center justify-center p-2 sm:p-3">
-              {/* mix-blend-multiply makes the source white background blend
-                  into the cream well, so the product silhouette floats
-                  cleanly on the card instead of sitting on a hard
-                  rectangle. */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={review.photo}
-                alt={`${review.brand} ${review.name}, ${review.category}`}
-                loading="lazy"
-                decoding="async"
-                className="h-full w-full object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-[1.03]"
-              />
-            </div>
-            {/* Corner registration marks. Hidden by default; fade in
-                on hover. Reads as a magazine-grid accent that doesn't
-                fight the product photo when at rest. */}
-            <span aria-hidden className="card-corner-mark left-3 top-3 border-l border-t" />
-            <span aria-hidden className="card-corner-mark right-3 top-3 border-r border-t" />
-            <span aria-hidden className="card-corner-mark bottom-3 left-3 border-b border-l" />
-            <span aria-hidden className="card-corner-mark bottom-3 right-3 border-b border-r" />
-          </>
+          <ProductCardPhoto
+            photos={photos}
+            alt={`${review.brand} ${review.name}, ${review.category}`}
+          />
         ) : (
           <>
             {/* Big brand watermark, fills the image well when no photo.

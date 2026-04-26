@@ -1,4 +1,4 @@
-import type { Note, Review } from "@/lib/types";
+import type { Review } from "@/lib/types";
 import { parsePrice, currencyFor } from "@/lib/cost";
 import { priceFor } from "@/lib/price";
 import type { Region } from "@/lib/retailers";
@@ -131,26 +131,6 @@ export function FaqJsonLd({
         text: item.answer,
       },
     })),
-  };
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: serialize(data) }}
-    />
-  );
-}
-
-export function NoteJsonLd({ note }: { note: Note }) {
-  const data = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: note.title,
-    description: note.description,
-    datePublished: note.datePublished,
-    author: { "@type": "Person", name: site.name, url: site.url },
-    publisher: { "@type": "Person", name: site.name, url: site.url },
-    mainEntityOfPage: `${site.url}/notes/${note.slug}`,
-    keywords: note.tags.join(", "),
   };
   return (
     <script

@@ -40,12 +40,12 @@ export default function NotFound() {
         <li className="flex items-baseline gap-3">
           <span aria-hidden className="text-rose-400">❋</span>
           <Link
-            href="/notes"
+            href="/primers"
             className="font-medium underline decoration-stone-300 underline-offset-4 hover:decoration-rose-400"
           >
-            Notes
+            Primers
           </Link>
-          <span className="italic text-stone-500 dark:text-stone-400">- if you came for the writing</span>
+          <span className="italic text-stone-500 dark:text-stone-400">- ingredient and stack reference pages</span>
         </li>
         <li className="flex items-baseline gap-3">
           <span aria-hidden className="text-rose-400">❋</span>

@@ -1,4 +1,4 @@
-import { getAllReviews, getNotes, getPrimers } from "@/lib/content";
+import { getAllReviews, getPrimers } from "@/lib/content";
 import { site } from "@/lib/site";
 
 export const dynamic = "force-static";
@@ -66,16 +66,6 @@ export async function GET() {
       description: r.summary || `${r.brand} ${r.name}, review.`,
       pubDate: r.datePublished,
       categories: [r.kind, r.category],
-    });
-  }
-
-  for (const n of getNotes()) {
-    items.push({
-      title: n.title,
-      link: `${site.url}/notes/${n.slug}`,
-      description: n.description,
-      pubDate: n.datePublished,
-      categories: ["note", ...n.tags],
     });
   }
 

@@ -64,17 +64,6 @@ export interface Review {
 
 export interface ReviewSummary extends Omit<Review, "body"> {}
 
-export interface Note {
-  slug: string;
-  title: string;
-  description: string;
-  datePublished: string;
-  tags: string[];
-  body: string;
-}
-
-export interface NoteSummary extends Omit<Note, "body"> {}
-
 export interface Photo {
   src: string;
   alt: string;

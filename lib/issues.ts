@@ -1,16 +1,11 @@
-import {
-  getAllReviews,
-  getNotes,
-  getPrimers,
-} from "@/lib/content";
-import type { NoteSummary, PrimerSummary, ReviewSummary } from "@/lib/types";
+import { getAllReviews, getPrimers } from "@/lib/content";
+import type { PrimerSummary, ReviewSummary } from "@/lib/types";
 
 export type IssuePeriod = string; // "YYYY-MM"
 
 export type IssueContents = {
   period: IssuePeriod;
   reviews: ReviewSummary[];
-  notes: NoteSummary[];
   primers: PrimerSummary[];
 };
 
@@ -25,7 +20,6 @@ function toPeriod(iso: string): IssuePeriod {
 export function getAllIssuePeriods(): IssuePeriod[] {
   const set = new Set<IssuePeriod>();
   for (const r of getAllReviews()) set.add(toPeriod(r.datePublished));
-  for (const n of getNotes()) set.add(toPeriod(n.datePublished));
   for (const p of getPrimers()) set.add(toPeriod(p.datePublished));
   return [...set].sort((a, b) => b.localeCompare(a));
 }
@@ -36,20 +30,15 @@ export function getIssueForPeriod(period: IssuePeriod): IssueContents | null {
   const reviews = getAllReviews().filter(
     (r) => toPeriod(r.datePublished) === period,
   );
-  const notes = getNotes().filter((n) => toPeriod(n.datePublished) === period);
   const primers = getPrimers().filter(
     (p) => toPeriod(p.datePublished) === period,
   );
 
-  if (
-    reviews.length === 0 &&
-    notes.length === 0 &&
-    primers.length === 0
-  ) {
+  if (reviews.length === 0 && primers.length === 0) {
     return null;
   }
 
-  return { period, reviews, notes, primers };
+  return { period, reviews, primers };
 }
 
 /** Human label for an issue. "2026-04" → "April 2026". */

@@ -58,15 +58,11 @@ const nav: NavItem[] = [
   { href: "/listening", label: "Listening", weight: "secondary", group: "personal" },
   { href: "/photos", label: "Photos", weight: "secondary", group: "personal" },
   { href: "/now", label: "Now", weight: "secondary", group: "personal" },
-  { href: "/uses", label: "Uses", weight: "secondary", group: "personal" },
 
   // Meta — about the site itself.
   { href: "/best-of/2026", label: "Best of 2026", weight: "secondary", group: "meta" },
-  { href: "/changelog", label: "Changelog", weight: "secondary", group: "meta" },
-  { href: "/notes", label: "Notes", weight: "secondary", group: "meta" },
   { href: "/issue", label: "Archive", weight: "secondary", group: "meta" },
   { href: "/about", label: "About", weight: "secondary", group: "meta" },
-  { href: "/colophon", label: "Colophon", weight: "secondary", group: "meta" },
 ];
 
 export function Header() {

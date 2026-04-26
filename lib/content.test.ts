@@ -2,8 +2,6 @@ import { describe, it, expect } from "vitest";
 import {
   getAllReviews,
   getAllReviewsIncludingHidden,
-  getNote,
-  getNotes,
   getPrimer,
   getPrimers,
   getReview,
@@ -108,25 +106,6 @@ describe("getAllReviews()", () => {
       getReviews("oral-care").length;
     expect(all.length).toBe(total);
     expect(all.every((r) => r.hidden !== true)).toBe(true);
-  });
-});
-
-describe("getNotes() and getNote()", () => {
-  it("returns an array of notes with required fields", () => {
-    const notes = getNotes();
-    expect(Array.isArray(notes)).toBe(true);
-    for (const n of notes) {
-      expect(n.slug).toMatch(/^[a-z0-9-]+$/);
-      expect(n.title.length).toBeGreaterThan(0);
-      expect(n.description.length).toBeGreaterThan(0);
-      expect(n.datePublished).toMatch(/^\d{4}-\d{2}-\d{2}$/);
-    }
-  });
-
-  it("round-trips slugs through getNote()", () => {
-    for (const n of getNotes()) {
-      expect(getNote(n.slug)).not.toBeNull();
-    }
   });
 });
 
