@@ -19,11 +19,11 @@ const faqs: { question: string; answer: string }[] = [
   },
   {
     question: `What categories does ${site.name} cover?`,
-    answer: "Five active categories: skincare, supplements, oral care, hair care, and body care, plus a /now page for what is currently on the shelf and /photos for DSLR shots from in between.",
+    answer: "Seven product categories: skincare, supplements, oral care, hair care (split into Treatment and Styling), body care, essentials (the cornerstone daily-life devices like the laptop and earbuds), and miscellaneous (random utility objects, gadgets, accessories). Plus /routine for what I actually do in order, /primers for ingredient-level reference pages, /photos for DSLR shots, /notes for the slower writing, and /now for what is on the shelf this month.",
   },
   {
     question: "How does the rating system work?",
-    answer: 'Each review carries a verdict word ("recommend", "okay", or "bad") and three rating axes: effect (does it do what it claims), value (price-per-result), and tolerance (how the skin or body handled it). The site deliberately avoids combined headline numbers because a single rating compresses too much.',
+    answer: 'Each review carries a verdict word ("recommend", "okay", "bad", or unset for "still testing") and three rating axes when filled: effect (does it do what it claims), value (price-per-result), and tolerance (how the skin or body handled it). The site deliberately avoids a single combined headline number, because that compresses too much. The verdict word is the user-facing summary; the prose is where the real opinion lives.',
   },
   {
     question: "Where can I buy the products that get recommended?",
@@ -75,10 +75,12 @@ export default function AboutPage() {
 
       <div className="prose-with-drop-cap mt-10 max-w-2xl text-lg leading-relaxed text-stone-700 dark:text-stone-300">
         <p>
-          I live in {site.location}. This is the corner of the internet where I
-          write about the products I actually use, skincare, supplements, oral
-          care, and the photos and rough notes I make in between. Slower than a
-          feed. More honest than a sponsored review.
+          I live in {site.location}. This is the corner of the internet where
+          I write about the products I actually use, skincare, supplements,
+          oral care, hair care, body care, essentials, and the small
+          miscellaneous things in between, plus the photos and rough notes I
+          make on the side. Slower than a feed. More honest than a sponsored
+          review.
         </p>
 
         <SectionLabel num="01" label="The rules I write by" />
@@ -112,27 +114,34 @@ export default function AboutPage() {
           whether it was worth the money. So I made one.
         </p>
 
-        <SectionLabel num="03" label="On the rating number" />
+        <SectionLabel num="03" label="On the verdict word" />
         <p>
-          Every review here carries a number out of ten. I put it there
-          because readers expect one and because it makes sorting and
-          filtering possible. But a single rating is a lie by compression.
-          It can&apos;t capture:
+          Every review here carries one of four verdict words:{" "}
+          <strong className="font-serif italic text-stone-900 dark:text-stone-100">recommend</strong>,{" "}
+          <strong className="font-serif italic text-stone-900 dark:text-stone-100">okay</strong>,{" "}
+          <strong className="font-serif italic text-stone-900 dark:text-stone-100">bad</strong>, or{" "}
+          <strong className="font-serif italic text-stone-900 dark:text-stone-100">still testing</strong>.
+          Three optional rating axes (effect, value, tolerance) sit
+          underneath when I have something honest to say about each. There
+          is no headline 7.5/10. A single combined number is a lie by
+          compression, it can&apos;t capture:
         </p>
         <ul className="mt-4 space-y-3">
           <li className="flex gap-3">
             <span aria-hidden className="mt-1.5 text-rose-400">❋</span>
             <span>
               <strong className="font-serif text-stone-900 dark:text-stone-100">Context.</strong>{" "}
-              A 7.5 for oily skin might be a 9 for dry skin, and the opposite.
+              A serum that is a recommend for oily skin might be only okay for
+              dry skin, and the other way round.
             </span>
           </li>
           <li className="flex gap-3">
             <span aria-hidden className="mt-1.5 text-rose-400">❋</span>
             <span>
               <strong className="font-serif text-stone-900 dark:text-stone-100">Price.</strong>{" "}
-              A $15 product at 7 is a different product than a $200 product
-              at 7.
+              A $15 product I would buy again is not the same as a $200
+              product I would buy again. Hence the value axis sitting
+              separately from effect.
             </span>
           </li>
           <li className="flex gap-3">
@@ -140,6 +149,7 @@ export default function AboutPage() {
             <span>
               <strong className="font-serif text-stone-900 dark:text-stone-100">Routine fit.</strong>{" "}
               A product is only as good as the things around it in a routine.
+              Pairing notes live in the prose, not the score.
             </span>
           </li>
           <li className="flex gap-3">
@@ -151,9 +161,9 @@ export default function AboutPage() {
           </li>
         </ul>
         <p className="mt-5 font-serif italic">
-          The number is a shortcut; the prose is where the real opinion lives.
-          If you&apos;re deciding whether to buy something, read the body
-          before the score.
+          The verdict word is the shortcut; the prose is where the real
+          opinion lives. If you are deciding whether to buy something, read
+          the body before the badge.
         </p>
 
         <SectionLabel num="04" label="Off the clock, in the water" />
@@ -212,20 +222,66 @@ export default function AboutPage() {
           straight-faced.
         </p>
 
-        <SectionLabel num="06" label="Sections" />
+        <SectionLabel num="06" label="Quick takes" />
+        <p>
+          The trivial stuff that makes a personal site feel personal:
+        </p>
+        <dl className="mt-4 grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-[max-content_1fr]">
+          <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-stone-400 dark:text-stone-500 sm:pt-1.5">
+            Favourite colour
+          </dt>
+          <dd className="text-stone-700 dark:text-stone-300">
+            Black. Almost everything I own and wear is some shade of it. The
+            one exception:{" "}
+            <span className="font-serif italic">cars</span>. There, red, but
+            only on sports cars; on anything else red looks like a rental.
+          </dd>
+
+          <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-stone-400 dark:text-stone-500 sm:pt-1.5">
+            Favourite chocolate
+          </dt>
+          <dd className="text-stone-700 dark:text-stone-300">
+            <a href="/miscellaneous/toblerone-milk-chocolate" className={linkClass}>
+              Toblerone Original
+            </a>
+            . The triangle, the honey-almond nougat, available at every
+            airport in the world. Not the most refined chocolate on the shelf;
+            still the one I reach for.
+          </dd>
+
+          <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-stone-400 dark:text-stone-500 sm:pt-1.5">
+            Favourite weekend
+          </dt>
+          <dd className="text-stone-700 dark:text-stone-300">
+            Anything with water in it. The full list lives up in section 04.
+          </dd>
+        </dl>
+
+        <SectionLabel num="07" label="Sections" />
         <p>
           <a href="/skincare" className={linkClass}>Skincare</a>,{" "}
           <a href="/supplements" className={linkClass}>supplements</a>,{" "}
           <a href="/oral-care" className={linkClass}>oral care</a>,{" "}
           <a href="/hair-care" className={linkClass}>hair care</a>,{" "}
-          <a href="/body-care" className={linkClass}>body care</a>, the reviews.{" "}
-          <a href="/photos" className={linkClass}>Photos</a> for the ones I shot on a DSLR.{" "}
-          <a href="/notes" className={linkClass}>Notes</a> for the slower writing.{" "}
-          <a href="/now" className={linkClass}>Now</a> for what&apos;s on the shelf this month.{" "}
-          <a href="/links" className={linkClass}>Links</a> if you want to find me elsewhere.
+          <a href="/body-care" className={linkClass}>body care</a>,{" "}
+          <a href="/essentials" className={linkClass}>essentials</a>, and{" "}
+          <a href="/miscellaneous" className={linkClass}>miscellaneous</a>, the
+          reviews.{" "}
+          <a href="/routine" className={linkClass}>Routine</a> for what I
+          actually do, in order. {" "}
+          <a href="/primers" className={linkClass}>Primers</a> for ingredient
+          and stack reference pages.{" "}
+          <a href="/photos" className={linkClass}>Photos</a> for DSLR shots.{" "}
+          <a href="/notes" className={linkClass}>Notes</a> for slower writing.{" "}
+          <a href="/now" className={linkClass}>Now</a> for what&apos;s on the
+          shelf this month.{" "}
+          <a href="/subscribe" className={linkClass}>Subscribe</a> if you want
+          new reviews in your inbox the day they ship.{" "}
+          <a href="/links" className={linkClass}>Links</a> if you want to find
+          me elsewhere.
         </p>
 
-        <SectionLabel num="07" label="Frequently asked" />
+        <SectionLabel num="08" label="Frequently asked" />
         {/* Visible FAQ list, mirroring the JSON-LD above so search engines
             and AI crawlers see the same content the reader sees. */}
         <dl className="mt-4 space-y-6">
@@ -241,7 +297,7 @@ export default function AboutPage() {
           ))}
         </dl>
 
-        <SectionLabel num="08" label="My day job" />
+        <SectionLabel num="09" label="My day job" />
         <p>
           I write software when I&apos;m not writing about ceramide
           concentrations.{" "}
@@ -257,7 +313,7 @@ export default function AboutPage() {
           is where that side lives.
         </p>
 
-        <SectionLabel num="09" label="Get in touch" />
+        <SectionLabel num="10" label="Get in touch" />
         <p>
           Email or any of the socials on the{" "}
           <a href="/links" className={linkClass}>

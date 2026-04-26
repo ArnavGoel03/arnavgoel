@@ -302,6 +302,7 @@ const BRAND_TEXT_COLOR: Record<string, string> = {
   "FANCOLE": "text-stone-700 dark:text-stone-300",
   "CERETIA": "text-stone-700 dark:text-stone-300",
   "Urbanstrive": "text-stone-700 dark:text-stone-300",
+  "Toblerone": "text-amber-700 dark:text-amber-400",
 };
 
 const DEFAULT_BRAND_COLOR = "text-stone-500 dark:text-stone-400";

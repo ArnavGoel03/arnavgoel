@@ -2,7 +2,7 @@
 
 # About this site
 
-A first-person review site (yashgoel.com → currently deployed at skincare-supplement-reviews.vercel.app). Magazine-editorial aesthetic. Three review categories, skincare, supplements, oral care, plus notes, photos, a /now page, and a private /admin dashboard for adding content. The user (Yash on this site, Arnav at arnavgoel.dev) writes every review after using a product for at least a month.
+A first-person review site (yashgoel.com → currently deployed at skincare-supplement-reviews.vercel.app). Magazine-editorial aesthetic. Seven product categories — skincare, supplements, oral care, hair care (split into Treatment and Styling chapters), body care, essentials (cornerstone daily devices like the laptop, earbuds, primary charger), and miscellaneous (random utility objects, accessories, gadgets) — plus /routine (with subroutine variants like /routine/morning/post-workout), /primers, /notes, /photos, a /now page, /subscribe for the email list, and a private /admin dashboard for adding content. The user (Yash on this site, Arnav at arnavgoel.dev) writes every review after using a product for at least a month.
 
 The signature mark across the site is a small rose ❋ glyph; it appears in the header, every page masthead, hover states, and the footer. The accent color is rose only, everything else is stone-neutral. Don't introduce new accent colors.
 
