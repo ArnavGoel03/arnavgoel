@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Check, ChevronDown } from "lucide-react";
+import { Check, ChevronDown, SlidersHorizontal, X } from "lucide-react";
 import { ProductCard } from "./product-card";
 import { cn } from "@/lib/utils";
 import { costPerDay, parsePrice } from "@/lib/cost";
@@ -25,10 +25,6 @@ const SORT_OPTIONS: { id: SortKey; label: string }[] = [
   { id: "cost-per-day", label: "Cost / day" },
 ];
 
-// Short URL keys keep the query string compact when the user shares a
-// link. `c` for category, `sort`, `region`, `brand`, `ing` for
-// ingredient. Defaults are omitted entirely so a clean URL stays
-// clean.
 const URL_KEY = {
   category: "c",
   sort: "sort",
@@ -51,12 +47,9 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
   const [region, setRegion] = useState<RegionFilter>("all");
   const [ingredient, setIngredient] = useState<string>("all");
   const [brand, setBrand] = useState<string>("all");
+  const [sheetOpen, setSheetOpen] = useState(false);
   const hydratedRef = useRef(false);
 
-  // Hydrate filter state from the URL on mount, so a shared
-  // /skincare?region=usa&sort=price link lands the reader on exactly
-  // that filtered view. Only runs once; subsequent state changes are
-  // pushed back out via the next effect.
   useEffect(() => {
     const sp = new URLSearchParams(window.location.search);
     const c = sp.get(URL_KEY.category);
@@ -74,10 +67,6 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
     hydratedRef.current = true;
   }, []);
 
-  // Push filter state to the URL whenever it changes. Use
-  // history.replaceState so we don't pollute the browser back-button
-  // with one entry per chip click. Default values stay out of the URL
-  // so a clean view has a clean URL.
   useEffect(() => {
     if (!hydratedRef.current) return;
     const sp = new URLSearchParams();
@@ -90,10 +79,28 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
     const next = qs
       ? `${window.location.pathname}?${qs}${window.location.hash}`
       : `${window.location.pathname}${window.location.hash}`;
-    if (next !== window.location.pathname + window.location.search + window.location.hash) {
+    if (
+      next !==
+      window.location.pathname + window.location.search + window.location.hash
+    ) {
       window.history.replaceState(null, "", next);
     }
   }, [active, sort, region, brand, ingredient]);
+
+  // Lock body scroll while the sheet is open.
+  useEffect(() => {
+    if (!sheetOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setSheetOpen(false);
+    }
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [sheetOpen]);
 
   const categories = useMemo(() => {
     const set = new Set(reviews.map((r) => r.category));
@@ -121,7 +128,8 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
   );
 
   const filtered = useMemo(() => {
-    let base = active === "all" ? reviews : reviews.filter((r) => r.category === active);
+    let base =
+      active === "all" ? reviews : reviews.filter((r) => r.category === active);
     if (region !== "all") {
       base = base.filter((r) => availableInRegion(r, region));
     }
@@ -140,14 +148,10 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
     }
     if (sort === "price") {
       return [...base].sort((a, b) => {
-        // When a region filter is active, sort by that region's price so
-        // shoppers see the cheapest in their own market on top. Otherwise
-        // fall back to whichever region we have data for.
         const priceStr = (r: ReviewSummary) =>
           region === "all" ? defaultPrice(r.price) : priceFor(r.price, region);
         const pa = parsePrice(priceStr(a));
         const pb = parsePrice(priceStr(b));
-        // Items without a price sink to the bottom.
         if (pa === null && pb === null) return 0;
         if (pa === null) return 1;
         if (pb === null) return -1;
@@ -168,11 +172,6 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
     return base;
   }, [reviews, active, sort, region, ingredient, brand]);
 
-  // Anything beyond default sort = "recent" / region = "all" / brand =
-  // "all" / ingredient = "all" counts as a non-default filter, used to
-  // surface a "Reset" affordance and to gate the secondary toolbar's
-  // visual emphasis. Category isn't included because it's already a
-  // first-class row.
   const activeFilterCount =
     (sort !== "recent" ? 1 : 0) +
     (region !== "all" ? 1 : 0) +
@@ -187,18 +186,32 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
     setIngredient("all");
   }
 
+  const showBrandFilter = brands.length > 2;
+  const showIngredientFilter = ingredients.length > 2;
+
   return (
     <div className="space-y-5">
-      {/* Row 1: category pills, the primary filter. Everything else
-          (sort / region / brand / ingredient) lives in the compact
-          toolbar below. */}
-      <div data-tour-listing="categories" className="flex flex-wrap gap-2">
+      {/* Row 1: category pills.
+          Mobile (< sm): one-line, horizontal scroll with snap, no
+          scrollbar. Items keep their natural width.
+          sm+: existing wrap behaviour. */}
+      <div
+        data-tour-listing="categories"
+        className={cn(
+          "flex gap-2",
+          // Mobile horizontal-scroll
+          "-mx-4 overflow-x-auto px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+          "snap-x snap-mandatory",
+          // sm+ wrap
+          "sm:mx-0 sm:flex-wrap sm:overflow-x-visible sm:px-0 sm:snap-none",
+        )}
+      >
         {categories.map((c) => (
           <button
             key={c}
             onClick={() => setActive(c)}
             className={cn(
-              "rounded-full border px-3 py-1 text-sm capitalize transition-colors",
+              "shrink-0 snap-start whitespace-nowrap rounded-full border px-3 py-1 text-sm capitalize transition-colors",
               active === c
                 ? "border-stone-900 bg-stone-900 text-white dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900"
                 : "border-stone-200 bg-white text-stone-600 hover:border-stone-300 hover:text-stone-900 dark:border-stone-800 dark:bg-stone-900 dark:text-stone-400 dark:hover:border-stone-600 dark:hover:text-stone-100",
@@ -209,77 +222,18 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
         ))}
       </div>
 
-      {/* Row 2: secondary-filter toolbar. Single line at desktop width,
-          wraps gracefully on mobile. Each pill group separated by a
-          subtle divider so the four jobs (sort / region / brand /
-          ingredient) read as four jobs, not one wall of pills. */}
-      <div className="flex flex-wrap items-center gap-x-5 gap-y-3 border-y border-stone-200 py-3 text-sm dark:border-stone-800">
-        <div
-          data-tour-listing="sort"
-          className="flex flex-wrap items-center gap-1 text-stone-500 dark:text-stone-400"
-        >
-          <span className="mr-1 text-xs uppercase tracking-[0.18em] text-stone-400 dark:text-stone-500">
-            Sort
-          </span>
-          {SORT_OPTIONS.map((opt) => (
-            <button
-              key={opt.id}
-              onClick={() => setSort(opt.id)}
-              className={cn(
-                "rounded-full px-2.5 py-0.5 transition-colors",
-                sort === opt.id
-                  ? "bg-stone-100 text-stone-900 dark:bg-stone-800 dark:text-stone-100"
-                  : "hover:text-stone-900 dark:hover:text-stone-100",
-              )}
-            >
-              {opt.label}
-            </button>
-          ))}
-        </div>
-
+      {/* Row 2 desktop: secondary-filter toolbar inline.
+          Hidden below sm; mobile uses the bottom-sheet trigger instead. */}
+      <div className="hidden flex-wrap items-center gap-x-5 gap-y-3 border-y border-stone-200 py-3 text-sm sm:flex dark:border-stone-800">
+        <SortControls sort={sort} setSort={setSort} />
         <span aria-hidden className="hidden h-4 w-px bg-stone-200 dark:bg-stone-800 sm:inline" />
-
-        <div
-          data-tour-listing="region"
-          className="flex flex-wrap items-center gap-1.5"
-        >
-          <span className="mr-1 text-xs uppercase tracking-[0.18em] text-stone-400 dark:text-stone-500">
-            Region
-          </span>
-          {(
-            [
-              { id: "all", label: "All", count: reviews.length },
-              { id: "india", label: "India", count: counts.india },
-              { id: "usa", label: "USA", count: counts.usa },
-              { id: "uk", label: "UK", count: counts.uk },
-            ] as const
-          ).map((r) => (
-            <button
-              key={r.id}
-              onClick={() => setRegion(r.id)}
-              className={cn(
-                "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 transition-colors",
-                region === r.id
-                  ? "border-stone-900 bg-stone-900 text-white dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900"
-                  : "border-stone-200 bg-white text-stone-600 hover:border-stone-300 hover:text-stone-900 dark:border-stone-800 dark:bg-stone-900 dark:text-stone-400 dark:hover:border-stone-600 dark:hover:text-stone-100",
-              )}
-            >
-              {r.label}
-              <span
-                className={cn(
-                  "text-[10px] tabular-nums",
-                  region === r.id
-                    ? "text-stone-300 dark:text-stone-500"
-                    : "text-stone-400 dark:text-stone-500",
-                )}
-              >
-                {r.count}
-              </span>
-            </button>
-          ))}
-        </div>
-
-        {brands.length > 2 && (
+        <RegionControls
+          region={region}
+          setRegion={setRegion}
+          counts={counts}
+          totalCount={reviews.length}
+        />
+        {showBrandFilter && (
           <>
             <span aria-hidden className="hidden h-4 w-px bg-stone-200 dark:bg-stone-800 sm:inline" />
             <div className="flex items-center gap-1.5">
@@ -295,8 +249,7 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
             </div>
           </>
         )}
-
-        {ingredients.length > 2 && (
+        {showIngredientFilter && (
           <>
             <span aria-hidden className="hidden h-4 w-px bg-stone-200 dark:bg-stone-800 sm:inline" />
             <div className="flex items-center gap-1.5">
@@ -325,14 +278,27 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
         )}
       </div>
 
-      {/* Screen-reader-only live announcement of the filter result.
-          Sighted users see the grid update; AT users get the count
-          spoken when they tap a chip. */}
-      <p
-        aria-live="polite"
-        aria-atomic="true"
-        className="sr-only"
-      >
+      {/* Row 2 mobile: single Filters trigger + count badge. */}
+      <div className="flex items-center justify-between border-y border-stone-200 py-3 sm:hidden dark:border-stone-800">
+        <button
+          type="button"
+          onClick={() => setSheetOpen(true)}
+          className="inline-flex items-center gap-2 rounded-full border border-stone-200 bg-white px-3 py-1.5 text-xs uppercase tracking-[0.18em] text-stone-700 transition-colors hover:border-stone-400 dark:border-stone-800 dark:bg-stone-900 dark:text-stone-200 dark:hover:border-stone-600"
+        >
+          <SlidersHorizontal className="h-3.5 w-3.5" />
+          Filters
+          {activeFilterCount > 0 && (
+            <span className="ml-1 rounded-full bg-stone-900 px-1.5 py-0.5 text-[10px] tabular-nums text-white dark:bg-stone-100 dark:text-stone-900">
+              {activeFilterCount}
+            </span>
+          )}
+        </button>
+        <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-stone-400 dark:text-stone-500">
+          {filtered.length} of {reviews.length}
+        </span>
+      </div>
+
+      <p aria-live="polite" aria-atomic="true" className="sr-only">
         {filtered.length === 0
           ? "No products match the current filters."
           : `${filtered.length} ${filtered.length === 1 ? "product" : "products"} shown.`}
@@ -371,15 +337,249 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
           ))}
         </div>
       )}
+
+      {/* Mobile filter sheet. Slide-up bottom drawer with scroll, dim
+          backdrop, sticky footer with reset + apply. */}
+      {sheetOpen && (
+        <FilterSheet
+          onClose={() => setSheetOpen(false)}
+          activeCount={activeFilterCount}
+          resetAll={resetAll}
+          sort={sort}
+          setSort={setSort}
+          region={region}
+          setRegion={setRegion}
+          counts={counts}
+          totalCount={reviews.length}
+          brands={brands}
+          brand={brand}
+          setBrand={setBrand}
+          showBrandFilter={showBrandFilter}
+          ingredients={ingredients}
+          ingredient={ingredient}
+          setIngredient={setIngredient}
+          showIngredientFilter={showIngredientFilter}
+          resultCount={filtered.length}
+        />
+      )}
+    </div>
+  );
+}
+
+// ── Sub-components shared between desktop bar and mobile sheet ─────
+
+function SortControls({
+  sort,
+  setSort,
+  vertical = false,
+}: {
+  sort: SortKey;
+  setSort: (s: SortKey) => void;
+  vertical?: boolean;
+}) {
+  return (
+    <div
+      data-tour-listing="sort"
+      className={cn(
+        "flex gap-1 text-stone-500 dark:text-stone-400",
+        vertical ? "flex-wrap items-center" : "flex-wrap items-center",
+      )}
+    >
+      <span className="mr-1 text-xs uppercase tracking-[0.18em] text-stone-400 dark:text-stone-500">
+        Sort
+      </span>
+      {SORT_OPTIONS.map((opt) => (
+        <button
+          key={opt.id}
+          onClick={() => setSort(opt.id)}
+          className={cn(
+            "rounded-full px-2.5 py-0.5 transition-colors",
+            sort === opt.id
+              ? "bg-stone-100 text-stone-900 dark:bg-stone-800 dark:text-stone-100"
+              : "hover:text-stone-900 dark:hover:text-stone-100",
+          )}
+        >
+          {opt.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function RegionControls({
+  region,
+  setRegion,
+  counts,
+  totalCount,
+}: {
+  region: RegionFilter;
+  setRegion: (r: RegionFilter) => void;
+  counts: { india: number; usa: number; uk: number };
+  totalCount: number;
+}) {
+  return (
+    <div
+      data-tour-listing="region"
+      className="flex flex-wrap items-center gap-1.5"
+    >
+      <span className="mr-1 text-xs uppercase tracking-[0.18em] text-stone-400 dark:text-stone-500">
+        Region
+      </span>
+      {(
+        [
+          { id: "all", label: "All", count: totalCount },
+          { id: "india", label: "India", count: counts.india },
+          { id: "usa", label: "USA", count: counts.usa },
+          { id: "uk", label: "UK", count: counts.uk },
+        ] as const
+      ).map((r) => (
+        <button
+          key={r.id}
+          onClick={() => setRegion(r.id)}
+          className={cn(
+            "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 transition-colors",
+            region === r.id
+              ? "border-stone-900 bg-stone-900 text-white dark:border-stone-100 dark:bg-stone-100 dark:text-stone-900"
+              : "border-stone-200 bg-white text-stone-600 hover:border-stone-300 hover:text-stone-900 dark:border-stone-800 dark:bg-stone-900 dark:text-stone-400 dark:hover:border-stone-600 dark:hover:text-stone-100",
+          )}
+        >
+          {r.label}
+          <span
+            className={cn(
+              "text-[10px] tabular-nums",
+              region === r.id
+                ? "text-stone-300 dark:text-stone-500"
+                : "text-stone-400 dark:text-stone-500",
+            )}
+          >
+            {r.count}
+          </span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function FilterSheet(props: {
+  onClose: () => void;
+  activeCount: number;
+  resetAll: () => void;
+  sort: SortKey;
+  setSort: (s: SortKey) => void;
+  region: RegionFilter;
+  setRegion: (r: RegionFilter) => void;
+  counts: { india: number; usa: number; uk: number };
+  totalCount: number;
+  brands: string[];
+  brand: string;
+  setBrand: (b: string) => void;
+  showBrandFilter: boolean;
+  ingredients: string[];
+  ingredient: string;
+  setIngredient: (i: string) => void;
+  showIngredientFilter: boolean;
+  resultCount: number;
+}) {
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label="Filters"
+      className="fixed inset-0 z-50 sm:hidden"
+    >
+      {/* Backdrop */}
+      <button
+        type="button"
+        aria-label="Close filters"
+        onClick={props.onClose}
+        className="absolute inset-0 bg-stone-950/40 backdrop-blur-sm animate-[fade-in_120ms_ease-out]"
+      />
+      {/* Sheet */}
+      <div
+        className="absolute inset-x-0 bottom-0 max-h-[85dvh] overflow-hidden rounded-t-2xl border-t border-stone-200 bg-white shadow-2xl animate-[sheet-up_220ms_cubic-bezier(0.22,1,0.36,1)] dark:border-stone-800 dark:bg-stone-950"
+      >
+        <div className="flex items-center justify-between border-b border-stone-200 px-4 py-3 dark:border-stone-800">
+          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-stone-500 dark:text-stone-400">
+            Filters
+            {props.activeCount > 0 && (
+              <span className="ml-2 rounded-full bg-stone-900 px-1.5 py-0.5 text-[9px] text-white dark:bg-stone-100 dark:text-stone-900">
+                {props.activeCount}
+              </span>
+            )}
+          </p>
+          <button
+            type="button"
+            aria-label="Close filters"
+            onClick={props.onClose}
+            className="-mr-1 flex h-8 w-8 items-center justify-center rounded-full text-stone-500 transition-colors hover:bg-stone-100 hover:text-stone-900 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-100"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+
+        <div
+          className="space-y-7 overflow-y-auto px-4 py-5"
+          style={{ maxHeight: "calc(85dvh - 7.5rem)" }}
+        >
+          <SortControls sort={props.sort} setSort={props.setSort} vertical />
+          <RegionControls
+            region={props.region}
+            setRegion={props.setRegion}
+            counts={props.counts}
+            totalCount={props.totalCount}
+          />
+          {props.showBrandFilter && (
+            <div className="flex items-center gap-1.5">
+              <span className="mr-1 text-xs uppercase tracking-[0.18em] text-stone-400 dark:text-stone-500">
+                Brand
+              </span>
+              <IngredientPicker
+                options={props.brands}
+                value={props.brand}
+                onChange={props.setBrand}
+                placeholder="Any"
+              />
+            </div>
+          )}
+          {props.showIngredientFilter && (
+            <div className="flex items-center gap-1.5">
+              <span className="mr-1 text-xs uppercase tracking-[0.18em] text-stone-400 dark:text-stone-500">
+                Ingredient
+              </span>
+              <IngredientPicker
+                options={props.ingredients}
+                value={props.ingredient}
+                onChange={props.setIngredient}
+              />
+            </div>
+          )}
+        </div>
+
+        <div className="flex items-center justify-between gap-3 border-t border-stone-200 bg-stone-50 px-4 py-3 dark:border-stone-800 dark:bg-stone-900">
+          <button
+            type="button"
+            onClick={props.resetAll}
+            disabled={props.activeCount === 0}
+            className="text-xs uppercase tracking-[0.18em] text-stone-500 transition-colors hover:text-rose-600 disabled:opacity-40 dark:text-stone-400 dark:hover:text-rose-400"
+          >
+            Reset all
+          </button>
+          <button
+            type="button"
+            onClick={props.onClose}
+            className="rounded-full bg-stone-900 px-5 py-2 text-sm text-white transition-colors hover:bg-stone-700 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white"
+          >
+            Show {props.resultCount} {props.resultCount === 1 ? "product" : "products"}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
 
 /**
- * Editorial pill dropdown for ingredient filtering. Replaces the
- * native <select>, which jumped out visually against the site's
- * stone-on-rose pill vocabulary. Opens below on click, closes on
- * outside-click and on Escape.
+ * Editorial pill dropdown for ingredient/brand filtering.
+ * Replaces the native <select>. Closes on outside-click and Escape.
  */
 function IngredientPicker({
   options,

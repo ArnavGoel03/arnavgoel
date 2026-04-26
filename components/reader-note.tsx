@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
+import { toast } from "@/lib/toast";
 
 /**
  * End-of-article reader-feedback affordance. Not a public comments
@@ -63,9 +64,12 @@ export function ReaderNote({
       setState("sent");
       setNote("");
       setName("");
+      toast("Note sent");
     } catch (err) {
-      setErrorMsg((err as Error).message);
+      const msg = (err as Error).message;
+      setErrorMsg(msg);
       setState("error");
+      toast(msg || "Could not send note", { tone: "error" });
     }
   }
 

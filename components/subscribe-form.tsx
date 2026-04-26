@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
+import { toast } from "@/lib/toast";
 
 /**
  * Email-subscription form, two flavors:
@@ -57,9 +58,12 @@ export function SubscribeForm({
       }
       setState("ok");
       setEmail("");
+      toast("Subscribed");
     } catch (err) {
-      setErrorMsg((err as Error).message);
+      const msg = (err as Error).message;
+      setErrorMsg(msg);
       setState("error");
+      toast(msg || "Could not subscribe", { tone: "error" });
     }
   }
 

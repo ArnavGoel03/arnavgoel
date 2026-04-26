@@ -4,6 +4,7 @@ import { Inter, JetBrains_Mono, Instrument_Serif, Fraunces } from "next/font/goo
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+import { ToastHost } from "@/components/toast-host";
 import { WebsiteJsonLd } from "@/components/json-ld";
 import { themeInitScript } from "@/components/theme-toggle";
 import { CompareProvider } from "@/components/compare-bar";
@@ -123,6 +124,7 @@ export default function RootLayout({
           <Footer />
           <CommandPaletteMount />
           <BackToTop />
+          <ToastHost />
           {/* Suspense wrap is required because SiteTourMount calls
               useSearchParams(); without it, static prerender of /404
               bails and the whole build fails. */}
