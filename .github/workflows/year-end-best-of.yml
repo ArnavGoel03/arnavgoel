@@ -1,0 +1,80 @@
+name: Year-end Best Of reminder
+
+# Opens a GitHub issue every December 1 to draft the next year's
+# /best-of/<year> issue. The /best-of page itself auto-picks from the
+# review catalog, but the editor's note + methodology + any framing
+# changes still need a human pass before December 31.
+#
+# Triggers:
+#   - cron: 09:07 UTC on December 1 every year (off-the-hour by design)
+#   - workflow_dispatch: manual fire from the Actions tab if you want
+#     to draft mid-year or test the workflow
+#
+# What it does:
+#   - figures out the upcoming year (this December's year + 1 if run
+#     on Dec 1 itself, otherwise the current year)
+#   - opens an issue titled "Best of <YEAR> editor's pass" with a
+#     punch-list checklist tied to the actual /best-of route file
+#   - labels it `editorial` and `annual`
+
+on:
+  schedule:
+    - cron: "7 9 1 12 *"
+  workflow_dispatch:
+
+jobs:
+  open-issue:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Compute target year
+        id: year
+        run: |
+          # On Dec 1, the issue is for THIS year (review the year about
+          # to close). Off-cycle (manual dispatch), use current year too.
+          echo "value=$(date -u +%Y)" >> "$GITHUB_OUTPUT"
+
+      - name: Open editorial pass issue
+        uses: actions/github-script@v7
+        env:
+          YEAR: ${{ steps.year.outputs.value }}
+        with:
+          script: |
+            const year = process.env.YEAR;
+            const title = `Best of ${year} editor's pass`;
+            const body = [
+              `## What this issue is`,
+              ``,
+              `Annual reminder to draft the year-end Best Of issue.`,
+              `\`/best-of/${year}\` auto-picks the top \`recommend\` per`,
+              `category from the catalog (effect + value + tolerance`,
+              `axes, with a small nudge for products that have a real`,
+              `photo and are tagged into a routine). Your job is the`,
+              `framing, not the picks.`,
+              ``,
+              `## Punch list`,
+              ``,
+              `- [ ] Create \`app/best-of/${year}/page.tsx\` (clone the previous year's, update title and metadata)`,
+              `- [ ] Audit each auto-picked product, swap if any feel dishonest`,
+              `- [ ] Write the editor's note: what changed about the year, what surprised you, what you would not buy again`,
+              `- [ ] Update \`category framing\` strings if the year had a clear theme (e.g. "the year of magnesium")`,
+              `- [ ] Add the new route to \`app/sitemap.ts\``,
+              `- [ ] Add to header nav (\`components/header.tsx\`, secondary weight)`,
+              `- [ ] Send the digest email to subscribers (\`/admin/subscribers\` for the list)`,
+              ``,
+              `## Reference`,
+              ``,
+              `- Last year's page: [/best-of/2026](https://yashgoel.com/best-of/2026)`,
+              `- Picker logic: \`app/best-of/2026/page.tsx\` (\`pickTop\` function)`,
+              ``,
+              `Auto-opened by \`.github/workflows/year-end-best-of.yml\`.`,
+            ].join("\n");
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              body,
+              labels: ["editorial", "annual"],
+            });
