@@ -11,6 +11,7 @@ import { formatReadingTime } from "@/lib/reading-time";
 import { PrevNext } from "@/components/prev-next";
 import { CopyLink } from "@/components/copy-link";
 import { ReadingProgress } from "@/components/reading-progress";
+import { findGlossaryEntry } from "@/lib/glossary";
 import type { PrimerDomain } from "@/lib/types";
 
 const DOMAIN_LABEL: Record<PrimerDomain, string> = {
@@ -49,6 +50,8 @@ export default async function PrimerPage({ params }: Props) {
   const primer = getPrimer(slug);
   if (!primer) notFound();
   const { prev, next } = getAdjacentPrimers(primer.slug);
+  const glossaryEntry =
+    findGlossaryEntry(primer.slug) ?? findGlossaryEntry(primer.title);
 
   return (
     <article>
@@ -101,6 +104,20 @@ export default async function PrimerPage({ params }: Props) {
           {primer.subtitle && (
             <p className="mt-6 max-w-2xl font-serif text-xl italic leading-snug text-stone-600 dark:text-stone-300 sm:text-2xl">
               {primer.subtitle}
+            </p>
+          )}
+
+          {glossaryEntry && (
+            <p className="mt-6 inline-flex items-baseline gap-2 rounded-full border border-stone-200 bg-white px-4 py-1.5 text-[11px] uppercase tracking-[0.2em] text-stone-500 dark:border-stone-800 dark:bg-stone-900 dark:text-stone-400">
+              <span className="text-rose-400">❋</span>
+              <span>Quick definition</span>
+              <span className="text-stone-300 dark:text-stone-700">·</span>
+              <Link
+                href={`/glossary#${glossaryEntry.slug}`}
+                className="text-stone-700 underline decoration-stone-300 underline-offset-4 transition-colors hover:text-stone-900 hover:decoration-rose-400 dark:text-stone-200 dark:decoration-stone-700"
+              >
+                Glossary entry
+              </Link>
             </p>
           )}
 

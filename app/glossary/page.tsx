@@ -62,7 +62,7 @@ export default function GlossaryPage() {
             </h2>
             <div className="space-y-8">
               {entries.map((e) => (
-                <div key={e.term}>
+                <div key={e.term} id={e.slug} className="scroll-mt-24">
                   <dt className="flex flex-wrap items-baseline gap-3">
                     <span className="font-serif text-2xl text-stone-900 dark:text-stone-100">
                       {e.term}

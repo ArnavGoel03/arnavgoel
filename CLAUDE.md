@@ -44,6 +44,42 @@ If a directive contradicts something already written here, edit the
 existing section rather than appending a second one. The file should
 read like a maintained rulebook, not a changelog of corrections.
 
+# Glossary is canonical; primers cover combinations and depth
+
+`/glossary` is the canonical, one-paragraph "what is X" source. Primers
+do not redefine a term inline. A primer's job is *combinations*,
+*dosing*, *how-to-read-the-label*, *trade-offs over time*, anything
+that needs more than a paragraph. Single-ingredient primers
+(`/primers/niacinamide`, `/primers/creatine`, etc.) auto-render a
+"Quick definition" eyebrow that links to the matching glossary entry,
+courtesy of `findGlossaryEntry()` in `lib/glossary.ts`.
+
+When adding a new ingredient or term:
+
+1. Add the canonical short definition to the glossary first.
+2. If a deeper write-up is warranted, then add a primer. Make sure the
+   primer's title or a `seeAlso` href in the glossary entry matches
+   so the primer auto-links.
+3. Do not duplicate the definition in product MDX, listing-card copy,
+   or anywhere else. Link to `/glossary#<slug>` instead.
+
+# `/library` and any data the user authors
+
+`/library` reads from `content/_library.json` (user-owned, edited
+either directly or through a future `/admin` form). Books and films are
+the user's actual reading and watching, never seeded with AI guesses.
+If the file is empty, the page renders an honest empty state, not
+filler entries. Same principle applies to any other "what I am
+currently doing" surface: real data, or no data, never invented data.
+
+# `/best-of/<year>` releases on January 1 of the following year
+
+A year-end issue ranking products has to wait for the year to actually
+end. Until then, `/best-of/2026` (and any future year) is a
+coming-soon page that explains why and points at `/subscribe`. Do not
+auto-pick winners from the catalog mid-year, the previous AI-picked
+listings were the exact mistake the user wants to avoid.
+
 # Surfaces the user has explicitly removed (do not re-add)
 
 The user has, over time, deleted entire surfaces because they read as

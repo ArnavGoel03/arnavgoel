@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Container } from "@/components/container";
 import { LibraryTabs } from "@/components/library-tabs";
-import { READING, WATCHING } from "@/lib/library";
+import { getLibrary } from "@/lib/library";
 
 type Props = { searchParams: Promise<{ tab?: string }> };
 
@@ -16,6 +16,8 @@ export const metadata: Metadata = {
 export default async function LibraryPage({ searchParams }: Props) {
   const sp = await searchParams;
   const initial = sp.tab === "watching" ? "watching" : "reading";
+  const { reading, watching } = getLibrary();
+  const empty = reading.length === 0 && watching.length === 0;
 
   return (
     <Container className="max-w-3xl py-16 sm:py-20">
@@ -34,13 +36,30 @@ export default async function LibraryPage({ searchParams }: Props) {
         rule as the product reviews.
       </p>
 
-      <Suspense fallback={null}>
-        <LibraryTabs
-          reading={READING}
-          watching={WATCHING}
-          initialTab={initial}
-        />
-      </Suspense>
+      {empty ? (
+        <div className="mt-16 rounded-2xl border border-dashed border-stone-300 bg-stone-50 p-10 dark:border-stone-700 dark:bg-stone-900">
+          <p className="font-serif text-xl italic text-stone-700 dark:text-stone-200">
+            Building this slowly.
+          </p>
+          <p className="mt-3 max-w-prose text-sm leading-relaxed text-stone-500 dark:text-stone-400">
+            The previous list was AI-picked filler, so it has been cleared.
+            New entries will land here as I actually finish books and shows;
+            the same one-month, no-shortcut rule the product reviews follow.
+          </p>
+          <p className="mt-3 max-w-prose text-sm leading-relaxed text-stone-500 dark:text-stone-400">
+            If you came looking for what I am reading right now, the answer
+            is: I will tell you when I have something honest to say.
+          </p>
+        </div>
+      ) : (
+        <Suspense fallback={null}>
+          <LibraryTabs
+            reading={reading}
+            watching={watching}
+            initialTab={initial}
+          />
+        </Suspense>
+      )}
     </Container>
   );
 }
