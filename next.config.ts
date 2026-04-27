@@ -35,6 +35,10 @@ const cspValue = Object.entries(CSP_DIRECTIVES)
   .join("; ");
 
 const nextConfig: NextConfig = {
+  // Partial Prerendering — static shell renders instantly while dynamic bits
+  // stream in. In Next.js 16, PPR is enabled globally via `cacheComponents`
+  // rather than the old `experimental.ppr` flag (which was removed).
+  cacheComponents: true,
   experimental: {
     viewTransition: true,
   },
