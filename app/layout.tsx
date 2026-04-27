@@ -15,6 +15,7 @@ import { CommandPaletteMount } from "@/components/command-palette-mount";
 import { SiteTourMount } from "@/components/site-tour-mount";
 import { BackToTop } from "@/components/back-to-top";
 import { RouteWarmer } from "@/components/route-warmer";
+import { CursorHalo } from "@/components/cursor-halo";
 import { site } from "@/lib/site";
 
 const inter = Inter({
@@ -148,6 +149,9 @@ export default function RootLayout({
             <SiteTourMount />
           </Suspense>
         </CompareProvider>
+        {/* Cursor halo: renders nothing on touch devices — the
+            component checks (hover: hover) at mount time. */}
+        <CursorHalo />
         <Analytics />
         <SpeedInsights />
         <GoogleAnalytics gaId="G-DK22JR55RB" />
