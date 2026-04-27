@@ -52,7 +52,7 @@ export function ThemeToggle() {
         aria-pressed={isLight}
         title="Light mode"
         className={
-          "relative z-10 inline-flex h-7 w-7 items-center justify-center rounded-full transition-colors " +
+          "relative z-10 inline-flex h-9 w-9 items-center justify-center rounded-full transition-colors lg:h-7 lg:w-7 " +
           (isLight
             ? "bg-white text-stone-900 shadow-sm"
             : "text-stone-500 hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-200")
@@ -67,7 +67,7 @@ export function ThemeToggle() {
         aria-pressed={isDark}
         title="Dark mode"
         className={
-          "relative z-10 inline-flex h-7 w-7 items-center justify-center rounded-full transition-colors " +
+          "relative z-10 inline-flex h-9 w-9 items-center justify-center rounded-full transition-colors lg:h-7 lg:w-7 " +
           (isDark
             ? "bg-stone-800 text-stone-100 shadow-sm"
             : "text-stone-500 hover:text-stone-800 dark:text-stone-400 dark:hover:text-stone-200")

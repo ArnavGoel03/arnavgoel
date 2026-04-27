@@ -15,6 +15,7 @@ import { CommandPaletteMount } from "@/components/command-palette-mount";
 import { SiteTourMount } from "@/components/site-tour-mount";
 import { BackToTop } from "@/components/back-to-top";
 import { RouteWarmer } from "@/components/route-warmer";
+import { SwRegister } from "@/components/sw-register";
 import { CursorHalo } from "@/components/cursor-halo";
 import { AudioCues } from "@/components/audio-cues";
 import { ReadingProgress } from "@/components/reading-progress";
@@ -165,6 +166,7 @@ export default function RootLayout({
         <Suspense fallback={null}>
           <AudioCues />
         </Suspense>
+        <SwRegister />
         <Analytics />
         <SpeedInsights />
         <GoogleAnalytics gaId="G-DK22JR55RB" />

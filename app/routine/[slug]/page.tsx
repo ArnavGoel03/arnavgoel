@@ -43,6 +43,7 @@ export default async function RoutinePage({ params }: Props) {
   // as the literal sequence the products are applied, with a step
   // number on each row so the order is obvious without prose.
   const SKINCARE_ORDER: Record<string, number> = {
+    "cleansing balm": 9,
     "face wash": 10,
     cleanser: 11,
     "chemical exfoliant": 20,

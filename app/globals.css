@@ -294,11 +294,14 @@
     z-index: 0;
   }
   .dark .bg-paper-grain::after {
-    /* Lighter dot-noise so the texture lands as scattered specks on
-       the dark plate instead of crushed black-on-black. */
-    background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    /* White-on-black dot-noise via `screen` blend lifts the average
+       lightness of the plate — at 0.04 alpha + 0.5 opacity the hero
+       was reading visibly grayer than the rest of the dark page. Cut
+       both so the texture survives as faint specks but the plate
+       stays the same near-black as the body. */
+    background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.022 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     mix-blend-mode: screen;
-    opacity: 0.5;
+    opacity: 0.22;
   }
 
   /* Editorial section divider: hairline rule with a centered rose

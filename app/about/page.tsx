@@ -254,6 +254,17 @@ export default function AboutPage() {
           <dd className="text-stone-700 dark:text-stone-300">
             Anything with water in it. The full list lives up in section 04.
           </dd>
+
+          <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-stone-400 dark:text-stone-500 sm:pt-1.5">
+            On shaving
+          </dt>
+          <dd className="text-stone-700 dark:text-stone-300">
+            I don&apos;t. Never have. Any razor or blade you see in a review here
+            is for{" "}
+            <span className="font-serif italic">dermaplaning</span>, not facial
+            hair, lifting peach fuzz so serums and SPF sit flat. The face stays
+            unshaved.
+          </dd>
         </dl>
 
         <SectionLabel num="07" label="Sections" />

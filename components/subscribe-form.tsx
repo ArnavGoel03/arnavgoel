@@ -88,8 +88,11 @@ export function SubscribeForm({
     );
   }
 
+  // text-base (16px) on the input is intentional: any smaller font on
+  // an <input> triggers an automatic zoom-on-focus on iOS Safari, which
+  // makes the form jump under the user's finger. Don't drop below it.
   const baseInput =
-    "rounded-full border border-stone-200 bg-white px-4 py-2 text-sm text-stone-900 placeholder:text-stone-400 focus:border-stone-400 focus:outline-none dark:border-stone-800 dark:bg-stone-900 dark:text-stone-100 dark:placeholder:text-stone-500";
+    "rounded-full border border-stone-200 bg-white px-4 py-2 text-base text-stone-900 placeholder:text-stone-400 focus:border-stone-400 focus:outline-none dark:border-stone-800 dark:bg-stone-900 dark:text-stone-100 dark:placeholder:text-stone-500";
   const baseButton =
     "rounded-full bg-stone-900 px-5 py-2 text-sm text-white transition-colors hover:bg-stone-700 disabled:cursor-not-allowed disabled:bg-stone-300 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white dark:disabled:bg-stone-700 dark:disabled:text-stone-400";
 

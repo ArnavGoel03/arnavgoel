@@ -32,36 +32,65 @@ function sortByDateDesc<T extends { datePublished: string }>(list: T[]): T[] {
 }
 
 /**
- * Stable lift of photoed reviews to the top of the list. Visual grid
- * reads as a portfolio when the cards with real product shots come
- * first; the watermark-only cards form a quieter tail. Pair this after
- * sortByDateDesc so the within-group order stays "recent first."
+ * Internal ranking score. Folds every signal that should influence the
+ * order of a category listing into a single number. Higher = surfaces
+ * sooner. Never rendered to the reader — used only for sort.
+ *
+ * Weights (chosen so the rules dominate ties):
+ *   verdict      recommend +60 · okay +25 · testing 0 · bad −40
+ *   routines     present in any routine: +30
+ *                (the morning / evening / stack / shower shelves are
+ *                what I actually reach for, so anything that earned a
+ *                slot there should outrank anything that didn't)
+ *   photo        +8 (photographed cards read as portfolio first; the
+ *                watermark cards form a quieter tail)
+ *   recency      0..15, tapered linearly across the last 365 days off
+ *                `datePublished`; older entries bottom out at 0
+ *
+ * Recency is the smallest term on purpose — it only breaks ties between
+ * otherwise-equal items. A photographed recommend from a year ago will
+ * still beat a brand-new still-testing entry.
  */
-function sortPhotoFirst<T extends { photo?: string }>(list: T[]): T[] {
-  return [...list].sort((a, b) => {
-    const ap = a.photo ? 0 : 1;
-    const bp = b.photo ? 0 : 1;
-    return ap - bp;
-  });
-}
-
-/**
- * Verdict-tier sort. Surfaces what the author actually endorses at the
- * top of each listing, then okay-ish picks, then anything still under
- * test, then the "tried and rejected" tail. Stable, so date-desc and
- * photo-first ordering survive inside each verdict tier.
- */
-const VERDICT_RANK: Record<string, number> = {
-  recommend: 0,
-  okay: 1,
-  bad: 3,
+const VERDICT_SCORE: Record<string, number> = {
+  recommend: 60,
+  okay: 25,
+  bad: -40,
 };
 
-function sortByVerdict<T extends { verdict?: string }>(list: T[]): T[] {
+function recencyBoost(datePublished: string): number {
+  const t = Date.parse(datePublished);
+  if (Number.isNaN(t)) return 0;
+  const days = (Date.now() - t) / 86_400_000;
+  if (days <= 0) return 15;
+  if (days >= 365) return 0;
+  return 15 * (1 - days / 365);
+}
+
+type Rankable = {
+  verdict?: string;
+  routines?: string[];
+  photo?: string;
+  datePublished: string;
+};
+
+function getRankingScore(r: Rankable): number {
+  let score = 0;
+  if (r.verdict && VERDICT_SCORE[r.verdict] !== undefined) {
+    score += VERDICT_SCORE[r.verdict];
+  }
+  if (Array.isArray(r.routines) && r.routines.length > 0) {
+    score += 30;
+  }
+  if (r.photo) score += 8;
+  score += recencyBoost(r.datePublished);
+  return score;
+}
+
+function sortByScore<T extends Rankable>(list: T[]): T[] {
   return [...list].sort((a, b) => {
-    const ra = a.verdict ? VERDICT_RANK[a.verdict] ?? 2 : 2;
-    const rb = b.verdict ? VERDICT_RANK[b.verdict] ?? 2 : 2;
-    return ra - rb;
+    const diff = getRankingScore(b) - getRankingScore(a);
+    if (diff !== 0) return diff;
+    return b.datePublished.localeCompare(a.datePublished);
   });
 }
 
@@ -71,7 +100,7 @@ function sortByVerdict<T extends { verdict?: string }>(list: T[]): T[] {
  * the author can still toggle them back on.
  */
 export function getReviews(kind: Kind): ReviewSummary[] {
-  return sortByVerdict(sortPhotoFirst(sortByDateDesc(readReviews(kind))))
+  return sortByScore(readReviews(kind))
     .filter((r) => !r.hidden && !r.retired)
     .map(({ body: _body, ...rest }) => rest);
 }
