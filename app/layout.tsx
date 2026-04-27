@@ -21,21 +21,29 @@ const inter = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
   axes: ["opsz"],
+  display: "swap",
+  preload: true,
 });
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
 });
 const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument-serif",
   weight: "400",
   style: ["normal", "italic"],
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
 });
 const fraunces = Fraunces({
   variable: "--font-fraunces",
   subsets: ["latin"],
   axes: ["opsz", "SOFT"],
+  display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
