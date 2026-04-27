@@ -138,8 +138,8 @@ export function SearchClient({ items }: { items: SearchItem[] }) {
       {results.length === 0 ? (
         <p className="py-16 text-center font-serif text-lg italic text-stone-500 dark:text-stone-400">
           {query.trim()
-            ? `Nothing matches "${query}".`
-            : "Start typing to find something."}
+            ? "Nothing matches those words yet. Try a softer one."
+            : "The catalog is here — start with a word."}
         </p>
       ) : (
         <ol className="divide-y divide-stone-100 border-t border-stone-200 dark:border-stone-800 dark:divide-stone-800">

@@ -37,8 +37,8 @@ export default function RetiredPage() {
       </p>
 
       {items.length === 0 ? (
-        <p className="py-16 text-center text-stone-500 dark:text-stone-400">
-          Nothing retired yet.
+        <p className="py-16 text-center font-serif italic text-stone-500 dark:text-stone-400">
+          Everything still earns its place. Nothing retired yet.
         </p>
       ) : (
         <ol className="divide-y divide-stone-100 border-t border-stone-200 dark:border-stone-800 dark:divide-stone-800">

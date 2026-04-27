@@ -648,7 +648,7 @@ function Stack({
     return (
       <div className="rounded-2xl border border-dashed border-stone-300 bg-stone-50 p-12 text-center dark:border-stone-700 dark:bg-stone-900">
         <p className="font-serif text-xl italic text-stone-500 dark:text-stone-400">
-          Empty stack. Add a supplement above.
+          Your stack is clear. Add something above when you&apos;re ready.
         </p>
       </div>
     );

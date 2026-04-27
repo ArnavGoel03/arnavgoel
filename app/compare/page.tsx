@@ -72,8 +72,8 @@ export default async function ComparePage({ searchParams }: Props) {
         <div className="rounded-2xl border border-amber-200 bg-amber-50 p-8 text-center text-stone-700 dark:border-amber-900/40 dark:bg-amber-950/20 dark:text-stone-300">
           <p className="font-serif text-lg">
             {reviews.length === 0
-              ? "Nothing in the compare tray."
-              : "Only one item in the tray."}
+              ? "The tray is empty — add a couple of products to begin."
+              : "One item so far. Add one more and the comparison opens up."}
           </p>
           <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
             Use the &ldquo;Compare&rdquo; toggle on a product card to add

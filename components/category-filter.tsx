@@ -310,7 +310,7 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
             00
           </p>
           <p className="mt-4 font-serif text-lg italic text-stone-500 dark:text-stone-400">
-            Nothing matches that filter.
+            Nothing here under that lens. Widen the filter a little.
           </p>
           <button
             type="button"

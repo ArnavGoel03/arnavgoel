@@ -156,7 +156,7 @@ export function LibraryTabs({
         <Section label="Abandoned" items={abandoned} showDate={false} />
         {items.length === 0 && (
           <p className="rounded-2xl border border-stone-200 bg-stone-50 px-6 py-12 text-center font-serif italic text-stone-500 dark:border-stone-800 dark:bg-stone-900 dark:text-stone-400">
-            Nothing here yet.
+            Still gathering. Something honest will be here soon.
           </p>
         )}
       </div>
