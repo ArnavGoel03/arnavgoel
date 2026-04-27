@@ -35,10 +35,12 @@ const cspValue = Object.entries(CSP_DIRECTIVES)
   .join("; ");
 
 const nextConfig: NextConfig = {
-  // Partial Prerendering — static shell renders instantly while dynamic bits
-  // stream in. In Next.js 16, PPR is enabled globally via `cacheComponents`
-  // rather than the old `experimental.ppr` flag (which was removed).
-  cacheComponents: true,
+  // Note: `cacheComponents: true` would enable Next 16 PPR for instant tab
+  // shells, but it conflicts with 22 existing per-route segment configs
+  // (`export const runtime = "nodejs"` on OG image routes, `force-dynamic`
+  // on subscribe/admin API routes). Worth migrating to `'use cache'`
+  // directives later — for now, keep loading.tsx + hover-prefetch +
+  // viewTransition for ~70% of the speed gain at zero risk.
   experimental: {
     viewTransition: true,
   },
