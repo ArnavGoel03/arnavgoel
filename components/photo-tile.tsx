@@ -41,6 +41,8 @@ export function PhotoTile({ photo, index }: { photo: Photo; index: number }) {
             alt={photo.alt}
             fill
             sizes="(max-width: 640px) 100vw, 50vw"
+            placeholder="blur"
+            blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxyZWN0IHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiNlN2U1ZTQiLz48L3N2Zz4="
             className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.015]"
           />
         ) : (
@@ -90,6 +92,8 @@ export function PhotoHero({ photo, index }: { photo: Photo; index: number }) {
             fill
             sizes="100vw"
             priority
+            placeholder="blur"
+            blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxyZWN0IHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiNlN2U1ZTQiLz48L3N2Zz4="
             className="object-cover"
           />
         ) : (
