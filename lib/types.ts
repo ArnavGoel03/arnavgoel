@@ -45,6 +45,7 @@ export interface Review {
   skinType?: string[];
   goal?: string[];
   routines: ("morning" | "evening" | "stack" | "shower")[];
+  crossList: Kind[];
   photo?: string;
   photos: string[];
   video?: string;

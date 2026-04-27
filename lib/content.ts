@@ -98,9 +98,30 @@ function sortByScore<T extends Rankable>(list: T[]): T[] {
  * Public-facing listings exclude any review with `hidden: true` in its
  * frontmatter. The `/admin` dashboard uses `getAllReviewsIncludingHidden()` so
  * the author can still toggle them back on.
+ *
+ * Cross-listing: a review whose `crossList` array includes `kind` also
+ * shows up here, even if its canonical folder is a different section.
+ * (Detail-page URL stays at the canonical kind — no duplicate routes.)
  */
 export function getReviews(kind: Kind): ReviewSummary[] {
-  return sortByScore(readReviews(kind))
+  const native = readReviews(kind);
+  const crossKinds: Kind[] = [
+    "skincare",
+    "supplements",
+    "oral-care",
+    "hair-care",
+    "body-care",
+    "essentials",
+    "miscellaneous",
+  ];
+  const guest: Review[] = [];
+  for (const k of crossKinds) {
+    if (k === kind) continue;
+    for (const r of readReviews(k)) {
+      if (r.crossList?.includes(kind)) guest.push(r);
+    }
+  }
+  return sortByScore([...native, ...guest])
     .filter((r) => !r.hidden && !r.retired)
     .map(({ body: _body, ...rest }) => rest);
 }
@@ -124,15 +145,20 @@ export function getReview(kind: Kind, slug: string): Review | null {
 }
 
 export function getAllReviews(): ReviewSummary[] {
+  // Use the raw `readReviews` (not `getReviews`) so cross-listed items
+  // appear once in the global union — by their canonical kind, where
+  // they actually live on disk — instead of once per surfaced section.
   return sortByDateDesc([
-    ...getReviews("skincare"),
-    ...getReviews("supplements"),
-    ...getReviews("oral-care"),
-    ...getReviews("hair-care"),
-    ...getReviews("body-care"),
-    ...getReviews("essentials"),
-    ...getReviews("miscellaneous"),
-  ]);
+    ...readReviews("skincare"),
+    ...readReviews("supplements"),
+    ...readReviews("oral-care"),
+    ...readReviews("hair-care"),
+    ...readReviews("body-care"),
+    ...readReviews("essentials"),
+    ...readReviews("miscellaneous"),
+  ])
+    .filter((r) => !r.hidden && !r.retired)
+    .map(({ body: _body, ...rest }) => rest);
 }
 
 export function getAllReviewsIncludingHidden(kind: Kind): ReviewSummary[] {

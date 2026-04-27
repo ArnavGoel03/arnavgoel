@@ -29,6 +29,23 @@ export const reviewFrontmatter = z.object({
   routines: z
     .array(z.enum(["morning", "evening", "stack", "shower"]))
     .default([]),
+  // Additional category pages this product surfaces on. Detail-page
+  // URL stays at the canonical kind (no duplicate routes); listing
+  // queries union match. Used for items that genuinely live in two
+  // sections (a beard trimmer = hair-care AND body-care).
+  crossList: z
+    .array(
+      z.enum([
+        "skincare",
+        "supplements",
+        "oral-care",
+        "hair-care",
+        "body-care",
+        "essentials",
+        "miscellaneous",
+      ]),
+    )
+    .default([]),
   photo: z.string().optional(),
   // Additional product shots (alt angles, packaging, in-use). Listing
   // cards cycle through these on hover; the detail-page gallery shows
