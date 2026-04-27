@@ -3,6 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 import { Container } from "./container";
 import { FooterSearchLink } from "./footer-search-link";
 import { SubscribeForm } from "./subscribe-form";
+import { AudioToggle } from "./audio-cues";
 import { site } from "@/lib/site";
 
 export function Footer() {
@@ -69,6 +70,8 @@ export function Footer() {
           >
             RSS
           </a>
+          <span className="text-stone-300 dark:text-stone-700">·</span>
+          <AudioToggle />
         </div>
 
         <div className="flex flex-col gap-3 border-t border-stone-200/70 pt-6 dark:border-stone-900/40 sm:flex-row sm:items-start sm:justify-between">

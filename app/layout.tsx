@@ -16,6 +16,7 @@ import { SiteTourMount } from "@/components/site-tour-mount";
 import { BackToTop } from "@/components/back-to-top";
 import { RouteWarmer } from "@/components/route-warmer";
 import { CursorHalo } from "@/components/cursor-halo";
+import { AudioCues } from "@/components/audio-cues";
 import { site } from "@/lib/site";
 
 const inter = Inter({
@@ -152,6 +153,11 @@ export default function RootLayout({
         {/* Cursor halo: renders nothing on touch devices — the
             component checks (hover: hover) at mount time. */}
         <CursorHalo />
+        {/* Audio cues: default OFF — user enables via footer toggle.
+            Suspense wrap so usePathname() inside doesn't block SSR. */}
+        <Suspense fallback={null}>
+          <AudioCues />
+        </Suspense>
         <Analytics />
         <SpeedInsights />
         <GoogleAnalytics gaId="G-DK22JR55RB" />
