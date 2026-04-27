@@ -14,6 +14,7 @@ import { CompareProvider } from "@/components/compare-bar";
 import { CommandPaletteMount } from "@/components/command-palette-mount";
 import { SiteTourMount } from "@/components/site-tour-mount";
 import { BackToTop } from "@/components/back-to-top";
+import { RouteWarmer } from "@/components/route-warmer";
 import { site } from "@/lib/site";
 
 const inter = Inter({
@@ -126,6 +127,7 @@ export default function RootLayout({
         <WebsiteJsonLd />
         <CompareProvider>
           <Header />
+          <RouteWarmer />
           <main className="flex-1">{children}</main>
           <Footer />
           <CommandPaletteMount />
