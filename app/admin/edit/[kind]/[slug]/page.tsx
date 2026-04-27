@@ -13,7 +13,6 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export const dynamic = "force-dynamic";
 
 const VALID_KINDS: Kind[] = ["skincare", "supplements", "oral-care", "hair-care", "body-care", "essentials", "miscellaneous"];
 

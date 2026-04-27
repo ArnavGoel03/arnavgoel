@@ -75,6 +75,9 @@ export const metadata: Metadata = {
       "application/rss+xml": [{ url: "/feed.xml", title: site.name }],
     },
   },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+  },
 };
 
 export const viewport: Viewport = {

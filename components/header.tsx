@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown, Menu, Search, X } from "lucide-react";
 import { Container } from "./container";
+import { NavLink } from "./nav-link";
 import { ThemeToggle } from "./theme-toggle";
 import { site } from "@/lib/site";
 
@@ -153,7 +154,7 @@ export function Header() {
                       ·
                     </span>
                   )}
-                  <Link
+                  <NavLink
                     href={item.href}
                     aria-current={active ? "page" : undefined}
                     data-tour={item.tourId}
@@ -165,7 +166,7 @@ export function Header() {
                     }
                   >
                     {item.label}
-                  </Link>
+                  </NavLink>
                 </span>
               );
             })}
@@ -214,7 +215,7 @@ export function Header() {
                             (item.href !== "/" && pathname.startsWith(item.href));
                           return (
                             <li key={item.href}>
-                              <Link
+                              <NavLink
                                 href={item.href}
                                 role="menuitem"
                                 aria-current={active ? "page" : undefined}
@@ -226,7 +227,7 @@ export function Header() {
                                 }
                               >
                                 {item.label}
-                              </Link>
+                              </NavLink>
                             </li>
                           );
                         })}
@@ -293,7 +294,7 @@ export function Header() {
                     (item.href !== "/" && pathname.startsWith(item.href));
                   return (
                     <li key={item.href}>
-                      <Link
+                      <NavLink
                         href={item.href}
                         aria-current={active ? "page" : undefined}
                         className="flex items-baseline justify-between gap-4 py-4"
@@ -314,7 +315,7 @@ export function Header() {
                         >
                           {item.href}
                         </span>
-                      </Link>
+                      </NavLink>
                     </li>
                   );
                 })}
@@ -331,7 +332,7 @@ export function Header() {
                         (item.href !== "/" && pathname.startsWith(item.href));
                       return (
                         <li key={item.href}>
-                          <Link
+                          <NavLink
                             href={item.href}
                             aria-current={active ? "page" : undefined}
                             className="flex items-baseline justify-between gap-4 py-3"
@@ -352,7 +353,7 @@ export function Header() {
                             >
                               {item.href}
                             </span>
-                          </Link>
+                          </NavLink>
                         </li>
                       );
                     })}
