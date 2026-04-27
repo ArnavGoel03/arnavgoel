@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { Inter, JetBrains_Mono, Instrument_Serif, Fraunces } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
@@ -139,6 +140,7 @@ export default function RootLayout({
         </CompareProvider>
         <Analytics />
         <SpeedInsights />
+        <GoogleAnalytics gaId="G-DK22JR55RB" />
       </body>
     </html>
   );
