@@ -7,6 +7,7 @@ import { ChevronDown, Menu, Search, X } from "lucide-react";
 import { Container } from "./container";
 import { NavLink } from "./nav-link";
 import { ThemeToggle } from "./theme-toggle";
+import { TimeGreeting } from "./time-greeting";
 import { site } from "@/lib/site";
 
 type NavGroup = "tools" | "personal" | "meta";
@@ -123,20 +124,27 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-stone-200/70 bg-white/80 backdrop-blur dark:border-stone-900/40 dark:bg-stone-950/80">
       <Container className="flex h-16 items-center justify-between gap-6">
-        <Link
-          href="/"
-          className="group inline-flex items-baseline gap-1.5 text-stone-900 dark:text-stone-100"
-        >
-          <span className="font-serif text-2xl italic leading-none tracking-tight">
-            {site.shortName}
-          </span>
-          <span
-            aria-hidden
-            className="text-rose-400 transition-transform duration-300 group-hover:rotate-90"
+        <div className="flex items-baseline gap-3">
+          <Link
+            href="/"
+            className="group inline-flex items-baseline gap-1.5 text-stone-900 dark:text-stone-100"
           >
-            ❋
+            <span className="font-serif text-2xl italic leading-none tracking-tight">
+              {site.shortName}
+            </span>
+            <span
+              aria-hidden
+              className="text-rose-400 transition-transform duration-300 group-hover:rotate-90"
+            >
+              ❋
+            </span>
+          </Link>
+          {/* Quiet time-of-day greeting — hidden on small screens to
+              keep the masthead from crowding. */}
+          <span className="hidden sm:inline">
+            <TimeGreeting />
           </span>
-        </Link>
+        </div>
 
         <div className="flex items-center gap-2 lg:gap-4">
           <nav className="hidden items-center text-[11px] uppercase tracking-[0.16em] text-stone-500 lg:flex dark:text-stone-400">
