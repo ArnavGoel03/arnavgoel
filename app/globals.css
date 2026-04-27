@@ -111,6 +111,10 @@
   }
   html {
     @apply font-sans;
+    /* Smooth in-page anchor navigation. Reduced-motion override below
+       sets scroll-behavior: auto so this never runs against the user's
+       OS preference. */
+    scroll-behavior: smooth;
     /* Respect user-agent scrollbar behavior but avoid layout shift on
        sites with intermittent scrollbars (content jump on route change). */
     scrollbar-gutter: stable;
@@ -433,5 +437,32 @@
   }
   .dark .card-corner-mark {
     border-color: rgb(120 113 108);
+  }
+
+  /* ───── Minimal scrollbar ─────────────────────────────────────
+     4px wide, barely-there ink tint that strengthens on hover.
+     Skipped on touch-primary devices (they use overlay scrollbars
+     that never show at all). Only Webkit/Blink support these
+     pseudo-elements; Firefox users get the default. */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(28 25 23 / 0.12);
+    border-radius: 99px;
+    transition: background 200ms;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(28 25 23 / 0.32);
+  }
+  .dark ::-webkit-scrollbar-thumb {
+    background: rgb(245 245 244 / 0.12);
+  }
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: rgb(245 245 244 / 0.32);
   }
 }
