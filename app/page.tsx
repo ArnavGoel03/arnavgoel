@@ -10,11 +10,18 @@ import { TimeGreeting } from "@/components/time-greeting";
 import { site } from "@/lib/site";
 import { socials } from "@/lib/socials";
 import { getAllReviews, getReviews } from "@/lib/content";
+import { collectCardPhotos } from "@/lib/card-photos";
 import { photos } from "@/lib/photos";
 
 export default function HomePage() {
   const allReviews = getAllReviews();
-  const recentReviews = allReviews.slice(0, 3);
+  // Rule: the home page "On the shelf right now" preview only surfaces
+  // reviews that have at least one photo. A photoless brand-watermark
+  // card next to real product photography looks placeholder-ish in the
+  // preview band; deeper category pages still show the watermark version.
+  const recentReviews = allReviews
+    .filter((r) => collectCardPhotos(r).length > 0)
+    .slice(0, 3);
   const skincareCount = getReviews("skincare").length;
   const supplementsCount = getReviews("supplements").length;
   const oralCareCount = getReviews("oral-care").length;
