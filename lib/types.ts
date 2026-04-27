@@ -46,6 +46,8 @@ export interface Review {
   goal?: string[];
   routines: ("morning" | "evening" | "stack" | "shower")[];
   photo?: string;
+  photos: string[];
+  video?: string;
   photoTimeline: { date: string; src: string; note?: string }[];
   boughtFromUrl?: string;
   indiaLinks: BuyLink[];

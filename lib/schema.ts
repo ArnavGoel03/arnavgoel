@@ -30,6 +30,16 @@ export const reviewFrontmatter = z.object({
     .array(z.enum(["morning", "evening", "stack", "shower"]))
     .default([]),
   photo: z.string().optional(),
+  // Additional product shots (alt angles, packaging, in-use). Listing
+  // cards cycle through these on hover; the detail-page gallery shows
+  // them as slides. Distinct from `photoTimeline` (dated progress).
+  photos: z.array(z.string()).default([]),
+  // Optional product video (review walkthrough, application demo).
+  // Detail page only, never the listing card. Accepts:
+  //   - raw file URL (.mp4 / .webm / .mov) — rendered with <video>
+  //   - YouTube watch / shorts / youtu.be URL — rendered as iframe
+  //   - Vimeo URL — rendered as iframe
+  video: z.string().url().optional(),
   photoTimeline: z
     .array(
       z.object({

@@ -8,6 +8,13 @@ import { ProductPhotoGallery } from "./product-photo-gallery";
  * photo (main + photoTimeline entries).
  */
 export function ProductHeroPhoto({ review }: { review: Review }) {
-  if (!review.photo && review.photoTimeline.length === 0) return null;
+  if (
+    !review.photo &&
+    (review.photos?.length ?? 0) === 0 &&
+    review.photoTimeline.length === 0 &&
+    !review.video
+  ) {
+    return null;
+  }
   return <ProductPhotoGallery review={review} />;
 }

@@ -21,7 +21,14 @@ const CSP_DIRECTIVES: Record<string, string[]> = {
   "img-src": ["'self'", "data:", "blob:", "https:"],
   "font-src": ["'self'", "data:"],
   "connect-src": ["'self'", "https:"],
-  "frame-src": ["https://open.spotify.com"],
+  // Spotify embeds for the listening section + video embeds (YouTube
+  // privacy-mode + Vimeo) for product walkthrough videos in the
+  // detail-page gallery.
+  "frame-src": [
+    "https://open.spotify.com",
+    "https://www.youtube-nocookie.com",
+    "https://player.vimeo.com",
+  ],
   "media-src": ["'self'"],
   "object-src": ["'none'"],
   "base-uri": ["'self'"],
