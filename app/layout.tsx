@@ -17,6 +17,8 @@ import { BackToTop } from "@/components/back-to-top";
 import { RouteWarmer } from "@/components/route-warmer";
 import { CursorHalo } from "@/components/cursor-halo";
 import { AudioCues } from "@/components/audio-cues";
+import { ReadingProgress } from "@/components/reading-progress";
+import { HapticClickEffect } from "@/components/haptic-click-effect";
 import { site } from "@/lib/site";
 
 const inter = Inter({
@@ -150,6 +152,11 @@ export default function RootLayout({
             <SiteTourMount />
           </Suspense>
         </CompareProvider>
+        {/* Reading progress: thin bar at top of viewport, only
+            visible on pages tall enough to warrant it. */}
+        <ReadingProgress />
+        {/* Haptic click feedback via navigator.vibrate on touch. */}
+        <HapticClickEffect />
         {/* Cursor halo: renders nothing on touch devices — the
             component checks (hover: hover) at mount time. */}
         <CursorHalo />
