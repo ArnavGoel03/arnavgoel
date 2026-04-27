@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
 import { Inter, JetBrains_Mono, Instrument_Serif, Fraunces } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
@@ -132,6 +134,8 @@ export default function RootLayout({
             <SiteTourMount />
           </Suspense>
         </CompareProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
