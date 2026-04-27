@@ -47,8 +47,12 @@ export function ReadingProgress() {
       style={{ opacity: visible ? 1 : 0, transition: "opacity 200ms" }}
     >
       <div
-        className="h-full origin-left bg-rose-400"
-        style={{ transform: `scaleX(${pct})`, transition: "transform 80ms linear" }}
+        className="h-full origin-left"
+        style={{
+          transform: `scaleX(${pct})`,
+          transition: "transform 80ms linear",
+          background: "oklch(from var(--foreground) l c h / 0.7)",
+        }}
       />
     </div>
   );
