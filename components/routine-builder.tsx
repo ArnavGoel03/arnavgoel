@@ -599,7 +599,7 @@ function Routine({
     return (
       <div className="rounded-2xl border border-dashed border-stone-300 bg-stone-50 p-12 text-center dark:border-stone-700 dark:bg-stone-900">
         <p className="font-serif text-xl italic text-stone-500 dark:text-stone-400">
-          Empty routine. Add a product above.
+          begin where you are.
         </p>
       </div>
     );

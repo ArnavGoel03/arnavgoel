@@ -239,7 +239,7 @@ export function CommandPalette({ items }: { items: SearchItem[] }) {
           ))}
           {results.length === 0 && (
             <li className="px-4 py-10 text-center font-serif text-sm italic text-stone-500 dark:text-stone-400">
-              No matches for &ldquo;{query}&rdquo;.
+              nothing matches yet. try a softer word.
             </li>
           )}
         </ul>
