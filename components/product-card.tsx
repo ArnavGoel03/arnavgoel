@@ -62,11 +62,23 @@ export function ProductCard({ review }: { review: ReviewSummary }) {
         <div className="flex items-center justify-between gap-3">
           <span
             className={
-              "text-[11px] font-medium uppercase tracking-[0.18em] " +
+              "inline-flex items-baseline gap-1.5 text-[11px] font-medium uppercase tracking-[0.18em] " +
               brandTextColor(review.brand)
             }
           >
             {review.brand}
+            {/* Rotation indicator. The rose ❋ next to the brand means
+                the product is in at least one active routine right now
+                (morning / evening / stack / shower). Quiet, on-brand. */}
+            {review.routines && review.routines.length > 0 && (
+              <span
+                aria-label={`In active rotation: ${review.routines.join(", ")}`}
+                title={`In rotation: ${review.routines.join(", ")}`}
+                className="text-rose-400"
+              >
+                ❋
+              </span>
+            )}
           </span>
           <span className="text-[10px] uppercase tracking-wider text-stone-400 dark:text-stone-500">
             {review.category}

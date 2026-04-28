@@ -42,7 +42,8 @@ export type SubroutineSlug =
   | "morning/post-workout"
   | "evening/active-day"
   | "morning/travel"
-  | "evening/recovery";
+  | "evening/recovery"
+  | "evening/occasional";
 
 type Subroutine = {
   parent: RoutineSlug;
@@ -139,6 +140,21 @@ export const SUBROUTINES: Record<SubroutineSlug, Subroutine> = {
         "wind down",
         "wind-down",
         "recovery",
+      ],
+    },
+    numberSteps: true,
+  },
+  "evening/occasional": {
+    parent: "evening",
+    child: "occasional",
+    label: "Evening, once a month",
+    description:
+      "Maintenance-cadence treatments that earn their slot precisely because they don't run every night. Dermaplaning the face smooth before bed, the once-a-month chemical peel, the tools that come out roughly every four weeks.",
+    filter: {
+      mode: "slugs",
+      slugs: [
+        "skincare/the-ordinary-aha-bha-peeling-solution",
+        "skincare/tweezerman-stainless-steel-facial-razor",
       ],
     },
     numberSteps: true,
