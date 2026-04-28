@@ -125,16 +125,25 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-stone-200/70 bg-white/80 backdrop-blur dark:border-stone-900/40 dark:bg-stone-950/80">
       <Container className="flex h-16 items-center justify-between gap-6">
         <div className="flex items-baseline gap-3">
+          {/* Logo: editorial monogram. The Y is the brand mark — set
+              large + bold-italic so it carries the masthead by itself.
+              `ash` trails behind in a quieter weight + lower opacity,
+              like an editorial subhead under the masthead initial.
+              The rose ❋ keeps its house-style position to the right. */}
           <Link
             href="/"
-            className="group inline-flex items-baseline gap-1.5 text-stone-900 dark:text-stone-100"
+            aria-label={site.shortName}
+            className="group inline-flex items-baseline gap-1 text-stone-900 dark:text-stone-100"
           >
-            <span className="font-serif text-2xl italic leading-none tracking-tight">
-              {site.shortName}
+            <span className="font-serif text-[1.75rem] font-medium italic leading-none tracking-tight sm:text-3xl">
+              Y
+            </span>
+            <span className="-ml-0.5 font-serif text-sm italic leading-none text-stone-400 dark:text-stone-500">
+              ash
             </span>
             <span
               aria-hidden
-              className="text-rose-400 transition-transform duration-300 group-hover:rotate-90"
+              className="ml-1.5 text-rose-400 transition-transform duration-300 group-hover:rotate-90"
             >
               ❋
             </span>
