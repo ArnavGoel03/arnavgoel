@@ -2,17 +2,104 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { Copy } from "lucide-react";
 import { ProductCard } from "@/components/product-card";
 import { onShelfChange, readShelf } from "@/components/bookmark-toggle";
+import { toast } from "@/lib/toast";
 import type { ReviewSummary } from "@/lib/types";
+
+const STORAGE_KEY = "yashgoel-shelf-v1";
+const HASH_PREFIX = "#shelf=";
+
+/**
+ * Parse `#shelf=skincare/foo,supplements/bar` from the URL hash and
+ * return the IDs array, or null if no hash payload is present.
+ */
+function readHashShelf(): string[] | null {
+  if (typeof window === "undefined") return null;
+  const h = window.location.hash;
+  if (!h.startsWith(HASH_PREFIX)) return null;
+  try {
+    const raw = decodeURIComponent(h.slice(HASH_PREFIX.length));
+    if (!raw) return [];
+    return raw
+      .split(",")
+      .map((s) => s.trim())
+      .filter((s) => s.length > 0 && s.includes("/"));
+  } catch {
+    return null;
+  }
+}
+
+function clearHash() {
+  if (typeof window === "undefined") return;
+  history.replaceState(
+    null,
+    "",
+    window.location.pathname + window.location.search,
+  );
+}
 
 export function ShelfClient({ reviews }: { reviews: ReviewSummary[] }) {
   const [ids, setIds] = useState<string[] | null>(null);
 
   useEffect(() => {
-    setIds(readShelf());
+    // Step 1: hydrate the local shelf from storage.
+    const local = readShelf();
+
+    // Step 2: if the URL hash carries a shared shelf payload, merge
+    // those IDs into the local shelf (skipping items that aren't in
+    // the catalog or are already saved). Preserves the user's most
+    // recent saves at the end so the freshly-pulled ones land on top
+    // when displayed reverse-chronologically.
+    const hashIds = readHashShelf();
+    if (hashIds && hashIds.length > 0) {
+      const valid = hashIds.filter((id) =>
+        reviews.some((r) => `${r.kind}/${r.slug}` === id),
+      );
+      const known = new Set(local);
+      const newOnes = valid.filter((id) => !known.has(id));
+      if (newOnes.length > 0) {
+        const merged = [...local, ...newOnes];
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+          window.dispatchEvent(
+            new CustomEvent("shelf:change", { detail: merged.slice() }),
+          );
+        } catch {
+          // ignore quota errors
+        }
+        setIds(merged);
+        toast(
+          `Added ${newOnes.length} item${newOnes.length === 1 ? "" : "s"} from the link`,
+        );
+      } else {
+        setIds(local);
+        if (valid.length > 0) {
+          toast("Already on your shelf", { tone: "info" });
+        }
+      }
+      clearHash();
+    } else {
+      setIds(local);
+    }
+
     return onShelfChange((next) => setIds(next));
-  }, []);
+  }, [reviews]);
+
+  function copyShareLink() {
+    if (!ids || ids.length === 0) return;
+    const url = `${window.location.origin}/shelf${HASH_PREFIX}${encodeURIComponent(ids.join(","))}`;
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard
+        .writeText(url)
+        .then(() => toast("Share link copied"))
+        .catch(() => toast("Could not copy link", { tone: "error" }));
+    } else {
+      // Fallback for browsers without clipboard API.
+      window.prompt("Copy this link to share your shelf", url);
+    }
+  }
 
   if (ids === null) {
     return (
@@ -62,16 +149,23 @@ export function ShelfClient({ reviews }: { reviews: ReviewSummary[] }) {
 
   return (
     <>
-      <div className="mt-10 flex items-baseline justify-between gap-3">
+      <div className="mt-10 flex items-center justify-between gap-3">
         <p className="text-xs uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400">
           {items.length} saved
+          {missing.length > 0 && (
+            <span className="ml-3 italic text-stone-400 dark:text-stone-500">
+              {missing.length} no longer in catalog
+            </span>
+          )}
         </p>
-        {missing.length > 0 && (
-          <p className="text-xs italic text-stone-400 dark:text-stone-500">
-            {missing.length} item{missing.length === 1 ? "" : "s"} no
-            longer in catalog
-          </p>
-        )}
+        <button
+          type="button"
+          onClick={copyShareLink}
+          className="inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white px-3 py-1.5 text-[11px] uppercase tracking-[0.16em] text-stone-700 transition-colors hover:border-stone-900 hover:text-stone-900 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-300 dark:hover:border-stone-400 dark:hover:text-stone-100"
+        >
+          <Copy className="h-3 w-3" aria-hidden />
+          Copy share link
+        </button>
       </div>
       <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((r) => (
