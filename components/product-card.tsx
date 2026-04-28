@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { VerdictPill } from "./verdict-pill";
 import { CompareToggle } from "./compare-bar";
+import { BookmarkToggle } from "./bookmark-toggle";
 import { ProductCardPhoto } from "./product-card-photo";
 import { availabilityLabel, brandTextColor } from "@/lib/retailers";
 import { pricesByRegion } from "@/lib/price";
@@ -55,6 +56,12 @@ export function ProductCard({ review }: { review: ReviewSummary }) {
         {/* Compare toggle in bottom-left of the image well */}
         <div className="absolute bottom-3 left-3 z-10">
           <CompareToggle id={toCompareId(review.kind, review.slug)} />
+        </div>
+        {/* Save-to-shelf in top-left, mirroring the verdict pill on the
+            opposite corner. Click stops propagation so the card link
+            doesn't navigate when the reader is just bookmarking. */}
+        <div className="absolute left-3 top-3 z-10">
+          <BookmarkToggle id={`${review.kind}/${review.slug}`} />
         </div>
       </div>
 

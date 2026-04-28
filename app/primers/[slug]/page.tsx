@@ -150,7 +150,7 @@ export default async function PrimerPage({ params }: Props) {
             body={primer.body}
             className="mb-8 hidden border-l border-stone-200 pl-4 dark:border-stone-800 lg:sticky lg:top-24 lg:mb-0 lg:block lg:self-start"
           />
-          <MdxContent source={primer.body} />
+          <MdxContent source={primer.body} withDropCap />
         </div>
 
         <PrevNext

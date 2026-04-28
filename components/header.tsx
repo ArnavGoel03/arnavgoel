@@ -59,6 +59,7 @@ const nav: NavItem[] = [
   { href: "/library", label: "Library", weight: "secondary", group: "personal" },
   { href: "/photos", label: "Photos", weight: "secondary", group: "personal" },
   { href: "/now", label: "Now", weight: "secondary", group: "personal" },
+  { href: "/shelf", label: "Shelf", weight: "secondary", group: "personal" },
 
   // Meta — about the site itself.
   { href: "/best-of/2026", label: "Best of 2026", weight: "secondary", group: "meta" },
