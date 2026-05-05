@@ -44,7 +44,8 @@ export interface Review {
   dailyServings?: number;
   skinType?: string[];
   goal?: string[];
-  routines: ("morning" | "evening" | "stack" | "shower")[];
+  routineNote?: string;
+  routines: ("morning" | "evening" | "stack" | "shower" | "oral")[];
   crossList: Kind[];
   photo?: string;
   photos: string[];
@@ -55,6 +56,7 @@ export interface Review {
   westernLinks: BuyLink[];
   ukLinks: BuyLink[];
   ingredients?: string[];
+  uvFilters?: string[];
   pros: string[];
   cons: string[];
   repurchase?: boolean;

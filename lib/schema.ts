@@ -27,8 +27,17 @@ export const reviewFrontmatter = z.object({
   skinType: z.array(z.string()).optional(),
   goal: z.array(z.string()).optional(),
   routines: z
-    .array(z.enum(["morning", "evening", "stack", "shower"]))
+    .array(z.enum(["morning", "evening", "stack", "shower", "oral"]))
     .default([]),
+  /**
+   * Optional short caption shown next to the row on /routine pages.
+   * Surfaces timing or cadence on the row itself so a reader doesn't
+   * have to open the product card to know when each item runs. Used
+   * for supplements (e.g. "With a fatty meal", "Evening · before
+   * bed") and skincare (e.g. "Once a month · 15-day offset"). Keep
+   * it short, sentence-fragment style.
+   */
+  routineNote: z.string().optional(),
   // Additional category pages this product surfaces on. Detail-page
   // URL stays at the canonical kind (no duplicate routes); listing
   // queries union match. Used for items that genuinely live in two
@@ -77,6 +86,13 @@ export const reviewFrontmatter = z.object({
     .array(z.object({ retailer: z.string().min(1), url: z.string().url() }))
     .default([]),
   ingredients: z.array(z.string()).optional(),
+  /**
+   * Sunscreen-only: list of UV filter INCI names exactly as they
+   * appear on the product label. Rendered as a typed/generation table
+   * by the <UVFilters> MDX component, with each name looked up in
+   * lib/uv-filters.ts. Leave undefined for non-sunscreen products.
+   */
+  uvFilters: z.array(z.string()).optional(),
   pros: z.array(z.string()).default([]),
   cons: z.array(z.string()).default([]),
   repurchase: z.boolean().optional(),

@@ -14,7 +14,7 @@ import {
 
 type Props = { params: Promise<{ slug: string }> };
 
-const VALID: RoutineSlug[] = ["morning", "evening", "stack", "shower"];
+const VALID: RoutineSlug[] = ["morning", "evening", "stack", "shower", "oral"];
 
 export async function generateStaticParams() {
   return getRoutinesList().map((slug) => ({ slug }));
@@ -71,13 +71,36 @@ export default async function RoutinePage({ params }: Props) {
         (SKINCARE_ORDER[a.category] ?? 999) -
         (SKINCARE_ORDER[b.category] ?? 999),
     );
+  // Oral application order: brush + paste → interdental/floss →
+  // water-flosser → rinse/spray → accessories last. Same sequence
+  // morning and night.
+  const ORAL_ORDER: Record<string, number> = {
+    "electric toothbrush": 10,
+    toothbrush: 11,
+    "brush head": 12,
+    toothpaste: 15,
+    "teeth whitening": 18,
+    interdental: 20,
+    floss: 25,
+    "floss picks": 26,
+    "water flosser": 30,
+    mouthwash: 50,
+    "breath spray": 51,
+    "toothbrush cover": 90,
+  };
   const supplements = items.filter((r) => r.kind === "supplements");
-  const oralCare = items.filter((r) => r.kind === "oral-care");
+  const oralCare = items
+    .filter((r) => r.kind === "oral-care")
+    .sort(
+      (a, b) =>
+        (ORAL_ORDER[a.category] ?? 999) - (ORAL_ORDER[b.category] ?? 999),
+    );
   const hairCare = items.filter((r) => r.kind === "hair-care");
   const bodyCare = items.filter((r) => r.kind === "body-care");
   const essentials = items.filter((r) => r.kind === "essentials");
   const miscellaneous = items.filter((r) => r.kind === "miscellaneous");
-  const numberSteps = routine === "morning" || routine === "evening";
+  const numberSteps =
+    routine === "morning" || routine === "evening" || routine === "oral";
 
   return (
     <Container className="max-w-3xl py-12 sm:py-16">
@@ -227,6 +250,11 @@ function Section({
                 <h3 className="mt-0.5 font-serif text-lg text-stone-900 transition-colors group-hover:text-rose-700 dark:text-stone-100 dark:group-hover:text-rose-400">
                   {r.name}
                 </h3>
+                {r.routineNote && (
+                  <p className="mt-0.5 font-serif text-[13px] italic leading-snug text-stone-500 dark:text-stone-400">
+                    {r.routineNote}
+                  </p>
+                )}
               </div>
               <span className="shrink-0 text-[10px] uppercase tracking-[0.18em] italic text-stone-400 dark:text-stone-500">
                 {r.verdict ?? "testing"}

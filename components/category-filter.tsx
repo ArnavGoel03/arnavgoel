@@ -325,7 +325,7 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
           {filtered.map((r, i) => (
             <div
               key={`${r.kind}-${r.slug}`}
-              className="card-stagger-in"
+              className="card-stagger-in h-full"
               style={
                 {
                   "--stagger": `${Math.min(i * 28, 360)}ms`,

@@ -19,7 +19,7 @@ export function ProductCard({ review }: { review: ReviewSummary }) {
     <Link
       href={href}
       data-tour-listing="card"
-      className="group relative flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white transition-all hover:-translate-y-0.5 hover:border-stone-400 hover:shadow-sm dark:border-stone-800 dark:bg-stone-900 dark:hover:border-stone-600"
+      className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white transition-all hover:-translate-y-0.5 hover:border-stone-400 hover:shadow-sm dark:border-stone-800 dark:bg-stone-900 dark:hover:border-stone-600"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-stone-50 via-stone-50 to-stone-100">
         {photos.length > 0 ? (

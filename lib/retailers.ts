@@ -33,6 +33,7 @@ const RETAILER_BY_HOST: Record<string, string> = {
   "zepto.in": "Zepto",
   "swiggy.com": "Swiggy Instamart",
   "perfora.in": "Perfora",
+  "tirabeauty.com": "Tira",
 };
 
 export function retailerForUrl(url: string): string {
@@ -169,6 +170,11 @@ const RETAILER_THEME: Record<
     hover: "hover:border-emerald-500 hover:bg-emerald-100",
     bar: "bg-emerald-600",
   },
+  Tira: {
+    idle: "border-rose-300 bg-rose-50 text-rose-900",
+    hover: "hover:border-rose-500 hover:bg-rose-100",
+    bar: "bg-rose-700",
+  },
 };
 
 const DEFAULT_THEME = {
@@ -226,6 +232,8 @@ const BRAND_TEXT_COLOR: Record<string, string> = {
   "Que Bella": "text-rose-500 dark:text-rose-300",
   "WOW Life Science": "text-emerald-700 dark:text-emerald-400",
   "YEOUTH": "text-cyan-700 dark:text-cyan-400",
+  "Innisfree": "text-emerald-700 dark:text-emerald-400",
+  "Lineage": "text-stone-800 dark:text-stone-200",
   // Supplements
   "Nutricost": "text-blue-700 dark:text-blue-400",
   "Sports Research": "text-orange-600 dark:text-orange-400",
@@ -330,6 +338,7 @@ export const INDIA_HOSTS = [
   "zepto.in",
   "swiggy.com",
   "perfora.in",
+  "tirabeauty.com",
 ];
 
 export const USA_HOSTS = [
