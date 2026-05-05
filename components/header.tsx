@@ -3,11 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, Menu, Search, X } from "lucide-react";
+import { Bookmark, ChevronDown, Menu, Search, X } from "lucide-react";
 import { Container } from "./container";
 import { NavLink } from "./nav-link";
 import { ThemeToggle } from "./theme-toggle";
-import { TimeGreeting } from "./time-greeting";
 import { site } from "@/lib/site";
 
 type NavGroup = "tools" | "personal" | "meta";
@@ -149,11 +148,11 @@ export function Header() {
               ❋
             </span>
           </Link>
-          {/* Quiet time-of-day greeting — hidden on small screens to
-              keep the masthead from crowding. */}
-          <span className="hidden sm:inline">
-            <TimeGreeting />
-          </span>
+          {/* The time-of-day greeting used to live here, but the
+              category nav already eats the masthead at lg+ and the same
+              info is rendered prominently in the homepage hero eyebrow.
+              Keeping the masthead to logo + nav reads cleaner at every
+              width and stops the greeting from wrapping behind the Y. */}
         </div>
 
         <div className="flex items-center gap-2 lg:gap-4">
@@ -282,6 +281,23 @@ export function Header() {
           >
             <Search className="h-4 w-4" />
           </button>
+          {/* Saved shelf — direct link so the reader can find their
+              bookmarks without digging into the More menu. Hidden on
+              phones (mobile drawer already lists /shelf under Personal)
+              so the masthead stays uncluttered there. */}
+          <Link
+            href="/shelf"
+            aria-label="Saved shelf"
+            title="Saved shelf"
+            className={
+              "hidden h-11 w-11 shrink-0 items-center justify-center rounded-full transition-colors sm:flex " +
+              (pathname === "/shelf"
+                ? "text-rose-500 dark:text-rose-400"
+                : "text-stone-500 hover:bg-stone-100 hover:text-stone-900 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-100")
+            }
+          >
+            <Bookmark className="h-4 w-4" />
+          </Link>
           <div data-tour="theme">
             <ThemeToggle />
           </div>
