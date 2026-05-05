@@ -487,3 +487,101 @@
     background: rgb(245 245 244 / 0.32);
   }
 }
+
+/* ─────────────────────────────────────────────────────────────────
+   Print stylesheet · readers can ⌘P any review and get a clean
+   editorial PDF instead of the screen UI.
+
+   Strips: chrome (header, footer, mobile drawer), interactive
+   chips (compare, bookmark, verdict pills, retailer buttons), and
+   any motion / hover tints. Keeps: review body, photo, ratings
+   row, the meta sidebar (brand, ingredients, dates), and a quiet
+   site URL footer so a printed page still cites its source.
+   ────────────────────────────────────────────────────────────── */
+@media print {
+  :root {
+    color-scheme: light;
+  }
+  /* Page setup. A4 with sane margins, leave room for header/footer
+     so the OS print dialog can stamp page numbers without clipping
+     review text. */
+  @page {
+    size: A4;
+    margin: 18mm 16mm 18mm 16mm;
+  }
+
+  html,
+  body {
+    background: white !important;
+    color: #1c1917 !important;
+  }
+
+  /* Hide site chrome and interactive bits that never make sense
+     on paper. Each selector is conservative; new floating UI
+     should opt in via a dedicated [data-print-hide] attribute. */
+  header,
+  footer,
+  nav,
+  [data-tour="cta"],
+  [data-tour="compare-bar"],
+  [data-tour-listing="card"] [aria-label*="Save"],
+  [aria-label="Open search"],
+  [aria-label="Toggle theme"],
+  [aria-label="Open menu"],
+  [data-print-hide],
+  .compare-bar-fixed,
+  .scroll-top-button,
+  [data-tour="header"] {
+    display: none !important;
+  }
+
+  /* Force serif body, larger leading, no shadows or hover
+     transforms. Editorial print look. */
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+  a {
+    color: #1c1917 !important;
+    text-decoration: underline;
+  }
+  /* Show the destination of every link inline so a printed review
+     still preserves the citations. Skips fragment-only links. */
+  a[href^="http"]::after,
+  a[href^="https"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.78em;
+    color: #57534e;
+  }
+
+  /* Avoid awkward breaks: keep headings with the next paragraph,
+     never split a card or the meta sidebar across pages. */
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  img,
+  figure,
+  table,
+  pre,
+  blockquote {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Quiet site URL footer at the bottom of the printout. */
+  .print-footer-cite::after {
+    content: "yashgoel.com";
+    display: block;
+    margin-top: 16mm;
+    font-size: 9pt;
+    color: #78716c;
+    text-align: center;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+}

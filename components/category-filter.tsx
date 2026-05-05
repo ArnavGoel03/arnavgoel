@@ -321,24 +321,10 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((r, i) => (
-            <div
-              key={`${r.kind}-${r.slug}`}
-              className="card-stagger-in h-full"
-              style={
-                {
-                  "--stagger": `${Math.min(i * 28, 360)}ms`,
-                } as React.CSSProperties
-              }
-            >
-              <ProductCard
-                review={r}
-                priceRegion={region === "all" ? undefined : region}
-              />
-            </div>
-          ))}
-        </div>
+        <ListingGrid
+          filtered={filtered}
+          priceRegion={region === "all" ? undefined : region}
+        />
       )}
 
       {/* Mobile filter sheet. Slide-up bottom drawer with scroll, dim
@@ -364,6 +350,97 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
           showIngredientFilter={showIngredientFilter}
           resultCount={filtered.length}
         />
+      )}
+    </div>
+  );
+}
+
+// ── Listing grid with j/k keyboard nav ─────────────────────────────
+
+function ListingGrid({
+  filtered,
+  priceRegion,
+}: {
+  filtered: ReviewSummary[];
+  priceRegion?: Region;
+}) {
+  const gridRef = useRef<HTMLDivElement | null>(null);
+  const [showHint, setShowHint] = useState(false);
+
+  // One-time hint chip. Stored under a v1 key so we can reset later
+  // by bumping the suffix.
+  useEffect(() => {
+    try {
+      if (!localStorage.getItem("yashgoel-jk-hint-v1")) setShowHint(true);
+    } catch {
+      // private mode etc.
+    }
+  }, []);
+
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const tag = (document.activeElement as HTMLElement | null)?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+      if (e.key !== "j" && e.key !== "k") return;
+      const grid = gridRef.current;
+      if (!grid) return;
+      const cards = Array.from(
+        grid.querySelectorAll<HTMLAnchorElement>("a[data-tour-listing='card']"),
+      );
+      if (cards.length === 0) return;
+      const focused = document.activeElement as HTMLElement | null;
+      const idx = cards.findIndex((c) => c === focused);
+      let next = idx;
+      if (e.key === "j") next = idx < 0 ? 0 : Math.min(cards.length - 1, idx + 1);
+      else next = idx <= 0 ? 0 : idx - 1;
+      e.preventDefault();
+      cards[next]?.focus();
+      cards[next]?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      // First key press also dismisses the hint.
+      if (showHint) {
+        setShowHint(false);
+        try {
+          localStorage.setItem("yashgoel-jk-hint-v1", "1");
+        } catch {
+          // ignore
+        }
+      }
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [showHint]);
+
+  return (
+    <div ref={gridRef} className="relative">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {filtered.map((r, i) => (
+          <div
+            key={`${r.kind}-${r.slug}`}
+            className="card-stagger-in h-full"
+            style={
+              {
+                "--stagger": `${Math.min(i * 28, 360)}ms`,
+              } as React.CSSProperties
+            }
+          >
+            <ProductCard review={r} priceRegion={priceRegion} />
+          </div>
+        ))}
+      </div>
+      {showHint && (
+        <div
+          aria-hidden
+          className="pointer-events-none fixed bottom-4 right-4 z-30 hidden items-center gap-2 rounded-full border border-stone-200 bg-white/90 px-3 py-1.5 text-[11px] uppercase tracking-[0.16em] text-stone-500 shadow-sm backdrop-blur sm:flex dark:border-stone-800 dark:bg-stone-900/90 dark:text-stone-400"
+        >
+          <kbd className="rounded border border-stone-300 bg-stone-50 px-1.5 py-0.5 font-mono text-[10px] dark:border-stone-700 dark:bg-stone-800">
+            j
+          </kbd>
+          <kbd className="rounded border border-stone-300 bg-stone-50 px-1.5 py-0.5 font-mono text-[10px] dark:border-stone-700 dark:bg-stone-800">
+            k
+          </kbd>
+          <span className="normal-case tracking-normal italic">to flip cards</span>
+        </div>
       )}
     </div>
   );

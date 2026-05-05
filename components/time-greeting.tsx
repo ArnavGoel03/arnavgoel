@@ -10,6 +10,37 @@ function getGreeting(hour: number): string {
   return "good night";
 }
 
+const VISIT_KEY = "yashgoel-last-visit-v1";
+const RETURNING_WINDOW_MS = 365 * 24 * 60 * 60 * 1000; // 1 year
+
+/**
+ * Reads/writes a tiny "you were here" timestamp so we can warm up the
+ * greeting for returning readers. Only the timestamp is stored — no
+ * pageviews, no fingerprint, no remote sync. If the visitor cleared
+ * site data we fall back to the time-of-day greeting like a first-
+ * timer, which is the right behavior.
+ */
+function readReturning(): boolean {
+  try {
+    const raw = localStorage.getItem(VISIT_KEY);
+    if (!raw) return false;
+    const t = Number(raw);
+    if (!Number.isFinite(t)) return false;
+    const age = Date.now() - t;
+    return age > 5 * 60 * 1000 && age < RETURNING_WINDOW_MS;
+  } catch {
+    return false;
+  }
+}
+
+function markVisit() {
+  try {
+    localStorage.setItem(VISIT_KEY, String(Date.now()));
+  } catch {
+    // ignore quota errors
+  }
+}
+
 /**
  * Open-Meteo weather codes → calm-tone English. Limited vocabulary on
  * purpose; the masthead is not a forecast, it's atmosphere.
@@ -89,9 +120,12 @@ async function fetchWeather(): Promise<string | null> {
 export function TimeGreeting() {
   const [greeting, setGreeting] = useState<string | null>(null);
   const [weather, setWeather] = useState<string | null>(null);
+  const [returning, setReturning] = useState(false);
 
   useEffect(() => {
     setGreeting(getGreeting(new Date().getHours()));
+    setReturning(readReturning());
+    markVisit();
     let cancelled = false;
     fetchWeather().then((phrase) => {
       if (!cancelled) setWeather(phrase);
@@ -105,15 +139,11 @@ export function TimeGreeting() {
 
   return (
     <span
-      className="font-serif italic text-stone-400 dark:text-stone-500"
+      className="whitespace-nowrap"
       style={{ opacity: greeting ? 1 : 0, transition: "opacity 600ms" }}
     >
-      {greeting}
-      {weather && (
-        <span className="text-stone-400/80 dark:text-stone-500/80">
-          , {weather}
-        </span>
-      )}
+      {returning ? "welcome back" : greeting}
+      {weather && <span>, {weather}</span>}
       <span aria-hidden className="ml-1 text-rose-400/70">
         ·
       </span>

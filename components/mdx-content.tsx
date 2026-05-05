@@ -1,6 +1,7 @@
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import { slugifyHeading } from "@/lib/utils";
+import { HeadingAnchor } from "./heading-anchor";
 
 /**
  * Editorial sidenote / margin note. Use inline in MDX:
@@ -43,24 +44,6 @@ function textOf(node: React.ReactNode): string | null {
     return parts.join("");
   }
   return null;
-}
-
-/**
- * Anchor-link affordance. Renders a hover-revealed # next to the
- * heading that links to its own slug, so readers can deep-link a
- * section without hunting for the URL bar. Uses a real <a href> so
- * right-click → "Copy link address" works as expected.
- */
-function HeadingAnchor({ id }: { id: string }) {
-  return (
-    <a
-      href={`#${id}`}
-      aria-label="Link to this section"
-      className="ml-2 align-baseline font-mono text-sm text-stone-300 opacity-0 transition-opacity hover:text-rose-400 group-hover:opacity-100 focus-visible:opacity-100 dark:text-stone-700 dark:hover:text-rose-400 no-underline"
-    >
-      #
-    </a>
-  );
 }
 
 const mdxComponents = {
