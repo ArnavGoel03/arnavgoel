@@ -3,13 +3,24 @@ import { VerdictPill } from "./verdict-pill";
 import { CompareToggle } from "./compare-bar";
 import { BookmarkToggle } from "./bookmark-toggle";
 import { ProductCardPhoto } from "./product-card-photo";
-import { availabilityLabel, brandTextColor } from "@/lib/retailers";
-import { pricesByRegion } from "@/lib/price";
+import { availabilityLabel, brandTextColor, type Region } from "@/lib/retailers";
+import { priceFor, pricesByRegion } from "@/lib/price";
 import { toCompareId } from "@/lib/compare";
 import { collectCardPhotos } from "@/lib/card-photos";
 import type { ReviewSummary } from "@/lib/types";
 
-export function ProductCard({ review }: { review: ReviewSummary }) {
+export function ProductCard({
+  review,
+  priceRegion,
+}: {
+  review: ReviewSummary;
+  /**
+   * When the listing is region-filtered, show the price in that
+   * region's currency only — surfacing other regions' prices on a
+   * card the reader has explicitly narrowed reads as noise.
+   */
+  priceRegion?: Region;
+}) {
   const href = `/${review.kind}/${review.slug}`;
   const availability = availabilityLabel(review);
   const isRegionLocked = availability?.endsWith("only") ?? false;
@@ -104,7 +115,12 @@ export function ProductCard({ review }: { review: ReviewSummary }) {
           </p>
         ) : null}
         {(() => {
-          const prices = pricesByRegion(review.price);
+          const prices = priceRegion
+            ? (() => {
+                const v = priceFor(review.price, priceRegion);
+                return v ? [{ region: priceRegion, value: v }] : [];
+              })()
+            : pricesByRegion(review.price);
           if (prices.length === 0) return null;
           return (
             <p className="mt-2 flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-sm tabular-nums text-stone-700 dark:text-stone-300">

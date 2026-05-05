@@ -332,7 +332,10 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
                 } as React.CSSProperties
               }
             >
-              <ProductCard review={r} />
+              <ProductCard
+                review={r}
+                priceRegion={region === "all" ? undefined : region}
+              />
             </div>
           ))}
         </div>
