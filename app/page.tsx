@@ -3,25 +3,40 @@ import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/container";
 import { SocialIconLink } from "@/components/social-link";
 import { SectionTile } from "@/components/section-tile";
-import { ProductCard } from "@/components/product-card";
 import { ListeningSection } from "@/components/listening-section";
 import { PersonJsonLd } from "@/components/json-ld";
 import { TimeGreeting } from "@/components/time-greeting";
+import { RightNowLine } from "@/components/right-now-line";
 import { site } from "@/lib/site";
 import { socials } from "@/lib/socials";
 import { getAllReviews, getReviews } from "@/lib/content";
-import { collectCardPhotos } from "@/lib/card-photos";
+import { getReviewsInRoutine } from "@/lib/routines";
 import { photos } from "@/lib/photos";
+import type { ReviewSummary } from "@/lib/types";
+
+// Small ordered map for the starter skincare snippet so the AM column
+// reads cleanse → moisturize → protect, not file-name order.
+const STARTER_SKINCARE_ORDER: Record<string, number> = {
+  "cleansing balm": 9,
+  "face wash": 10,
+  cleanser: 11,
+  toner: 40,
+  serum: 60,
+  "eye cream": 80,
+  moisturizer: 90,
+  sunscreen: 100,
+};
+
+const STARTER_ORAL_ORDER: Record<string, number> = {
+  "electric toothbrush": 10,
+  toothpaste: 15,
+  floss: 25,
+  "water flosser": 30,
+  mouthwash: 50,
+};
 
 export default function HomePage() {
   const allReviews = getAllReviews();
-  // Rule: the home page "On the shelf right now" preview only surfaces
-  // reviews that have at least one photo. A photoless brand-watermark
-  // card next to real product photography looks placeholder-ish in the
-  // preview band; deeper category pages still show the watermark version.
-  const recentReviews = allReviews
-    .filter((r) => collectCardPhotos(r).length > 0)
-    .slice(0, 3);
   const skincareCount = getReviews("skincare").length;
   const supplementsCount = getReviews("supplements").length;
   const oralCareCount = getReviews("oral-care").length;
@@ -39,6 +54,55 @@ export default function HomePage() {
     (r) => r.verdict === "recommend",
   ).length;
   const testingCount = allReviews.filter((r) => !r.verdict).length;
+
+  // Starter routine columns: pull from the user's curated routines
+  // (morning skincare, supplement stack, oral). Cap each column to a
+  // small N so the homepage stays readable; the full routines live at
+  // /routine/<slug>. If a routine has no items yet, the column is
+  // simply omitted, never an empty placeholder.
+  const starterMorning = getReviewsInRoutine("morning")
+    .filter((r) => r.kind === "skincare")
+    .sort(
+      (a, b) =>
+        (STARTER_SKINCARE_ORDER[a.category] ?? 999) -
+        (STARTER_SKINCARE_ORDER[b.category] ?? 999),
+    )
+    .slice(0, 4);
+  const starterStack = getReviewsInRoutine("stack")
+    .filter((r) => r.verdict === "recommend")
+    .slice(0, 4);
+  const starterOral = getReviewsInRoutine("oral")
+    .sort(
+      (a, b) =>
+        (STARTER_ORAL_ORDER[a.category] ?? 999) -
+        (STARTER_ORAL_ORDER[b.category] ?? 999),
+    )
+    .slice(0, 5);
+  const starterColumns: {
+    label: string;
+    href: string;
+    blurb: string;
+    items: ReviewSummary[];
+  }[] = [
+    {
+      label: "Morning skincare",
+      href: "/routine/morning",
+      blurb: "A cleanse, a moisturizer, a sunscreen. The minimum honest version.",
+      items: starterMorning,
+    },
+    {
+      label: "Daily supplement stack",
+      href: "/routine/stack",
+      blurb: "What I take every day, in roughly the order I take it.",
+      items: starterStack,
+    },
+    {
+      label: "Oral, twice a day",
+      href: "/routine/oral",
+      blurb: "Same products morning and night, in this order. No shortcuts.",
+      items: starterOral,
+    },
+  ].filter((c) => c.items.length > 0);
 
   return (
     <>
@@ -81,6 +145,8 @@ export default function HomePage() {
             <p className="mt-8 max-w-2xl font-serif text-xl leading-snug text-stone-600 dark:text-stone-300 sm:text-2xl">
               {site.bio}
             </p>
+
+            <RightNowLine />
 
             {/* Trust strip, newsstand-style. All counts derive from the
                 live content set, so the line stays accurate as products
@@ -154,33 +220,31 @@ export default function HomePage() {
         />
       </section>
 
-      {/* Currently on the shelf */}
-      {recentReviews.length > 0 && (
+      {/* Starter routine — replaces the older "just added shelf" band.
+          The point of the homepage for a first-time visitor is to teach
+          them what a basic, defensible routine looks like, not to push
+          the latest unverdicted product. Three columns mirror the three
+          routines a beginner should care about: AM skincare, daily
+          supplements, oral. Each column links to its full routine page. */}
+      {starterColumns.length > 0 && (
         <Container className="py-20">
-          <div className="mb-8 flex items-end justify-between gap-6">
-            <div>
-              <p className="mb-1 text-xs uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400">
-                <span className="text-rose-400">★</span>{" "}
-                Just added
-              </p>
-              <h2 className="font-serif text-3xl text-stone-900 dark:text-stone-100 sm:text-4xl">
-                On the shelf right now.
-              </h2>
-              <p className="mt-2 max-w-xl text-sm text-stone-500 dark:text-stone-400">
-                The most recent products through the routine. Each one used
-                long enough to have an honest opinion.
-              </p>
-            </div>
-            <Link
-              href="/skincare"
-              className="hidden whitespace-nowrap text-sm text-stone-500 transition-colors hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100 sm:inline-flex"
-            >
-              All reviews →
-            </Link>
+          <div className="mb-10 max-w-2xl">
+            <p className="mb-1 text-xs uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400">
+              <span className="text-rose-400">✦</span> Start here
+            </p>
+            <h2 className="font-serif text-3xl text-stone-900 dark:text-stone-100 sm:text-4xl">
+              A starter routine.
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-stone-500 dark:text-stone-400 sm:text-base">
+              If you&rsquo;re new and just want to know where to begin, this is
+              the minimum honest version of what I do. Each column is a real
+              routine, not a shopping list, tap through to see the full
+              sequence and timing.
+            </p>
           </div>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {recentReviews.map((r) => (
-              <ProductCard key={`${r.kind}-${r.slug}`} review={r} />
+          <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-3">
+            {starterColumns.map((col) => (
+              <StarterColumn key={col.href} column={col} />
             ))}
           </div>
         </Container>
@@ -224,5 +288,64 @@ export default function HomePage() {
         fallbackTitle="Ibiza Club Mix, my favorite playlist"
       />
     </>
+  );
+}
+
+function StarterColumn({
+  column,
+}: {
+  column: {
+    label: string;
+    href: string;
+    blurb: string;
+    items: ReviewSummary[];
+  };
+}) {
+  return (
+    <section className="flex flex-col rounded-2xl border border-stone-200 bg-white p-6 transition-colors hover:border-stone-300 dark:border-stone-800 dark:bg-stone-900 dark:hover:border-stone-700">
+      <div className="mb-4 flex items-baseline justify-between gap-3 border-b border-stone-200 pb-3 dark:border-stone-800">
+        <h3 className="font-serif text-xl text-stone-900 dark:text-stone-100">
+          {column.label}
+        </h3>
+        <span className="text-[10px] uppercase tracking-[0.18em] text-stone-400 dark:text-stone-500">
+          {column.items.length} step{column.items.length === 1 ? "" : "s"}
+        </span>
+      </div>
+      <p className="mb-5 font-serif text-sm italic leading-relaxed text-stone-500 dark:text-stone-400">
+        {column.blurb}
+      </p>
+      <ol className="flex-1 space-y-3">
+        {column.items.map((r, i) => (
+          <li key={`${r.kind}-${r.slug}`}>
+            <Link
+              href={`/${r.kind}/${r.slug}`}
+              className="group flex items-center gap-3 rounded-lg p-1 -m-1 transition-colors hover:bg-stone-50 dark:hover:bg-stone-800/60"
+            >
+              <span
+                aria-hidden
+                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-stone-200 bg-stone-50 font-mono text-[10px] tabular-nums text-stone-500 group-hover:border-rose-300 group-hover:text-rose-600 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-400 dark:group-hover:border-rose-700 dark:group-hover:text-rose-400"
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-[10px] uppercase tracking-[0.18em] text-stone-400 dark:text-stone-500">
+                  {r.brand}
+                </p>
+                <p className="truncate font-serif text-[15px] leading-tight text-stone-900 group-hover:text-rose-700 dark:text-stone-100 dark:group-hover:text-rose-400">
+                  {r.name}
+                </p>
+              </div>
+            </Link>
+          </li>
+        ))}
+      </ol>
+      <Link
+        href={column.href}
+        className="mt-6 inline-flex items-center gap-1.5 self-start text-[11px] uppercase tracking-[0.18em] text-stone-500 transition-colors hover:text-rose-600 dark:text-stone-400 dark:hover:text-rose-400"
+      >
+        Full routine
+        <ArrowRight className="h-3 w-3" />
+      </Link>
+    </section>
   );
 }

@@ -73,8 +73,11 @@ export default function PhotosPage() {
       {/* Remaining frames. Two-column on desktop with generous gaps so
          each photo has room to breathe, single column on mobile. */}
       {rest.length > 0 && (
-        <Container className="max-w-[1400px] pb-32">
-          <div className="grid grid-cols-1 gap-x-12 gap-y-20 sm:grid-cols-2 sm:gap-y-28">
+        <Container className="max-w-5xl pb-32">
+          {/* One column at every width — bigger frames read as
+              portfolio prints rather than thumbnails, and the
+              inline EXIF strip below each one wants the room. */}
+          <div className="grid grid-cols-1 gap-y-24 sm:gap-y-32">
             {rest.map((p, i) => (
               <PhotoTile key={p.src} photo={p} index={i + 1} />
             ))}

@@ -77,6 +77,18 @@ export interface Photo {
   date: string;
   width: number;
   height: number;
+  /**
+   * Optional EXIF / capture metadata. Rendered inline below the
+   * caption when any field is present, so a photo can quietly tell
+   * you what shot it. Empty fields are skipped — partial EXIF is
+   * fine, missing EXIF is fine.
+   */
+  camera?: string;
+  lens?: string;
+  focalLength?: string; // "35mm", "85mm"
+  aperture?: string; // "f/1.8"
+  iso?: string | number;
+  shutter?: string; // "1/250"
 }
 
 export type PrimerKind = "stack" | "ingredient";

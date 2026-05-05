@@ -17,7 +17,9 @@ import { BackToTop } from "@/components/back-to-top";
 import { RouteWarmer } from "@/components/route-warmer";
 import { SwRegister } from "@/components/sw-register";
 import { CursorHalo } from "@/components/cursor-halo";
-import { AudioCues } from "@/components/audio-cues";
+// AudioCues mount was removed — the opt-in bell + nav clicks read as
+// ambient noise on every page load, which fights the editorial calm.
+// AudioToggle in the footer also gone via components/footer.tsx.
 import { ReadingProgress } from "@/components/reading-progress";
 import { HapticClickEffect } from "@/components/haptic-click-effect";
 import { site } from "@/lib/site";
@@ -161,11 +163,7 @@ export default function RootLayout({
         {/* Cursor halo: renders nothing on touch devices — the
             component checks (hover: hover) at mount time. */}
         <CursorHalo />
-        {/* Audio cues: default OFF — user enables via footer toggle.
-            Suspense wrap so usePathname() inside doesn't block SSR. */}
-        <Suspense fallback={null}>
-          <AudioCues />
-        </Suspense>
+        {/* AudioCues removed — see import-block comment. */}
         <SwRegister />
         <Analytics />
         <SpeedInsights />

@@ -65,7 +65,29 @@ export function PhotoTile({ photo, index }: { photo: Photo; index: number }) {
           {formatDate(photo.date)}
         </time>
       </figcaption>
+      <ExifLine photo={photo} />
     </figure>
+  );
+}
+
+/**
+ * Inline EXIF chip strip. Renders only the fields that exist; if
+ * none do the whole row is skipped. Reads as a quiet caption rather
+ * than a data dump.
+ */
+function ExifLine({ photo }: { photo: Photo }) {
+  const parts: string[] = [];
+  if (photo.camera) parts.push(photo.camera);
+  if (photo.lens) parts.push(photo.lens);
+  if (photo.focalLength) parts.push(photo.focalLength);
+  if (photo.aperture) parts.push(photo.aperture);
+  if (photo.shutter) parts.push(photo.shutter);
+  if (photo.iso) parts.push(`ISO ${photo.iso}`);
+  if (parts.length === 0) return null;
+  return (
+    <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.18em] text-stone-400 dark:text-stone-500">
+      {parts.join(" · ")}
+    </p>
   );
 }
 

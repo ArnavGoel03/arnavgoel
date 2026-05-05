@@ -48,7 +48,12 @@ export function HeadingAnchor({ id }: { id: string }) {
       href={`#${id}`}
       onClick={onClick}
       aria-label={copied ? "Link copied" : "Copy link to this section"}
-      className="ml-2 inline-flex items-baseline align-baseline text-sm text-stone-300 no-underline opacity-0 transition-opacity hover:text-rose-400 group-hover:opacity-100 focus-visible:opacity-100 dark:text-stone-700 dark:hover:text-rose-400"
+      // Always faintly visible on touch devices (no :hover state) so
+      // the affordance is reachable without a mouse. Pointer / keyboard
+      // users still get the full reveal on hover / focus. The
+      // `hover:hover` media query is the canonical "this device has a
+      // real cursor" check.
+      className="ml-2 inline-flex items-baseline align-baseline text-sm text-stone-400/70 no-underline transition-opacity hover:text-rose-400 group-hover:opacity-100 focus-visible:opacity-100 dark:text-stone-700 dark:hover:text-rose-400 [@media(hover:hover)]:opacity-0"
     >
       <span aria-hidden>❋</span>
       {copied && (
