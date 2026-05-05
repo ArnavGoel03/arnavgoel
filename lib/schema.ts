@@ -1,5 +1,28 @@
 import { z } from "zod";
 
+/**
+ * Reject Amazon search-result URLs as buy links. A URL like
+ * `amazon.in/s?k=colgate+floss` does resolve, but it lands the
+ * reader on a search page instead of the specific product I bought,
+ * which is misleading. Real product URLs use `/dp/<ASIN>`. This
+ * also rejects Walmart / Target search URLs for the same reason.
+ *
+ * Hooked at parse time via `productUrl()` below so a stray search
+ * URL fails the build instead of shipping silently.
+ */
+const SEARCH_URL_PATTERN =
+  /^https?:\/\/(?:www\.)?(?:amazon\.[a-z.]+|walmart\.com|target\.com|sephora\.[a-z.]+)\/s\?/i;
+
+function productUrl() {
+  return z
+    .string()
+    .url()
+    .refine((u) => !SEARCH_URL_PATTERN.test(u), {
+      message:
+        "Search-result URLs are not valid buy links. Use a /dp/<ASIN> or specific product page.",
+    });
+}
+
 export const reviewFrontmatter = z.object({
   name: z.string().min(1),
   brand: z.string().min(1),
@@ -75,15 +98,15 @@ export const reviewFrontmatter = z.object({
       }),
     )
     .default([]),
-  boughtFromUrl: z.string().url().optional(),
+  boughtFromUrl: productUrl().optional(),
   indiaLinks: z
-    .array(z.object({ retailer: z.string().min(1), url: z.string().url() }))
+    .array(z.object({ retailer: z.string().min(1), url: productUrl() }))
     .default([]),
   westernLinks: z
-    .array(z.object({ retailer: z.string().min(1), url: z.string().url() }))
+    .array(z.object({ retailer: z.string().min(1), url: productUrl() }))
     .default([]),
   ukLinks: z
-    .array(z.object({ retailer: z.string().min(1), url: z.string().url() }))
+    .array(z.object({ retailer: z.string().min(1), url: productUrl() }))
     .default([]),
   ingredients: z.array(z.string()).optional(),
   /**
