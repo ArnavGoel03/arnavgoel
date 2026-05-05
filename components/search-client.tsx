@@ -2,6 +2,7 @@
 
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { Mic, Search as SearchIcon } from "lucide-react";
 import type { SearchItem, SearchItemType } from "@/lib/search-index";
 import { useSpeechRecognition } from "@/lib/use-speech-recognition";
@@ -27,7 +28,14 @@ function score(item: SearchItem, terms: string[]): number {
 }
 
 export function SearchClient({ items }: { items: SearchItem[] }) {
-  const [query, setQuery] = useState("");
+  // Pre-fill from `?q=` so Web Share Target hits + linked deep
+  // searches (e.g. /search?q=niacinamide) land already-queried.
+  // The Share Target spec hands the URL/title/text in as `q` per
+  // app/manifest.ts share_target.params, so a single param covers
+  // every device that supports the API.
+  const params = useSearchParams();
+  const initialQuery = params?.get("q")?.trim() ?? "";
+  const [query, setQuery] = useState(initialQuery);
   const [type, setType] = useState<"all" | SearchItemType>("all");
   const deferred = useDeferredValue(query);
   const inputRef = useRef<HTMLInputElement | null>(null);

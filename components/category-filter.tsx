@@ -61,11 +61,54 @@ export function CategoryFilter({ reviews }: { reviews: ReviewSummary[] }) {
     if (s && VALID_SORTS.has(s as SortKey)) setSort(s as SortKey);
     if (r && VALID_REGIONS.has(r as RegionFilter)) {
       setRegion(r as RegionFilter);
+    } else {
+      // No URL preference: try a saved preference, then fall back
+      // to a one-time timezone inference. The point is so an Indian
+      // visitor lands on ₹ instantly instead of $; we don't want to
+      // be sticky beyond the first visit, so the saved preference
+      // wins on the second.
+      let initial: RegionFilter | null = null;
+      try {
+        const stored = localStorage.getItem("yashgoel-region-v1");
+        if (stored && VALID_REGIONS.has(stored as RegionFilter)) {
+          initial = stored as RegionFilter;
+        }
+      } catch {
+        // ignore
+      }
+      if (!initial) {
+        try {
+          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+          // Conservative mapping — only obvious country-level matches.
+          // Mismatches are cheap (the reader can pick from the chips
+          // and that pick is then persisted), missed matches just
+          // leave the default "all" alone.
+          if (/^Asia\/(Kolkata|Calcutta|Colombo)$/.test(tz)) initial = "india";
+          else if (/^Europe\/(London|Belfast|Isle_of_Man|Edinburgh|Cardiff|Dublin)$/.test(tz)) initial = "uk";
+          else if (/^America\/(New_York|Detroit|Chicago|Denver|Los_Angeles|Phoenix|Anchorage|Indianapolis|Indiana\/.+|Kentucky\/.+|North_Dakota\/.+|Boise|Juneau|Adak|Sitka|Yakutat|Nome|Metlakatla|Menominee|Honolulu)$/.test(tz)) initial = "usa";
+        } catch {
+          // ignore
+        }
+      }
+      if (initial) setRegion(initial);
     }
     if (b) setBrand(b);
     if (ing) setIngredient(ing);
     hydratedRef.current = true;
   }, []);
+
+  // Persist the visitor's region pick once they've made one. Stored
+  // separately from the URL so the preference survives across pages
+  // even when the URL itself doesn't carry a region param.
+  useEffect(() => {
+    if (!hydratedRef.current) return;
+    try {
+      if (region === "all") localStorage.removeItem("yashgoel-region-v1");
+      else localStorage.setItem("yashgoel-region-v1", region);
+    } catch {
+      // ignore
+    }
+  }, [region]);
 
   useEffect(() => {
     if (!hydratedRef.current) return;

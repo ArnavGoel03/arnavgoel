@@ -15,6 +15,8 @@ import { RelatedReviews } from "@/components/related-reviews";
 import { getRelatedReviews } from "@/lib/related";
 import { PhotoTimeline } from "@/components/photo-timeline";
 import { MdxContent } from "@/components/mdx-content";
+import { ContinueReading } from "@/components/continue-reading";
+import { IngredientChips } from "@/components/ingredient-chips";
 import { ReviewJsonLd } from "@/components/json-ld";
 import { getAdjacentReviews, getPrimersForProduct, getReview, getReviews } from "@/lib/content";
 import { RelatedPrimers } from "@/components/related-primers";
@@ -23,6 +25,7 @@ import { PrevNext } from "@/components/prev-next";
 import { CopyLink } from "@/components/copy-link";
 import { ReadingProgress } from "@/components/reading-progress";
 import { ProductHeroPhoto } from "@/components/product-hero-photo";
+import { UVFilters } from "@/components/uv-filters";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -59,6 +62,7 @@ export default async function SkincareReviewPage({ params }: Props) {
   return (
     <article>
       <ReadingProgress />
+      <ContinueReading path={`/skincare/`} />
       <ReviewJsonLd review={review} />
       <Container className="py-10">
         <Breadcrumb
@@ -107,6 +111,9 @@ export default async function SkincareReviewPage({ params }: Props) {
         <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_320px]">
           <div className="space-y-10">
             <MdxContent source={review.body} withDropCap />
+            {review.uvFilters && review.uvFilters.length > 0 && (
+              <UVFilters filters={review.uvFilters} />
+            )}
             <PhotoTimeline review={review} />
             <ProsCons pros={review.pros} cons={review.cons} />
             <ReaderNote kind="skincare" slug={review.slug} />
@@ -117,23 +124,7 @@ export default async function SkincareReviewPage({ params }: Props) {
             <RatingAxes review={review} />
             <RelatedPrimers primers={relatedPrimers} />
             <ReviewChangelog review={review} />
-            {review.ingredients && review.ingredients.length > 0 && (
-              <div className="rounded-2xl border border-stone-200 bg-white p-6 dark:border-stone-800 dark:bg-stone-900">
-                <h3 className="mb-3 font-serif text-lg text-stone-900 dark:text-stone-100">
-                  Key ingredients
-                </h3>
-                <ul className="flex flex-wrap gap-2">
-                  {review.ingredients.map((i) => (
-                    <li
-                      key={i}
-                      className="rounded-full bg-stone-100 px-3 py-1 text-xs text-stone-700 dark:bg-stone-800 dark:text-stone-300"
-                    >
-                      {i}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            <IngredientChips ingredients={review.ingredients ?? []} />
           </aside>
         </div>
 

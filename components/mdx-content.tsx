@@ -2,6 +2,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import { slugifyHeading } from "@/lib/utils";
 import { HeadingAnchor } from "./heading-anchor";
+import { GlossaryTerm } from "./glossary-term";
 
 /**
  * Editorial sidenote / margin note. Use inline in MDX:
@@ -48,6 +49,7 @@ function textOf(node: React.ReactNode): string | null {
 
 const mdxComponents = {
   Aside,
+  Term: GlossaryTerm,
   h2: ({ children, ...rest }: { children?: React.ReactNode }) => {
     const text = textOf(children);
     const id = text ? slugifyHeading(text) : undefined;

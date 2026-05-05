@@ -1,11 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
 import {
   audioCuesEnabled,
   playBell,
-  playClick,
   setAudioCues,
 } from "@/lib/sounds";
 
@@ -15,35 +13,24 @@ import {
  * Behaviour:
  *   - On first mount (page-load), plays a soft bell if audio cues are
  *     enabled.
- *   - On route change (pathname change), plays a subtle click.
  *   - Both are no-ops when audio is disabled (default OFF).
+ *
+ * The route-change click that used to live here was removed — even at
+ * low volume it fired on every navigation, which read as a UI tick on
+ * every link instead of a calm cue. The bell stays for opt-in users.
  *
  * The component renders nothing visible — the footer toggle is a
  * separate export `AudioToggle` that the Footer component can import.
  */
 export function AudioCues() {
-  const pathname = usePathname();
-  const [mounted, setMounted] = useState(false);
-
-  // Page-load bell (only once, after first mount).
   useEffect(() => {
-    setMounted(true);
     // Small defer so the AudioContext isn't created during the very
     // first synchronous render — some browsers need a user gesture
     // first. The tiny delay also lets the browser settle the page
     // before the bell plays.
     const t = setTimeout(() => playBell(), 300);
     return () => clearTimeout(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // Route-change click (skip the very first render).
-  useEffect(() => {
-    if (!mounted) return;
-    playClick();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
-
   return null;
 }
 
