@@ -234,6 +234,8 @@ const BRAND_TEXT_COLOR: Record<string, string> = {
   "YEOUTH": "text-cyan-700 dark:text-cyan-400",
   "Innisfree": "text-emerald-700 dark:text-emerald-400",
   "Lineage": "text-stone-800 dark:text-stone-200",
+  "Laneige": "text-violet-700 dark:text-violet-400",
+  "Dream. Immerse. Play.": "text-pink-600 dark:text-pink-400",
   // Supplements
   "Nutricost": "text-blue-700 dark:text-blue-400",
   "Sports Research": "text-orange-600 dark:text-orange-400",
