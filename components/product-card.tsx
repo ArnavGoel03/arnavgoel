@@ -42,6 +42,7 @@ export function ProductCard({
           <ProductCardPhoto
             photos={photos}
             alt={`${review.brand} ${review.name}, ${review.category}`}
+            brand={review.brand}
           />
         ) : (
           <>

@@ -1,22 +1,42 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 /**
  * The photo well inside a listing-page product card.
  * One photo: behaves exactly like the old static well.
  * Multiple photos: cycles on hover (desktop) or via swipe (mobile),
  * with corner dots that show how many shots exist and which is active.
+ *
+ * On <img> error (404, network, broken path) the photo is dropped
+ * from the rotation. If every photo fails we fall back to the brand
+ * monogram watermark so the card never shows the browser's broken-
+ * image icon (the small "?").
  */
 export function ProductCardPhoto({
   photos,
   alt,
+  brand,
 }: {
   photos: string[];
   alt: string;
+  /**
+   * Used for the silent fallback when every photo errors. Falls back
+   * to the first character of `alt` if not provided.
+   */
+  brand?: string;
 }) {
+  const [errored, setErrored] = useState<Record<string, boolean>>({});
+  const valid = useMemo(
+    () => photos.filter((p) => !errored[p]),
+    [photos, errored],
+  );
   const [active, setActive] = useState(0);
-  const multi = photos.length > 1;
+  useEffect(() => {
+    if (active >= valid.length) setActive(0);
+  }, [valid.length, active]);
+  const multi = valid.length > 1;
+  const allBroken = photos.length > 0 && valid.length === 0;
   const hovering = useRef(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -24,7 +44,7 @@ export function ProductCardPhoto({
     if (!multi || intervalRef.current) return;
     hovering.current = true;
     intervalRef.current = setInterval(() => {
-      setActive((i) => (i + 1) % photos.length);
+      setActive((i) => (i + 1) % valid.length);
     }, 1200);
   }
   function stopCycle() {
@@ -52,7 +72,7 @@ export function ProductCardPhoto({
     const dx = end - touchStart.current;
     if (Math.abs(dx) > 30) {
       setActive((i) =>
-        dx < 0 ? (i + 1) % photos.length : (i - 1 + photos.length) % photos.length,
+        dx < 0 ? (i + 1) % valid.length : (i - 1 + valid.length) % valid.length,
       );
     }
     touchStart.current = null;
@@ -71,15 +91,30 @@ export function ProductCardPhoto({
             into the cream well, so the product silhouette floats
             cleanly on the card instead of sitting on a hard
             rectangle. */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          key={photos[active]}
-          src={photos[active]}
-          alt={alt}
-          loading="lazy"
-          decoding="async"
-          className="h-full w-full object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-[1.03] animate-[fade-in_220ms_ease-out]"
-        />
+        {!allBroken && valid[active] && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            key={valid[active]}
+            src={valid[active]}
+            alt={alt}
+            loading="lazy"
+            decoding="async"
+            onError={() => {
+              const src = valid[active];
+              if (src) setErrored((e) => ({ ...e, [src]: true }));
+            }}
+            className="h-full w-full object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-[1.03] animate-[fade-in_220ms_ease-out]"
+          />
+        )}
+        {allBroken && (
+          // Silent fallback when every photo failed to load. Reads as
+          // the same brand-monogram placeholder cards without a photo
+          // get from the start, so a broken image never reveals the
+          // browser's "?" icon.
+          <span className="px-6 text-center font-serif text-4xl leading-[0.95] tracking-tight text-stone-400/90 sm:text-5xl">
+            {brand ?? alt.charAt(0)}
+          </span>
+        )}
       </div>
       {/* Corner registration marks. Hidden by default; fade in on
           hover. Reads as a magazine-grid accent that doesn't fight the
