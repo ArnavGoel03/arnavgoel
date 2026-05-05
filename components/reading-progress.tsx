@@ -65,10 +65,13 @@ export function ReadingProgress() {
     >
       <div
         ref={barRef}
-        className="h-full origin-left"
+        // Rose-accent progress fill: matches the site's signature
+        // mark in both modes. The previous oklch-from-foreground
+        // hack rendered the bar near-white in dark mode, which read
+        // as a cream/yellow streak against the stone-950 background.
+        className="h-full origin-left bg-rose-500/80 dark:bg-rose-400/80"
         style={{
           transform: "scaleX(0)",
-          background: "oklch(from var(--foreground) l c h / 0.7)",
           willChange: "transform",
         }}
       />

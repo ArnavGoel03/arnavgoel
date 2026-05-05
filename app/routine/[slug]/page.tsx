@@ -7,6 +7,7 @@ import {
   ROUTINE_DESCRIPTIONS,
   ROUTINE_LABELS,
   getReviewsInRoutine,
+  getReviewsInSubroutine,
   getRoutinesList,
   getSubroutinesForParent,
   type RoutineSlug,
@@ -180,9 +181,74 @@ export default async function RoutinePage({ params }: Props) {
           {miscellaneous.length > 0 && (
             <Section label="Miscellaneous" items={miscellaneous} />
           )}
+          {/* Evening-only: append the once-a-month items as a quiet
+              sub-grouping below the daily list. Keeps the peel and
+              the dermaplaning razor visible from the evening page
+              without misleading the reader into running them daily. */}
+          {routine === "evening" && <OnceAMonthSection />}
         </div>
       )}
     </Container>
+  );
+}
+
+function OnceAMonthSection() {
+  const occasional = getReviewsInSubroutine("evening/occasional");
+  if (occasional.length === 0) return null;
+  return (
+    <section className="rounded-2xl border border-stone-200 bg-stone-50/60 p-6 dark:border-stone-800 dark:bg-stone-900/40">
+      <div className="mb-4 flex items-baseline justify-between gap-3 border-b border-stone-200 pb-2 dark:border-stone-800">
+        <h2 className="font-display text-2xl font-light tracking-tight text-stone-900 dark:text-stone-100">
+          Once a month
+        </h2>
+        <p className="hidden text-[10px] uppercase tracking-[0.2em] text-stone-500 sm:block dark:text-stone-400">
+          Not part of the daily run · staggered cadence
+        </p>
+      </div>
+      <ol className="divide-y divide-stone-100 dark:divide-stone-800">
+        {occasional.map((r) => (
+          <li key={`${r.kind}-${r.slug}`} className="py-4">
+            <Link
+              href={`/${r.kind}/${r.slug}`}
+              className="group flex items-center gap-4"
+            >
+              <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg border border-stone-200 bg-stone-50 dark:border-stone-800 dark:bg-stone-800 sm:h-20 sm:w-20">
+                {r.photo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={r.photo}
+                    alt={`${r.brand} ${r.name}`}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                  />
+                ) : (
+                  <span className="absolute inset-0 flex items-center justify-center font-serif text-xl text-stone-300 dark:text-stone-600">
+                    {r.brand.charAt(0)}
+                  </span>
+                )}
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-[10px] uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500">
+                  {r.brand} · {r.category}
+                </p>
+                <h3 className="mt-0.5 font-serif text-lg text-stone-900 transition-colors group-hover:text-rose-700 dark:text-stone-100 dark:group-hover:text-rose-400">
+                  {r.name}
+                </h3>
+                {r.routineNote && (
+                  <p className="mt-0.5 font-serif text-[13px] italic leading-snug text-stone-500 dark:text-stone-400">
+                    {r.routineNote}
+                  </p>
+                )}
+              </div>
+              <span className="shrink-0 text-[10px] uppercase tracking-[0.18em] italic text-stone-400 dark:text-stone-500">
+                {r.verdict ?? "testing"}
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ol>
+    </section>
   );
 }
 

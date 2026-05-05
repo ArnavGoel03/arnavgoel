@@ -191,11 +191,15 @@ export function getSubroutinesForParent(parent: RoutineSlug): {
 export function getReviewsInSubroutine(slug: SubroutineSlug): ReviewSummary[] {
   const def = SUBROUTINES[slug];
   if (!def) return [];
-  const parentItems = getReviewsInRoutine(def.parent);
   if (def.filter.mode === "slugs") {
+    // Slug-mode subroutines explicitly list their items, so they must
+    // not require the parent routine tag — that lets us pull
+    // occasional-cadence items (peel, razor) into an evening-month
+    // sub-grouping without forcing them into the daily evening list.
     const allow = new Set(def.filter.slugs);
-    return parentItems.filter((r) => allow.has(`${r.kind}/${r.slug}`));
+    return getAllReviews().filter((r) => allow.has(`${r.kind}/${r.slug}`));
   }
+  const parentItems = getReviewsInRoutine(def.parent);
   const goalSet = new Set(def.filter.goals.map((g) => g.toLowerCase().trim()));
   return parentItems.filter((r) =>
     (r.goal ?? []).some((g) => goalSet.has(g.toLowerCase().trim())),
