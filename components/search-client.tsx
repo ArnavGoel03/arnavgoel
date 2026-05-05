@@ -27,6 +27,58 @@ function score(item: SearchItem, terms: string[]): number {
   return s;
 }
 
+/**
+ * For each search term, find the first sentence in the item's body
+ * that mentions it and return that sentence with the term wrapped
+ * in <mark>. Falls back to the first body sentence (without
+ * highlight) when the match is only in metadata. Returns null when
+ * the body is empty.
+ *
+ * Sentence split is intentionally cheap — punctuation followed by
+ * space, with a soft cap so an extremely long sentence doesn't blow
+ * the layout. The escaped regex source guards against regex
+ * injection if a term contains "(", ".", etc.
+ */
+const SNIPPET_MAX = 220;
+function escapeRegExp(s: string) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+function snippetFor(
+  body: string,
+  terms: string[],
+): { before: string; match: string; after: string } | null {
+  if (!body) return null;
+  const sentences = body
+    .split(/(?<=[.!?])\s+(?=[A-Z0-9"'])/)
+    .filter((s) => s.length > 0);
+  for (const term of terms) {
+    if (!term) continue;
+    const re = new RegExp(`(${escapeRegExp(term)})`, "i");
+    for (const s of sentences) {
+      const m = re.exec(s);
+      if (!m) continue;
+      const start = m.index;
+      const end = start + m[0].length;
+      // Center the match if the sentence is longer than the cap.
+      let from = 0;
+      let to = s.length;
+      if (s.length > SNIPPET_MAX) {
+        const half = Math.floor(SNIPPET_MAX / 2);
+        from = Math.max(0, start - half);
+        to = Math.min(s.length, end + half);
+      }
+      const prefix = from > 0 ? "…" : "";
+      const suffix = to < s.length ? "…" : "";
+      return {
+        before: prefix + s.slice(from, start),
+        match: s.slice(start, end),
+        after: s.slice(end, to) + suffix,
+      };
+    }
+  }
+  return null;
+}
+
 export function SearchClient({ items }: { items: SearchItem[] }) {
   // Pre-fill from `?q=` so Web Share Target hits + linked deep
   // searches (e.g. /search?q=niacinamide) land already-queried.
@@ -71,12 +123,16 @@ export function SearchClient({ items }: { items: SearchItem[] }) {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  const terms = useMemo(
+    () =>
+      deferred
+        .toLowerCase()
+        .split(/\s+/)
+        .map((t) => t.trim())
+        .filter(Boolean),
+    [deferred],
+  );
   const results = useMemo(() => {
-    const terms = deferred
-      .toLowerCase()
-      .split(/\s+/)
-      .map((t) => t.trim())
-      .filter(Boolean);
     const base = type === "all" ? items : items.filter((i) => i.type === type);
     if (terms.length === 0) return base;
     return base
@@ -84,7 +140,7 @@ export function SearchClient({ items }: { items: SearchItem[] }) {
       .filter(({ s }) => s > 0)
       .sort((a, b) => b.s - a.s)
       .map(({ item }) => item);
-  }, [items, deferred, type]);
+  }, [items, terms, type]);
 
   return (
     <div className="space-y-8">
@@ -164,28 +220,41 @@ export function SearchClient({ items }: { items: SearchItem[] }) {
         </p>
       ) : (
         <ol className="divide-y divide-stone-100 border-t border-stone-200 dark:border-stone-800 dark:divide-stone-800">
-          {results.map((item) => (
-            <li key={item.id}>
-              <Link
-                href={item.href}
-                className="group flex items-baseline justify-between gap-4 py-5"
-              >
-                <div className="min-w-0 flex-1">
-                  <p className="text-[10px] uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500">
-                    {item.subtitle}
-                  </p>
-                  <h3 className="mt-0.5 font-serif text-xl text-stone-900 transition-colors group-hover:text-rose-700 dark:group-hover:text-rose-400 sm:text-2xl dark:text-stone-100">
-                    {item.title}
-                  </h3>
-                </div>
-                {item.verdict && (
-                  <span className="shrink-0 text-[10px] uppercase tracking-[0.18em] italic text-stone-400 dark:text-stone-500">
-                    {item.verdict}
-                  </span>
-                )}
-              </Link>
-            </li>
-          ))}
+          {results.map((item) => {
+            const snippet =
+              terms.length > 0 ? snippetFor(item.body, terms) : null;
+            return (
+              <li key={item.id}>
+                <Link
+                  href={item.href}
+                  className="group flex items-baseline justify-between gap-4 py-5"
+                >
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[10px] uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500">
+                      {item.subtitle}
+                    </p>
+                    <h3 className="mt-0.5 font-serif text-xl text-stone-900 transition-colors group-hover:text-rose-700 dark:group-hover:text-rose-400 sm:text-2xl dark:text-stone-100">
+                      {item.title}
+                    </h3>
+                    {snippet && (
+                      <p className="mt-1.5 line-clamp-2 font-serif text-sm leading-relaxed text-stone-500 dark:text-stone-400">
+                        {snippet.before}
+                        <mark className="rounded bg-rose-100/80 px-0.5 font-medium not-italic text-stone-900 dark:bg-rose-500/20 dark:text-rose-100">
+                          {snippet.match}
+                        </mark>
+                        {snippet.after}
+                      </p>
+                    )}
+                  </div>
+                  {item.verdict && (
+                    <span className="shrink-0 text-[10px] uppercase tracking-[0.18em] italic text-stone-400 dark:text-stone-500">
+                      {item.verdict}
+                    </span>
+                  )}
+                </Link>
+              </li>
+            );
+          })}
         </ol>
       )}
     </div>
