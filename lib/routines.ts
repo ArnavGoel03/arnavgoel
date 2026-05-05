@@ -1,13 +1,14 @@
 import { getAllReviews } from "@/lib/content";
 import type { ReviewSummary } from "@/lib/types";
 
-export type RoutineSlug = "morning" | "evening" | "stack" | "shower";
+export type RoutineSlug = "morning" | "evening" | "stack" | "shower" | "oral";
 
 export const ROUTINE_LABELS: Record<RoutineSlug, string> = {
   morning: "Morning",
   evening: "Evening",
   stack: "Stack",
   shower: "Shower",
+  oral: "Oral",
 };
 
 export const ROUTINE_DESCRIPTIONS: Record<RoutineSlug, string> = {
@@ -19,14 +20,18 @@ export const ROUTINE_DESCRIPTIONS: Record<RoutineSlug, string> = {
     "Supplements I take daily, together, as one running protocol. Order, timing, and what they're for.",
   shower:
     "What is actually in the rotation right now, the bottles I reach for under running water this week, not every wash and scrub I have ever bought.",
+  oral:
+    "The brushing routine I run twice a day, morning and night, in the same order. Brush, floss, water-floss, rinse, same products, same sequence, no shortcuts.",
 };
 
 export function getRoutinesList(): RoutineSlug[] {
-  return ["morning", "evening", "stack", "shower"];
+  return ["morning", "evening", "stack", "shower", "oral"];
 }
 
 export function getReviewsInRoutine(routine: RoutineSlug): ReviewSummary[] {
-  return getAllReviews().filter((r) => r.routines.includes(routine));
+  return getAllReviews().filter((r) =>
+    (r.routines as readonly string[]).includes(routine),
+  );
 }
 
 // ────────────────────────────────────────────────────────────────────

@@ -202,6 +202,12 @@ export function ReviewMeta({ review }: { review: Review }) {
             }
           />
         )}
+        {(() => {
+          const words = (review.body ?? "").trim().split(/\s+/).filter(Boolean).length;
+          const minutes = Math.max(1, Math.round(words / 220));
+          if (words < 40) return null;
+          return <Row label="Read time" value={`${minutes} min`} />;
+        })()}
         <Row
           label="Reviewed"
           value={new Date(review.datePublished).toLocaleDateString("en-US", {

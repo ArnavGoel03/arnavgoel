@@ -34,7 +34,17 @@ export function SearchClient({ items }: { items: SearchItem[] }) {
   const voice = useSpeechRecognition({ onTranscript: setQuery });
   const voiceSupported = voice.supported;
   const listening = voice.listening;
+  const voiceError = voice.error;
   const toggleVoice = voice.toggle;
+  const voiceTitle = !voiceSupported
+    ? "Voice search needs Chrome, Edge, or recent Safari"
+    : voiceError === "denied"
+      ? "Microphone permission was blocked. Allow it in your browser settings."
+      : voiceError === "no-speech"
+        ? "Didn't catch that — tap and try again"
+        : listening
+          ? "Stop voice search"
+          : "Start voice search";
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -80,8 +90,7 @@ export function SearchClient({ items }: { items: SearchItem[] }) {
             listening ? "Listening…" : "Search reviews and primers…"
           }
           className={cn(
-            "w-full rounded-full border bg-white py-4 pl-14 font-serif text-xl italic text-stone-900 placeholder:text-stone-400 focus:outline-none dark:text-stone-100 dark:bg-stone-900",
-            voiceSupported ? "pr-16" : "pr-5",
+            "w-full rounded-full border bg-white py-4 pl-14 pr-16 font-serif text-xl italic text-stone-900 placeholder:text-stone-400 focus:outline-none dark:text-stone-100 dark:bg-stone-900",
             listening
               ? "border-rose-400 dark:border-rose-400"
               : "border-stone-200 focus:border-stone-900 dark:border-stone-800",
@@ -89,31 +98,35 @@ export function SearchClient({ items }: { items: SearchItem[] }) {
           type="search"
           aria-label="Search"
         />
-        <kbd
-          className={cn(
-            "pointer-events-none absolute top-1/2 hidden -translate-y-1/2 rounded border border-stone-200 bg-stone-50 px-1.5 py-0.5 font-mono text-[10px] text-stone-500 sm:inline dark:text-stone-400 dark:border-stone-800 dark:bg-stone-900",
-            voiceSupported ? "right-16" : "right-5",
-          )}
-        >
+        <kbd className="pointer-events-none absolute right-16 top-1/2 hidden -translate-y-1/2 rounded border border-stone-200 bg-stone-50 px-1.5 py-0.5 font-mono text-[10px] text-stone-500 sm:inline dark:text-stone-400 dark:border-stone-800 dark:bg-stone-900">
           /
         </kbd>
-        {voiceSupported && (
-          <button
-            type="button"
-            onClick={toggleVoice}
-            aria-label={listening ? "Stop voice search" : "Start voice search"}
-            aria-pressed={listening}
-            className={cn(
-              "absolute right-3 top-1/2 -translate-y-1/2 inline-flex h-10 w-10 items-center justify-center rounded-full transition-colors",
-              listening
-                ? "bg-rose-500 text-white shadow-[0_0_0_4px_rgba(244,63,94,0.18)] animate-pulse"
-                : "text-stone-400 hover:bg-stone-100 hover:text-stone-700 dark:text-stone-500 dark:hover:bg-stone-800 dark:hover:text-stone-200",
-            )}
-          >
-            <Mic className="h-5 w-5" />
-          </button>
-        )}
+        <button
+          type="button"
+          onClick={voiceSupported ? toggleVoice : undefined}
+          disabled={!voiceSupported}
+          title={voiceTitle}
+          aria-label={voiceTitle}
+          aria-pressed={listening}
+          className={cn(
+            "absolute right-2.5 top-1/2 -translate-y-1/2 inline-flex h-11 w-11 items-center justify-center rounded-full transition-colors sm:h-10 sm:w-10",
+            listening
+              ? "bg-rose-500 text-white shadow-[0_0_0_4px_rgba(244,63,94,0.18)] animate-pulse"
+              : voiceError === "denied"
+                ? "text-amber-600 hover:bg-amber-50 dark:text-amber-400 dark:hover:bg-amber-900/20"
+                : !voiceSupported
+                  ? "text-stone-300 cursor-not-allowed dark:text-stone-700"
+                  : "text-stone-400 hover:bg-stone-100 hover:text-stone-700 dark:text-stone-500 dark:hover:bg-stone-800 dark:hover:text-stone-200",
+          )}
+        >
+          <Mic className="h-5 w-5" />
+        </button>
       </div>
+      {voiceError === "denied" && (
+        <p className="-mt-6 px-2 text-xs italic text-amber-700 dark:text-amber-400">
+          Microphone permission is blocked — allow it in your browser settings to use voice.
+        </p>
+      )}
 
       <div className="flex flex-wrap gap-2 text-sm">
         {TYPE_FILTERS.map((f) => (

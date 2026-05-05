@@ -39,6 +39,8 @@ function getSpeechRecognition(): SpeechRecognitionCtor | null {
  * unprefixed name. Returns supported = false where the API is missing
  * so callers can hide the mic button.
  */
+export type VoiceErrorKind = "unsupported" | "denied" | "no-speech" | "other";
+
 export function useSpeechRecognition({
   onTranscript,
 }: {
@@ -46,9 +48,8 @@ export function useSpeechRecognition({
 }) {
   const [supported, setSupported] = useState(false);
   const [listening, setListening] = useState(false);
+  const [error, setError] = useState<VoiceErrorKind | null>(null);
   const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
-  // Stash the latest callback so toggle() doesn't need to be
-  // re-created when the consumer's onTranscript identity changes.
   const callbackRef = useRef(onTranscript);
   useEffect(() => {
     callbackRef.current = onTranscript;
@@ -65,7 +66,11 @@ export function useSpeechRecognition({
       return;
     }
     const Ctor = getSpeechRecognition();
-    if (!Ctor) return;
+    if (!Ctor) {
+      setError("unsupported");
+      return;
+    }
+    setError(null);
     const rec = new Ctor();
     rec.lang = "en-US";
     rec.continuous = false;
@@ -77,7 +82,17 @@ export function useSpeechRecognition({
       }
       callbackRef.current(transcript.trim());
     };
-    rec.onerror = () => setListening(false);
+    rec.onerror = (e) => {
+      setListening(false);
+      const code = (e as { error?: string } | null)?.error;
+      if (code === "not-allowed" || code === "service-not-allowed") {
+        setError("denied");
+      } else if (code === "no-speech") {
+        setError("no-speech");
+      } else {
+        setError("other");
+      }
+    };
     rec.onend = () => {
       setListening(false);
       recognitionRef.current = null;
@@ -88,8 +103,9 @@ export function useSpeechRecognition({
       rec.start();
     } catch {
       setListening(false);
+      setError("other");
     }
   }, [listening]);
 
-  return { supported, listening, toggle };
+  return { supported, listening, error, toggle };
 }
