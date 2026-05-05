@@ -10,14 +10,22 @@ import { z } from "zod";
  * Hooked at parse time via `productUrl()` below so a stray search
  * URL fails the build instead of shipping silently.
  */
+// Match any retailer's search-result URL by shape, not host. Real
+// product pages have a stable slug or ID in the path; search pages
+// always carry the query in either the path (`/s?`) or as a known
+// search query parameter. This catches Amazon / Walmart / Target /
+// Sephora / Boots / Nykaa / Myntra / Blinkit / Zepto and anything
+// else that follows the same conventions.
 const SEARCH_URL_PATTERN =
-  /^https?:\/\/(?:www\.)?(?:amazon\.[a-z.]+|walmart\.com|target\.com|sephora\.[a-z.]+)\/s\?/i;
+  /^https?:\/\/[^?#]+(?:\/s\?|\/s\/\?|\/search(?:\?|\/result\?)|\/instamart\/search)/i;
+const SEARCH_QS_PATTERN =
+  /[?&](?:q|k|searchTerm|searchText|keyword|text|query)=/i;
 
 function productUrl() {
   return z
     .string()
     .url()
-    .refine((u) => !SEARCH_URL_PATTERN.test(u), {
+    .refine((u) => !SEARCH_URL_PATTERN.test(u) && !SEARCH_QS_PATTERN.test(u), {
       message:
         "Search-result URLs are not valid buy links. Use a /dp/<ASIN> or specific product page.",
     });
