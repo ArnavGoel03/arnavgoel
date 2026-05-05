@@ -206,6 +206,11 @@ export function getPrimers(): PrimerSummary[] {
   return sortByDateDesc(readPrimers()).map(({ body: _body, ...rest }) => rest);
 }
 
+/** Build-time only: primers with their full body. Used by the search index. */
+export function getPrimersWithBody(): Primer[] {
+  return sortByDateDesc(readPrimers());
+}
+
 export function getPrimer(slug: string): Primer | null {
   return readPrimers().find((p) => p.slug === slug) ?? null;
 }

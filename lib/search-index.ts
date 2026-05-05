@@ -1,4 +1,4 @@
-import { getAllReviewsWithBody, getPrimers } from "@/lib/content";
+import { getAllReviewsWithBody, getPrimersWithBody } from "@/lib/content";
 
 export type SearchItemType = "review" | "primer";
 
@@ -74,7 +74,7 @@ export function buildSearchIndex(): SearchItem[] {
     });
   }
 
-  for (const p of getPrimers()) {
+  for (const p of getPrimersWithBody()) {
     const body = plainText(p.body ?? "");
     out.push({
       id: `primer:${p.slug}`,
