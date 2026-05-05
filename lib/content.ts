@@ -161,6 +161,24 @@ export function getAllReviews(): ReviewSummary[] {
     .map(({ body: _body, ...rest }) => rest);
 }
 
+/**
+ * Like `getAllReviews()` but keeps the `body` field. Used by the
+ * search-index builder so snippet generation has the full prose to
+ * match against. Build-time only — never ship the full bodies into a
+ * client payload.
+ */
+export function getAllReviewsWithBody(): Review[] {
+  return sortByDateDesc([
+    ...readReviews("skincare"),
+    ...readReviews("supplements"),
+    ...readReviews("oral-care"),
+    ...readReviews("hair-care"),
+    ...readReviews("body-care"),
+    ...readReviews("essentials"),
+    ...readReviews("miscellaneous"),
+  ]).filter((r) => !r.hidden && !r.retired);
+}
+
 export function getAllReviewsIncludingHidden(kind: Kind): ReviewSummary[] {
   return sortByDateDesc(readReviews(kind)).map(
     ({ body: _body, ...rest }) => rest,

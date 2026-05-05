@@ -1,4 +1,4 @@
-import { getAllReviews, getPrimers } from "@/lib/content";
+import { getAllReviewsWithBody, getPrimers } from "@/lib/content";
 
 export type SearchItemType = "review" | "primer";
 
@@ -46,7 +46,7 @@ function plainText(src: string, max = 1500): string {
 export function buildSearchIndex(): SearchItem[] {
   const out: SearchItem[] = [];
 
-  for (const r of getAllReviews()) {
+  for (const r of getAllReviewsWithBody()) {
     const body = plainText(r.body ?? "");
     out.push({
       id: `review:${r.kind}/${r.slug}`,
