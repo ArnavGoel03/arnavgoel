@@ -99,15 +99,24 @@ export const reviewFrontmatter = z.object({
     )
     .default([]),
   boughtFromUrl: productUrl().optional(),
+  // .nullable() before .default() so a frontmatter line like
+  // `indiaLinks:` (which YAML parses as null) coerces to [] instead
+  // of failing parse with "expected array, received null".
   indiaLinks: z
     .array(z.object({ retailer: z.string().min(1), url: productUrl() }))
-    .default([]),
+    .nullable()
+    .default([])
+    .transform((v) => v ?? []),
   westernLinks: z
     .array(z.object({ retailer: z.string().min(1), url: productUrl() }))
-    .default([]),
+    .nullable()
+    .default([])
+    .transform((v) => v ?? []),
   ukLinks: z
     .array(z.object({ retailer: z.string().min(1), url: productUrl() }))
-    .default([]),
+    .nullable()
+    .default([])
+    .transform((v) => v ?? []),
   ingredients: z.array(z.string()).optional(),
   /**
    * Sunscreen-only: list of UV filter INCI names exactly as they
