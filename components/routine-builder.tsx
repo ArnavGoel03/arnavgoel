@@ -230,8 +230,8 @@ export function RoutineBuilder({ catalog }: { catalog: CatalogItem[] }) {
   useEffect(() => {
     if (!hydrated) return;
     const next = entries.length === 0
-      ? "/routine-builder"
-      : `/routine-builder?r=${encodeState({ entries, goals, time })}`;
+      ? "/build?tool=routine"
+      : `/build?tool=routine&r=${encodeState({ entries, goals, time })}`;
     window.history.replaceState(null, "", next);
   }, [entries, goals, time, hydrated]);
 

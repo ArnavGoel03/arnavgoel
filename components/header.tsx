@@ -46,10 +46,9 @@ const nav: NavItem[] = [
   { href: "/essentials", label: "Essentials", tourId: "tab-essentials", weight: "primary" },
   { href: "/routine", label: "Routine", weight: "primary" },
 
-  // Tools — interactive, builders, references.
-  { href: "/routine-builder", label: "Routine builder", weight: "secondary", group: "tools" },
-  { href: "/stack-builder", label: "Stack builder", weight: "secondary", group: "tools" },
-  { href: "/routine-simulator", label: "Routine simulator", weight: "secondary", group: "tools" },
+  // Tools — interactive, builders, references. The three builders
+  // (routine, stack, simulator) share /build as a tabbed workshop.
+  { href: "/build", label: "Build", weight: "secondary", group: "tools" },
   { href: "/glossary", label: "Glossary", weight: "secondary", group: "tools" },
   { href: "/primers", label: "Primers", weight: "secondary", group: "tools" },
   { href: "/miscellaneous", label: "Miscellaneous", weight: "secondary", group: "tools" },

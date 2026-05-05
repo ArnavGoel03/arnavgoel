@@ -26,7 +26,7 @@ const ROUTES = [
   "/oral-care",
   "/miscellaneous",
   "/best-of",
-  "/stack-builder",
+  "/build",
   "/search",
 ];
 

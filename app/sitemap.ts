@@ -26,9 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${site.url}/subscribe`, lastModified: now, priority: 0.6 },
     { url: `${site.url}/library`, lastModified: now, priority: 0.7 },
     { url: `${site.url}/glossary`, lastModified: now, priority: 0.7 },
-    { url: `${site.url}/routine-simulator`, lastModified: now, priority: 0.7 },
-    { url: `${site.url}/routine-builder`, lastModified: now, priority: 0.8 },
-    { url: `${site.url}/stack-builder`, lastModified: now, priority: 0.8 },
+    { url: `${site.url}/build`, lastModified: now, priority: 0.8 },
     { url: `${site.url}/best-of/2026`, lastModified: now, priority: 0.8 },
   ];
   const routineRoutes: MetadataRoute.Sitemap = [

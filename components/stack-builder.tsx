@@ -290,8 +290,8 @@ export function StackBuilder({ catalog }: { catalog: CatalogItem[] }) {
     if (!hydrated) return;
     const next =
       entries.length === 0
-        ? "/stack-builder"
-        : `/stack-builder?s=${encodeState({ entries, goals })}`;
+        ? "/build?tool=stack"
+        : `/build?tool=stack&s=${encodeState({ entries, goals })}`;
     window.history.replaceState(null, "", next);
   }, [entries, goals, hydrated]);
 
