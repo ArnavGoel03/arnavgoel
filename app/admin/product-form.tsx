@@ -579,7 +579,10 @@ export function ProductForm({ initial }: { initial?: ProductFormInitial }) {
           />
           <p className="mt-1 text-xs text-stone-500">
             One URL per line. Retailer name is auto-detected from the domain;
-            you can override with <code>Retailer | URL</code> format.
+            override with <code>Retailer | URL</code>. Paste raw Amazon URLs
+            from the address bar — they get auto-stripped to the clean{" "}
+            <code>/dp/&lt;ASIN&gt;</code> form, and the affiliate tag is
+            applied at render time. No SiteStripe round-trip needed.
           </p>
         </div>
         <div>

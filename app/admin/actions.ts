@@ -5,6 +5,7 @@ import { put } from "@vercel/blob";
 import { auth } from "@/auth";
 import { commitRepoFile, readRepoFile } from "@/lib/github";
 import { retailerForUrl } from "@/lib/retailers";
+import { normalizeAmazonUrl } from "@/lib/amazon-url";
 import { restoreBlob, softDeleteBlob } from "@/lib/trash";
 
 /**
@@ -119,8 +120,12 @@ const reviewSchema = z.object({
     .transform((v) => {
       const arr = v === undefined ? [] : Array.isArray(v) ? v : [v];
       return arr.filter(
-        (s): s is "morning" | "evening" | "stack" | "shower" =>
-          s === "morning" || s === "evening" || s === "stack" || s === "shower",
+        (s): s is "morning" | "evening" | "stack" | "shower" | "oral" =>
+          s === "morning" ||
+          s === "evening" ||
+          s === "stack" ||
+          s === "shower" ||
+          s === "oral",
       );
     }),
   photo: z.string().trim().optional(),
@@ -196,6 +201,7 @@ function parseBuyLinks(
     } catch {
       continue;
     }
+    url = normalizeAmazonUrl(url);
     out.push({ retailer, url });
   }
   return out;
@@ -222,7 +228,7 @@ function buildReviewMdx(d: {
   dailyServings?: number;
   skinType: string[];
   goal: string[];
-  routines: ("morning" | "evening" | "stack" | "shower")[];
+  routines: ("morning" | "evening" | "stack" | "shower" | "oral")[];
   photo?: string;
   boughtFromUrl?: string;
   indiaLinks: { retailer: string; url: string }[];
@@ -360,7 +366,7 @@ function buildContentFromForm(d: z.infer<typeof reviewSchema>): string {
     goal: d.kind === "skincare" ? [] : parseList(d.goal),
     routines: d.routines,
     photo: d.photo || undefined,
-    boughtFromUrl: d.boughtFromUrl,
+    boughtFromUrl: d.boughtFromUrl ? normalizeAmazonUrl(d.boughtFromUrl) : undefined,
     indiaLinks: parseBuyLinks(d.indiaLinks),
     westernLinks: parseBuyLinks(d.westernLinks),
     ukLinks: parseBuyLinks(d.ukLinks),
