@@ -668,6 +668,7 @@ const photoEntrySchema = z.object({
   height: z.number().int().nonnegative(),
   hidden: z.boolean().optional(),
   hero: z.boolean().optional(),
+  featured: z.boolean().optional(),
   camera: z.string().optional(),
   lens: z.string().optional(),
   focalLength: z.string().optional(),

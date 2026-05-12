@@ -89,6 +89,13 @@ export interface Photo {
    */
   hero?: boolean;
   /**
+   * Promote this frame to a full-bleed oversize moment inline within
+   * its section, breaking out of the pair / offset rhythm. Any number
+   * of photos can be featured; each becomes its own cinematic break
+   * in the scroll.
+   */
+  featured?: boolean;
+  /**
    * Optional EXIF / capture metadata. Rendered inline below the
    * caption when any field is present, so a photo can quietly tell
    * you what shot it. Empty fields are skipped — partial EXIF is

@@ -46,10 +46,20 @@ function buildSlots(input: Photo[]): Slot[] {
   let i = 0;
   let p = 0;
   while (i < input.length) {
+    // Featured photos always break out into their own full-bleed slot
+    // and do not advance the rhythm counter, so pairs/offsets keep their
+    // intended cadence around them.
+    if (input[i].featured) {
+      slots.push({ kind: "fullBleed", photos: [input[i]] });
+      i += 1;
+      continue;
+    }
     const kind = SECTION_RHYTHM[p % SECTION_RHYTHM.length];
     p++;
     if (kind === "pair") {
-      if (i + 1 < input.length) {
+      // Don't pair a regular photo with a featured one, since the
+      // featured photo wants its own spread.
+      if (i + 1 < input.length && !input[i + 1].featured) {
         slots.push({ kind: "pair", photos: [input[i], input[i + 1]] });
         i += 2;
       } else {
