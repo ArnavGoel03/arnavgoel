@@ -226,6 +226,32 @@ There's a yellow warning banner on the page. The URL is private (excluded from s
 - Local dev: `npm run dev`. The dashboard's GitHub commit flow needs `vercel env pull` to get `GITHUB_TOKEN` etc. into the local environment.
 - Don't write build/deploy meta on user-visible surfaces (the user explicitly removed all "Built quietly, shipped slowly"-style language). Internal commit messages can mention build/CI freely.
 
+# Hardware the user actually owns (for review accuracy)
+
+Never put a device in the user's hands that they do not own. When writing about something they shoot, type, or carry, cross-check against this list first; if a device is not on this list, ask before claiming they use it.
+
+- **Phone**: iPhone 14 Pro Max. The user does **not** have any iPhone 13 series device. Any iPhone 13 / 13 Pro / 13 Pro Max / iPhone 12 / iPhone 13 photos on the One Touch drive are AirDrop / Messages imports from other people, not the user's own captures.
+- **Cameras**: Canon EOS R7 (paired with RF-S 18-150mm F3.5-6.3 IS STM) and Canon EOS RP (paired with RF 24-105mm F4-7.1 IS STM). Older Canon EOS 7D appears in 3 archive frames but is not in active use. Full specs and usage stats live in `/Volumes/One Touch/DSLR/CAMERA_INFO.md`.
+
+When adding a new device review (e.g. an essentials category laptop, earbuds, charger), update this section the same turn so future sessions trust the list.
+
+# Source photo library lives on the One Touch external drive
+
+All product / DSLR source frames live at `/Volumes/One Touch/DSLR/` (Seagate One Touch, mounts when plugged in). Flat directory, ~1,060 files, ~21 GB. Filenames are camera-numbered (`C17A####`, `IMG_####`); same base name across formats means the same frame.
+
+Format priority when picking a source for upload (best to worst):
+
+1. **TIF**, the user's edited Lightroom masters (~40 files at last count). These are the keepers; always prefer when present.
+2. **JPG**, full-quality camera or Lightroom exports (hundreds of frames). Use as the fallback when no TIF exists for that frame.
+3. **CR3**, Canon raw (~256 files). Archive only. Do **not** upload directly to the site; it needs Lightroom processing first.
+4. **PNG / JPEG / MOV / TIFF**, case-by-case; typically not product shots.
+
+Pipeline: pick the highest-priority source for a frame → upload as the Blob original at full quality (no recompression, per the site's existing rule) → let sharp + Next/Image produce AVIF/WebP derivatives at responsive widths. Never bypass this and upload a CR3 or a re-saved JPG as the "original."
+
+If the drive is not mounted, fail loudly and tell the user, do not silently substitute a lower-priority source from somewhere else (e.g. Photos library, Downloads).
+
+**Never discard the TIF or CR3 originals from the One Touch.** They are the lossless masters and must remain on the drive indefinitely. When the website needs a JPG for upload, generate a fresh q95 sRGB JPG export from the TIF into a *scratch directory outside the drive* (e.g. `/tmp/`) and upload that derivative. The TIF + CR3 stay where they are, renamed only to descriptive names. This applies to every future shoot: ingest, edit, export-for-web, upload the export, archive the TIF + CR3 on the One Touch. Do not delete or overwrite either format from the drive under any circumstance, even to "clean up" or reclaim space.
+
 # Memory conventions for this project
 
 The user keeps a memory file at `~/.claude/projects/-Users-arnavgoel-Documents-skincare-supplement-reviews/memory/`. Notable entries:

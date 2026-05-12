@@ -11,8 +11,21 @@ function readPhotosFromDisk(): Photo[] {
   return data;
 }
 
+/**
+ * All photos in manifest order, including hidden ones. For admin use.
+ */
+export function getAllPhotos(): Photo[] {
+  return readPhotosFromDisk();
+}
+
+/**
+ * Public photo feed: drops hidden entries and sorts newest first by
+ * `date`. Used by `/photos` and anywhere else on the public site.
+ */
 export function getPhotos(): Photo[] {
-  return readPhotosFromDisk().sort((a, b) => b.date.localeCompare(a.date));
+  return readPhotosFromDisk()
+    .filter((p) => !p.hidden)
+    .sort((a, b) => b.date.localeCompare(a.date));
 }
 
 export const photos: Photo[] = getPhotos();

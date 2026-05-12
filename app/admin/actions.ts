@@ -657,3 +657,63 @@ export async function createPhoto(
     message: `Uploaded and committed. Live in ~30-60s once Vercel redeploys.`,
   };
 }
+
+const photoEntrySchema = z.object({
+  src: z.string().url(),
+  alt: z.string(),
+  caption: z.string(),
+  location: z.string().optional(),
+  date: z.string(),
+  width: z.number().int().nonnegative(),
+  height: z.number().int().nonnegative(),
+  hidden: z.boolean().optional(),
+  camera: z.string().optional(),
+  lens: z.string().optional(),
+  focalLength: z.string().optional(),
+  aperture: z.string().optional(),
+  iso: z.union([z.string(), z.number()]).optional(),
+  shutter: z.string().optional(),
+});
+
+/**
+ * Overwrite the entire `content/photos.json` manifest in one commit.
+ * Used by the admin photo manager to persist reorder / hide / bulk
+ * changes. Validates every entry against `photoEntrySchema` so a
+ * malformed client payload can't corrupt the file.
+ */
+export async function updatePhotosManifest(
+  payloadJson: string,
+): Promise<{ ok: boolean; error?: string; message?: string }> {
+  const authError = await requireAdmin();
+  if (authError) return { ok: false, error: authError };
+  let parsedRaw: unknown;
+  try {
+    parsedRaw = JSON.parse(payloadJson);
+  } catch {
+    return { ok: false, error: "Payload is not valid JSON." };
+  }
+  const parsed = z.array(photoEntrySchema).safeParse(parsedRaw);
+  if (!parsed.success) {
+    return {
+      ok: false,
+      error: parsed.error.issues
+        .slice(0, 3)
+        .map((i) => `${i.path.join(".") || "entry"}: ${i.message}`)
+        .join("; "),
+    };
+  }
+  const json = JSON.stringify(parsed.data, null, 2) + "\n";
+  try {
+    await commitRepoFile({
+      path: "content/photos.json",
+      content: json,
+      message: `Update photo manifest (${parsed.data.length} entries)`,
+    });
+  } catch (err) {
+    return { ok: false, error: (err as Error).message };
+  }
+  return {
+    ok: true,
+    message: `Saved. Live in ~30-60s once Vercel redeploys.`,
+  };
+}

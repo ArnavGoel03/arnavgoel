@@ -78,6 +78,11 @@ export interface Photo {
   width: number;
   height: number;
   /**
+   * Hide from the public `/photos` page without removing the entry
+   * (or its Blob asset). Admin-only field; absent or false = visible.
+   */
+  hidden?: boolean;
+  /**
    * Optional EXIF / capture metadata. Rendered inline below the
    * caption when any field is present, so a photo can quietly tell
    * you what shot it. Empty fields are skipped — partial EXIF is

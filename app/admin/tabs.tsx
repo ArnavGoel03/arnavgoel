@@ -12,7 +12,7 @@ export function AdminTabs({ editList }: { editList: React.ReactNode }) {
 
   return (
     <div className="mx-auto max-w-3xl space-y-8">
-      <div className="flex gap-2 border-b border-stone-200 pb-px">
+      <div className="flex flex-wrap items-center gap-2 border-b border-stone-200 pb-px">
         {(
           [
             { id: "product", label: "Add product" },
@@ -37,6 +37,13 @@ export function AdminTabs({ editList }: { editList: React.ReactNode }) {
             )}
           </button>
         ))}
+        <div className="flex-1" />
+        <a
+          href="/admin/photos"
+          className="rounded-full border border-stone-200 px-3 py-1.5 text-xs text-stone-700 hover:bg-stone-50"
+        >
+          Manage photos →
+        </a>
       </div>
 
       {tab === "product" && <ProductForm />}
