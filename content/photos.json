@@ -81,35 +81,37 @@
     "rawSource": "C17A0970.CR3"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-07_gingko-branch-on-pool-a.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_gingko-branch-on-pool-a-v3.jpg",
     "alt": "A yellow gingko branch lying flat on the surface of a swimming pool.",
     "caption": "Gingko on water.",
     "location": "La Jolla, San Diego",
     "date": "2023-12-07",
-    "width": 6960,
-    "height": 4640,
+    "width": 6984,
+    "height": 4660,
     "camera": "Canon EOS R7",
     "lens": "RF-S 18-150mm F3.5-6.3",
     "focalLength": "18mm",
     "aperture": "f/20",
     "iso": 640,
-    "shutter": "1/125s"
+    "shutter": "1/125s",
+    "rawSource": "C17A0986.CR3"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-07_gingko-branch-on-pool-wide.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_gingko-branch-on-pool-wide-v3.jpg",
     "alt": "Wider composition of the same gingko branch floating on the pool surface.",
     "caption": "Gingko on water, wider.",
     "location": "La Jolla, San Diego",
     "date": "2023-12-07",
-    "width": 6960,
-    "height": 4640,
+    "width": 6984,
+    "height": 4660,
     "camera": "Canon EOS R7",
     "lens": "RF-S 18-150mm F3.5-6.3",
     "focalLength": "18mm",
     "aperture": "f/20",
     "iso": 320,
     "shutter": "1/100s",
-    "hidden": true
+    "hidden": true,
+    "rawSource": "C17A1039.CR3"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-07_purple-heart-flowers.jpg",
@@ -127,34 +129,36 @@
     "shutter": "1/10s"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-07_bird-of-paradise-stucco-wall.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_bird-of-paradise-stucco-wall-v3.jpg",
     "alt": "A bird-of-paradise plant against a peach stucco wall beside an arched window.",
     "caption": "Bird of paradise, stucco.",
     "location": "La Jolla, San Diego",
     "date": "2023-12-07",
-    "width": 6960,
-    "height": 4640,
+    "width": 6984,
+    "height": 4660,
     "camera": "Canon EOS R7",
     "lens": "RF-S 18-150mm F3.5-6.3",
     "focalLength": "35mm",
     "aperture": "f/22",
     "iso": 320,
-    "shutter": "1/10s"
+    "shutter": "1/10s",
+    "rawSource": "C17A1048.CR3"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-07_flutist-sculpture-italianate-building.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_flutist-sculpture-italianate-building-v3.jpg",
     "alt": "A bronze sculpture of a flutist mid-stride on an Italianate building corner.",
     "caption": "Bronze flutist.",
     "location": "Little Italy, San Diego",
     "date": "2023-12-07",
-    "width": 6960,
-    "height": 4640,
+    "width": 6984,
+    "height": 4660,
     "camera": "Canon EOS R7",
     "lens": "RF-S 18-150mm F3.5-6.3",
     "focalLength": "31mm",
     "aperture": "f/4.5",
     "iso": 100,
-    "shutter": "1/160s"
+    "shutter": "1/160s",
+    "rawSource": "C17A1064.CR3"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-07_still-life-conch-shells.jpg",
