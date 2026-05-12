@@ -644,7 +644,8 @@
     "iso": 3200,
     "shutter": "1/30s",
     "rawSource": "C17A0822.CR3",
-    "hidden": true
+    "hidden": true,
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0823.JPG",
@@ -661,7 +662,8 @@
     "iso": 3200,
     "shutter": "1/30s",
     "rawSource": "C17A0823.CR3",
-    "hidden": true
+    "hidden": true,
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0820.JPG",
@@ -678,7 +680,8 @@
     "iso": 3200,
     "shutter": "1/30s",
     "rawSource": "C17A0820.CR3",
-    "hidden": true
+    "hidden": true,
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0821.JPG",
@@ -695,7 +698,8 @@
     "iso": 3200,
     "shutter": "1/30s",
     "rawSource": "C17A0821.CR3",
-    "hidden": true
+    "hidden": true,
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0824.JPG",
@@ -712,7 +716,8 @@
     "iso": 3200,
     "shutter": "1/30s",
     "rawSource": "C17A0824.CR3",
-    "hidden": true
+    "hidden": true,
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0826.JPG",
@@ -728,7 +733,8 @@
     "aperture": "f/10",
     "iso": 3200,
     "shutter": "1/30s",
-    "hidden": true
+    "hidden": true,
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0828.JPG",
@@ -745,7 +751,8 @@
     "iso": 3200,
     "shutter": "1/30s",
     "rawSource": "C17A0828.CR3",
-    "hidden": true
+    "hidden": true,
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0830.JPG",
@@ -762,7 +769,8 @@
     "iso": 3200,
     "shutter": "1/30s",
     "rawSource": "C17A0830.CR3",
-    "hidden": true
+    "hidden": true,
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0829.JPG",
@@ -779,7 +787,8 @@
     "iso": 3200,
     "shutter": "1/30s",
     "rawSource": "C17A0829.CR3",
-    "hidden": true
+    "hidden": true,
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0831.JPG",
@@ -795,7 +804,8 @@
     "aperture": "f/10",
     "iso": 3200,
     "shutter": "1/30s",
-    "hidden": true
+    "hidden": true,
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0834.JPG",
@@ -812,7 +822,8 @@
     "iso": 3200,
     "shutter": "1/30s",
     "rawSource": "C17A0834.CR3",
-    "hidden": true
+    "hidden": true,
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0833.JPG",
@@ -829,7 +840,8 @@
     "iso": 3200,
     "shutter": "1/30s",
     "rawSource": "C17A0833.CR3",
-    "hidden": true
+    "hidden": true,
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0835.JPG",
@@ -846,7 +858,8 @@
     "iso": 3200,
     "shutter": "1/30s",
     "rawSource": "C17A0835.CR3",
-    "hidden": true
+    "hidden": true,
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0832.JPG",
@@ -863,7 +876,8 @@
     "iso": 3200,
     "shutter": "1/30s",
     "rawSource": "C17A0832.CR3",
-    "hidden": true
+    "hidden": true,
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0836.JPG",
@@ -880,7 +894,8 @@
     "iso": 3200,
     "shutter": "1/30s",
     "rawSource": "C17A0836.CR3",
-    "hidden": true
+    "hidden": true,
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0838.JPG",
@@ -897,7 +912,8 @@
     "iso": 100,
     "shutter": "1/200s",
     "rawSource": "C17A0838.CR3",
-    "hidden": true
+    "hidden": true,
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0837.JPG",
@@ -914,7 +930,8 @@
     "iso": 3200,
     "shutter": "1/30s",
     "rawSource": "C17A0837.CR3",
-    "hidden": true
+    "hidden": true,
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0839.JPG",
@@ -930,7 +947,8 @@
     "aperture": "f/8",
     "iso": 100,
     "shutter": "1/50s",
-    "rawSource": "C17A0839.CR3"
+    "rawSource": "C17A0839.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0840.JPG",
@@ -946,7 +964,8 @@
     "aperture": "f/8",
     "iso": 100,
     "shutter": "1/50s",
-    "rawSource": "C17A0840.CR3"
+    "rawSource": "C17A0840.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0842.JPG",
@@ -962,7 +981,8 @@
     "aperture": "f/8",
     "iso": 100,
     "shutter": "1/13s",
-    "rawSource": "C17A0842.CR3"
+    "rawSource": "C17A0842.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0841.JPG",
@@ -978,7 +998,8 @@
     "aperture": "f/8",
     "iso": 100,
     "shutter": "1/13s",
-    "rawSource": "C17A0841.CR3"
+    "rawSource": "C17A0841.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0843.JPG",
@@ -994,7 +1015,8 @@
     "aperture": "f/8",
     "iso": 100,
     "shutter": "1/40s",
-    "rawSource": "C17A0843.CR3"
+    "rawSource": "C17A0843.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0845.JPG",
@@ -1010,7 +1032,8 @@
     "aperture": "f/8",
     "iso": 100,
     "shutter": "1/40s",
-    "rawSource": "C17A0845.CR3"
+    "rawSource": "C17A0845.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0850.JPG",
@@ -1026,7 +1049,8 @@
     "aperture": "f/8",
     "iso": 100,
     "shutter": "1/30s",
-    "rawSource": "C17A0850.CR3"
+    "rawSource": "C17A0850.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0849.JPG",
@@ -1042,7 +1066,8 @@
     "aperture": "f/8",
     "iso": 100,
     "shutter": "1/30s",
-    "rawSource": "C17A0849.CR3"
+    "rawSource": "C17A0849.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0851.JPG",
@@ -1058,7 +1083,8 @@
     "aperture": "f/8",
     "iso": 100,
     "shutter": "1/30s",
-    "rawSource": "C17A0851.CR3"
+    "rawSource": "C17A0851.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0847.JPG",
@@ -1074,7 +1100,8 @@
     "aperture": "f/8",
     "iso": 100,
     "shutter": "1/40s",
-    "rawSource": "C17A0847.CR3"
+    "rawSource": "C17A0847.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0856.JPG",
@@ -1089,7 +1116,8 @@
     "focalLength": "18mm",
     "aperture": "f/4",
     "iso": 100,
-    "shutter": "1/60s"
+    "shutter": "1/60s",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0853.JPG",
@@ -1104,7 +1132,8 @@
     "focalLength": "28mm",
     "aperture": "f/4.5",
     "iso": 125,
-    "shutter": "1/60s"
+    "shutter": "1/60s",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0857.JPG",
@@ -1119,7 +1148,8 @@
     "focalLength": "18mm",
     "aperture": "f/3.5",
     "iso": 100,
-    "shutter": "1/30s"
+    "shutter": "1/30s",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0859.JPG",
@@ -1134,7 +1164,8 @@
     "focalLength": "18mm",
     "aperture": "f/3.5",
     "iso": 1250,
-    "shutter": "1/60s"
+    "shutter": "1/60s",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0861.JPG",
@@ -1149,7 +1180,8 @@
     "focalLength": "18mm",
     "aperture": "f/3.5",
     "iso": 1600,
-    "shutter": "1/80s"
+    "shutter": "1/80s",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0860.JPG",
@@ -1164,7 +1196,8 @@
     "focalLength": "18mm",
     "aperture": "f/3.5",
     "iso": 2500,
-    "shutter": "1/60s"
+    "shutter": "1/60s",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0862.JPG",
@@ -1179,7 +1212,8 @@
     "focalLength": "18mm",
     "aperture": "f/3.5",
     "iso": 1250,
-    "shutter": "1/60s"
+    "shutter": "1/60s",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0863.JPG",
@@ -1194,7 +1228,8 @@
     "focalLength": "18mm",
     "aperture": "f/3.5",
     "iso": 2000,
-    "shutter": "1/80s"
+    "shutter": "1/80s",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0864.JPG",
@@ -1209,7 +1244,8 @@
     "focalLength": "18mm",
     "aperture": "f/3.5",
     "iso": 1250,
-    "shutter": "1/60s"
+    "shutter": "1/60s",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0852.JPG",
@@ -1225,7 +1261,8 @@
     "aperture": "f/8",
     "iso": 100,
     "shutter": "1/30s",
-    "rawSource": "C17A0852.CR3"
+    "rawSource": "C17A0852.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0866.JPG",
@@ -1240,7 +1277,8 @@
     "focalLength": "24mm",
     "aperture": "f/4",
     "iso": 6400,
-    "shutter": "1/60s"
+    "shutter": "1/60s",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0867.JPG",
@@ -1255,7 +1293,8 @@
     "focalLength": "18mm",
     "aperture": "f/3.5",
     "iso": 6400,
-    "shutter": "1/50s"
+    "shutter": "1/50s",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0865.JPG",
@@ -1270,7 +1309,8 @@
     "focalLength": "24mm",
     "aperture": "f/4",
     "iso": 6400,
-    "shutter": "1/60s"
+    "shutter": "1/60s",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0871.JPG",
@@ -1285,7 +1325,8 @@
     "focalLength": "76mm",
     "aperture": "f/6.3",
     "iso": 3200,
-    "shutter": "1/125s"
+    "shutter": "1/125s",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0868.JPG",
@@ -1300,7 +1341,8 @@
     "focalLength": "18mm",
     "aperture": "f/3.5",
     "iso": 6400,
-    "shutter": "1/40s"
+    "shutter": "1/40s",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0873.JPG",
@@ -1315,7 +1357,8 @@
     "focalLength": "95mm",
     "aperture": "f/6.3",
     "iso": 5000,
-    "shutter": "1/160s"
+    "shutter": "1/160s",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0874.JPG",
@@ -1330,7 +1373,8 @@
     "focalLength": "84mm",
     "aperture": "f/6.3",
     "iso": 4000,
-    "shutter": "1/160s"
+    "shutter": "1/160s",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0876.JPG",
@@ -1345,7 +1389,8 @@
     "focalLength": "79mm",
     "aperture": "f/6.3",
     "iso": 4000,
-    "shutter": "1/125s"
+    "shutter": "1/125s",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0877.JPG",
@@ -1360,7 +1405,8 @@
     "focalLength": "60mm",
     "aperture": "f/6.3",
     "iso": 2000,
-    "shutter": "1/100s"
+    "shutter": "1/100s",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0875.JPG",
@@ -1375,7 +1421,8 @@
     "focalLength": "84mm",
     "aperture": "f/6.3",
     "iso": 4000,
-    "shutter": "1/160s"
+    "shutter": "1/160s",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0878.JPG",
@@ -1391,7 +1438,8 @@
     "aperture": "f/8",
     "iso": 100,
     "shutter": "1/20s",
-    "rawSource": "C17A0878.CR3"
+    "rawSource": "C17A0878.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0879.JPG",
@@ -1407,7 +1455,8 @@
     "aperture": "f/8",
     "iso": 100,
     "shutter": "1/20s",
-    "rawSource": "C17A0879.CR3"
+    "rawSource": "C17A0879.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0881.JPG",
@@ -1423,7 +1472,8 @@
     "aperture": "f/8",
     "iso": 250,
     "shutter": "1.0s",
-    "rawSource": "C17A0881.CR3"
+    "rawSource": "C17A0881.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0872.JPG",
@@ -1438,7 +1488,8 @@
     "focalLength": "95mm",
     "aperture": "f/6.3",
     "iso": 5000,
-    "shutter": "1/160s"
+    "shutter": "1/160s",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0883.JPG",
@@ -1454,7 +1505,8 @@
     "aperture": "f/9",
     "iso": 250,
     "shutter": "1.3s",
-    "rawSource": "C17A0883.CR3"
+    "rawSource": "C17A0883.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0880.JPG",
@@ -1470,7 +1522,8 @@
     "aperture": "f/8",
     "iso": 100,
     "shutter": "1/20s",
-    "rawSource": "C17A0880.CR3"
+    "rawSource": "C17A0880.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0885.JPG",
@@ -1486,7 +1539,8 @@
     "aperture": "f/9",
     "iso": 250,
     "shutter": "1.0s",
-    "rawSource": "C17A0885.CR3"
+    "rawSource": "C17A0885.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0888.JPG",
@@ -1502,7 +1556,8 @@
     "aperture": "f/9",
     "iso": 100,
     "shutter": "1.0s",
-    "rawSource": "C17A0888.CR3"
+    "rawSource": "C17A0888.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0887.JPG",
@@ -1518,7 +1573,8 @@
     "aperture": "f/9",
     "iso": 100,
     "shutter": "1.0s",
-    "rawSource": "C17A0887.CR3"
+    "rawSource": "C17A0887.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0891.JPG",
@@ -1534,7 +1590,8 @@
     "aperture": "f/9",
     "iso": 100,
     "shutter": "0.3s",
-    "rawSource": "C17A0891.CR3"
+    "rawSource": "C17A0891.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0890.JPG",
@@ -1550,7 +1607,8 @@
     "aperture": "f/9",
     "iso": 100,
     "shutter": "1.0s",
-    "rawSource": "C17A0890.CR3"
+    "rawSource": "C17A0890.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0894.JPG",
@@ -1566,7 +1624,8 @@
     "aperture": "f/9",
     "iso": 100,
     "shutter": "4.0s",
-    "rawSource": "C17A0894.CR3"
+    "rawSource": "C17A0894.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0892.JPG",
@@ -1582,7 +1641,8 @@
     "aperture": "f/9",
     "iso": 100,
     "shutter": "0.3s",
-    "rawSource": "C17A0892.CR3"
+    "rawSource": "C17A0892.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0895.JPG",
@@ -1598,7 +1658,8 @@
     "aperture": "f/9",
     "iso": 100,
     "shutter": "3.2s",
-    "rawSource": "C17A0895.CR3"
+    "rawSource": "C17A0895.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0893.JPG",
@@ -1614,7 +1675,8 @@
     "aperture": "f/9",
     "iso": 100,
     "shutter": "0.3s",
-    "rawSource": "C17A0893.CR3"
+    "rawSource": "C17A0893.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0896.JPG",
@@ -1630,7 +1692,8 @@
     "aperture": "f/9",
     "iso": 320,
     "shutter": "1.0s",
-    "rawSource": "C17A0896.CR3"
+    "rawSource": "C17A0896.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0899.JPG",
@@ -1646,7 +1709,8 @@
     "aperture": "f/9",
     "iso": 1600,
     "shutter": "1/6s",
-    "rawSource": "C17A0899.CR3"
+    "rawSource": "C17A0899.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0897.JPG",
@@ -1662,7 +1726,8 @@
     "aperture": "f/9",
     "iso": 320,
     "shutter": "1.0s",
-    "rawSource": "C17A0897.CR3"
+    "rawSource": "C17A0897.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0901.JPG",
@@ -1678,7 +1743,8 @@
     "aperture": "f/8",
     "iso": 500,
     "shutter": "1/6s",
-    "rawSource": "C17A0901.CR3"
+    "rawSource": "C17A0901.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0900.JPG",
@@ -1694,7 +1760,8 @@
     "aperture": "f/9",
     "iso": 1600,
     "shutter": "1/6s",
-    "rawSource": "C17A0900.CR3"
+    "rawSource": "C17A0900.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0902.JPG",
@@ -1710,7 +1777,8 @@
     "aperture": "f/8",
     "iso": 500,
     "shutter": "1/6s",
-    "rawSource": "C17A0902.CR3"
+    "rawSource": "C17A0902.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0903.JPG",
@@ -1726,7 +1794,8 @@
     "aperture": "f/8",
     "iso": 500,
     "shutter": "1/4s",
-    "rawSource": "C17A0903.CR3"
+    "rawSource": "C17A0903.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0906.JPG",
@@ -1742,7 +1811,8 @@
     "aperture": "f/8",
     "iso": 500,
     "shutter": "1/4s",
-    "rawSource": "C17A0906.CR3"
+    "rawSource": "C17A0906.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0908.JPG",
@@ -1758,7 +1828,8 @@
     "aperture": "f/8",
     "iso": 500,
     "shutter": "1/4s",
-    "rawSource": "C17A0908.CR3"
+    "rawSource": "C17A0908.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0909.JPG",
@@ -1774,7 +1845,8 @@
     "aperture": "f/8",
     "iso": 500,
     "shutter": "0.5s",
-    "rawSource": "C17A0909.CR3"
+    "rawSource": "C17A0909.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0911.JPG",
@@ -1790,7 +1862,8 @@
     "aperture": "f/8",
     "iso": 500,
     "shutter": "0.5s",
-    "rawSource": "C17A0911.CR3"
+    "rawSource": "C17A0911.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0910.JPG",
@@ -1806,7 +1879,8 @@
     "aperture": "f/8",
     "iso": 500,
     "shutter": "0.5s",
-    "rawSource": "C17A0910.CR3"
+    "rawSource": "C17A0910.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0913.JPG",
@@ -1822,7 +1896,8 @@
     "aperture": "f/8",
     "iso": 500,
     "shutter": "0.5s",
-    "rawSource": "C17A0913.CR3"
+    "rawSource": "C17A0913.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0914.JPG",
@@ -1838,7 +1913,8 @@
     "aperture": "f/8",
     "iso": 1000,
     "shutter": "0.4s",
-    "rawSource": "C17A0914.CR3"
+    "rawSource": "C17A0914.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0915.JPG",
@@ -1854,7 +1930,8 @@
     "aperture": "f/8",
     "iso": 1000,
     "shutter": "0.4s",
-    "rawSource": "C17A0915.CR3"
+    "rawSource": "C17A0915.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0916.JPG",
@@ -1870,7 +1947,8 @@
     "aperture": "f/8",
     "iso": 1000,
     "shutter": "0.4s",
-    "rawSource": "C17A0916.CR3"
+    "rawSource": "C17A0916.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0917.JPG",
@@ -1886,7 +1964,8 @@
     "aperture": "f/8",
     "iso": 1000,
     "shutter": "1/6s",
-    "rawSource": "C17A0917.CR3"
+    "rawSource": "C17A0917.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0912.JPG",
@@ -1902,7 +1981,8 @@
     "aperture": "f/8",
     "iso": 500,
     "shutter": "0.5s",
-    "rawSource": "C17A0912.CR3"
+    "rawSource": "C17A0912.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0921.JPG",
@@ -1918,7 +1998,8 @@
     "aperture": "f/8",
     "iso": 400,
     "shutter": "0.8s",
-    "rawSource": "C17A0921.CR3"
+    "rawSource": "C17A0921.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0920.JPG",
@@ -1934,7 +2015,8 @@
     "aperture": "f/8",
     "iso": 400,
     "shutter": "0.8s",
-    "rawSource": "C17A0920.CR3"
+    "rawSource": "C17A0920.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0919.JPG",
@@ -1950,7 +2032,8 @@
     "aperture": "f/8",
     "iso": 1000,
     "shutter": "1/6s",
-    "rawSource": "C17A0919.CR3"
+    "rawSource": "C17A0919.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0922.JPG",
@@ -1966,7 +2049,8 @@
     "aperture": "f/8",
     "iso": 400,
     "shutter": "0.8s",
-    "rawSource": "C17A0922.CR3"
+    "rawSource": "C17A0922.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0923.JPG",
@@ -1982,7 +2066,8 @@
     "aperture": "f/8",
     "iso": 400,
     "shutter": "0.8s",
-    "rawSource": "C17A0923.CR3"
+    "rawSource": "C17A0923.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0925.JPG",
@@ -1998,7 +2083,8 @@
     "aperture": "f/8",
     "iso": 125,
     "shutter": "2.0s",
-    "rawSource": "C17A0925.CR3"
+    "rawSource": "C17A0925.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0924.JPG",
@@ -2014,7 +2100,8 @@
     "aperture": "f/8",
     "iso": 400,
     "shutter": "0.8s",
-    "rawSource": "C17A0924.CR3"
+    "rawSource": "C17A0924.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0927.JPG",
@@ -2030,7 +2117,8 @@
     "aperture": "f/8",
     "iso": 125,
     "shutter": "2.0s",
-    "rawSource": "C17A0927.CR3"
+    "rawSource": "C17A0927.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0928.JPG",
@@ -2046,7 +2134,8 @@
     "aperture": "f/8",
     "iso": 125,
     "shutter": "2.0s",
-    "rawSource": "C17A0928.CR3"
+    "rawSource": "C17A0928.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0926.JPG",
@@ -2062,7 +2151,8 @@
     "aperture": "f/8",
     "iso": 125,
     "shutter": "2.0s",
-    "rawSource": "C17A0926.CR3"
+    "rawSource": "C17A0926.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0930.JPG",
@@ -2078,7 +2168,8 @@
     "aperture": "f/8",
     "iso": 125,
     "shutter": "2.0s",
-    "rawSource": "C17A0930.CR3"
+    "rawSource": "C17A0930.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0929.JPG",
@@ -2094,7 +2185,8 @@
     "aperture": "f/8",
     "iso": 125,
     "shutter": "2.0s",
-    "rawSource": "C17A0929.CR3"
+    "rawSource": "C17A0929.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0931.JPG",
@@ -2110,7 +2202,8 @@
     "aperture": "f/8",
     "iso": 125,
     "shutter": "2.0s",
-    "rawSource": "C17A0931.CR3"
+    "rawSource": "C17A0931.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0936.JPG",
@@ -2126,7 +2219,8 @@
     "aperture": "f/5",
     "iso": 125,
     "shutter": "1/8s",
-    "rawSource": "C17A0936.CR3"
+    "rawSource": "C17A0936.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0934.JPG",
@@ -2142,7 +2236,8 @@
     "aperture": "f/5",
     "iso": 125,
     "shutter": "1/8s",
-    "rawSource": "C17A0934.CR3"
+    "rawSource": "C17A0934.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0937.JPG",
@@ -2158,7 +2253,8 @@
     "aperture": "f/5",
     "iso": 125,
     "shutter": "1/8s",
-    "rawSource": "C17A0937.CR3"
+    "rawSource": "C17A0937.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0938.JPG",
@@ -2174,7 +2270,8 @@
     "aperture": "f/5",
     "iso": 125,
     "shutter": "1/8s",
-    "rawSource": "C17A0938.CR3"
+    "rawSource": "C17A0938.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0935.JPG",
@@ -2190,7 +2287,8 @@
     "aperture": "f/5",
     "iso": 125,
     "shutter": "1/8s",
-    "rawSource": "C17A0935.CR3"
+    "rawSource": "C17A0935.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0939.JPG",
@@ -2206,7 +2304,8 @@
     "aperture": "f/5",
     "iso": 125,
     "shutter": "1/8s",
-    "rawSource": "C17A0939.CR3"
+    "rawSource": "C17A0939.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0933.JPG",
@@ -2222,7 +2321,8 @@
     "aperture": "f/8",
     "iso": 125,
     "shutter": "1.6s",
-    "rawSource": "C17A0933.CR3"
+    "rawSource": "C17A0933.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0941.JPG",
@@ -2238,7 +2338,8 @@
     "aperture": "f/6.3",
     "iso": 125,
     "shutter": "1/8s",
-    "rawSource": "C17A0941.CR3"
+    "rawSource": "C17A0941.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0942.JPG",
@@ -2254,7 +2355,8 @@
     "aperture": "f/5.6",
     "iso": 125,
     "shutter": "1/8s",
-    "rawSource": "C17A0942.CR3"
+    "rawSource": "C17A0942.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0940.JPG",
@@ -2270,7 +2372,8 @@
     "aperture": "f/5",
     "iso": 125,
     "shutter": "1/8s",
-    "rawSource": "C17A0940.CR3"
+    "rawSource": "C17A0940.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0943.JPG",
@@ -2286,7 +2389,8 @@
     "aperture": "f/5.6",
     "iso": 125,
     "shutter": "1/40s",
-    "rawSource": "C17A0943.CR3"
+    "rawSource": "C17A0943.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0944.JPG",
@@ -2302,7 +2406,8 @@
     "aperture": "f/6.3",
     "iso": 320,
     "shutter": "1/100s",
-    "rawSource": "C17A0944.CR3"
+    "rawSource": "C17A0944.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0948.JPG",
@@ -2318,7 +2423,8 @@
     "aperture": "f/6.3",
     "iso": 100,
     "shutter": "1/25s",
-    "rawSource": "C17A0948.CR3"
+    "rawSource": "C17A0948.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0947.JPG",
@@ -2334,7 +2440,8 @@
     "aperture": "f/6.3",
     "iso": 100,
     "shutter": "1/25s",
-    "rawSource": "C17A0947.CR3"
+    "rawSource": "C17A0947.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0949.JPG",
@@ -2350,7 +2457,8 @@
     "aperture": "f/6.3",
     "iso": 100,
     "shutter": "1/25s",
-    "rawSource": "C17A0949.CR3"
+    "rawSource": "C17A0949.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0950.JPG",
@@ -2366,7 +2474,8 @@
     "aperture": "f/6.3",
     "iso": 100,
     "shutter": "1/25s",
-    "rawSource": "C17A0950.CR3"
+    "rawSource": "C17A0950.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0951.JPG",
@@ -2382,7 +2491,8 @@
     "aperture": "f/6.3",
     "iso": 100,
     "shutter": "1/25s",
-    "rawSource": "C17A0951.CR3"
+    "rawSource": "C17A0951.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0954.JPG",
@@ -2398,7 +2508,8 @@
     "aperture": "f/6.3",
     "iso": 100,
     "shutter": "1/25s",
-    "rawSource": "C17A0954.CR3"
+    "rawSource": "C17A0954.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0952.JPG",
@@ -2414,7 +2525,8 @@
     "aperture": "f/6.3",
     "iso": 100,
     "shutter": "1/25s",
-    "rawSource": "C17A0952.CR3"
+    "rawSource": "C17A0952.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0955.JPG",
@@ -2430,7 +2542,8 @@
     "aperture": "f/6.3",
     "iso": 100,
     "shutter": "1/25s",
-    "rawSource": "C17A0955.CR3"
+    "rawSource": "C17A0955.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0953.JPG",
@@ -2446,7 +2559,8 @@
     "aperture": "f/6.3",
     "iso": 100,
     "shutter": "1/25s",
-    "rawSource": "C17A0953.CR3"
+    "rawSource": "C17A0953.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0956.JPG",
@@ -2462,7 +2576,8 @@
     "aperture": "f/6.3",
     "iso": 100,
     "shutter": "1/25s",
-    "rawSource": "C17A0956.CR3"
+    "rawSource": "C17A0956.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0957.JPG",
@@ -2478,7 +2593,8 @@
     "aperture": "f/6.3",
     "iso": 100,
     "shutter": "1/25s",
-    "rawSource": "C17A0957.CR3"
+    "rawSource": "C17A0957.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0959.JPG",
@@ -2494,7 +2610,8 @@
     "aperture": "f/6.3",
     "iso": 100,
     "shutter": "1/25s",
-    "rawSource": "C17A0959.CR3"
+    "rawSource": "C17A0959.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0960.JPG",
@@ -2510,7 +2627,8 @@
     "aperture": "f/5",
     "iso": 100,
     "shutter": "1/25s",
-    "rawSource": "C17A0960.CR3"
+    "rawSource": "C17A0960.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0962.JPG",
@@ -2526,7 +2644,8 @@
     "aperture": "f/5",
     "iso": 100,
     "shutter": "1/25s",
-    "rawSource": "C17A0962.CR3"
+    "rawSource": "C17A0962.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0965.JPG",
@@ -2542,7 +2661,8 @@
     "aperture": "f/5",
     "iso": 100,
     "shutter": "1/25s",
-    "rawSource": "C17A0965.CR3"
+    "rawSource": "C17A0965.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0964.JPG",
@@ -2558,7 +2678,8 @@
     "aperture": "f/5",
     "iso": 100,
     "shutter": "1/25s",
-    "rawSource": "C17A0964.CR3"
+    "rawSource": "C17A0964.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0961.JPG",
@@ -2574,7 +2695,8 @@
     "aperture": "f/5",
     "iso": 100,
     "shutter": "1/25s",
-    "rawSource": "C17A0961.CR3"
+    "rawSource": "C17A0961.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0963.JPG",
@@ -2590,7 +2712,8 @@
     "aperture": "f/5",
     "iso": 100,
     "shutter": "1/25s",
-    "rawSource": "C17A0963.CR3"
+    "rawSource": "C17A0963.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0967.JPG",
@@ -2606,7 +2729,8 @@
     "aperture": "f/5",
     "iso": 100,
     "shutter": "1/25s",
-    "rawSource": "C17A0967.CR3"
+    "rawSource": "C17A0967.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0966.JPG",
@@ -2622,7 +2746,8 @@
     "aperture": "f/5",
     "iso": 100,
     "shutter": "1/25s",
-    "rawSource": "C17A0966.CR3"
+    "rawSource": "C17A0966.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0968.JPG",
@@ -2638,7 +2763,8 @@
     "aperture": "f/5",
     "iso": 100,
     "shutter": "1/25s",
-    "rawSource": "C17A0968.CR3"
+    "rawSource": "C17A0968.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0969.JPG",
@@ -2654,7 +2780,8 @@
     "aperture": "f/5",
     "iso": 100,
     "shutter": "1/25s",
-    "rawSource": "C17A0969.CR3"
+    "rawSource": "C17A0969.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0970.JPG",
@@ -2670,7 +2797,8 @@
     "aperture": "f/20",
     "iso": 6400,
     "shutter": "1/125s",
-    "rawSource": "C17A0970.CR3"
+    "rawSource": "C17A0970.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0972.JPG",
@@ -2686,7 +2814,8 @@
     "aperture": "f/20",
     "iso": 6400,
     "shutter": "1/125s",
-    "rawSource": "C17A0972.CR3"
+    "rawSource": "C17A0972.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0971.JPG",
@@ -2702,7 +2831,8 @@
     "aperture": "f/20",
     "iso": 6400,
     "shutter": "1/125s",
-    "rawSource": "C17A0971.CR3"
+    "rawSource": "C17A0971.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0974.JPG",
@@ -2718,7 +2848,8 @@
     "aperture": "f/20",
     "iso": 6400,
     "shutter": "1/125s",
-    "rawSource": "C17A0974.CR3"
+    "rawSource": "C17A0974.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0975.JPG",
@@ -2734,7 +2865,8 @@
     "aperture": "f/20",
     "iso": 6400,
     "shutter": "1/125s",
-    "rawSource": "C17A0975.CR3"
+    "rawSource": "C17A0975.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0976.JPG",
@@ -2750,7 +2882,8 @@
     "aperture": "f/20",
     "iso": 6400,
     "shutter": "1/125s",
-    "rawSource": "C17A0976.CR3"
+    "rawSource": "C17A0976.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0978.JPG",
@@ -2766,7 +2899,8 @@
     "aperture": "f/20",
     "iso": 6400,
     "shutter": "1/125s",
-    "rawSource": "C17A0978.CR3"
+    "rawSource": "C17A0978.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0980.JPG",
@@ -2782,7 +2916,8 @@
     "aperture": "f/20",
     "iso": 6400,
     "shutter": "1/125s",
-    "rawSource": "C17A0980.CR3"
+    "rawSource": "C17A0980.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0982.JPG",
@@ -2798,7 +2933,8 @@
     "aperture": "f/20",
     "iso": 6400,
     "shutter": "1/125s",
-    "rawSource": "C17A0982.CR3"
+    "rawSource": "C17A0982.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0983.JPG",
@@ -2814,7 +2950,8 @@
     "aperture": "f/20",
     "iso": 6400,
     "shutter": "1/125s",
-    "rawSource": "C17A0983.CR3"
+    "rawSource": "C17A0983.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0981.JPG",
@@ -2830,7 +2967,8 @@
     "aperture": "f/20",
     "iso": 6400,
     "shutter": "1/125s",
-    "rawSource": "C17A0981.CR3"
+    "rawSource": "C17A0981.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0984.JPG",
@@ -2846,7 +2984,8 @@
     "aperture": "f/20",
     "iso": 6400,
     "shutter": "1/125s",
-    "rawSource": "C17A0984.CR3"
+    "rawSource": "C17A0984.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0973.JPG",
@@ -2862,7 +3001,8 @@
     "aperture": "f/20",
     "iso": 6400,
     "shutter": "1/125s",
-    "rawSource": "C17A0973.CR3"
+    "rawSource": "C17A0973.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0986.JPG",
@@ -2878,7 +3018,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A0986.CR3"
+    "rawSource": "C17A0986.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0985.JPG",
@@ -2894,7 +3035,8 @@
     "aperture": "f/20",
     "iso": 6400,
     "shutter": "1/125s",
-    "rawSource": "C17A0985.CR3"
+    "rawSource": "C17A0985.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0987.JPG",
@@ -2910,7 +3052,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A0987.CR3"
+    "rawSource": "C17A0987.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0988.JPG",
@@ -2926,7 +3069,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A0988.CR3"
+    "rawSource": "C17A0988.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0989.JPG",
@@ -2942,7 +3086,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A0989.CR3"
+    "rawSource": "C17A0989.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0992.JPG",
@@ -2958,7 +3103,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A0992.CR3"
+    "rawSource": "C17A0992.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0993.JPG",
@@ -2974,7 +3120,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A0993.CR3"
+    "rawSource": "C17A0993.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0994.JPG",
@@ -2990,7 +3137,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A0994.CR3"
+    "rawSource": "C17A0994.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0991.JPG",
@@ -3006,7 +3154,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A0991.CR3"
+    "rawSource": "C17A0991.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0995.JPG",
@@ -3022,7 +3171,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A0995.CR3"
+    "rawSource": "C17A0995.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0996.JPG",
@@ -3038,7 +3188,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A0996.CR3"
+    "rawSource": "C17A0996.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0997.JPG",
@@ -3054,7 +3205,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A0997.CR3"
+    "rawSource": "C17A0997.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0998.JPG",
@@ -3070,7 +3222,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A0998.CR3"
+    "rawSource": "C17A0998.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0999.JPG",
@@ -3086,7 +3239,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A0999.CR3"
+    "rawSource": "C17A0999.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1000.JPG",
@@ -3102,7 +3256,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A1000.CR3"
+    "rawSource": "C17A1000.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1001.JPG",
@@ -3118,7 +3273,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A1001.CR3"
+    "rawSource": "C17A1001.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1003.JPG",
@@ -3134,7 +3290,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A1003.CR3"
+    "rawSource": "C17A1003.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1005.JPG",
@@ -3150,7 +3307,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A1005.CR3"
+    "rawSource": "C17A1005.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1004.JPG",
@@ -3166,7 +3324,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A1004.CR3"
+    "rawSource": "C17A1004.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1006.JPG",
@@ -3182,7 +3341,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A1006.CR3"
+    "rawSource": "C17A1006.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1008.JPG",
@@ -3198,7 +3358,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A1008.CR3"
+    "rawSource": "C17A1008.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1007.JPG",
@@ -3214,7 +3375,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A1007.CR3"
+    "rawSource": "C17A1007.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1002.JPG",
@@ -3230,7 +3392,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A1002.CR3"
+    "rawSource": "C17A1002.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1010.JPG",
@@ -3246,7 +3409,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A1010.CR3"
+    "rawSource": "C17A1010.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1011.JPG",
@@ -3262,7 +3426,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A1011.CR3"
+    "rawSource": "C17A1011.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1013.JPG",
@@ -3278,7 +3443,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A1013.CR3"
+    "rawSource": "C17A1013.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1014.JPG",
@@ -3294,7 +3460,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A1014.CR3"
+    "rawSource": "C17A1014.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1012.JPG",
@@ -3310,7 +3477,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A1012.CR3"
+    "rawSource": "C17A1012.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1015.JPG",
@@ -3326,7 +3494,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A1015.CR3"
+    "rawSource": "C17A1015.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1016.JPG",
@@ -3342,7 +3511,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A1016.CR3"
+    "rawSource": "C17A1016.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1017.JPG",
@@ -3358,7 +3528,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A1017.CR3"
+    "rawSource": "C17A1017.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1019.JPG",
@@ -3374,7 +3545,8 @@
     "aperture": "f/20",
     "iso": 100,
     "shutter": "1/20s",
-    "rawSource": "C17A1019.CR3"
+    "rawSource": "C17A1019.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1018.JPG",
@@ -3390,7 +3562,8 @@
     "aperture": "f/20",
     "iso": 100,
     "shutter": "1/20s",
-    "rawSource": "C17A1018.CR3"
+    "rawSource": "C17A1018.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1009.JPG",
@@ -3406,7 +3579,8 @@
     "aperture": "f/20",
     "iso": 640,
     "shutter": "1/125s",
-    "rawSource": "C17A1009.CR3"
+    "rawSource": "C17A1009.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1021.JPG",
@@ -3422,7 +3596,8 @@
     "aperture": "f/20",
     "iso": 100,
     "shutter": "1/20s",
-    "rawSource": "C17A1021.CR3"
+    "rawSource": "C17A1021.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1020.JPG",
@@ -3438,7 +3613,8 @@
     "aperture": "f/20",
     "iso": 100,
     "shutter": "1/20s",
-    "rawSource": "C17A1020.CR3"
+    "rawSource": "C17A1020.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1022.JPG",
@@ -3454,7 +3630,8 @@
     "aperture": "f/20",
     "iso": 100,
     "shutter": "1/20s",
-    "rawSource": "C17A1022.CR3"
+    "rawSource": "C17A1022.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1023.JPG",
@@ -3470,7 +3647,8 @@
     "aperture": "f/20",
     "iso": 100,
     "shutter": "1/20s",
-    "rawSource": "C17A1023.CR3"
+    "rawSource": "C17A1023.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1028.JPG",
@@ -3486,7 +3664,8 @@
     "aperture": "f/20",
     "iso": 100,
     "shutter": "1/20s",
-    "rawSource": "C17A1028.CR3"
+    "rawSource": "C17A1028.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1024.JPG",
@@ -3502,7 +3681,8 @@
     "aperture": "f/20",
     "iso": 100,
     "shutter": "1/20s",
-    "rawSource": "C17A1024.CR3"
+    "rawSource": "C17A1024.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1029.JPG",
@@ -3518,7 +3698,8 @@
     "aperture": "f/20",
     "iso": 100,
     "shutter": "1/20s",
-    "rawSource": "C17A1029.CR3"
+    "rawSource": "C17A1029.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1027.JPG",
@@ -3534,7 +3715,8 @@
     "aperture": "f/20",
     "iso": 100,
     "shutter": "1/20s",
-    "rawSource": "C17A1027.CR3"
+    "rawSource": "C17A1027.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1032.JPG",
@@ -3550,7 +3732,8 @@
     "aperture": "f/20",
     "iso": 100,
     "shutter": "1/20s",
-    "rawSource": "C17A1032.CR3"
+    "rawSource": "C17A1032.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1026.JPG",
@@ -3566,7 +3749,8 @@
     "aperture": "f/20",
     "iso": 100,
     "shutter": "1/20s",
-    "rawSource": "C17A1026.CR3"
+    "rawSource": "C17A1026.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1030.JPG",
@@ -3582,7 +3766,8 @@
     "aperture": "f/20",
     "iso": 100,
     "shutter": "1/20s",
-    "rawSource": "C17A1030.CR3"
+    "rawSource": "C17A1030.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1033.JPG",
@@ -3598,7 +3783,8 @@
     "aperture": "f/20",
     "iso": 100,
     "shutter": "1/20s",
-    "rawSource": "C17A1033.CR3"
+    "rawSource": "C17A1033.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1025.JPG",
@@ -3614,7 +3800,8 @@
     "aperture": "f/20",
     "iso": 100,
     "shutter": "1/20s",
-    "rawSource": "C17A1025.CR3"
+    "rawSource": "C17A1025.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1031.JPG",
@@ -3630,7 +3817,8 @@
     "aperture": "f/20",
     "iso": 100,
     "shutter": "1/20s",
-    "rawSource": "C17A1031.CR3"
+    "rawSource": "C17A1031.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1034.JPG",
@@ -3646,7 +3834,8 @@
     "aperture": "f/20",
     "iso": 100,
     "shutter": "1/20s",
-    "rawSource": "C17A1034.CR3"
+    "rawSource": "C17A1034.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1036.JPG",
@@ -3662,7 +3851,8 @@
     "aperture": "f/20",
     "iso": 100,
     "shutter": "1/20s",
-    "rawSource": "C17A1036.CR3"
+    "rawSource": "C17A1036.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1035.JPG",
@@ -3678,7 +3868,8 @@
     "aperture": "f/20",
     "iso": 100,
     "shutter": "1/20s",
-    "rawSource": "C17A1035.CR3"
+    "rawSource": "C17A1035.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1038.JPG",
@@ -3694,7 +3885,8 @@
     "aperture": "f/20",
     "iso": 100,
     "shutter": "1/20s",
-    "rawSource": "C17A1038.CR3"
+    "rawSource": "C17A1038.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1039.JPG",
@@ -3710,7 +3902,8 @@
     "aperture": "f/20",
     "iso": 320,
     "shutter": "1/100s",
-    "rawSource": "C17A1039.CR3"
+    "rawSource": "C17A1039.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1037.JPG",
@@ -3726,7 +3919,8 @@
     "aperture": "f/20",
     "iso": 100,
     "shutter": "1/20s",
-    "rawSource": "C17A1037.CR3"
+    "rawSource": "C17A1037.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1040.JPG",
@@ -3742,7 +3936,8 @@
     "aperture": "f/20",
     "iso": 320,
     "shutter": "1/100s",
-    "rawSource": "C17A1040.CR3"
+    "rawSource": "C17A1040.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1042.JPG",
@@ -3758,7 +3953,8 @@
     "aperture": "f/20",
     "iso": 320,
     "shutter": "1/100s",
-    "rawSource": "C17A1042.CR3"
+    "rawSource": "C17A1042.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1045.JPG",
@@ -3774,7 +3970,8 @@
     "aperture": "f/20",
     "iso": 320,
     "shutter": "1/10s",
-    "rawSource": "C17A1045.CR3"
+    "rawSource": "C17A1045.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1046.JPG",
@@ -3790,7 +3987,8 @@
     "aperture": "f/20",
     "iso": 320,
     "shutter": "1/10s",
-    "rawSource": "C17A1046.CR3"
+    "rawSource": "C17A1046.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1049.JPG",
@@ -3806,7 +4004,8 @@
     "aperture": "f/22",
     "iso": 320,
     "shutter": "1/10s",
-    "rawSource": "C17A1049.CR3"
+    "rawSource": "C17A1049.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1048.JPG",
@@ -3822,7 +4021,8 @@
     "aperture": "f/22",
     "iso": 320,
     "shutter": "1/10s",
-    "rawSource": "C17A1048.CR3"
+    "rawSource": "C17A1048.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1052.JPG",
@@ -3838,7 +4038,8 @@
     "aperture": "f/22",
     "iso": 320,
     "shutter": "1/10s",
-    "rawSource": "C17A1052.CR3"
+    "rawSource": "C17A1052.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1051.JPG",
@@ -3854,7 +4055,8 @@
     "aperture": "f/22",
     "iso": 320,
     "shutter": "1/10s",
-    "rawSource": "C17A1051.CR3"
+    "rawSource": "C17A1051.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1047.JPG",
@@ -3870,7 +4072,8 @@
     "aperture": "f/20",
     "iso": 320,
     "shutter": "1/10s",
-    "rawSource": "C17A1047.CR3"
+    "rawSource": "C17A1047.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1043.JPG",
@@ -3886,7 +4089,8 @@
     "aperture": "f/20",
     "iso": 320,
     "shutter": "1/100s",
-    "rawSource": "C17A1043.CR3"
+    "rawSource": "C17A1043.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1053.JPG",
@@ -3902,7 +4106,8 @@
     "aperture": "f/22",
     "iso": 320,
     "shutter": "1/10s",
-    "rawSource": "C17A1053.CR3"
+    "rawSource": "C17A1053.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1054.JPG",
@@ -3918,7 +4123,8 @@
     "aperture": "f/22",
     "iso": 320,
     "shutter": "1/10s",
-    "rawSource": "C17A1054.CR3"
+    "rawSource": "C17A1054.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1055.JPG",
@@ -3934,7 +4140,8 @@
     "aperture": "f/22",
     "iso": 320,
     "shutter": "1/10s",
-    "rawSource": "C17A1055.CR3"
+    "rawSource": "C17A1055.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1057.JPG",
@@ -3950,7 +4157,8 @@
     "aperture": "f/22",
     "iso": 800,
     "shutter": "1/8s",
-    "rawSource": "C17A1057.CR3"
+    "rawSource": "C17A1057.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1060.JPG",
@@ -3966,7 +4174,8 @@
     "aperture": "f/4.5",
     "iso": 100,
     "shutter": "1/15s",
-    "rawSource": "C17A1060.CR3"
+    "rawSource": "C17A1060.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1058.JPG",
@@ -3982,7 +4191,8 @@
     "aperture": "f/22",
     "iso": 800,
     "shutter": "1/8s",
-    "rawSource": "C17A1058.CR3"
+    "rawSource": "C17A1058.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1059.JPG",
@@ -3998,7 +4208,8 @@
     "aperture": "f/22",
     "iso": 800,
     "shutter": "1/8s",
-    "rawSource": "C17A1059.CR3"
+    "rawSource": "C17A1059.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1061.JPG",
@@ -4014,7 +4225,8 @@
     "aperture": "f/4.5",
     "iso": 100,
     "shutter": "1/15s",
-    "rawSource": "C17A1061.CR3"
+    "rawSource": "C17A1061.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1063.JPG",
@@ -4030,7 +4242,8 @@
     "aperture": "f/4.5",
     "iso": 100,
     "shutter": "1/20s",
-    "rawSource": "C17A1063.CR3"
+    "rawSource": "C17A1063.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1062.JPG",
@@ -4046,7 +4259,8 @@
     "aperture": "f/4.5",
     "iso": 100,
     "shutter": "1/15s",
-    "rawSource": "C17A1062.CR3"
+    "rawSource": "C17A1062.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1064.JPG",
@@ -4062,7 +4276,8 @@
     "aperture": "f/4.5",
     "iso": 100,
     "shutter": "1/160s",
-    "rawSource": "C17A1064.CR3"
+    "rawSource": "C17A1064.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1065.JPG",
@@ -4078,7 +4293,8 @@
     "aperture": "f/4.5",
     "iso": 100,
     "shutter": "1/160s",
-    "rawSource": "C17A1065.CR3"
+    "rawSource": "C17A1065.CR3",
+    "tier": "archive"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1066.JPG",
@@ -4094,6 +4310,7 @@
     "aperture": "f/4.5",
     "iso": 100,
     "shutter": "1/160s",
-    "rawSource": "C17A1066.CR3"
+    "rawSource": "C17A1066.CR3",
+    "tier": "archive"
   }
 ]

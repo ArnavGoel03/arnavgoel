@@ -62,6 +62,17 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "*.public.blob.vercel-storage.com",
       },
+      // GitHub Release assets, used as overflow archive storage when the
+      // Vercel Blob Hobby quota fills up. URLs look like
+      // https://github.com/<owner>/<repo>/releases/download/<tag>/<file>.
+      {
+        protocol: "https",
+        hostname: "github.com",
+      },
+      {
+        protocol: "https",
+        hostname: "objects.githubusercontent.com",
+      },
     ],
   },
   async headers() {

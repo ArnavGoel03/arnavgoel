@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Container } from "@/components/container";
 import { PhotoHero, PhotoSideCaption, PhotoTile } from "@/components/photo-tile";
 import { photos } from "@/lib/photos";
 import { site } from "@/lib/site";
 import type { Photo } from "@/lib/types";
+import { JumpToFrame } from "./jump-to-frame";
 
 export const metadata: Metadata = {
   title: "Photos",
@@ -134,9 +136,18 @@ export default function PhotosPage() {
     ? new Date(Math.max(...photos.map((p) => new Date(p.date).getTime())))
     : null;
 
-  const heroIdx = photos.findIndex((p) => p.hero);
-  const hero = heroIdx >= 0 ? photos[heroIdx] : photos[0];
-  const rest = photos.filter((p) => p.src !== hero?.src);
+  // Two tiers: editorial frames live in the chapter layout; archive
+  // frames go in a dense contact-sheet grid after the curated content
+  // so they're browsable without diluting the curated experience.
+  const editorialPhotos = photos.filter((p) => p.tier !== "archive");
+  const archivePhotos = photos
+    .filter((p) => p.tier === "archive")
+    .sort((a, b) => b.date.localeCompare(a.date));
+
+  const heroIdx = editorialPhotos.findIndex((p) => p.hero);
+  const hero =
+    heroIdx >= 0 ? editorialPhotos[heroIdx] : editorialPhotos[0];
+  const rest = editorialPhotos.filter((p) => p.src !== hero?.src);
   const sections = buildSections(rest);
 
   let frame = 1;
@@ -167,13 +178,25 @@ export default function PhotosPage() {
             post beyond a soft curve and a dust spot or two.
           </p>
 
-          <div className="mt-10 flex flex-wrap items-baseline gap-x-8 gap-y-2 border-y border-stone-200 py-4 text-[11px] uppercase tracking-[0.2em] text-stone-500 dark:border-stone-800 dark:text-stone-400">
+          <div className="mt-10 flex flex-wrap items-center justify-between gap-x-8 gap-y-3 border-y border-stone-200 py-4 text-[11px] uppercase tracking-[0.2em] text-stone-500 dark:border-stone-800 dark:text-stone-400">
+            <div className="flex flex-wrap items-baseline gap-x-8 gap-y-2">
             <span className="flex items-baseline gap-2">
               <span className="font-display text-lg font-light tabular-nums text-stone-900 dark:text-stone-100">
-                {String(photos.length).padStart(2, "0")}
+                {String(editorialPhotos.length).padStart(2, "0")}
               </span>
-              frames in the roll
+              edited
             </span>
+            {archivePhotos.length > 0 && (
+              <>
+                <span aria-hidden className="text-stone-300 dark:text-stone-700">·</span>
+                <span className="flex items-baseline gap-2">
+                  <span className="font-display text-lg font-light tabular-nums text-stone-900 dark:text-stone-100">
+                    {String(archivePhotos.length).padStart(2, "0")}
+                  </span>
+                  contact sheet
+                </span>
+              </>
+            )}
             <span aria-hidden className="text-stone-300 dark:text-stone-700">·</span>
             <span>
               {sections.length}{" "}
@@ -181,12 +204,14 @@ export default function PhotosPage() {
             </span>
             <span aria-hidden className="text-stone-300 dark:text-stone-700">·</span>
             <span>originals kept at full resolution</span>
+            </div>
+            <JumpToFrame max={editorialPhotos.length} />
           </div>
         </div>
       </Container>
 
       {hero && (
-        <div className="mt-16 mb-32 sm:mt-24 sm:mb-44">
+        <div id="frame-1" className="scroll-mt-24 mt-16 mb-32 sm:mt-24 sm:mb-44">
           <PhotoHero photo={hero} index={0} />
         </div>
       )}
@@ -231,7 +256,7 @@ export default function PhotosPage() {
             </Container>
 
             {/* Section anchor */}
-            <div className="mt-16 mb-24 sm:mt-24 sm:mb-36">
+            <div id={`frame-${anchorIdx}`} className="scroll-mt-24 mt-16 mb-24 sm:mt-24 sm:mb-36">
               <PhotoHero photo={section.anchor} index={anchorIdx - 1} />
             </div>
 
@@ -241,7 +266,7 @@ export default function PhotosPage() {
                 if (slot.kind === "fullBleed") {
                   const idx = frame++;
                   return (
-                    <div key={`fb-${sectionIdx}-${slotIdx}`}>
+                    <div key={`fb-${sectionIdx}-${slotIdx}`} id={`frame-${idx}`} className="scroll-mt-24">
                       <PhotoHero photo={slot.photos[0]} index={idx - 1} />
                     </div>
                   );
@@ -250,35 +275,34 @@ export default function PhotosPage() {
                   const idx = frame++;
                   return (
                     <Container key={`f-${sectionIdx}-${slotIdx}`} className="max-w-5xl">
-                      <PhotoTile photo={slot.photos[0]} index={idx} />
+                      <div id={`frame-${idx}`} className="scroll-mt-24">
+                        <PhotoTile photo={slot.photos[0]} index={idx} />
+                      </div>
                     </Container>
                   );
                 }
                 if (slot.kind === "diptych") {
                   const a = frame++;
                   const b = frame++;
-                  // Asymmetric 7/5 with vertical offset on the smaller one.
-                  // Alternate which side is the big one based on slot index
-                  // to keep the rhythm from feeling templated.
                   const bigOnLeft = (slotIdx % 2) === 0;
                   return (
                     <Container key={`d-${sectionIdx}-${slotIdx}`} className="max-w-6xl">
                       <div className="grid grid-cols-1 gap-y-16 sm:grid-cols-12 sm:gap-x-8 sm:gap-y-0">
                         {bigOnLeft ? (
                           <>
-                            <div className="sm:col-span-7">
+                            <div id={`frame-${a}`} className="scroll-mt-24 sm:col-span-7">
                               <PhotoTile photo={slot.photos[0]} index={a} />
                             </div>
-                            <div className="sm:col-span-5 sm:mt-32">
+                            <div id={`frame-${b}`} className="scroll-mt-24 sm:col-span-5 sm:mt-32">
                               <PhotoTile photo={slot.photos[1]} index={b} />
                             </div>
                           </>
                         ) : (
                           <>
-                            <div className="sm:col-span-5 sm:mt-32">
+                            <div id={`frame-${a}`} className="scroll-mt-24 sm:col-span-5 sm:mt-32">
                               <PhotoTile photo={slot.photos[0]} index={a} />
                             </div>
-                            <div className="sm:col-span-7">
+                            <div id={`frame-${b}`} className="scroll-mt-24 sm:col-span-7">
                               <PhotoTile photo={slot.photos[1]} index={b} />
                             </div>
                           </>
@@ -291,11 +315,9 @@ export default function PhotosPage() {
                   const idx = frame++;
                   return (
                     <Container key={`sl-${sectionIdx}-${slotIdx}`} className="max-w-6xl">
-                      <PhotoSideCaption
-                        photo={slot.photos[0]}
-                        index={idx}
-                        side="left"
-                      />
+                      <div id={`frame-${idx}`} className="scroll-mt-24">
+                        <PhotoSideCaption photo={slot.photos[0]} index={idx} side="left" />
+                      </div>
                     </Container>
                   );
                 }
@@ -303,11 +325,9 @@ export default function PhotosPage() {
                   const idx = frame++;
                   return (
                     <Container key={`sr-${sectionIdx}-${slotIdx}`} className="max-w-6xl">
-                      <PhotoSideCaption
-                        photo={slot.photos[0]}
-                        index={idx}
-                        side="right"
-                      />
+                      <div id={`frame-${idx}`} className="scroll-mt-24">
+                        <PhotoSideCaption photo={slot.photos[0]} index={idx} side="right" />
+                      </div>
                     </Container>
                   );
                 }
@@ -315,7 +335,7 @@ export default function PhotosPage() {
                   const idx = frame++;
                   return (
                     <div key={`r-${sectionIdx}-${slotIdx}`} className="px-6">
-                      <div className="ml-auto max-w-3xl">
+                      <div id={`frame-${idx}`} className="scroll-mt-24 ml-auto max-w-3xl">
                         <PhotoTile photo={slot.photos[0]} index={idx} />
                       </div>
                     </div>
@@ -324,7 +344,7 @@ export default function PhotosPage() {
                 const idx = frame++;
                 return (
                   <div key={`l-${sectionIdx}-${slotIdx}`} className="px-6">
-                    <div className="mr-auto max-w-3xl">
+                    <div id={`frame-${idx}`} className="scroll-mt-24 mr-auto max-w-3xl">
                       <PhotoTile photo={slot.photos[0]} index={idx} />
                     </div>
                   </div>
@@ -351,6 +371,63 @@ export default function PhotosPage() {
           </section>
         );
       })}
+
+      {/* Contact sheet — archive frames in a dense grid. Bulk-imported
+          unedited camera JPGs that didn't earn an editorial slot but
+          stay browsable. Square crops keep the grid even; the rich
+          chapter layout above stays the focus. */}
+      {archivePhotos.length > 0 && (
+        <section className="border-t border-stone-200 pt-20 pb-24 sm:pt-28 sm:pb-32 dark:border-stone-800">
+          <Container className="max-w-6xl">
+            <div className="mb-12 flex items-baseline gap-4 sm:mb-16">
+              <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-rose-400">
+                Contact Sheet
+              </span>
+              <span className="h-px flex-1 bg-stone-200 dark:bg-stone-800" />
+              <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-stone-400 tabular-nums dark:text-stone-500">
+                {String(archivePhotos.length).padStart(3, "0")} frames
+              </span>
+            </div>
+            <h2 className="font-serif text-5xl italic leading-[0.95] tracking-tight text-stone-900 sm:text-7xl dark:text-stone-100">
+              The rest of the roll
+              <span className="not-italic text-rose-400">.</span>
+            </h2>
+            <p className="mt-4 max-w-xl font-serif text-base italic text-stone-500 sm:text-lg dark:text-stone-400">
+              Unedited frames kept on file. Some will earn a permanent slot
+              upstairs once they get a proper develop. Most will stay here.
+            </p>
+          </Container>
+
+          <Container className="mt-12 max-w-7xl sm:mt-16">
+            <ul className="grid grid-cols-3 gap-1.5 sm:grid-cols-4 sm:gap-2 md:grid-cols-5 lg:grid-cols-6">
+              {archivePhotos.map((photo) => (
+                <li
+                  key={photo.src}
+                  className="relative aspect-square overflow-hidden bg-stone-100 dark:bg-stone-900"
+                >
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    fill
+                    sizes="(max-width: 640px) 33vw, (max-width: 1024px) 25vw, 16vw"
+                    quality={88}
+                    placeholder="blur"
+                    blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxyZWN0IHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiNlN2U1ZTQiLz48L3N2Zz4="
+                    draggable={false}
+                    className="object-cover transition-transform duration-700 ease-out hover:scale-[1.04]"
+                  />
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute bottom-1 right-1 select-none font-mono text-[8px] uppercase tracking-[0.18em] text-white/80 mix-blend-difference"
+                  >
+                    ❋
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </section>
+      )}
     </>
   );
 }

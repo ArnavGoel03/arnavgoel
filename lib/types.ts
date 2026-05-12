@@ -105,6 +105,16 @@ export interface Photo {
    */
   rawSource?: string;
   /**
+   * Editorial tier:
+   *   - "editorial" (default): part of the curated chapter layout
+   *     (hero / anchor / featured / diptych / side caption rhythm).
+   *   - "archive": unedited bulk imports that live in the dense
+   *     contact-sheet grid after the editorial chapters, so they're
+   *     browsable without diluting the curated experience.
+   * Absent or "editorial" both treated as editorial.
+   */
+  tier?: "editorial" | "archive";
+  /**
    * Optional EXIF / capture metadata. Rendered inline below the
    * caption when any field is present, so a photo can quietly tell
    * you what shot it. Empty fields are skipped — partial EXIF is
