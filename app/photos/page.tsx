@@ -14,15 +14,6 @@ export const metadata: Metadata = {
   title: "Photos",
   description: `DSLR photography by ${site.name}.`,
   alternates: { canonical: "/photos" },
-  other: {
-    // Hint the browser to set up TLS to the image origins before any
-    // <img> tag triggers the connect. Saves the ~150-300ms first-
-    // contact tax on cold cache visits.
-    "link:preconnect:blob":
-      "<https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com>; rel=preconnect; crossorigin",
-    "link:preconnect:gh":
-      "<https://objects.githubusercontent.com>; rel=preconnect; crossorigin",
-  },
 };
 
 /**

@@ -57,6 +57,11 @@ const nextConfig: NextConfig = {
   // photos that hot-link retailer CDNs (Amazon, Nykaa, etc.) keep working
   // because they go through <img> tags rather than Next/Image.
   images: {
+    // Next 16 enforces an allowlist for the `quality` prop. Default is
+    // just [75]; any other value returns 400 INVALID_IMAGE_OPTIMIZE_REQUEST.
+    // Listing every quality we use across PhotoTile / PhotoHero /
+    // PhotoSideCaption / Lightbox / chapter-cover backgrounds.
+    qualities: [60, 65, 70, 75, 80, 85, 88, 90, 92, 95],
     remotePatterns: [
       {
         protocol: "https",
