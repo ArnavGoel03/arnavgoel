@@ -62,9 +62,9 @@ The C17A0820–C17A0838 range was taken before the user left for the Dec 2023 Sa
 
 ## Duplicate-cluster cuts (Dec 7 2023, San Diego)
 
-User flagged that two compositions were shot many takes deep but only one frame per subject is worth keeping. 57 frames hidden in two ranges:
+User flagged that two compositions were shot many takes deep but only the best one or two are worth keeping. After re-audit:
 
-- **Gingko-on-pool cluster** (C17A0985–C17A1013): 28 takes of the same yellow-gingko-branch-floating-on-pool scene. Kept C17A0990 (the existing editorial keeper, `2023-12-07_gingko-branch-on-pool-a`), hid the other 28.
-- **Cracked-asphalt detail cluster** (C17A1014–C17A1043): 30 takes of the same gray-surface-with-small-mark composition. None reached editorial; the user's chosen asphalt frame is `2023-12-07_yellow-leaf-on-asphalt-crack` (C17A0958), which is a different specific shot. Hid all 30 in this range since the keeper already covers the theme.
+- **Color gingko-on-pool cluster** (C17A0985–C17A1013, 28 takes): kept C17A0990 (existing editorial keeper, `2023-12-07_gingko-branch-on-pool-a`) and C17A0985 (which is actually a bistro-chair courtyard shot, a different subject that got mistakenly bucketed here). Hid the other 26.
+- **Black-&-white gingko variants** (C17A1014–C17A1043, originally tagged as "cracked asphalt" but actually monochrome takes of the same pool scene, 30 takes): kept C17A1013 (the strongest B&W — close branch + concentric ripples, almost abstract). Hid the other 29.
 
-Blob/GitHub Release assets retained for all 57 per the keep-in-blob rule. If any of these ever earn a permanent slot, the CR3 on the One Touch is the upgrade path.
+Blob/GitHub Release assets retained for all 55 hidden frames per the keep-in-blob rule. The two unhidden picks now have proper captions (`Bistro table, courtyard.` and `Gingko on water, black & white.`).

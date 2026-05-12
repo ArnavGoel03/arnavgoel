@@ -2934,8 +2934,8 @@
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0985.JPG",
-    "alt": "An unedited frame from the 2023-12 contact sheet on the One Touch archive.",
-    "caption": "Untitled.",
+    "alt": "A black metal bistro table and two chairs on a tiled patio surrounded by lush green plants.",
+    "caption": "Bistro table, courtyard.",
     "location": "San Diego, California",
     "date": "2023-12-07",
     "width": 6960,
@@ -2948,7 +2948,7 @@
     "shutter": "1/125s",
     "rawSource": "C17A0985.CR3",
     "tier": "archive",
-    "hidden": true
+    "hidden": false
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0987.JPG",
@@ -3366,8 +3366,8 @@
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1013.JPG",
-    "alt": "An unedited frame from the 2023-12 contact sheet on the One Touch archive.",
-    "caption": "Untitled.",
+    "alt": "Black and white close-up of a gingko branch resting on the rim of a pool, concentric ripples spreading across the water.",
+    "caption": "Gingko on water, black & white.",
     "location": "San Diego, California",
     "date": "2023-12-07",
     "width": 6960,
@@ -3380,7 +3380,7 @@
     "shutter": "1/125s",
     "rawSource": "C17A1013.CR3",
     "tier": "archive",
-    "hidden": true
+    "hidden": false
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A1014.JPG",
