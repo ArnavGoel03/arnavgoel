@@ -51,6 +51,19 @@ const nextConfig: NextConfig = {
   experimental: {
     viewTransition: true,
   },
+  // Next/Image only fetches remote hosts that match one of these
+  // patterns. Vercel Blob assets live at <storeId>.public.blob.vercel-storage.com
+  // (any Blob store you connect, with or without a custom prefix). Product
+  // photos that hot-link retailer CDNs (Amazon, Nykaa, etc.) keep working
+  // because they go through <img> tags rather than Next/Image.
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "*.public.blob.vercel-storage.com",
+      },
+    ],
+  },
   async headers() {
     return [
       {
