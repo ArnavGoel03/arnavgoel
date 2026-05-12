@@ -8,6 +8,7 @@ import type { Photo } from "@/lib/types";
 import { JumpToFrame } from "./jump-to-frame";
 import { LightboxRoot } from "./lightbox";
 import { ChapterNav } from "./chapter-nav";
+import { ContactSheet } from "./contact-sheet";
 
 export const metadata: Metadata = {
   title: "Photos",
@@ -275,13 +276,18 @@ export default function PhotosPage() {
           >
             {/* Chapter cover spread — book-style title page. Anchor
                 photo bleeds the whole frame at low opacity, chapter
-                number / place / month set in editorial type on top. */}
+                number / place / month set in editorial type on top.
+                Background routes through Next/Image at a small width
+                so we don't fetch the full camera JPG just for an 8%
+                opacity wash. */}
             <div className="relative overflow-hidden border-y border-stone-200 dark:border-stone-800">
               <div className="pointer-events-none absolute inset-0">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={section.anchor.src}
+                  src={`/_next/image?url=${encodeURIComponent(section.anchor.src)}&w=1920&q=65`}
                   alt=""
+                  loading="lazy"
+                  decoding="async"
                   draggable={false}
                   className="h-full w-full select-none object-cover opacity-[0.08] dark:opacity-[0.12]"
                 />
@@ -479,33 +485,12 @@ export default function PhotosPage() {
           </Container>
 
           <Container className="mt-12 max-w-7xl sm:mt-16">
-            <ul className="grid grid-cols-3 gap-1.5 sm:grid-cols-4 sm:gap-2 md:grid-cols-5 lg:grid-cols-6">
-              {archivePhotos.map((photo) => (
-                <li
-                  key={photo.src}
-                  data-lightbox-index={lb(photo)}
-                  className="relative aspect-square cursor-zoom-in overflow-hidden bg-stone-100 dark:bg-stone-900"
-                >
-                  <Image
-                    src={photo.src}
-                    alt={photo.alt}
-                    fill
-                    sizes="(max-width: 640px) 33vw, (max-width: 1024px) 25vw, 16vw"
-                    quality={88}
-                    placeholder="blur"
-                    blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxyZWN0IHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiNlN2U1ZTQiLz48L3N2Zz4="
-                    draggable={false}
-                    className="object-cover transition-transform duration-700 ease-out hover:scale-[1.04]"
-                  />
-                  <span
-                    aria-hidden
-                    className="pointer-events-none absolute bottom-1 right-1 select-none font-mono text-[8px] uppercase tracking-[0.18em] text-white/80 mix-blend-difference"
-                  >
-                    ❋
-                  </span>
-                </li>
-              ))}
-            </ul>
+            <ContactSheet
+              photos={archivePhotos.map((photo) => ({
+                photo,
+                index: lb(photo),
+              }))}
+            />
           </Container>
         </section>
       )}
