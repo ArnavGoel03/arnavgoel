@@ -14,6 +14,15 @@ export const metadata: Metadata = {
   title: "Photos",
   description: `DSLR photography by ${site.name}.`,
   alternates: { canonical: "/photos" },
+  other: {
+    // Hint the browser to set up TLS to the image origins before any
+    // <img> tag triggers the connect. Saves the ~150-300ms first-
+    // contact tax on cold cache visits.
+    "link:preconnect:blob":
+      "<https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com>; rel=preconnect; crossorigin",
+    "link:preconnect:gh":
+      "<https://objects.githubusercontent.com>; rel=preconnect; crossorigin",
+  },
 };
 
 /**
@@ -194,6 +203,19 @@ export default function PhotosPage() {
 
   return (
     <>
+      {/* Preconnect to image origins so the first <img> doesn't pay
+          the DNS + TLS handshake on the request path. */}
+      <link
+        rel="preconnect"
+        href="https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com"
+        crossOrigin=""
+      />
+      <link
+        rel="preconnect"
+        href="https://objects.githubusercontent.com"
+        crossOrigin=""
+      />
+
       {/* Masthead */}
       <Container className="max-w-5xl">
         <div className="pt-12 sm:pt-16">

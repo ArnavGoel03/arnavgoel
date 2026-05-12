@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type LightboxPhoto = {
   src: string;
@@ -50,15 +50,17 @@ export function LightboxRoot({ photos }: { photos: LightboxPhoto[] }) {
   );
 
   // Trigger from any [data-lightbox-index] click on the page.
+  // Also preload the lightbox-size variant on mouseenter so the click
+  // feels instant by the time it lands.
+  const preloaded = useRef<Set<number>>(new Set());
   useEffect(() => {
-    const handler = (e: MouseEvent) => {
+    const click = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
       if (!target) return;
       const el = target.closest(
         "[data-lightbox-index]",
       ) as HTMLElement | null;
       if (!el) return;
-      // Don't hijack clicks inside the lightbox overlay itself
       if (el.closest("[data-lightbox-overlay]")) return;
       const idx = Number(el.dataset.lightboxIndex);
       if (!Number.isFinite(idx) || idx < 0 || idx >= photos.length)
@@ -66,10 +68,70 @@ export function LightboxRoot({ photos }: { photos: LightboxPhoto[] }) {
       e.preventDefault();
       setOpen(idx);
     };
-    document.addEventListener("click", handler, { capture: true });
-    return () =>
-      document.removeEventListener("click", handler, { capture: true });
-  }, [photos.length]);
+    function warm(idx: number) {
+      if (preloaded.current.has(idx)) return;
+      preloaded.current.add(idx);
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.as = "image";
+      link.href = optimized(photos[idx].src);
+      // Don't override if already there
+      document.head.appendChild(link);
+    }
+    const enter = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+      const el = target.closest(
+        "[data-lightbox-index]",
+      ) as HTMLElement | null;
+      if (!el) return;
+      const idx = Number(el.dataset.lightboxIndex);
+      if (!Number.isFinite(idx) || idx < 0 || idx >= photos.length)
+        return;
+      warm(idx);
+    };
+    document.addEventListener("click", click, { capture: true });
+    document.addEventListener("mouseenter", enter, { capture: true });
+    return () => {
+      document.removeEventListener("click", click, { capture: true });
+      document.removeEventListener("mouseenter", enter, { capture: true });
+    };
+  }, [photos]);
+
+  // Idle pre-warm of the first ~20 photos. Cold first-clicks become
+  // warm clicks for the most-visible part of the gallery.
+  useEffect(() => {
+    if (photos.length === 0) return;
+    const ric: typeof requestIdleCallback | undefined =
+      typeof window !== "undefined"
+        ? (window as unknown as { requestIdleCallback?: typeof requestIdleCallback })
+            .requestIdleCallback
+        : undefined;
+    const schedule = ric ?? ((cb: IdleRequestCallback) => setTimeout(() => cb({ didTimeout: false, timeRemaining: () => 50 } as IdleDeadline), 800));
+    const ids: number[] = [];
+    const warmEarly = () => {
+      for (let i = 0; i < Math.min(20, photos.length); i++) {
+        if (preloaded.current.has(i)) continue;
+        preloaded.current.add(i);
+        const link = document.createElement("link");
+        link.rel = "preload";
+        link.as = "image";
+        link.href = optimized(photos[i].src);
+        document.head.appendChild(link);
+      }
+    };
+    const id = schedule(() => warmEarly()) as unknown as number;
+    ids.push(id);
+    return () => {
+      ids.forEach((i) => {
+        if (typeof window !== "undefined") {
+          const cic = (window as unknown as { cancelIdleCallback?: (h: number) => void }).cancelIdleCallback;
+          if (cic) cic(i);
+          else clearTimeout(i);
+        }
+      });
+    };
+  }, [photos]);
 
   // Keyboard navigation while open
   useEffect(() => {
