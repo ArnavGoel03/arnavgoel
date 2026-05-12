@@ -34,7 +34,7 @@ function Watermark({ size = "sm" }: { size?: "sm" | "lg" }) {
       aria-hidden
       className={`pointer-events-none absolute select-none font-mono uppercase text-white/85 mix-blend-difference ${cls}`}
     >
-      ❋ yashgoel.com
+      ❋ yashgoel.vercel.app
     </span>
   );
 }

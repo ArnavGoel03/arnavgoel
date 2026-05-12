@@ -286,7 +286,7 @@ export default function HomePage() {
                     aria-hidden
                     className="pointer-events-none absolute bottom-2 right-2 select-none font-mono text-[9px] uppercase tracking-[0.22em] text-white/85 mix-blend-difference"
                   >
-                    ❋ yashgoel.com
+                    ❋ yashgoel.vercel.app
                   </span>
                 </div>
                 <p className="mt-4 font-serif text-lg italic text-stone-600 dark:text-stone-300">
