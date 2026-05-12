@@ -6,6 +6,8 @@ import { photos } from "@/lib/photos";
 import { site } from "@/lib/site";
 import type { Photo } from "@/lib/types";
 import { JumpToFrame } from "./jump-to-frame";
+import { LightboxRoot } from "./lightbox";
+import { ChapterNav } from "./chapter-nav";
 
 export const metadata: Metadata = {
   title: "Photos",
@@ -150,6 +152,43 @@ export default function PhotosPage() {
   const rest = editorialPhotos.filter((p) => p.src !== hero?.src);
   const sections = buildSections(rest);
 
+  // Build the lightbox photo list in DOM render order so data-lightbox-index
+  // values are stable and the prev/next buttons walk the page sequentially.
+  const lightboxList: Photo[] = [];
+  if (hero) lightboxList.push(hero);
+  for (const s of sections) {
+    lightboxList.push(s.anchor);
+    let i = 0;
+    let p = 0;
+    const RHYTHM = ["diptych","sideCaptionLeft","right","diptych","fullBleed","left","sideCaptionRight","diptych","full"] as const;
+    while (i < s.rest.length) {
+      if (s.rest[i].featured) { lightboxList.push(s.rest[i]); i++; continue; }
+      const k = RHYTHM[p % RHYTHM.length]; p++;
+      if (k === "diptych" && i + 1 < s.rest.length && !s.rest[i+1].featured) {
+        lightboxList.push(s.rest[i], s.rest[i+1]); i += 2;
+      } else {
+        lightboxList.push(s.rest[i]); i += 1;
+      }
+    }
+  }
+  lightboxList.push(...archivePhotos);
+
+  // Map src -> global lightbox index for use in JSX data attrs.
+  const srcToIdx = new Map(lightboxList.map((p, i) => [p.src, i]));
+  const lb = (p: Photo) => srcToIdx.get(p.src) ?? 0;
+
+  // Chapters for the sticky nav (cover, each chapter, contact sheet).
+  const navChapters = [
+    { id: "cover", label: hero ? "Cover" : "Top" },
+    ...sections.map((s) => ({
+      id: `chapter-${s.key}`,
+      label: s.place,
+    })),
+    ...(archivePhotos.length > 0
+      ? [{ id: "contact-sheet", label: "Contact sheet" }]
+      : []),
+  ];
+
   let frame = 1;
 
   return (
@@ -210,9 +249,17 @@ export default function PhotosPage() {
         </div>
       </Container>
 
+      <ChapterNav chapters={navChapters} />
+
       {hero && (
-        <div id="frame-1" className="scroll-mt-24 mt-16 mb-32 sm:mt-24 sm:mb-44">
-          <PhotoHero photo={hero} index={0} />
+        <div
+          id="cover"
+          data-lightbox-index={lb(hero)}
+          className="scroll-mt-24 mt-16 mb-32 cursor-zoom-in sm:mt-24 sm:mb-44"
+        >
+          <div id="frame-1">
+            <PhotoHero photo={hero} index={0} />
+          </div>
         </div>
       )}
 
@@ -223,7 +270,8 @@ export default function PhotosPage() {
         return (
           <section
             key={section.key}
-            className="border-t border-stone-200 pt-20 pb-24 sm:pt-28 sm:pb-32 dark:border-stone-800"
+            id={`chapter-${section.key}`}
+            className="scroll-mt-24 border-t border-stone-200 pt-20 pb-24 sm:pt-28 sm:pb-32 dark:border-stone-800"
           >
             {/* Chapter header — more typography-led */}
             <Container className="max-w-5xl">
@@ -256,7 +304,11 @@ export default function PhotosPage() {
             </Container>
 
             {/* Section anchor */}
-            <div id={`frame-${anchorIdx}`} className="scroll-mt-24 mt-16 mb-24 sm:mt-24 sm:mb-36">
+            <div
+              id={`frame-${anchorIdx}`}
+              data-lightbox-index={lb(section.anchor)}
+              className="scroll-mt-24 mt-16 mb-24 cursor-zoom-in sm:mt-24 sm:mb-36"
+            >
               <PhotoHero photo={section.anchor} index={anchorIdx - 1} />
             </div>
 
@@ -266,7 +318,12 @@ export default function PhotosPage() {
                 if (slot.kind === "fullBleed") {
                   const idx = frame++;
                   return (
-                    <div key={`fb-${sectionIdx}-${slotIdx}`} id={`frame-${idx}`} className="scroll-mt-24">
+                    <div
+                      key={`fb-${sectionIdx}-${slotIdx}`}
+                      id={`frame-${idx}`}
+                      data-lightbox-index={lb(slot.photos[0])}
+                      className="scroll-mt-24 cursor-zoom-in"
+                    >
                       <PhotoHero photo={slot.photos[0]} index={idx - 1} />
                     </div>
                   );
@@ -275,7 +332,7 @@ export default function PhotosPage() {
                   const idx = frame++;
                   return (
                     <Container key={`f-${sectionIdx}-${slotIdx}`} className="max-w-5xl">
-                      <div id={`frame-${idx}`} className="scroll-mt-24">
+                      <div id={`frame-${idx}`} data-lightbox-index={lb(slot.photos[0])} className="scroll-mt-24 cursor-zoom-in">
                         <PhotoTile photo={slot.photos[0]} index={idx} />
                       </div>
                     </Container>
@@ -290,19 +347,19 @@ export default function PhotosPage() {
                       <div className="grid grid-cols-1 gap-y-16 sm:grid-cols-12 sm:gap-x-8 sm:gap-y-0">
                         {bigOnLeft ? (
                           <>
-                            <div id={`frame-${a}`} className="scroll-mt-24 sm:col-span-7">
+                            <div id={`frame-${a}`} data-lightbox-index={lb(slot.photos[0])} className="scroll-mt-24 cursor-zoom-in sm:col-span-7">
                               <PhotoTile photo={slot.photos[0]} index={a} />
                             </div>
-                            <div id={`frame-${b}`} className="scroll-mt-24 sm:col-span-5 sm:mt-32">
+                            <div id={`frame-${b}`} data-lightbox-index={lb(slot.photos[1])} className="scroll-mt-24 cursor-zoom-in sm:col-span-5 sm:mt-32">
                               <PhotoTile photo={slot.photos[1]} index={b} />
                             </div>
                           </>
                         ) : (
                           <>
-                            <div id={`frame-${a}`} className="scroll-mt-24 sm:col-span-5 sm:mt-32">
+                            <div id={`frame-${a}`} data-lightbox-index={lb(slot.photos[0])} className="scroll-mt-24 cursor-zoom-in sm:col-span-5 sm:mt-32">
                               <PhotoTile photo={slot.photos[0]} index={a} />
                             </div>
-                            <div id={`frame-${b}`} className="scroll-mt-24 sm:col-span-7">
+                            <div id={`frame-${b}`} data-lightbox-index={lb(slot.photos[1])} className="scroll-mt-24 cursor-zoom-in sm:col-span-7">
                               <PhotoTile photo={slot.photos[1]} index={b} />
                             </div>
                           </>
@@ -315,7 +372,7 @@ export default function PhotosPage() {
                   const idx = frame++;
                   return (
                     <Container key={`sl-${sectionIdx}-${slotIdx}`} className="max-w-6xl">
-                      <div id={`frame-${idx}`} className="scroll-mt-24">
+                      <div id={`frame-${idx}`} data-lightbox-index={lb(slot.photos[0])} className="scroll-mt-24 cursor-zoom-in">
                         <PhotoSideCaption photo={slot.photos[0]} index={idx} side="left" />
                       </div>
                     </Container>
@@ -325,7 +382,7 @@ export default function PhotosPage() {
                   const idx = frame++;
                   return (
                     <Container key={`sr-${sectionIdx}-${slotIdx}`} className="max-w-6xl">
-                      <div id={`frame-${idx}`} className="scroll-mt-24">
+                      <div id={`frame-${idx}`} data-lightbox-index={lb(slot.photos[0])} className="scroll-mt-24 cursor-zoom-in">
                         <PhotoSideCaption photo={slot.photos[0]} index={idx} side="right" />
                       </div>
                     </Container>
@@ -335,7 +392,7 @@ export default function PhotosPage() {
                   const idx = frame++;
                   return (
                     <div key={`r-${sectionIdx}-${slotIdx}`} className="px-6">
-                      <div id={`frame-${idx}`} className="scroll-mt-24 ml-auto max-w-3xl">
+                      <div id={`frame-${idx}`} data-lightbox-index={lb(slot.photos[0])} className="scroll-mt-24 ml-auto max-w-3xl cursor-zoom-in">
                         <PhotoTile photo={slot.photos[0]} index={idx} />
                       </div>
                     </div>
@@ -344,7 +401,7 @@ export default function PhotosPage() {
                 const idx = frame++;
                 return (
                   <div key={`l-${sectionIdx}-${slotIdx}`} className="px-6">
-                    <div id={`frame-${idx}`} className="scroll-mt-24 mr-auto max-w-3xl">
+                    <div id={`frame-${idx}`} data-lightbox-index={lb(slot.photos[0])} className="scroll-mt-24 mr-auto max-w-3xl cursor-zoom-in">
                       <PhotoTile photo={slot.photos[0]} index={idx} />
                     </div>
                   </div>
@@ -377,7 +434,7 @@ export default function PhotosPage() {
           stay browsable. Square crops keep the grid even; the rich
           chapter layout above stays the focus. */}
       {archivePhotos.length > 0 && (
-        <section className="border-t border-stone-200 pt-20 pb-24 sm:pt-28 sm:pb-32 dark:border-stone-800">
+        <section id="contact-sheet" className="scroll-mt-24 border-t border-stone-200 pt-20 pb-24 sm:pt-28 sm:pb-32 dark:border-stone-800">
           <Container className="max-w-6xl">
             <div className="mb-12 flex items-baseline gap-4 sm:mb-16">
               <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-rose-400">
@@ -403,7 +460,8 @@ export default function PhotosPage() {
               {archivePhotos.map((photo) => (
                 <li
                   key={photo.src}
-                  className="relative aspect-square overflow-hidden bg-stone-100 dark:bg-stone-900"
+                  data-lightbox-index={lb(photo)}
+                  className="relative aspect-square cursor-zoom-in overflow-hidden bg-stone-100 dark:bg-stone-900"
                 >
                   <Image
                     src={photo.src}
@@ -428,6 +486,18 @@ export default function PhotosPage() {
           </Container>
         </section>
       )}
+
+      <LightboxRoot
+        photos={lightboxList.map((p) => ({
+          src: p.src,
+          alt: p.alt,
+          caption: p.caption,
+          width: p.width,
+          height: p.height,
+          location: p.location,
+          date: p.date,
+        }))}
+      />
     </>
   );
 }
