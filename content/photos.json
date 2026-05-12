@@ -288,7 +288,8 @@
     "focalLength": "18mm",
     "aperture": "f/3.5",
     "iso": 5000,
-    "shutter": "1/60s"
+    "shutter": "1/60s",
+    "featured": true
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_streetlight-leaf-night.jpg",
