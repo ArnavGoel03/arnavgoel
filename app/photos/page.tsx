@@ -271,37 +271,59 @@ export default function PhotosPage() {
           <section
             key={section.key}
             id={`chapter-${section.key}`}
-            className="scroll-mt-24 border-t border-stone-200 pt-20 pb-24 sm:pt-28 sm:pb-32 dark:border-stone-800"
+            className="scroll-mt-24"
           >
-            {/* Chapter header — more typography-led */}
-            <Container className="max-w-5xl">
-              <div className="mb-12 flex items-baseline gap-4 sm:mb-20">
-                <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-rose-400">
-                  Chapter {section.number}
-                </span>
-                <span className="h-px flex-1 bg-stone-200 dark:bg-stone-800" />
-                <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-stone-400 tabular-nums dark:text-stone-500">
-                  {String(section.count).padStart(2, "0")} frames
-                </span>
+            {/* Chapter cover spread — book-style title page. Anchor
+                photo bleeds the whole frame at low opacity, chapter
+                number / place / month set in editorial type on top. */}
+            <div className="relative overflow-hidden border-y border-stone-200 dark:border-stone-800">
+              <div className="pointer-events-none absolute inset-0">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={section.anchor.src}
+                  alt=""
+                  draggable={false}
+                  className="h-full w-full select-none object-cover opacity-[0.08] dark:opacity-[0.12]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/60 to-white/85 dark:from-stone-950/70 dark:via-stone-950/60 dark:to-stone-950/85" />
               </div>
-              <h2 className="font-serif text-7xl italic leading-[0.95] tracking-tight text-stone-900 sm:text-[9rem] dark:text-stone-100">
-                {section.place}
-                <span className="not-italic text-rose-400">.</span>
-              </h2>
-              <p className="mt-6 flex flex-wrap items-baseline gap-x-4 gap-y-1 font-serif text-lg italic text-stone-500 sm:text-xl dark:text-stone-400">
-                <span>{section.monthLabel}</span>
-                {section.region && (
-                  <>
-                    <span aria-hidden className="text-stone-300 not-italic dark:text-stone-700">
-                      —
+              <Container className="relative max-w-5xl">
+                <div className="flex min-h-[70vh] flex-col justify-center py-24 sm:min-h-[80vh] sm:py-32">
+                  <div className="mb-10 flex items-baseline gap-4 sm:mb-16">
+                    <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-rose-400">
+                      Chapter {section.number}
                     </span>
-                    <span className="not-italic font-mono text-[11px] uppercase tracking-[0.25em] text-stone-400 dark:text-stone-500">
-                      {section.region}
+                    <span className="h-px flex-1 bg-stone-300/70 dark:bg-stone-700/70" />
+                    <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-stone-500 tabular-nums dark:text-stone-400">
+                      {String(section.count).padStart(2, "0")} frames
                     </span>
-                  </>
-                )}
-              </p>
-            </Container>
+                  </div>
+                  <h2 className="font-serif text-[18vw] leading-[0.86] italic tracking-[-0.04em] text-stone-900 sm:text-[12rem] dark:text-stone-50">
+                    {section.place}
+                    <span className="not-italic text-rose-400">.</span>
+                  </h2>
+                  <p className="mt-8 flex flex-wrap items-baseline gap-x-5 gap-y-1 font-serif text-xl italic text-stone-600 sm:mt-10 sm:text-2xl dark:text-stone-300">
+                    <span>{section.monthLabel}</span>
+                    {section.region && (
+                      <>
+                        <span aria-hidden className="text-stone-400 not-italic dark:text-stone-600">
+                          ·
+                        </span>
+                        <span className="not-italic font-mono text-[11px] uppercase tracking-[0.28em] text-stone-500 dark:text-stone-400">
+                          {section.region}
+                        </span>
+                      </>
+                    )}
+                  </p>
+                  <div className="mt-16 flex items-center gap-3 text-[10px] uppercase tracking-[0.32em] text-stone-400 dark:text-stone-500 sm:mt-24">
+                    <span className="h-px w-12 bg-stone-300 dark:bg-stone-700" />
+                    <span>Scroll to read</span>
+                  </div>
+                </div>
+              </Container>
+            </div>
+
+            <div className="pt-16 pb-24 sm:pt-24 sm:pb-32">
 
             {/* Section anchor */}
             <div
@@ -424,6 +446,7 @@ export default function PhotosPage() {
                   </>
                 )}
               </span>
+            </div>
             </div>
           </section>
         );
