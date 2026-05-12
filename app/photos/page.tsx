@@ -216,61 +216,59 @@ export default function PhotosPage() {
         crossOrigin=""
       />
 
-      {/* Masthead */}
+      {/* Masthead — quiet eyebrow, dramatic title, italic subtitle,
+          one hairline rule, a single tight stat line. Press "/" to
+          jump to any frame. */}
       <Container className="max-w-5xl">
-        <div className="pt-12 sm:pt-16">
-          <div className="mb-6 flex items-baseline justify-between gap-4 text-[11px] uppercase tracking-[0.22em] text-stone-500 dark:text-stone-400">
-            <span className="flex items-baseline gap-2">
+        <div className="pt-20 sm:pt-28">
+          <div className="mb-12 flex items-baseline justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.32em] text-stone-400 dark:text-stone-500">
+            <span className="flex items-baseline gap-3">
               <span className="text-rose-400">❋</span>
-              <span>Contact Sheet, DSLR</span>
+              <span>Contact Sheet</span>
             </span>
             {earliest && latest && (
-              <span className="font-mono text-stone-400 dark:text-stone-500">
-                {earliest.getFullYear()} / {latest.getFullYear()}
+              <span className="tabular-nums">
+                {earliest.getFullYear()} — {latest.getFullYear()}
               </span>
             )}
           </div>
 
-          <h1 className="font-serif text-[14vw] leading-[0.88] tracking-[-0.05em] text-stone-900 sm:text-[10rem] dark:text-stone-100">
+          <h1 className="font-serif text-[18vw] leading-[0.85] tracking-[-0.05em] text-stone-900 sm:text-[13rem] dark:text-stone-50">
             Photos<span className="text-rose-400">.</span>
           </h1>
-          <p className="mt-6 max-w-2xl font-serif text-xl italic leading-snug text-stone-600 sm:text-2xl dark:text-stone-300">
+          <p className="mt-10 max-w-2xl font-serif text-2xl italic leading-[1.3] text-stone-600 sm:text-3xl sm:leading-[1.25] dark:text-stone-300">
             A slow-growing roll. Shot when the camera was in the bag and the
-            light was doing something. No filter presets, nothing pushed in
-            post beyond a soft curve and a dust spot or two.
+            light was doing something.
           </p>
 
-          <div className="mt-10 flex flex-wrap items-center justify-between gap-x-8 gap-y-3 border-y border-stone-200 py-4 text-[11px] uppercase tracking-[0.2em] text-stone-500 dark:border-stone-800 dark:text-stone-400">
-            <div className="flex flex-wrap items-baseline gap-x-8 gap-y-2">
-            <span className="flex items-baseline gap-2">
-              <span className="font-display text-lg font-light tabular-nums text-stone-900 dark:text-stone-100">
+          <div className="mt-16 flex flex-wrap items-baseline gap-x-10 gap-y-2 border-t border-stone-200/70 pt-6 font-serif italic text-stone-500 dark:border-stone-800/70 dark:text-stone-400 sm:mt-20">
+            <span>
+              <span className="not-italic font-mono text-stone-900 tabular-nums dark:text-stone-50">
                 {String(editorialPhotos.length).padStart(2, "0")}
-              </span>
+              </span>{" "}
               edited
             </span>
             {archivePhotos.length > 0 && (
-              <>
-                <span aria-hidden className="text-stone-300 dark:text-stone-700">·</span>
-                <span className="flex items-baseline gap-2">
-                  <span className="font-display text-lg font-light tabular-nums text-stone-900 dark:text-stone-100">
-                    {String(archivePhotos.length).padStart(2, "0")}
-                  </span>
-                  contact sheet
-                </span>
-              </>
+              <span>
+                <span className="not-italic font-mono text-stone-900 tabular-nums dark:text-stone-50">
+                  {String(archivePhotos.length).padStart(2, "0")}
+                </span>{" "}
+                in the contact sheet
+              </span>
             )}
-            <span aria-hidden className="text-stone-300 dark:text-stone-700">·</span>
             <span>
-              {sections.length}{" "}
+              <span className="not-italic font-mono text-stone-900 tabular-nums dark:text-stone-50">
+                {String(sections.length).padStart(2, "0")}
+              </span>{" "}
               {sections.length === 1 ? "chapter" : "chapters"}
             </span>
-            <span aria-hidden className="text-stone-300 dark:text-stone-700">·</span>
-            <span>originals kept at full resolution</span>
-            </div>
-            <JumpToFrame max={editorialPhotos.length} />
+            <span className="ml-auto font-mono text-[10px] not-italic uppercase tracking-[0.28em] text-stone-400 dark:text-stone-500">
+              press <kbd className="rounded border border-stone-300 px-1.5 py-0.5 font-mono dark:border-stone-700">/</kbd> to jump
+            </span>
           </div>
         </div>
       </Container>
+      <JumpToFrame max={editorialPhotos.length} />
 
       <ChapterNav chapters={navChapters} />
 

@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 type Chapter = { id: string; label: string };
 
 /**
- * Sticky chapter quick-jump bar. Highlights the currently-on-screen
- * chapter via IntersectionObserver, and lets you click any chapter
- * name to smooth-scroll to it.
+ * Sticky chapter nav. Editorial italic-serif labels, no pills, with a
+ * hairline rose underline marking the active section. Tracks scroll
+ * via IntersectionObserver.
  */
 export function ChapterNav({ chapters }: { chapters: Chapter[] }) {
   const [active, setActive] = useState<string>(chapters[0]?.id ?? "");
@@ -20,7 +20,6 @@ export function ChapterNav({ chapters }: { chapters: Chapter[] }) {
     if (els.length === 0) return;
     const observer = new IntersectionObserver(
       (entries) => {
-        // Most-visible entry wins
         const visible = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
@@ -48,9 +47,9 @@ export function ChapterNav({ chapters }: { chapters: Chapter[] }) {
   return (
     <nav
       aria-label="Chapter navigation"
-      className="sticky top-0 z-40 -mx-6 border-b border-stone-200/80 bg-white/85 px-6 py-2 backdrop-blur sm:py-2.5 dark:border-stone-800/80 dark:bg-stone-950/85"
+      className="sticky top-0 z-40 -mx-6 border-b border-stone-200/60 bg-white/75 px-6 backdrop-blur-md dark:border-stone-800/60 dark:bg-stone-950/75"
     >
-      <ul className="mx-auto flex max-w-5xl items-center gap-1 overflow-x-auto text-[10px] uppercase tracking-[0.22em] sm:gap-2 sm:text-[11px]">
+      <ul className="mx-auto flex max-w-5xl items-baseline justify-center gap-8 overflow-x-auto py-4 sm:gap-12 sm:py-5">
         {chapters.map((c) => {
           const isActive = c.id === active;
           return (
@@ -58,13 +57,19 @@ export function ChapterNav({ chapters }: { chapters: Chapter[] }) {
               <a
                 href={`#${c.id}`}
                 onClick={(e) => jump(e, c.id)}
-                className={`block rounded-full px-3 py-1 transition-colors sm:px-4 sm:py-1.5 ${
+                className={`relative block font-serif text-sm italic transition-colors sm:text-base ${
                   isActive
-                    ? "bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-900"
-                    : "text-stone-500 hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
+                    ? "text-stone-900 dark:text-stone-50"
+                    : "text-stone-400 hover:text-stone-700 dark:text-stone-500 dark:hover:text-stone-200"
                 }`}
               >
                 {c.label}
+                <span
+                  aria-hidden
+                  className={`pointer-events-none absolute -bottom-2 left-1/2 h-px -translate-x-1/2 bg-rose-400 transition-all duration-300 ${
+                    isActive ? "w-8 opacity-100" : "w-0 opacity-0"
+                  }`}
+                />
               </a>
             </li>
           );
