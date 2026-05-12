@@ -1,18 +1,19 @@
 [
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-07_liquidambar-leaves-day.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_liquidambar-leaves-day-v3.jpg",
     "alt": "Cluster of red and green liquidambar star-shaped leaves in daylight.",
     "caption": "Liquidambar.",
     "location": "La Jolla, San Diego",
     "date": "2023-12-07",
-    "width": 6960,
-    "height": 4640,
+    "width": 6984,
+    "height": 4660,
     "camera": "Canon EOS R7",
     "lens": "RF-S 18-150mm F3.5-6.3",
     "focalLength": "66mm",
     "aperture": "f/6.3",
     "iso": 320,
-    "shutter": "1/100s"
+    "shutter": "1/100s",
+    "rawSource": "C17A0944.CR3"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-07_liquidambar-leaves-red-fill.jpg",
@@ -47,35 +48,37 @@
     "rawSource": "C17A0952.CR3"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-07_purple-heart-groundcover.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_purple-heart-groundcover-v3.jpg",
     "alt": "Purple-heart tradescantia ground cover with variegated plants behind.",
     "caption": "Purple heart, ground level.",
     "location": "La Jolla, San Diego",
     "date": "2023-12-07",
-    "width": 6960,
-    "height": 4640,
+    "width": 6984,
+    "height": 4660,
     "camera": "Canon EOS R7",
     "lens": "RF-S 18-150mm F3.5-6.3",
     "focalLength": "24mm",
     "aperture": "f/20",
     "iso": 6400,
     "shutter": "1/125s",
-    "hidden": true
+    "hidden": true,
+    "rawSource": "C17A0970.CR3"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-07_purple-heart-flowering-shoot.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_purple-heart-flowering-shoot-v3.jpg",
     "alt": "Purple-heart bed with a fresh flowering shoot rising through dark leaves.",
     "caption": "Purple heart, in flower.",
     "location": "La Jolla, San Diego",
     "date": "2023-12-07",
-    "width": 6960,
-    "height": 4640,
+    "width": 6984,
+    "height": 4660,
     "camera": "Canon EOS R7",
     "lens": "RF-S 18-150mm F3.5-6.3",
     "focalLength": "24mm",
     "aperture": "f/20",
     "iso": 6400,
-    "shutter": "1/125s"
+    "shutter": "1/125s",
+    "rawSource": "C17A0970.CR3"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-07_gingko-branch-on-pool-a.jpg",
@@ -185,51 +188,54 @@
     "hidden": true
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_ucsd-autumn-leaves-dusk.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_ucsd-autumn-leaves-dusk-v3.jpg",
     "alt": "Sun-backlit autumn leaves at dusk with college apartments and a distant ridge.",
     "caption": "Late autumn on the UCSD campus.",
     "location": "Muir College, UCSD",
     "date": "2023-12-06",
-    "width": 6960,
-    "height": 4640,
+    "width": 6984,
+    "height": 4660,
     "camera": "Canon EOS R7",
     "lens": "RF-S 18-150mm F3.5-6.3",
     "focalLength": "18mm",
     "aperture": "f/8",
     "iso": 100,
-    "shutter": "1/40s"
+    "shutter": "1/40s",
+    "rawSource": "C17A0843.CR3"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_ucsd-maple-leaf-rim-light.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_ucsd-maple-leaf-rim-light-v3.jpg",
     "alt": "Close-up of a backlit maple leaf, rim-lit by the setting sun.",
     "caption": "Rim light through the canopy.",
     "location": "UCSD, San Diego",
     "date": "2023-12-06",
-    "width": 6960,
-    "height": 4640,
+    "width": 6984,
+    "height": 4660,
     "camera": "Canon EOS R7",
     "lens": "RF-S 18-150mm F3.5-6.3",
     "focalLength": "18mm",
     "aperture": "f/8",
     "iso": 100,
     "shutter": "1/40s",
-    "hidden": true
+    "hidden": true,
+    "rawSource": "C17A0843.CR3"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_ucsd-eucalyptus-canopy-twilight.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_ucsd-eucalyptus-canopy-twilight-v3.jpg",
     "alt": "Autumn branches with a eucalyptus grove and the sky going pink behind.",
     "caption": "Twilight under the eucalyptus.",
     "location": "UCSD, San Diego",
     "date": "2023-12-06",
-    "width": 6960,
-    "height": 4640,
+    "width": 6984,
+    "height": 4660,
     "camera": "Canon EOS R7",
     "lens": "RF-S 18-150mm F3.5-6.3",
     "focalLength": "18mm",
     "aperture": "f/8",
     "iso": 100,
     "shutter": "1/40s",
-    "hidden": true
+    "hidden": true,
+    "rawSource": "C17A0843.CR3"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_ucsd-muir-apartments-tree.jpg",
@@ -356,19 +362,20 @@
     "shutter": "1.0s"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_downtown-facade-red-green-lights.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_downtown-facade-red-green-lights-v3.jpg",
     "alt": "A historic downtown facade washed in red and green festive lighting.",
     "caption": "Holiday wash on the facade.",
     "location": "Gaslamp Quarter, San Diego",
     "date": "2023-12-06",
-    "width": 6960,
-    "height": 4640,
+    "width": 6984,
+    "height": 4660,
     "camera": "Canon EOS R7",
     "lens": "RF-S 18-150mm F3.5-6.3",
     "focalLength": "44mm",
     "aperture": "f/9",
     "iso": 100,
-    "shutter": "1.0s"
+    "shutter": "1.0s",
+    "rawSource": "C17A0888.CR3"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_downtown-flags-night.jpg",
@@ -386,35 +393,37 @@
     "shutter": "1/6s"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_downtown-horton-fountain-a.jpg?v=2",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_downtown-horton-fountain-a-v3.jpg",
     "alt": "Long exposure of the Broadway Fountain at Horton Plaza Park, red-lit dome and arcing water.",
     "caption": "Horton Plaza Fountain, long exposure.",
     "location": "Broadway Fountain, San Diego",
     "date": "2023-12-06",
-    "width": 6960,
-    "height": 4640,
-    "camera": "Canon EOS R7",
-    "lens": "RF-S 18-150mm F3.5-6.3",
-    "focalLength": "18mm",
-    "aperture": "f/8",
-    "iso": 500,
-    "shutter": "1/4s"
-  },
-  {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_downtown-horton-fountain-b.jpg",
-    "alt": "The Broadway Fountain from a different angle, water spouts and red illumination at night.",
-    "caption": "Horton Plaza Fountain, second take.",
-    "location": "Broadway Fountain, San Diego",
-    "date": "2023-12-06",
-    "width": 6960,
-    "height": 4640,
+    "width": 6984,
+    "height": 4660,
     "camera": "Canon EOS R7",
     "lens": "RF-S 18-150mm F3.5-6.3",
     "focalLength": "18mm",
     "aperture": "f/8",
     "iso": 500,
     "shutter": "1/4s",
-    "hidden": true
+    "rawSource": "C17A0903.CR3"
+  },
+  {
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_downtown-horton-fountain-b-v3.jpg",
+    "alt": "The Broadway Fountain from a different angle, water spouts and red illumination at night.",
+    "caption": "Horton Plaza Fountain, second take.",
+    "location": "Broadway Fountain, San Diego",
+    "date": "2023-12-06",
+    "width": 6984,
+    "height": 4660,
+    "camera": "Canon EOS R7",
+    "lens": "RF-S 18-150mm F3.5-6.3",
+    "focalLength": "18mm",
+    "aperture": "f/8",
+    "iso": 500,
+    "shutter": "1/4s",
+    "hidden": true,
+    "rawSource": "C17A0903.CR3"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_downtown-horton-fountain-detail.jpg",
