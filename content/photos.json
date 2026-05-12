@@ -3827,5 +3827,37 @@
     "aperture": "f/8",
     "iso": 100,
     "shutter": "1/30s"
+  },
+  {
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_red-against-columns.jpg",
+    "alt": "Red maple foliage layered in front of a row of pale concrete columns, autumn light filtering through.",
+    "caption": "Red against columns.",
+    "location": "UCSD, La Jolla",
+    "date": "2023-12-06",
+    "width": 6960,
+    "height": 4640,
+    "rawSource": "C17A0856.JPG",
+    "camera": "Canon EOS R7",
+    "lens": "RF-S 18-150mm F3.5-6.3",
+    "focalLength": "18mm",
+    "aperture": "f/4",
+    "iso": 100,
+    "shutter": "1/60s"
+  },
+  {
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_ucsd-ucsd-ucsd.jpg",
+    "alt": "Bold yellow UCSD letters on a campus sign, repeated across the frame with figures walking past in soft motion blur.",
+    "caption": "UCSD, UCSD, UCSD.",
+    "location": "UCSD, La Jolla",
+    "date": "2023-12-06",
+    "width": 6960,
+    "height": 4640,
+    "rawSource": "C17A0872.JPG",
+    "camera": "Canon EOS R7",
+    "lens": "RF-S 18-150mm F3.5-6.3",
+    "focalLength": "95mm",
+    "aperture": "f/6.3",
+    "iso": 5000,
+    "shutter": "1/160s"
   }
 ]
