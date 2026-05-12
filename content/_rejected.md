@@ -55,3 +55,16 @@ The C17A0820–C17A0838 range was taken before the user left for the Dec 2023 Sa
 | C17A0838 | Video call — person, different angle |
 
 **Why hidden:** privacy (third-party faces on video calls), plus none of these are editorial photographs — they're test frames and personal-life snapshots that pre-date the actual photo trip starting at C17A0840+.
+
+**Update 2026-05-13:** the five fully-black lens-cap test frames (C17A0820 through C17A0824) were physically deleted: moved on-drive to `_trash-test-frames_2026-05-13/`, removed from Blob, removed from photos.json. They had no content (identical EXIF: ISO 3200 / 1/30 / f/11 / 18mm five times = lens cap on). The remaining C17A0826-0838 stay hidden but are still in Blob + manifest for the rejection record.
+
+---
+
+## Duplicate-cluster cuts (Dec 7 2023, San Diego)
+
+User flagged that two compositions were shot many takes deep but only one frame per subject is worth keeping. 57 frames hidden in two ranges:
+
+- **Gingko-on-pool cluster** (C17A0985–C17A1013): 28 takes of the same yellow-gingko-branch-floating-on-pool scene. Kept C17A0990 (the existing editorial keeper, `2023-12-07_gingko-branch-on-pool-a`), hid the other 28.
+- **Cracked-asphalt detail cluster** (C17A1014–C17A1043): 30 takes of the same gray-surface-with-small-mark composition. None reached editorial; the user's chosen asphalt frame is `2023-12-07_yellow-leaf-on-asphalt-crack` (C17A0958), which is a different specific shot. Hid all 30 in this range since the keeper already covers the theme.
+
+Blob/GitHub Release assets retained for all 57 per the keep-in-blob rule. If any of these ever earn a permanent slot, the CR3 on the One Touch is the upgrade path.
