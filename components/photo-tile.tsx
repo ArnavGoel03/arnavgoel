@@ -78,7 +78,8 @@ export function PhotoTile({ photo, index }: { photo: Photo; index: number }) {
               src={photo.src}
               alt={photo.alt}
               fill
-              sizes="(max-width: 640px) 100vw, 50vw"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
+              quality={70}
               placeholder="blur"
               blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxyZWN0IHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiNlN2U1ZTQiLz48L3N2Zz4="
               className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.015]"
@@ -174,6 +175,7 @@ export function PhotoSideCaption({
                   alt={photo.alt}
                   fill
                   sizes="(max-width: 640px) 100vw, 66vw"
+                  quality={72}
                   placeholder="blur"
                   blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxyZWN0IHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiNlN2U1ZTQiLz48L3N2Zz4="
                   className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.015]"
@@ -237,6 +239,7 @@ export function PhotoHero({ photo, index }: { photo: Photo; index: number }) {
               alt={photo.alt}
               fill
               sizes="100vw"
+              quality={78}
               priority
               placeholder="blur"
               blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxyZWN0IHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiNlN2U1ZTQiLz48L3N2Zz4="
