@@ -643,7 +643,8 @@
     "focalLength": "18mm",
     "aperture": "f/20",
     "iso": 320,
-    "shutter": "1/10s"
+    "shutter": "1/10s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAABQABBP/EAB4QAAICAwEAAwAAAAAAAAAAAAECAxEABBIFBhMh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AGtWBobKsOjmHSdpvstbu7wEe9OktKoYZ3t7Myq3UY6C3WAlsaJ2lUSvfJ/MsBT5DM8gBAVcsD//2Q=="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_bromeliad-garden-v2-v2.jpg",
@@ -659,7 +660,8 @@
     "focalLength": "18mm",
     "aperture": "f/22",
     "iso": 320,
-    "shutter": "1/10s"
+    "shutter": "1/10s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAUBAgT/xAAfEAABBAICAwAAAAAAAAAAAAABAAIDBBESIUExYWL/xAAWAQEBAQAAAAAAAAAAAAAAAAADAAH/xAAYEQEBAAMAAAAAAAAAAAAAAAAAAQIScf/aAAwDAQACEQMRAD8AQyWtJRpwPSY2LbbMMQbklo7SoQnYskGHdFaYmiKL6BQZWFi77DtxyRgIUMYJH7OGceELNouP/9k="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_red-ginger-v2-v2.jpg",
@@ -675,7 +677,8 @@
     "focalLength": "18mm",
     "aperture": "f/4.5",
     "iso": 100,
-    "shutter": "1/15s"
+    "shutter": "1/15s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAIEBf/EACAQAAICAgICAwAAAAAAAAAAAAECAAMEIRESE0EUMVH/xAAVAQEBAAAAAAAAAAAAAAAAAAACBP/EABgRAAMBAQAAAAAAAAAAAAAAAAABEQIS/9oADAMBAAIRAxEAPwCzJzkx6XsXTeomBlnLTs54PH3MzJqaxkV37AyumlaqiqaEh4mYhvS5g2Xc7v4iBYfREJO13xC2uWYaP5CJYDT/2Q=="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_eucalyptus-at-golden-hour-v2-v2.jpg",
@@ -691,7 +694,8 @@
     "focalLength": "28mm",
     "aperture": "f/8",
     "iso": 100,
-    "shutter": "1/30s"
+    "shutter": "1/30s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAQFBv/EAB8QAAIBBQEAAwAAAAAAAAAAAAECAAMEBRESIRRBkf/EABUBAQEAAAAAAAAAAAAAAAAAAAEC/8QAGREBAQEAAwAAAAAAAAAAAAAAAQACEiFB/9oADAMBAAIRAxEAPwB/JXaW4460xkejkSGYM2/fNxPJZNb5kfnTAexFa/LbAg6Wc5yHdoal18oBAfyEi0r40kIUaY/cI8mlDy//2Q=="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_red-against-columns-v2-v2.jpg",
@@ -707,7 +711,8 @@
     "focalLength": "18mm",
     "aperture": "f/4",
     "iso": 100,
-    "shutter": "1/60s"
+    "shutter": "1/60s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAUGAf/EAB4QAAICAgIDAAAAAAAAAAAAAAECAAMEEhFRBRRB/8QAFgEBAQEAAAAAAAAAAAAAAAAAAwAC/8QAFxEBAQEBAAAAAAAAAAAAAAAAAQACMf/aAAwDAQACEQMRAD8AmanCrHOB5ZK6VrcctEQQ6cibWGDg9RM6c8pBqg5bFtvnUIo9s1oNxCKbbKF//9k="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_ucsd-ucsd-ucsd-v2-v2.jpg",
@@ -723,7 +728,8 @@
     "focalLength": "95mm",
     "aperture": "f/6.3",
     "iso": 5000,
-    "shutter": "1/160s"
+    "shutter": "1/160s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAGQAAAQUAAAAAAAAAAAAAAAAAAAIDBAUG/8QAHxAAAgICAQUAAAAAAAAAAAAAAQIAEQMEIgUhMUFR/8QAFgEBAQEAAAAAAAAAAAAAAAAAAgED/8QAFxEBAQEBAAAAAAAAAAAAAAAAAQARAv/aAAwDAQACEQMRAD8AQ7U9kcb9x3GMT86qpmn2shdbY1Lnp2QvrknvMu9J8g0jJssSAAxA8n7CCgNjJuxcIda4X//Z"
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_solo-on-the-court-v2-v2.jpg",
@@ -739,7 +745,8 @@
     "focalLength": "60mm",
     "aperture": "f/6.3",
     "iso": 2000,
-    "shutter": "1/100s"
+    "shutter": "1/100s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAQCAwX/xAAfEAACAgICAwEAAAAAAAAAAAABAgADBBIRIQUUMkH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AXtxXooVmYcE/kj7C7gFuTxG78eyyhVB7meniLhfvtAbOU1C61k9wlpwXP0YQP//Z"
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_san-diego-after-dark-v2-v2.jpg",
@@ -755,7 +762,9 @@
     "focalLength": "18mm",
     "aperture": "f/8",
     "iso": 250,
-    "shutter": "1.0s"
+    "shutter": "1.0s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAQBBQb/xAAfEAACAgEEAwAAAAAAAAAAAAAAAQIRBAMSIWExQVH/xAAXAQADAQAAAAAAAAAAAAAAAAAAAQID/8QAGBEAAwEBAAAAAAAAAAAAAAAAAAESAhH/2gAMAwEAAhEDEQA/AMjKmCXA3LDn52vsnQx4ub3p10R1GjyxH2BZPG0ou1dfAChSf//Z",
+    "featured": true
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_lit-up-for-the-season-v2-v2.jpg",
@@ -771,7 +780,8 @@
     "focalLength": "70mm",
     "aperture": "f/9",
     "iso": 250,
-    "shutter": "1.0s"
+    "shutter": "1.0s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAQFA//EAB4QAAICAgIDAAAAAAAAAAAAAAECAAMEERMhMTJB/8QAFgEBAQEAAAAAAAAAAAAAAAAAAQME/8QAGREAAwEBAQAAAAAAAAAAAAAAAAECESED/9oADAMBAAIRAxEAPwCKlAGOxLaBi2kDTQ5anHZNdmK8nWpFJmy7jmFC1axShUeYRRskmlU16/YQUsb9VvEf/9k="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_headlights-in-the-city-v2-v2.jpg",
@@ -787,7 +797,8 @@
     "focalLength": "100mm",
     "aperture": "f/9",
     "iso": 1600,
-    "shutter": "1/6s"
+    "shutter": "1/6s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAAAAECBv/EAB0QAAICAgMBAAAAAAAAAAAAAAECABEDMRITIQT/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A5h0cDjRsSpiY7Bjte7Ppl7n2PIEy4WRboxN5Ppd14tqIH//Z"
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_hotel-in-green-v2-v2.jpg",
@@ -803,7 +814,8 @@
     "focalLength": "30mm",
     "aperture": "f/8",
     "iso": 500,
-    "shutter": "0.5s"
+    "shutter": "0.5s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAMBAgb/xAAcEAADAAEFAAAAAAAAAAAAAAAAARECEhMhMlH/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAv/EABURAQEAAAAAAAAAAAAAAAAAAAAR/9oADAMBAAIRAxEAPwDHwlVcAu0GPBrwlRbYF9vVlG4ApH//2Q=="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_pink-leaf-concrete-v2-v2.jpg",
@@ -819,7 +831,8 @@
     "focalLength": "24mm",
     "aperture": "f/5",
     "iso": 100,
-    "shutter": "1/25s"
+    "shutter": "1/25s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAMCBAb/xAAdEAEAAgICAwAAAAAAAAAAAAABAAIRIQMTIjFx/8QAFgEBAQEAAAAAAAAAAAAAAAAAAgAD/8QAFxEBAAMAAAAAAAAAAAAAAAAAAAIRQf/aAAwDAQACEQMRAD8A1jYDKxfePyRcXMMVbg14uoGsa1aOQsZPUIs1UCEhf//Z"
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_liquidambar-with-seedballs-v2-v2.jpg",
@@ -835,7 +848,8 @@
     "focalLength": "71mm",
     "aperture": "f/5.6",
     "iso": 100,
-    "shutter": "1/200s"
+    "shutter": "1/200s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAQGAgX/xAAgEAABAwQCAwAAAAAAAAAAAAABAAIDBBESIRNRBSJB/8QAFgEBAQEAAAAAAAAAAAAAAAAAAgED/8QAFhEBAQEAAAAAAAAAAAAAAAAAAAER/9oADAMBAAIRAxEAPwCXYLn2T8FPykAOAB+pONptkNgLp+NjeJGSYZMvsLIo1S0EzZw8Q5i/WkK7pmx8DS1gFx0hLEf/2Q=="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_leaves-and-tower-v2-v2.jpg",
@@ -851,7 +865,8 @@
     "focalLength": "58mm",
     "aperture": "f/5",
     "iso": 100,
-    "shutter": "1/160s"
+    "shutter": "1/160s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAQF/8QAIBAAAgICAgIDAAAAAAAAAAAAAQIAAwQREiETQSIxUf/EABUBAQEAAAAAAAAAAAAAAAAAAAID/8QAGBEBAQADAAAAAAAAAAAAAAAAAAECERL/2gAMAwEAAhEDEQA/ALMZ8yu3WWwKK3xP7Lb+T3N4z9jcyMrOsuAVgBo+oS+xbBxffUnM5s+Wqt9ilSy7A6iSpkvwAPo7iUB//9k="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_bromeliad-against-pastel-v2-v2.jpg",
@@ -867,7 +882,8 @@
     "focalLength": "18mm",
     "aperture": "f/5",
     "iso": 100,
-    "shutter": "1/25s"
+    "shutter": "1/25s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAUA/8QAIBAAAQMEAgMAAAAAAAAAAAAAAQACAwQREzEFEiEiQf/EABUBAQEAAAAAAAAAAAAAAAAAAAMA/8QAGREAAgMBAAAAAAAAAAAAAAAAAAECERIx/9oADAMBAAIRAxEAPwBcMvWBzgNKc7kcjnC3nSZA5s9OcWj8UqWhxyl1yCgQ8Rbq0Y+hGthZTvbMWEXKyqEw3w//2Q=="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_red-bromeliad-v2-v2.jpg",
@@ -883,7 +899,8 @@
     "focalLength": "18mm",
     "aperture": "f/5",
     "iso": 100,
-    "shutter": "1/25s"
+    "shutter": "1/25s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQAE/8QAIRAAAgIBBAIDAAAAAAAAAAAAAQIAAyEEEUFRBSIzYXH/xAAWAQEBAQAAAAAAAAAAAAAAAAAEAAP/xAAZEQADAAMAAAAAAAAAAAAAAAAAAhESITH/2gAMAwEAAhEDEQA/AEhqaxhjsR3M2quVsB/X6MP8i722A1Y7hy22CwITuRxDi0TIcRkYfIwH7KD2u+/OOpS2Ytbw/9k="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_plants-in-shadow-bw-v2-v2.jpg",
@@ -899,7 +916,8 @@
     "focalLength": "18mm",
     "aperture": "f/5",
     "iso": 100,
-    "shutter": "1/25s"
+    "shutter": "1/25s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAUCAwT/xAAeEAACAgIDAQEAAAAAAAAAAAABAgADBBEFEiFRUv/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDbh47X462XMUIksxxSyMuip83Lsi5cdRWp9/P2IeSyrWcDqegOyIDR9sulbqD8hFuNyNDqAzFDCB//2Q=="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_purple-heart-new-growth-v2-v2.jpg",
@@ -915,7 +933,8 @@
     "focalLength": "24mm",
     "aperture": "f/5",
     "iso": 100,
-    "shutter": "1/25s"
+    "shutter": "1/25s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAQFA//EACAQAAICAQQDAQAAAAAAAAAAAAECAAMRBBIhMSIjM0H/xAAVAQEBAAAAAAAAAAAAAAAAAAADAv/EABkRAAIDAQAAAAAAAAAAAAAAAAABAhESQf/aAAwDAQACEQMRAD8AmUsR9Dz1GVroFXs4khdW27zmo1JdGVuvyDgWLXQvsC2kKcgQirA43NnEIqJs/9k="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_liquidambar-against-tower-v2-v2.jpg",
@@ -931,7 +950,8 @@
     "focalLength": "35mm",
     "aperture": "f/5",
     "iso": 100,
-    "shutter": "1/100s"
+    "shutter": "1/100s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAUCAwT/xAAeEAACAgMAAwEAAAAAAAAAAAABAgAhAwQREiIxUf/EABcBAAMBAAAAAAAAAAAAAAAAAAECAwT/xAAXEQADAQAAAAAAAAAAAAAAAAAAAhEB/9oADAMBAAIRAxEAPwB0+/6t4jhaUrl7ZNzBld0IQ/ZIZAvDZP5MrM1KrINdfcOI3YhFb5+WRCMrtAbmH//Z"
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_leaves-on-mulch-v2-v2.jpg",
@@ -947,7 +967,8 @@
     "focalLength": "35mm",
     "aperture": "f/5",
     "iso": 100,
-    "shutter": "1/100s"
+    "shutter": "1/100s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAMEBf/EACEQAAICAQIHAAAAAAAAAAAAAAECABEDBCESIiMxMlFh/8QAFgEBAQEAAAAAAAAAAAAAAAAABAEC/8QAGBEAAwEBAAAAAAAAAAAAAAAAAAECESH/2gAMAwEAAhEDEQA/AFBExvYthe8sVw2InGtD7M/iKnfuY4ahUQrdXDodGN9KMeZFbqAkQmTm1JHKPH3CXDFVKfD/2Q=="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_bistro-on-the-patio-v2-v2.jpg",
@@ -963,7 +984,8 @@
     "focalLength": "18mm",
     "aperture": "f/20",
     "iso": 6400,
-    "shutter": "1/125s"
+    "shutter": "1/125s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAMEAgX/xAAfEAABBQACAwEAAAAAAAAAAAABAAIDBREiMQQSIUH/xAAWAQEBAQAAAAAAAAAAAAAAAAADAQL/xAAXEQADAQAAAAAAAAAAAAAAAAAAAREh/9oADAMBAAIRAxEAPwCQ3U7m8cCwLAt5k689hKhr5HD5mJorJfboYgwSM7FV5ofDjyASUKGOtla9pBwD8QpUajP/2Q=="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_ripples-on-the-pool-v2-v2.jpg",
@@ -979,7 +1001,8 @@
     "focalLength": "18mm",
     "aperture": "f/20",
     "iso": 640,
-    "shutter": "1/125s"
+    "shutter": "1/125s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAIEAQX/xAAfEAEAAQMEAwAAAAAAAAAAAAABAAIDEQQFIUETMWL/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A2qkXKRasBwSB3LPUV3H5gVXGl98QnNu6zyIJg7hA/9k="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_shell-and-orb-v2-v2.jpg",
@@ -995,7 +1018,8 @@
     "focalLength": "41mm",
     "aperture": "f/5",
     "iso": 100,
-    "shutter": "1/20s"
+    "shutter": "1/20s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAABQADBP/EACEQAAEEAQMFAAAAAAAAAAAAAAEAAgMEERIhUQUUMkFx/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AOenXZLX1lx1cLevBmZoORgoaS/KMCFugDhKdGtW7MzQ9oLfiBDs5ZLUgjfsBuQpK1qjojJIT5elIP/Z"
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-10-08_by-the-window-v2.jpg",
@@ -1011,7 +1035,8 @@
     "focalLength": "38mm",
     "aperture": "f/7.1",
     "iso": 100,
-    "shutter": "1/8s"
+    "shutter": "1/8s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAABgADB//EAB4QAAICAgMBAQAAAAAAAAAAAAECAAMEEQUSIQYx/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/ACrOCTE/zWfViIlTAl7G81CAOj5N68m2u1bEOivogdA5i7eHafzyUHPzeRdS6Wt27CUD/9k="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-10-08_light-through-the-door-v2.jpg",
@@ -1027,7 +1052,8 @@
     "focalLength": "97mm",
     "aperture": "f/7.1",
     "iso": 3200,
-    "shutter": "1/10s"
+    "shutter": "1/10s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAIDAQb/xAAbEAACAwEBAQAAAAAAAAAAAAAAAQIREiETIv/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/8QAFhEBAQEAAAAAAAAAAAAAAAAAABEB/9oADAMBAAIRAxEAPwDjlHllMLz0T0zdfNEUtAPCMpPiAUmv/9k="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-10-08_working-late-v2.jpg",
@@ -1043,7 +1069,8 @@
     "focalLength": "40mm",
     "aperture": "f/5",
     "iso": 5000,
-    "shutter": "1/60s"
+    "shutter": "1/60s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAQFBv/EACAQAAEFAAEFAQAAAAAAAAAAAAEAAgMEESEFEhQxQWH/xAAVAQEBAAAAAAAAAAAAAAAAAAABA//EABcRAQEBAQAAAAAAAAAAAAAAAAABETH/2gAMAwEAAhEDEQA/AMhnr9TRqhkDXl+knAAki4nFS6dZjJEVjOzd0/EUxcq0B40QI5I1CpMmpmFsjZuAEKXVMx//2Q=="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-10-12_on-the-grass-v2.jpg",
@@ -1059,7 +1086,8 @@
     "focalLength": "24mm",
     "aperture": "f/18",
     "iso": 100,
-    "shutter": "1/15s"
+    "shutter": "1/15s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAQCAwb/xAAcEAEAAwEBAAMAAAAAAAAAAAABAAIRAxIEIWH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8Az9kfsJPmWMs1fMroCmsYv3LcvAZAOny22VzCEVDX9hA//9k="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-10-12_arms-up-v2.jpg",
@@ -1075,7 +1103,8 @@
     "focalLength": "24mm",
     "aperture": "f/5.6",
     "iso": 100,
-    "shutter": "1/400s"
+    "shutter": "1/400s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAQFAQP/xAAgEAACAgIBBQEAAAAAAAAAAAABAgADBBEhBRIxMkFh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AJd2eroiImgJhawVB/k54ONbmWdqaGhvcaXCNbg5FpWv8gI7LeRCX8Hp+FbfxeHGvU8Qgf/Z"
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-10-18_king-triton-v2.jpg",
@@ -1091,7 +1120,8 @@
     "focalLength": "24mm",
     "aperture": "f/4",
     "iso": 100,
-    "shutter": "1/15s"
+    "shutter": "1/15s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQAD/8QAIBABAAEDBAMBAAAAAAAAAAAAAQACAxEEBRIhEyIxQv/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwAu1cuabschFLG/eK2FxWpgfOr9ZZhqF5jAf1u9Fdprx7fAlCAzQdSgf//Z"
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-10-18_anger-faith-envy-v2.jpg",
@@ -1107,7 +1137,8 @@
     "focalLength": "60mm",
     "aperture": "f/16",
     "iso": 100,
-    "shutter": "0.4s"
+    "shutter": "0.4s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAQFA//EAB0QAAEEAwEBAAAAAAAAAAAAAAIAAQMxBBEhBRL/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AQmnCK7S8foAT9bSnZGU+QW64swNmbSC6M8Z0TIUX7Qg//9k="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-10-18_blue-at-night-v2.jpg",
@@ -1123,7 +1154,8 @@
     "focalLength": "46mm",
     "aperture": "f/20",
     "iso": 100,
-    "shutter": "2.5s"
+    "shutter": "2.5s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAECBv/EABwQAAMAAgMBAAAAAAAAAAAAAAABAhEhAxIxQf/EABUBAQEAAAAAAAAAAAAAAAAAAAEA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AyfK5dZlYRDBvJULewJXS6JfQFS34Ap//2Q=="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-10-18_lone-car-lamplit-v2.jpg",
@@ -1139,7 +1171,8 @@
     "focalLength": "102mm",
     "aperture": "f/25",
     "iso": 800,
-    "shutter": "5.0s"
+    "shutter": "5.0s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAIBAwb/xAAZEAEBAAMBAAAAAAAAAAAAAAABAAIRITH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AyAaoyAfZhxcevauBjUSRB//Z"
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-11-04_vast-range-v2.jpg",
@@ -1155,7 +1188,8 @@
     "focalLength": "105mm",
     "aperture": "f/7.1",
     "iso": 100,
-    "shutter": "1/640s"
+    "shutter": "1/640s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAQBAgP/xAAgEAACAgIABwAAAAAAAAAAAAAAAQMRAgQSEzEyQlJx/8QAFQEBAQAAAAAAAAAAAAAAAAAAAQL/xAAXEQEBAQEAAAAAAAAAAAAAAAABAAMT/9oADAMBAAIRAxEAPwBWPdXmjePYizdXX0pyY0+1EOLC00ijVhzJh8HsgF6V9AHqxzv/2Q=="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-11-04_sun-on-the-horizon-v2.jpg",
@@ -1171,7 +1205,8 @@
     "focalLength": "68mm",
     "aperture": "f/6.3",
     "iso": 100,
-    "shutter": "1/640s"
+    "shutter": "1/640s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAQGBQf/xAAeEAACAgICAwAAAAAAAAAAAAABAgADBSEEEQYxMv/EABYBAQEBAAAAAAAAAAAAAAAAAAIAAf/EABcRAAMBAAAAAAAAAAAAAAAAAAABEVH/2gAMAwEAAhEDEQA/ANmqxT6YR2lQxG5z5cjcvyxEeoz/ACKwN9wOjULxq1I3CRreT3letQmV4UP/2Q=="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-11-04_arms-open-v2.jpg",
@@ -1187,7 +1222,8 @@
     "focalLength": "105mm",
     "aperture": "f/7.1",
     "iso": 100,
-    "shutter": "1/1600s"
+    "shutter": "1/1600s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAYBBAf/xAAgEAACAgIBBQEAAAAAAAAAAAABAgAEAxESBRMUIjFx/8QAFgEBAQEAAAAAAAAAAAAAAAAAAwAB/8QAGREAAgMBAAAAAAAAAAAAAAAAAAECERIT/9oADAMBAAIRAxEAPwCvUsoXGwYwYrtVcBUj218mdrYyqdhyJPl5uW+42/2Dzdi7Qy9QuryPBDCLLWMrfXJhNUKJzR//2Q=="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-11-04_the-witness-v2.jpg",
@@ -1203,7 +1239,8 @@
     "focalLength": "46mm",
     "aperture": "f/5",
     "iso": 100,
-    "shutter": "1/125s"
+    "shutter": "1/125s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAMEAgX/xAAeEAACAgICAwAAAAAAAAAAAAAAAQIDESEFEiIyUf/EABYBAQEBAAAAAAAAAAAAAAAAAAEAAv/EABcRAQEBAQAAAAAAAAAAAAAAAAASARH/2gAMAwEAAhEDEQA/AOfGpSHQpT8W1n4briiejXJWdnrBUeHqjDApd1EfaaAbxmdf/9k="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-11-04_friends-at-sunset-v2.jpg",
@@ -1219,7 +1256,8 @@
     "focalLength": "70mm",
     "aperture": "f/6.3",
     "iso": 100,
-    "shutter": "1/30s"
+    "shutter": "1/30s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAMGAv/EAB8QAAICAgEFAAAAAAAAAAAAAAECABEFMQMTFSFBkf/EABUBAQEAAAAAAAAAAAAAAAAAAAED/8QAFhEBAQEAAAAAAAAAAAAAAAAAABIB/9oADAMBAAIRAxEAPwBK5YLtR9mxnlX0JOPyEiomydnUnOK0re/EECl8wkt1CXWoQjDT/9k="
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-11-04_stage-at-dusk-v2.jpg",
@@ -1235,6 +1273,7 @@
     "focalLength": "60mm",
     "aperture": "f/5.6",
     "iso": 100,
-    "shutter": "1/40s"
+    "shutter": "1/40s",
+    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAFwABAQEBAAAAAAAAAAAAAAAABQABA//EAB4QAAIBAwUAAAAAAAAAAAAAAAABAgMhURITMWFx/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAID/8QAFxEBAQEBAAAAAAAAAAAAAAAAABEBEv/aAAwDAQACEQMRAD8AFj6dE+w/ceTJVWo8slrcJ6stEESrybV3YhDp/9k="
   }
 ]

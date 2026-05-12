@@ -16,14 +16,27 @@ function formatDate(iso: string) {
 }
 
 /**
- * Visible watermark component removed per design call: the user found
- * the corner mark distracting. Protection now lives at three quiet
- * layers — EXIF Copyright/Artist in every JPEG, the document-level
- * right-click / drag / Cmd+S guard in `app/photos/protect.tsx`, and
- * `draggable={false}` + `select-none` on every image wrapper.
+ * Anti-screenshot-fraud watermark: a small mark in the bottom-right
+ * corner of every rendered photo. mix-blend-difference makes it adapt
+ * to whatever's underneath, so it stays legible against pure white,
+ * pure black, and everything between. Survives screenshots; combines
+ * with the EXIF Copyright/Artist metadata baked into every JPEG and
+ * the document-level right-click / drag / Cmd+S guard for layered
+ * protection.
  */
-function Watermark(_: { size?: "sm" | "lg" }) {
-  return null;
+function Watermark({ size = "sm" }: { size?: "sm" | "lg" }) {
+  const cls =
+    size === "lg"
+      ? "bottom-4 right-4 text-[11px] tracking-[0.28em]"
+      : "bottom-2 right-2 text-[9px] tracking-[0.22em]";
+  return (
+    <span
+      aria-hidden
+      className={`pointer-events-none absolute select-none font-mono uppercase text-white/85 mix-blend-difference ${cls}`}
+    >
+      ❋ yashgoel.vercel.app
+    </span>
+  );
 }
 
 /**
