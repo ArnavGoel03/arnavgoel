@@ -226,7 +226,8 @@
     "focalLength": "18mm",
     "aperture": "f/8",
     "iso": 100,
-    "shutter": "1/40s"
+    "shutter": "1/40s",
+    "hidden": true
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_ucsd-muir-apartments-tree.jpg",
@@ -256,7 +257,8 @@
     "focalLength": "18mm",
     "aperture": "f/3.5",
     "iso": 100,
-    "shutter": "1/20s"
+    "shutter": "1/20s",
+    "hidden": true
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_ucsd-bougainvillea-apartments-dusk.jpg",
