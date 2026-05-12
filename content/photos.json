@@ -1056,23 +1056,6 @@
     "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAIDAQb/xAAbEAACAwEBAQAAAAAAAAAAAAAAAQIREiETIv/EABUBAQEAAAAAAAAAAAAAAAAAAAAB/8QAFhEBAQEAAAAAAAAAAAAAAAAAABEB/9oADAMBAAIRAxEAPwDjlHllMLz0T0zdfNEUtAPCMpPiAUmv/9k="
   },
   {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-10-08_working-late-v2.jpg",
-    "alt": "A figure bent over a desk under monitor glow in a darkened room, the only light coming from the screen.",
-    "caption": "Working late.",
-    "location": "La Jolla, San Diego",
-    "date": "2022-10-08",
-    "width": 6240,
-    "height": 4160,
-    "rawSource": "IMG_0138.JPG",
-    "camera": "Canon EOS RP",
-    "lens": "RF 24-105mm F4-7.1",
-    "focalLength": "40mm",
-    "aperture": "f/5",
-    "iso": 5000,
-    "shutter": "1/60s",
-    "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAQFBv/EACAQAAEFAAEFAQAAAAAAAAAAAAEAAgMEESEFEhQxQWH/xAAVAQEBAAAAAAAAAAAAAAAAAAABA//EABcRAQEBAQAAAAAAAAAAAAAAAAABETH/2gAMAwEAAhEDEQA/AMhnr9TRqhkDXl+knAAki4nFS6dZjJEVjOzd0/EUxcq0B40QI5I1CpMmpmFsjZuAEKXVMx//2Q=="
-  },
-  {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-10-12_on-the-grass-v2.jpg",
     "alt": "Black-and-white frame of a figure sprawled diagonally on a lawn, eucalyptus trees behind.",
     "caption": "On the grass.",
