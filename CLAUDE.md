@@ -254,16 +254,32 @@ The CR3 ↔ JPG ↔ TIF triplet is preserved by shared base name. To find a CR3 
 
 Format priority when picking a source for upload (best to worst):
 
-1. **TIF**, the user's edited Lightroom masters (~40 files at last count). These are the keepers; always prefer when present.
-2. **JPG**, full-quality camera or Lightroom exports (hundreds of frames). Use as the fallback when no TIF exists for that frame.
-3. **CR3**, Canon raw (~256 files). Archive only. Do **not** upload directly to the site; it needs Lightroom processing first.
-4. **PNG / JPEG / MOV / TIFF**, case-by-case; typically not product shots.
+1. **TIF** in `_masters/`, the Lightroom-developed keepers (40 files). Always prefer when present.
+2. **JPG** at root, full-quality camera or Lightroom exports (~373 files). Use as the fallback when no TIF exists for that frame.
+3. **CR3** in `_raws/` (183 files). Archive only. Develop in Lightroom before uploading.
+4. **PNG / JPEG / MOV**, case-by-case; typically not product shots.
 
-Pipeline: pick the highest-priority source for a frame → upload as the Blob original at full quality (no recompression, per the site's existing rule) → let sharp + Next/Image produce AVIF/WebP derivatives at responsive widths. Never bypass this and upload a CR3 or a re-saved JPG as the "original."
+If the drive is not mounted, fail loudly and tell the user. Do not silently substitute a lower-priority source from elsewhere (Photos library, Downloads).
 
-If the drive is not mounted, fail loudly and tell the user, do not silently substitute a lower-priority source from somewhere else (e.g. Photos library, Downloads).
+**Never discard the TIF or CR3 originals from the One Touch.** They are the lossless masters. Lens-cap-on / fully-black test exposures are an explicit exception (user-approved hard delete only). For real photographs, generate web exports from `/tmp/` scratch and upload those derivatives; the masters stay.
 
-**Never discard the TIF or CR3 originals from the One Touch.** They are the lossless masters and must remain on the drive indefinitely. When the website needs a JPG for upload, generate a fresh q95 sRGB JPG export from the TIF into a *scratch directory outside the drive* (e.g. `/tmp/`) and upload that derivative. The TIF + CR3 stay where they are, renamed only to descriptive names. This applies to every future shoot: ingest, edit, export-for-web, upload the export, archive the TIF + CR3 on the One Touch. Do not delete or overwrite either format from the drive under any circumstance, even to "clean up" or reclaim space.
+## /photos surface — current architecture (2026-05-13)
+
+- **Photo schema** in `lib/types.ts` carries `hero`, `featured`, `hidden`, `tier`, `rawSource` fields. Editorial keepers default tier; bulk archive imports get `tier: "archive"`.
+- **`/photos` page** renders editorial keepers (~31) in chaptered magazine layout (cover spread → anchor → diptych / side-caption / offset rhythm → ❋ closer) and archive frames in a paginated contact-sheet grid below (60 visible, "load more" button to expand).
+- **Navigation** stack: sticky `ChapterNav` chip-bar (active-on-scroll), `JumpToFrame` widget in masthead, click-to-lightbox with arrow-key prev/next + Escape, hover-preload + idle warm-up for cold-start speed.
+- **Image delivery**: Next/Image proxies all Blob + GitHub Release sources, transcodes to AVIF/WebP, caches CDN-side. Lightbox uses `/_next/image?w=2400&q=88`; tiles q=70-90; archive grid q=70; chapter cover backgrounds q=65 w=1920 (8% opacity, doesn't need fidelity).
+- **Preconnect** hints to `*.public.blob.vercel-storage.com` and `objects.githubusercontent.com` at the top of the page so first-paint isn't blocked on DNS+TLS.
+- **`content/_rejected.md`** is the human-readable record of every `hidden:true` frame plus the rationale. Update it when you flip a `hidden` flag.
+
+## Cloud storage (split-tier)
+
+Vercel Blob Hobby plan caps at ~1 GB; we crossed that mid-session. Two-tier strategy:
+
+1. **Vercel Blob** (`dslr/` for the 31 editorial keepers at q100+4:4:4; `dslr-archive/` for the ~217 archive frames at camera-JPG quality). Store: `yashgoel-products`. ~2.7 GB used.
+2. **GitHub Release `dslr-archive-v1`** (overflow: ~159 archive frames at camera-JPG quality, hosted as release assets). No practical storage cap. URLs follow `https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/<filename>`.
+
+`next.config.ts` allowlists both Blob hosts and GitHub asset hosts in `images.remotePatterns`. Once a Vercel Pro upgrade is acquired (or the GH release approach is fine permanently), this split can collapse.
 
 # Memory conventions for this project
 
