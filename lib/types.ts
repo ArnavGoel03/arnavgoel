@@ -96,6 +96,15 @@ export interface Photo {
    */
   featured?: boolean;
   /**
+   * Pointer to the raw negative (CR3) on the One Touch archive drive.
+   * Used as a record so that when an unedited camera-JPG frame earns
+   * a permanent slot, the matching raw can be re-developed properly
+   * in Lightroom and the higher-quality re-export takes its place at
+   * the same Blob path. Empty/undefined means no raw is available
+   * (e.g. the Joshua Tree session was JPG-only).
+   */
+  rawSource?: string;
+  /**
    * Optional EXIF / capture metadata. Rendered inline below the
    * caption when any field is present, so a photo can quietly tell
    * you what shot it. Empty fields are skipped — partial EXIF is
