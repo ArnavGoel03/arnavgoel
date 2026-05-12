@@ -16,27 +16,14 @@ function formatDate(iso: string) {
 }
 
 /**
- * Anti-screenshot-fraud watermark: a small mark in the bottom-right
- * corner of every rendered photo. mix-blend-difference makes it adapt
- * to whatever's underneath, so it stays legible against pure white,
- * pure black, and everything between. Survives screenshots; doesn't
- * survive "save image" (the file on Blob is unwatermarked), so this
- * is a deterrent rather than a hard lock. To make save-image-proof
- * too, watermarks need baking server-side, which is a separate pass.
+ * Visible watermark component removed per design call: the user found
+ * the corner mark distracting. Protection now lives at three quiet
+ * layers — EXIF Copyright/Artist in every JPEG, the document-level
+ * right-click / drag / Cmd+S guard in `app/photos/protect.tsx`, and
+ * `draggable={false}` + `select-none` on every image wrapper.
  */
-function Watermark({ size = "sm" }: { size?: "sm" | "lg" }) {
-  const cls =
-    size === "lg"
-      ? "bottom-4 right-4 text-[11px] tracking-[0.28em]"
-      : "bottom-2 right-2 text-[9px] tracking-[0.22em]";
-  return (
-    <span
-      aria-hidden
-      className={`pointer-events-none absolute select-none font-mono uppercase text-white/85 mix-blend-difference ${cls}`}
-    >
-      ❋ yashgoel.vercel.app
-    </span>
-  );
+function Watermark(_: { size?: "sm" | "lg" }) {
+  return null;
 }
 
 /**
