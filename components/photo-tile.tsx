@@ -40,12 +40,14 @@ function Watermark({ size = "sm" }: { size?: "sm" | "lg" }) {
 }
 
 /**
- * Standard image wrapper: watermark, right-click context-menu off,
- * native drag off. Shared between PhotoTile and PhotoHero so the
- * deterrents follow the photo at every scale.
+ * Standard image wrapper: watermark + native drag off. Shared between
+ * PhotoTile and PhotoHero so the deterrents follow the photo at every
+ * scale. (We can't add onContextMenu here because this module is a
+ * Server Component; event handlers belong in a "use client" wrapper.
+ * The CSS watermark + draggable=false + select-none cover the
+ * realistic deterrent surface anyway.)
  */
 const protectionProps = {
-  onContextMenu: (e: React.MouseEvent) => e.preventDefault(),
   draggable: false,
 } as const;
 

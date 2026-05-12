@@ -280,7 +280,6 @@ export default function HomePage() {
                     alt={pageHero.alt}
                     loading="lazy"
                     draggable={false}
-                    onContextMenu={(e) => e.preventDefault()}
                     className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.012]"
                   />
                   <span
