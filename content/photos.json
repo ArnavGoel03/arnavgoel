@@ -613,5 +613,20 @@
     "aperture": "f/6.3",
     "iso": 100,
     "shutter": "1/15s"
+  },
+  {
+    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2022-11-04_playa-blue-bmw-on-lakebed.jpg",
+    "alt": "A blue BMW sedan parked on a dry desert lakebed with mountains behind and a distant camp on the horizon.",
+    "caption": "Out at the lakebed.",
+    "location": "Joshua Tree, California",
+    "date": "2022-11-04",
+    "width": 6240,
+    "height": 4160,
+    "camera": "Canon EOS RP",
+    "lens": "RF 24-105mm F4-7.1",
+    "focalLength": "105mm",
+    "aperture": "f/7.1",
+    "iso": 100,
+    "shutter": "1/640s"
   }
 ]
