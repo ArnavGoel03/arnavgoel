@@ -643,7 +643,8 @@
     "aperture": "f/11",
     "iso": 3200,
     "shutter": "1/30s",
-    "rawSource": "C17A0822.CR3"
+    "rawSource": "C17A0822.CR3",
+    "hidden": true
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0823.JPG",
@@ -659,7 +660,8 @@
     "aperture": "f/11",
     "iso": 3200,
     "shutter": "1/30s",
-    "rawSource": "C17A0823.CR3"
+    "rawSource": "C17A0823.CR3",
+    "hidden": true
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0820.JPG",
@@ -675,7 +677,8 @@
     "aperture": "f/11",
     "iso": 3200,
     "shutter": "1/30s",
-    "rawSource": "C17A0820.CR3"
+    "rawSource": "C17A0820.CR3",
+    "hidden": true
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0821.JPG",
@@ -691,7 +694,8 @@
     "aperture": "f/11",
     "iso": 3200,
     "shutter": "1/30s",
-    "rawSource": "C17A0821.CR3"
+    "rawSource": "C17A0821.CR3",
+    "hidden": true
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0824.JPG",
@@ -707,7 +711,8 @@
     "aperture": "f/11",
     "iso": 3200,
     "shutter": "1/30s",
-    "rawSource": "C17A0824.CR3"
+    "rawSource": "C17A0824.CR3",
+    "hidden": true
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0826.JPG",
@@ -722,7 +727,8 @@
     "focalLength": "18mm",
     "aperture": "f/10",
     "iso": 3200,
-    "shutter": "1/30s"
+    "shutter": "1/30s",
+    "hidden": true
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0828.JPG",
@@ -738,7 +744,8 @@
     "aperture": "f/10",
     "iso": 3200,
     "shutter": "1/30s",
-    "rawSource": "C17A0828.CR3"
+    "rawSource": "C17A0828.CR3",
+    "hidden": true
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0830.JPG",
@@ -754,7 +761,8 @@
     "aperture": "f/10",
     "iso": 3200,
     "shutter": "1/30s",
-    "rawSource": "C17A0830.CR3"
+    "rawSource": "C17A0830.CR3",
+    "hidden": true
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0829.JPG",
@@ -770,7 +778,8 @@
     "aperture": "f/10",
     "iso": 3200,
     "shutter": "1/30s",
-    "rawSource": "C17A0829.CR3"
+    "rawSource": "C17A0829.CR3",
+    "hidden": true
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0831.JPG",
@@ -785,7 +794,8 @@
     "focalLength": "18mm",
     "aperture": "f/10",
     "iso": 3200,
-    "shutter": "1/30s"
+    "shutter": "1/30s",
+    "hidden": true
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0834.JPG",
@@ -801,7 +811,8 @@
     "aperture": "f/10",
     "iso": 3200,
     "shutter": "1/30s",
-    "rawSource": "C17A0834.CR3"
+    "rawSource": "C17A0834.CR3",
+    "hidden": true
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0833.JPG",
@@ -817,7 +828,8 @@
     "aperture": "f/10",
     "iso": 3200,
     "shutter": "1/30s",
-    "rawSource": "C17A0833.CR3"
+    "rawSource": "C17A0833.CR3",
+    "hidden": true
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0835.JPG",
@@ -833,7 +845,8 @@
     "aperture": "f/9",
     "iso": 3200,
     "shutter": "1/30s",
-    "rawSource": "C17A0835.CR3"
+    "rawSource": "C17A0835.CR3",
+    "hidden": true
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0832.JPG",
@@ -849,7 +862,8 @@
     "aperture": "f/10",
     "iso": 3200,
     "shutter": "1/30s",
-    "rawSource": "C17A0832.CR3"
+    "rawSource": "C17A0832.CR3",
+    "hidden": true
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0836.JPG",
@@ -865,7 +879,8 @@
     "aperture": "f/8",
     "iso": 3200,
     "shutter": "1/30s",
-    "rawSource": "C17A0836.CR3"
+    "rawSource": "C17A0836.CR3",
+    "hidden": true
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0838.JPG",
@@ -881,7 +896,8 @@
     "aperture": "f/8",
     "iso": 100,
     "shutter": "1/200s",
-    "rawSource": "C17A0838.CR3"
+    "rawSource": "C17A0838.CR3",
+    "hidden": true
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0837.JPG",
@@ -897,7 +913,8 @@
     "aperture": "f/8",
     "iso": 3200,
     "shutter": "1/30s",
-    "rawSource": "C17A0837.CR3"
+    "rawSource": "C17A0837.CR3",
+    "hidden": true
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr-archive/C17A0839.JPG",

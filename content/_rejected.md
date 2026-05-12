@@ -30,3 +30,28 @@ _None — no Joshua Tree frames have been deliberately rejected. All 11 keepers 
 ---
 
 **Total rejected:** 10 of 41 curated keepers (24 %). Original Lightroom pool was 40 TIFs; one additional rejection (`scallop-and-orb`) reflects in-session editing after deeper review.
+
+---
+
+## Pre-shoot indoor + Zoom cluster (auto-hidden from archive)
+
+The C17A0820–C17A0838 range was taken before the user left for the Dec 2023 San Diego outdoor shoot, in an indoor / personal setting. Includes 6 frames of a video call with an identifiable third party, plus lens-cap test shots and private interior scenes (bedroom, kitchen, office desk). All hidden permanently — these should never appear on the public surface.
+
+| Slug | What it shows |
+|---|---|
+| C17A0820, C17A0821, C17A0822 | Lens-cap on / pure black frames |
+| C17A0823, C17A0824 | Black frames (test exposures) |
+| C17A0826 | Workshop / office desk with Apple display |
+| C17A0828 | TV screen with a person on it (likely shared call) |
+| C17A0829 | Kitchen counter detail |
+| C17A0830 | Dorm-room desk (water bottle, plant, clutter) |
+| C17A0831 | Dark hallway with luggage / backpack |
+| C17A0832 | HomePod + drink (interior detail) |
+| C17A0833 | Video call — fist visible |
+| C17A0834 | Video call — person smiling |
+| C17A0835 | Video call — person |
+| C17A0836 | Video call — person with glasses |
+| C17A0837 | Video call — person reclined |
+| C17A0838 | Video call — person, different angle |
+
+**Why hidden:** privacy (third-party faces on video calls), plus none of these are editorial photographs — they're test frames and personal-life snapshots that pre-date the actual photo trip starting at C17A0840+.
