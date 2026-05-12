@@ -250,6 +250,95 @@ export default function HomePage() {
         </Container>
       )}
 
+      {/* Photographs — promoted block ahead of the section grid. The
+          /photos surface gets its own moment rather than being tucked
+          into the catalog tiles. Renders the page-hero frame as a
+          cinematic cover with a typographic right-rail. */}
+      {(() => {
+        const pageHero =
+          photos.find((p) => p.hero) ?? photos[0] ?? null;
+        if (!pageHero) return null;
+        return (
+          <Container className="border-t border-stone-200/70 py-20 dark:border-stone-900/40">
+            <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
+              {/* Cover photo */}
+              <Link
+                href="/photos"
+                className="group block lg:col-span-8"
+                aria-label="Open the photo roll"
+              >
+                <div
+                  className="relative w-full select-none overflow-hidden bg-stone-100 dark:bg-stone-900"
+                  style={{
+                    aspectRatio: `${pageHero.width} / ${pageHero.height}`,
+                    maxHeight: "75vh",
+                  }}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={pageHero.src}
+                    alt={pageHero.alt}
+                    loading="lazy"
+                    draggable={false}
+                    onContextMenu={(e) => e.preventDefault()}
+                    className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.012]"
+                  />
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute bottom-2 right-2 select-none font-mono text-[9px] uppercase tracking-[0.22em] text-white/85 mix-blend-difference"
+                  >
+                    ❋ yashgoel.com
+                  </span>
+                </div>
+                <p className="mt-4 font-serif text-lg italic text-stone-600 dark:text-stone-300">
+                  {pageHero.caption}
+                </p>
+              </Link>
+
+              {/* Right rail */}
+              <div className="flex flex-col justify-between gap-8 lg:col-span-4 lg:py-4">
+                <div>
+                  <p className="mb-1 text-xs uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400">
+                    <span className="text-rose-400">❋</span> Photographs
+                  </p>
+                  <h2 className="font-serif text-4xl leading-[1.02] text-stone-900 sm:text-5xl dark:text-stone-100">
+                    From the roll.
+                  </h2>
+                  <p className="mt-4 max-w-md font-serif text-base italic leading-snug text-stone-500 dark:text-stone-400 sm:text-lg">
+                    A slow-growing contact sheet. Shot when the camera was
+                    in the bag and the light was doing something. Two
+                    chapters, ordered like a printed photo essay.
+                  </p>
+                </div>
+
+                <div className="space-y-4 border-t border-stone-200 pt-6 dark:border-stone-800">
+                  <div className="flex items-baseline gap-6 text-[11px] uppercase tracking-[0.2em] text-stone-500 dark:text-stone-400">
+                    <span className="flex items-baseline gap-2">
+                      <span className="font-display text-2xl font-light tabular-nums text-stone-900 dark:text-stone-100">
+                        {String(photosCount).padStart(2, "0")}
+                      </span>
+                      frames
+                    </span>
+                    <span aria-hidden className="text-stone-300 dark:text-stone-700">·</span>
+                    <span>two chapters</span>
+                  </div>
+                  <Link
+                    href="/photos"
+                    className="group inline-flex items-baseline gap-2 font-serif text-xl italic text-stone-900 hover:text-rose-500 dark:text-stone-100 dark:hover:text-rose-400 sm:text-2xl"
+                  >
+                    See the roll
+                    <ArrowRight
+                      aria-hidden
+                      className="h-4 w-4 translate-y-0.5 transition-transform group-hover:translate-x-1"
+                    />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </Container>
+        );
+      })()}
+
       {/* Sections */}
       <Container className="border-t border-stone-200/70 py-20 dark:border-stone-900/40">
         <div className="mb-10">
@@ -269,8 +358,7 @@ export default function HomePage() {
             { index: 5, href: "/body-care", eyebrow: `${bodyCareCount} reviews`, title: "Body care", description: "Body washes, lotions, scrubs, trimmers, the everyday cleanse-and-moisturise from the neck down." },
             { index: 6, href: "/essentials", eyebrow: `${essentialsCount} reviews`, title: "Essentials", description: "Cornerstone daily-life devices: laptop, earbuds, wearable, charger, water filter, fan. The pieces I'd replace within a week if they broke." },
             { index: 7, href: "/miscellaneous", eyebrow: `${miscellaneousCount} reviews`, title: "Miscellaneous", description: "Random utility objects, gadgets, accessories. The smaller things that earn or fail their shelf space." },
-            { index: 8, href: "/photos", eyebrow: `${photosCount} photos`, title: "Photos", description: "DSLR shots from wherever I happened to be carrying the camera." },
-            { index: 9, href: "/now", eyebrow: "this month", title: "Now", description: "What I'm currently working on, listening to, thinking about, and consciously not doing." },
+            { index: 8, href: "/now", eyebrow: "this month", title: "Now", description: "What I'm currently working on, listening to, thinking about, and consciously not doing." },
           ].map((tile, i) => (
             <div
               key={tile.href}

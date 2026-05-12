@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/container";
-import { PhotoHero, PhotoTile } from "@/components/photo-tile";
+import { PhotoHero, PhotoSideCaption, PhotoTile } from "@/components/photo-tile";
 import { photos } from "@/lib/photos";
 import { site } from "@/lib/site";
 import type { Photo } from "@/lib/types";
@@ -12,32 +12,32 @@ export const metadata: Metadata = {
 };
 
 /**
- * Group the post-hero gallery into editorial chapters — one per shoot.
- * Each section opens with a typographic header, an oversize anchor
- * frame, then a rhythm of full-bleed / contained / pair / offset
- * tiles so a single scroll moves through several scales.
- *
- * Section key is derived from the `location` field rather than a
- * separate `section` column: "Hotel St. James, San Diego" -> san-diego.
- * If a future shoot is in a place we haven't seen, it gets bucketed
- * under "Elsewhere" until the meta map is extended.
+ * Editorial chapters with mixed-scale rhythm. Each chapter opens with
+ * a typographic header, an oversize anchor frame, and then cycles a
+ * pattern of full / fullBleed / asymmetric diptych / right / left /
+ * sideCaption slots so the eye keeps recalibrating instead of falling
+ * into a feed cadence. Chapter closes with a quiet ❋ glyph that
+ * stamps the section like a printed photo essay.
  */
 
 type Slot =
   | { kind: "full"; photos: [Photo] }
   | { kind: "fullBleed"; photos: [Photo] }
-  | { kind: "pair"; photos: [Photo, Photo] }
+  | { kind: "diptych"; photos: [Photo, Photo] }
+  | { kind: "sideCaptionLeft"; photos: [Photo] }
+  | { kind: "sideCaptionRight"; photos: [Photo] }
   | { kind: "left"; photos: [Photo] }
   | { kind: "right"; photos: [Photo] };
 
 const SECTION_RHYTHM: Slot["kind"][] = [
-  "pair",
-  "full",
+  "diptych",
+  "sideCaptionLeft",
   "right",
-  "pair",
+  "diptych",
   "fullBleed",
   "left",
-  "pair",
+  "sideCaptionRight",
+  "diptych",
   "full",
 ];
 
@@ -46,9 +46,6 @@ function buildSlots(input: Photo[]): Slot[] {
   let i = 0;
   let p = 0;
   while (i < input.length) {
-    // Featured photos always break out into their own full-bleed slot
-    // and do not advance the rhythm counter, so pairs/offsets keep their
-    // intended cadence around them.
     if (input[i].featured) {
       slots.push({ kind: "fullBleed", photos: [input[i]] });
       i += 1;
@@ -56,11 +53,9 @@ function buildSlots(input: Photo[]): Slot[] {
     }
     const kind = SECTION_RHYTHM[p % SECTION_RHYTHM.length];
     p++;
-    if (kind === "pair") {
-      // Don't pair a regular photo with a featured one, since the
-      // featured photo wants its own spread.
+    if (kind === "diptych") {
       if (i + 1 < input.length && !input[i + 1].featured) {
-        slots.push({ kind: "pair", photos: [input[i], input[i + 1]] });
+        slots.push({ kind: "diptych", photos: [input[i], input[i + 1]] });
         i += 2;
       } else {
         slots.push({ kind: "full", photos: [input[i]] });
@@ -91,10 +86,10 @@ function sectionKeyOf(photo: Photo): SectionKey {
 
 type Section = {
   key: SectionKey;
-  number: string; // "01"
+  number: string;
   place: string;
   region: string;
-  monthLabel: string; // "December 2023"
+  monthLabel: string;
   count: number;
   anchor: Photo;
   rest: Photo[];
@@ -144,7 +139,7 @@ export default function PhotosPage() {
   const rest = photos.filter((p) => p.src !== hero?.src);
   const sections = buildSections(rest);
 
-  let frame = 1; // page-wide frame counter
+  let frame = 1;
 
   return (
     <>
@@ -190,47 +185,44 @@ export default function PhotosPage() {
         </div>
       </Container>
 
-      {/* Page-level cover frame. Full-bleed on mobile, framed inside a wide
-          container on desktop so the opening shot commands attention. */}
       {hero && (
-        <div className="mt-16 mb-32 sm:mt-24 sm:mb-40">
+        <div className="mt-16 mb-32 sm:mt-24 sm:mb-44">
           <PhotoHero photo={hero} index={0} />
         </div>
       )}
 
-      {/* Editorial sections — one per shoot. */}
       {sections.map((section, sectionIdx) => {
         const slots = buildSlots(section.rest);
         const anchorIdx = frame++;
+        const isLast = sectionIdx === sections.length - 1;
         return (
           <section
             key={section.key}
-            className="border-t border-stone-200 pt-16 pb-32 sm:pt-24 sm:pb-40 dark:border-stone-800"
+            className="border-t border-stone-200 pt-20 pb-24 sm:pt-28 sm:pb-32 dark:border-stone-800"
           >
-            {/* Chapter header */}
+            {/* Chapter header — more typography-led */}
             <Container className="max-w-5xl">
-              <div className="mb-12 flex flex-wrap items-baseline justify-between gap-y-4 sm:mb-16">
-                <div className="flex items-baseline gap-6 sm:gap-8">
-                  <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-rose-400">
-                    Chapter {section.number}
-                  </span>
-                </div>
+              <div className="mb-12 flex items-baseline gap-4 sm:mb-20">
+                <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-rose-400">
+                  Chapter {section.number}
+                </span>
+                <span className="h-px flex-1 bg-stone-200 dark:bg-stone-800" />
                 <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-stone-400 tabular-nums dark:text-stone-500">
                   {String(section.count).padStart(2, "0")} frames
                 </span>
               </div>
-              <h2 className="font-serif text-6xl leading-[0.95] tracking-tight text-stone-900 sm:text-8xl dark:text-stone-100">
+              <h2 className="font-serif text-7xl italic leading-[0.95] tracking-tight text-stone-900 sm:text-[9rem] dark:text-stone-100">
                 {section.place}
-                <span className="text-rose-400">.</span>
+                <span className="not-italic text-rose-400">.</span>
               </h2>
-              <p className="mt-4 font-serif text-lg italic text-stone-500 sm:text-xl dark:text-stone-400">
-                {section.monthLabel}
+              <p className="mt-6 flex flex-wrap items-baseline gap-x-4 gap-y-1 font-serif text-lg italic text-stone-500 sm:text-xl dark:text-stone-400">
+                <span>{section.monthLabel}</span>
                 {section.region && (
                   <>
-                    <span aria-hidden className="mx-3 text-stone-300 dark:text-stone-700">
-                      ·
+                    <span aria-hidden className="text-stone-300 not-italic dark:text-stone-700">
+                      —
                     </span>
-                    <span className="not-italic font-mono text-[11px] uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500">
+                    <span className="not-italic font-mono text-[11px] uppercase tracking-[0.25em] text-stone-400 dark:text-stone-500">
                       {section.region}
                     </span>
                   </>
@@ -238,13 +230,13 @@ export default function PhotosPage() {
               </p>
             </Container>
 
-            {/* Section anchor — oversize full-bleed moment */}
-            <div className="mt-16 mb-24 sm:mt-20 sm:mb-32">
+            {/* Section anchor */}
+            <div className="mt-16 mb-24 sm:mt-24 sm:mb-36">
               <PhotoHero photo={section.anchor} index={anchorIdx - 1} />
             </div>
 
             {/* Rhythm slots */}
-            <div className="space-y-24 sm:space-y-32">
+            <div className="space-y-28 sm:space-y-40">
               {slots.map((slot, slotIdx) => {
                 if (slot.kind === "fullBleed") {
                   const idx = frame++;
@@ -262,17 +254,60 @@ export default function PhotosPage() {
                     </Container>
                   );
                 }
-                if (slot.kind === "pair") {
+                if (slot.kind === "diptych") {
                   const a = frame++;
                   const b = frame++;
+                  // Asymmetric 7/5 with vertical offset on the smaller one.
+                  // Alternate which side is the big one based on slot index
+                  // to keep the rhythm from feeling templated.
+                  const bigOnLeft = (slotIdx % 2) === 0;
                   return (
-                    <Container key={`p-${sectionIdx}-${slotIdx}`} className="max-w-6xl">
-                      <div className="grid grid-cols-1 gap-y-16 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-0">
-                        <PhotoTile photo={slot.photos[0]} index={a} />
-                        <div className="sm:mt-24">
-                          <PhotoTile photo={slot.photos[1]} index={b} />
-                        </div>
+                    <Container key={`d-${sectionIdx}-${slotIdx}`} className="max-w-6xl">
+                      <div className="grid grid-cols-1 gap-y-16 sm:grid-cols-12 sm:gap-x-8 sm:gap-y-0">
+                        {bigOnLeft ? (
+                          <>
+                            <div className="sm:col-span-7">
+                              <PhotoTile photo={slot.photos[0]} index={a} />
+                            </div>
+                            <div className="sm:col-span-5 sm:mt-32">
+                              <PhotoTile photo={slot.photos[1]} index={b} />
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div className="sm:col-span-5 sm:mt-32">
+                              <PhotoTile photo={slot.photos[0]} index={a} />
+                            </div>
+                            <div className="sm:col-span-7">
+                              <PhotoTile photo={slot.photos[1]} index={b} />
+                            </div>
+                          </>
+                        )}
                       </div>
+                    </Container>
+                  );
+                }
+                if (slot.kind === "sideCaptionLeft") {
+                  const idx = frame++;
+                  return (
+                    <Container key={`sl-${sectionIdx}-${slotIdx}`} className="max-w-6xl">
+                      <PhotoSideCaption
+                        photo={slot.photos[0]}
+                        index={idx}
+                        side="left"
+                      />
+                    </Container>
+                  );
+                }
+                if (slot.kind === "sideCaptionRight") {
+                  const idx = frame++;
+                  return (
+                    <Container key={`sr-${sectionIdx}-${slotIdx}`} className="max-w-6xl">
+                      <PhotoSideCaption
+                        photo={slot.photos[0]}
+                        index={idx}
+                        side="right"
+                      />
                     </Container>
                   );
                 }
@@ -295,6 +330,23 @@ export default function PhotosPage() {
                   </div>
                 );
               })}
+            </div>
+
+            {/* Chapter closer — quiet typographic stamp */}
+            <div
+              aria-hidden
+              className="mx-auto mt-28 flex max-w-5xl flex-col items-center gap-4 px-6 text-center sm:mt-36"
+            >
+              <span className="text-2xl text-rose-400">❋</span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.32em] text-stone-400 dark:text-stone-500">
+                End of Chapter {section.number}
+                {!isLast && (
+                  <>
+                    <span aria-hidden className="mx-3 text-stone-300 dark:text-stone-700">·</span>
+                    <span>Turn the page</span>
+                  </>
+                )}
+              </span>
             </div>
           </section>
         );

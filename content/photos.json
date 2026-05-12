@@ -448,13 +448,13 @@
     "hidden": true
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_downtown-modernist-building-night.jpg",
-    "alt": "A modernist commercial building behind a sculptural tree, lit from below at night.",
-    "caption": "Modernist facade at night.",
+    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_downtown-modernist-building-night.jpg?v=2",
+    "alt": "A wide sculptural tree silhouetted against an illuminated colonnade at night, a lone figure passing beneath.",
+    "caption": "The tree on the corner.",
     "location": "Downtown, San Diego",
     "date": "2023-12-06",
     "width": 6960,
-    "height": 4640,
+    "height": 2900,
     "camera": "Canon EOS R7",
     "lens": "RF-S 18-150mm F3.5-6.3",
     "focalLength": "40mm",
