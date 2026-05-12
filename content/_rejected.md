@@ -56,7 +56,7 @@ The C17A0820–C17A0838 range was taken before the user left for the Dec 2023 Sa
 
 **Why hidden:** privacy (third-party faces on video calls), plus none of these are editorial photographs — they're test frames and personal-life snapshots that pre-date the actual photo trip starting at C17A0840+.
 
-**Update 2026-05-13:** the five fully-black lens-cap test frames (C17A0820 through C17A0824) were physically deleted: moved on-drive to `_trash-test-frames_2026-05-13/`, removed from Blob, removed from photos.json. They had no content (identical EXIF: ISO 3200 / 1/30 / f/11 / 18mm five times = lens cap on). The remaining C17A0826-0838 stay hidden but are still in Blob + manifest for the rejection record.
+**Update 2026-05-13:** the five fully-black lens-cap test frames (C17A0820 through C17A0824) were physically deleted: permanently deleted from the drive, removed from Blob, removed from photos.json. They had no content (identical EXIF: ISO 3200 / 1/30 / f/11 / 18mm five times = lens cap on). The remaining C17A0826-0838 stay hidden but are still in Blob + manifest for the rejection record.
 
 ---
 
