@@ -630,127 +630,6 @@
     "shutter": "1/640s"
   },
   {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/C17A0985.JPG",
-    "alt": "A black metal bistro table and two chairs on a tiled patio surrounded by lush green plants.",
-    "caption": "Bistro table, courtyard.",
-    "location": "San Diego, California",
-    "date": "2023-12-07",
-    "width": 6960,
-    "height": 4640,
-    "camera": "Canon EOS R7",
-    "lens": "RF-S 18-150mm F3.5-6.3",
-    "focalLength": "18mm",
-    "aperture": "f/20",
-    "iso": 6400,
-    "shutter": "1/125s",
-    "rawSource": "C17A0985.CR3",
-    "tier": "archive",
-    "hidden": false
-  },
-  {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/C17A1013.JPG",
-    "alt": "Black and white close-up of a gingko branch resting on the rim of a pool, concentric ripples spreading across the water.",
-    "caption": "Gingko on water, black & white.",
-    "location": "San Diego, California",
-    "date": "2023-12-07",
-    "width": 6960,
-    "height": 4640,
-    "camera": "Canon EOS R7",
-    "lens": "RF-S 18-150mm F3.5-6.3",
-    "focalLength": "18mm",
-    "aperture": "f/20",
-    "iso": 640,
-    "shutter": "1/125s",
-    "rawSource": "C17A1013.CR3",
-    "tier": "archive",
-    "hidden": false
-  },
-  {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/C17A1053.JPG",
-    "alt": "An unedited frame from the 2023-12 contact sheet on the One Touch archive.",
-    "caption": "Untitled.",
-    "location": "San Diego, California",
-    "date": "2023-12-07",
-    "width": 6960,
-    "height": 4640,
-    "camera": "Canon EOS R7",
-    "lens": "RF-S 18-150mm F3.5-6.3",
-    "focalLength": "18mm",
-    "aperture": "f/22",
-    "iso": 320,
-    "shutter": "1/10s",
-    "rawSource": "C17A1053.CR3",
-    "tier": "archive"
-  },
-  {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/C17A1056.JPG",
-    "alt": "An unedited frame from the 2023-12 contact sheet on the One Touch archive.",
-    "caption": "Untitled.",
-    "location": "San Diego, California",
-    "date": "2023-12-07",
-    "width": 6960,
-    "height": 4640,
-    "tier": "archive",
-    "camera": "Canon EOS R7",
-    "lens": "RF-S 18-150mm F3.5-6.3",
-    "focalLength": "18mm",
-    "aperture": "f/22",
-    "iso": 320,
-    "shutter": "1/10s",
-    "rawSource": "C17A1056.CR3"
-  },
-  {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/C17A1081.JPG",
-    "alt": "An unedited frame from the 2023-12 contact sheet on the One Touch archive.",
-    "caption": "Untitled.",
-    "location": "San Diego, California",
-    "date": "2023-12-07",
-    "width": 6960,
-    "height": 4640,
-    "tier": "archive",
-    "camera": "Canon EOS R7",
-    "lens": "RF-S 18-150mm F3.5-6.3",
-    "focalLength": "50mm",
-    "aperture": "f/10",
-    "iso": 100,
-    "shutter": "0.4s",
-    "rawSource": "C17A1081.CR3"
-  },
-  {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/C17A1098.JPG",
-    "alt": "An unedited frame from the 2023-12 contact sheet on the One Touch archive.",
-    "caption": "Untitled.",
-    "location": "San Diego, California",
-    "date": "2023-12-07",
-    "width": 6960,
-    "height": 4640,
-    "tier": "archive",
-    "camera": "Canon EOS R7",
-    "lens": "RF-S 18-150mm F3.5-6.3",
-    "focalLength": "62mm",
-    "aperture": "f/6.3",
-    "iso": 100,
-    "shutter": "1/20s",
-    "rawSource": "C17A1098.CR3"
-  },
-  {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/C17A1099.JPG",
-    "alt": "An unedited frame from the 2023-12 contact sheet on the One Touch archive.",
-    "caption": "Untitled.",
-    "location": "San Diego, California",
-    "date": "2023-12-07",
-    "width": 6960,
-    "height": 4640,
-    "tier": "archive",
-    "camera": "Canon EOS R7",
-    "lens": "RF-S 18-150mm F3.5-6.3",
-    "focalLength": "41mm",
-    "aperture": "f/5",
-    "iso": 100,
-    "shutter": "1/20s",
-    "rawSource": "C17A1099.CR3"
-  },
-  {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/IMG_0003.JPG",
     "alt": "An unedited frame from the 2022-10 contact sheet on the One Touch archive.",
     "caption": "Untitled.",
@@ -781,23 +660,6 @@
     "aperture": "f/9",
     "iso": 100,
     "shutter": "1/160s"
-  },
-  {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/C17A1100.JPG",
-    "alt": "An unedited frame from the 2023-12 contact sheet on the One Touch archive.",
-    "caption": "Untitled.",
-    "location": "San Diego, California",
-    "date": "2023-12-07",
-    "width": 6960,
-    "height": 4640,
-    "tier": "archive",
-    "camera": "Canon EOS R7",
-    "lens": "RF-S 18-150mm F3.5-6.3",
-    "focalLength": "35mm",
-    "aperture": "f/18",
-    "iso": 100,
-    "shutter": "0.4s",
-    "rawSource": "C17A1100.CR3"
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/IMG_0026.JPG",
@@ -2800,7 +2662,7 @@
     "shutter": "1/40s"
   },
   {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_patio-grills-bw-v2.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_patio-grills-bw-v2-v2.jpg",
     "alt": "Black-and-white shot of two outdoor BBQ grills flanking a tiled center counter, slatted benches in front.",
     "caption": "Off the patio.",
     "location": "La Jolla, San Diego",
@@ -2816,7 +2678,7 @@
     "shutter": "1/10s"
   },
   {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_bromeliad-garden-v2.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_bromeliad-garden-v2-v2.jpg",
     "alt": "Lush garden bed of red bromeliad flowers, palm fronds, and asparagus ferns against pale yellow architecture.",
     "caption": "Bromeliad garden.",
     "location": "La Jolla, San Diego",
@@ -2832,7 +2694,7 @@
     "shutter": "1/10s"
   },
   {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_red-ginger-v2.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_red-ginger-v2-v2.jpg",
     "alt": "Close-up of a deep-red ginger flower spike against bold green tropical leaves.",
     "caption": "Red ginger.",
     "location": "La Jolla, San Diego",
@@ -2848,7 +2710,7 @@
     "shutter": "1/15s"
   },
   {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_eucalyptus-at-golden-hour-v2.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_eucalyptus-at-golden-hour-v2-v2.jpg",
     "alt": "A eucalyptus tree at sunset, its canopy wrapped in warm low side-light against a dusky lawn.",
     "caption": "Eucalyptus at golden hour.",
     "location": "UCSD, La Jolla",
@@ -2864,7 +2726,7 @@
     "shutter": "1/30s"
   },
   {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_red-against-columns-v2.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_red-against-columns-v2-v2.jpg",
     "alt": "Red maple foliage layered in front of a row of pale concrete columns, autumn light filtering through.",
     "caption": "Red against columns.",
     "location": "UCSD, La Jolla",
@@ -2880,7 +2742,7 @@
     "shutter": "1/60s"
   },
   {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_ucsd-ucsd-ucsd-v2.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_ucsd-ucsd-ucsd-v2-v2.jpg",
     "alt": "Bold yellow UCSD letters on a campus sign, repeated across the frame with figures walking past in soft motion blur.",
     "caption": "UCSD, UCSD, UCSD.",
     "location": "UCSD, La Jolla",
@@ -2896,7 +2758,7 @@
     "shutter": "1/160s"
   },
   {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_solo-on-the-court-v2.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_solo-on-the-court-v2-v2.jpg",
     "alt": "Empty UCSD RIMAC gymnasium with a single figure dribbling far across the polished hardwood under stadium lights.",
     "caption": "Solo on the court.",
     "location": "RIMAC, UCSD",
@@ -2912,7 +2774,7 @@
     "shutter": "1/100s"
   },
   {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_san-diego-after-dark-v2.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_san-diego-after-dark-v2-v2.jpg",
     "alt": "Downtown San Diego skyline at night, lit office towers and the silhouettes of palm trees against a deep navy sky.",
     "caption": "San Diego after dark.",
     "location": "Downtown, San Diego",
@@ -2928,7 +2790,7 @@
     "shutter": "1.0s"
   },
   {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_lit-up-for-the-season-v2.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_lit-up-for-the-season-v2-v2.jpg",
     "alt": "A grand Victorian hotel facade outlined entirely in warm Christmas lights, glowing against the night.",
     "caption": "Lit up for the season.",
     "location": "Coronado, San Diego",
@@ -2944,7 +2806,7 @@
     "shutter": "1.0s"
   },
   {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_headlights-in-the-city-v2.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_headlights-in-the-city-v2-v2.jpg",
     "alt": "Black-and-white view of a downtown street at night, headlights streaking between rows of parked cars and lit storefronts.",
     "caption": "Headlights in the city.",
     "location": "Downtown, San Diego",
@@ -2960,7 +2822,7 @@
     "shutter": "1/6s"
   },
   {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_hotel-in-green-v2.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_hotel-in-green-v2-v2.jpg",
     "alt": "Vivid green hotel signage glowing across a storefront on a dark downtown street at night.",
     "caption": "Hotel in green.",
     "location": "Downtown, San Diego",
@@ -2976,7 +2838,7 @@
     "shutter": "0.5s"
   },
   {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_pink-leaf-concrete-v2.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_pink-leaf-concrete-v2-v2.jpg",
     "alt": "A single pale-pink maple leaf lying on light concrete with a soft shadow.",
     "caption": "Pink leaf on concrete.",
     "location": "La Jolla, San Diego",
@@ -2992,7 +2854,7 @@
     "shutter": "1/25s"
   },
   {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_liquidambar-with-seedballs-v2.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_liquidambar-with-seedballs-v2-v2.jpg",
     "alt": "Hanging red liquidambar leaves with their spiky seed balls against a pale sky.",
     "caption": "Liquidambar, with seed balls.",
     "location": "La Jolla, San Diego",
@@ -3008,7 +2870,7 @@
     "shutter": "1/200s"
   },
   {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_leaves-and-tower-v2.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_leaves-and-tower-v2-v2.jpg",
     "alt": "Out-of-focus red and green liquidambar leaves with the Morgan Stanley tower tilted in the background.",
     "caption": "Leaves and the tower.",
     "location": "Downtown, San Diego",
@@ -3024,7 +2886,7 @@
     "shutter": "1/160s"
   },
   {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_bromeliad-against-pastel-v2.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_bromeliad-against-pastel-v2-v2.jpg",
     "alt": "A spike of pink bromeliad flowers in front of soft pastel apartment architecture.",
     "caption": "Bromeliad against pastel.",
     "location": "La Jolla, San Diego",
@@ -3040,7 +2902,7 @@
     "shutter": "1/25s"
   },
   {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_red-bromeliad-v2.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_red-bromeliad-v2-v2.jpg",
     "alt": "A close-up of a vivid red bromeliad with a tall pink-purple flower spike rising out of its center.",
     "caption": "Red bromeliad.",
     "location": "La Jolla, San Diego",
@@ -3056,7 +2918,7 @@
     "shutter": "1/25s"
   },
   {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_plants-in-shadow-bw-v2.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_plants-in-shadow-bw-v2-v2.jpg",
     "alt": "Black and white shot of large tropical leaves in front of a round concrete fountain, layered courtyard depth.",
     "caption": "Plants in shadow.",
     "location": "La Jolla, San Diego",
@@ -3072,7 +2934,7 @@
     "shutter": "1/25s"
   },
   {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_purple-heart-new-growth-v2.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_purple-heart-new-growth-v2-v2.jpg",
     "alt": "Close-up of variegated purple-heart leaves cradling a new pink-and-green shoot at the center.",
     "caption": "Purple-heart, new growth.",
     "location": "La Jolla, San Diego",
@@ -3088,7 +2950,7 @@
     "shutter": "1/25s"
   },
   {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_liquidambar-against-tower-v2.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_liquidambar-against-tower-v2-v2.jpg",
     "alt": "A liquidambar tree in full autumn color set against the curving glass facade of a modernist office tower.",
     "caption": "Liquidambar against the tower.",
     "location": "Downtown, San Diego",
@@ -3104,7 +2966,7 @@
     "shutter": "1/100s"
   },
   {
-    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_leaves-on-mulch-v2.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_leaves-on-mulch-v2-v2.jpg",
     "alt": "Red and pink maple leaves scattered across a bed of dark brown mulch with small dark berries.",
     "caption": "Leaves and the mulch.",
     "location": "La Jolla, San Diego",
@@ -3118,5 +2980,53 @@
     "aperture": "f/5",
     "iso": 100,
     "shutter": "1/100s"
+  },
+  {
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_bistro-on-the-patio-v2-v2.jpg",
+    "alt": "Two black wrought-iron bistro chairs and a small round table on a stone patio, surrounded by tropical foliage.",
+    "caption": "Bistro on the patio.",
+    "location": "La Jolla, San Diego",
+    "date": "2023-12-07",
+    "width": 6984,
+    "height": 4660,
+    "rawSource": "C17A0985.CR3",
+    "camera": "Canon EOS R7",
+    "lens": "RF-S 18-150mm F3.5-6.3",
+    "focalLength": "18mm",
+    "aperture": "f/20",
+    "iso": 6400,
+    "shutter": "1/125s"
+  },
+  {
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_ripples-on-the-pool-v2-v2.jpg",
+    "alt": "Black and white abstract of concentric ripples spreading across a still pool with a single seed pod drifting at the edge.",
+    "caption": "Ripples on the pool.",
+    "location": "La Jolla, San Diego",
+    "date": "2023-12-07",
+    "width": 6984,
+    "height": 4660,
+    "rawSource": "C17A1013.CR3",
+    "camera": "Canon EOS R7",
+    "lens": "RF-S 18-150mm F3.5-6.3",
+    "focalLength": "18mm",
+    "aperture": "f/20",
+    "iso": 640,
+    "shutter": "1/125s"
+  },
+  {
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_shell-and-orb-v2-v2.jpg",
+    "alt": "Black and white still life: a single seashell beside a clear glass marble on a smooth dark surface.",
+    "caption": "Shell and orb.",
+    "location": "La Jolla, San Diego",
+    "date": "2023-12-07",
+    "width": 6984,
+    "height": 4660,
+    "rawSource": "C17A1099.CR3",
+    "camera": "Canon EOS R7",
+    "lens": "RF-S 18-150mm F3.5-6.3",
+    "focalLength": "41mm",
+    "aperture": "f/5",
+    "iso": 100,
+    "shutter": "1/20s"
   }
 ]
