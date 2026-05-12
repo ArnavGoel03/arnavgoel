@@ -320,7 +320,8 @@
     "focalLength": "24mm",
     "aperture": "f/8",
     "iso": 250,
-    "shutter": "1.3s"
+    "shutter": "1.3s",
+    "featured": true
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_downtown-hotel-st-james-palms.jpg",
@@ -335,7 +336,8 @@
     "focalLength": "43mm",
     "aperture": "f/9",
     "iso": 250,
-    "shutter": "1.0s"
+    "shutter": "1.0s",
+    "featured": true
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_downtown-hotel-st-james-uplit.jpg",
