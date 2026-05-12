@@ -13,6 +13,17 @@ type LightboxPhoto = {
 };
 
 /**
+ * Build a Next/Image-optimized URL for the lightbox. The browser gets
+ * an AVIF/WebP at the requested width instead of the full camera JPG
+ * (~5-7 MB) which keeps the open-on-click feel snappy. The /_next/image
+ * proxy already lives on the same origin and is responsible for the
+ * actual transcode + caching.
+ */
+function optimized(src: string, w = 2400, q = 88): string {
+  return `/_next/image?url=${encodeURIComponent(src)}&w=${w}&q=${q}`;
+}
+
+/**
  * Click-to-open lightbox for /photos.
  *
  * - Click any element with `data-lightbox-index={N}` (where N is the
@@ -78,6 +89,26 @@ export function LightboxRoot({ photos }: { photos: LightboxPhoto[] }) {
     };
   }, [open, close, prev, next]);
 
+  // Preload adjacent photos so prev/next is instant
+  useEffect(() => {
+    if (open === null) return;
+    const adjacent = [open - 1, open + 1, open - 2, open + 2].filter(
+      (i) => i >= 0 && i < photos.length && i !== open,
+    );
+    const tags: HTMLLinkElement[] = [];
+    for (const i of adjacent) {
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.as = "image";
+      link.href = optimized(photos[i].src);
+      document.head.appendChild(link);
+      tags.push(link);
+    }
+    return () => {
+      tags.forEach((t) => t.remove());
+    };
+  }, [open, photos]);
+
   if (open === null) return null;
   const photo = photos[open];
   if (!photo) return null;
@@ -141,9 +172,12 @@ export function LightboxRoot({ photos }: { photos: LightboxPhoto[] }) {
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={photo.src}
+          key={photo.src}
+          src={optimized(photo.src, 2400, 88)}
           alt={photo.alt}
           draggable={false}
+          loading="eager"
+          decoding="async"
           className="max-h-[78vh] max-w-full select-none object-contain"
         />
         <figcaption className="mt-5 max-w-3xl px-6 text-center">
