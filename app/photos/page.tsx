@@ -3,12 +3,57 @@ import { Container } from "@/components/container";
 import { PhotoHero, PhotoTile } from "@/components/photo-tile";
 import { photos } from "@/lib/photos";
 import { site } from "@/lib/site";
+import type { Photo } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "Photos",
   description: `DSLR photography by ${site.name}.`,
   alternates: { canonical: "/photos" },
 };
+
+/**
+ * Group the gallery (everything after the hero) into magazine-style
+ * slots so the page does not read as one identical column. The pattern
+ * cycles full / pair / right-offset / pair / left-offset / pair, which
+ * gives the eye a left-right rhythm and three different scales without
+ * ever feeling random.
+ */
+type Slot =
+  | { kind: "full"; photos: [Photo] }
+  | { kind: "pair"; photos: [Photo, Photo] }
+  | { kind: "left"; photos: [Photo] }
+  | { kind: "right"; photos: [Photo] };
+
+const RHYTHM: Slot["kind"][] = [
+  "full",
+  "pair",
+  "right",
+  "pair",
+  "left",
+  "pair",
+  "full",
+];
+
+function buildSlots(input: Photo[]): Slot[] {
+  const slots: Slot[] = [];
+  let i = 0;
+  let p = 0;
+  while (i < input.length) {
+    const kind = RHYTHM[p % RHYTHM.length];
+    p++;
+    if (kind === "pair" && i + 1 < input.length) {
+      slots.push({ kind: "pair", photos: [input[i], input[i + 1]] });
+      i += 2;
+    } else if (kind === "pair") {
+      slots.push({ kind: "full", photos: [input[i]] });
+      i += 1;
+    } else {
+      slots.push({ kind, photos: [input[i]] } as Slot);
+      i += 1;
+    }
+  }
+  return slots;
+}
 
 export default function PhotosPage() {
   const earliest = photos.length
@@ -18,7 +63,13 @@ export default function PhotosPage() {
     ? new Date(Math.max(...photos.map((p) => new Date(p.date).getTime())))
     : null;
 
-  const [hero, ...rest] = photos;
+  // Hero: explicit `hero: true` wins, fallback to first (newest by date).
+  const heroIdx = photos.findIndex((p) => p.hero);
+  const hero = heroIdx >= 0 ? photos[heroIdx] : photos[0];
+  const rest = photos.filter((p) => p.src !== hero?.src);
+  const slots = buildSlots(rest);
+
+  let frame = 1; // 1-indexed counter that flows through every slot
 
   return (
     <>
@@ -62,27 +113,62 @@ export default function PhotosPage() {
       </Container>
 
       {/* Hero frame. Full-bleed on mobile, framed inside a wide container
-         on desktop so the opening shot commands attention the way a
-         magazine cover does. */}
+          on desktop so the opening shot commands attention the way a
+          magazine cover does. */}
       {hero && (
-        <div className="mt-16 mb-24 sm:mt-20 sm:mb-32">
+        <div className="mt-16 mb-32 sm:mt-24 sm:mb-40">
           <PhotoHero photo={hero} index={0} />
         </div>
       )}
 
-      {/* Remaining frames. Two-column on desktop with generous gaps so
-         each photo has room to breathe, single column on mobile. */}
-      {rest.length > 0 && (
-        <Container className="max-w-5xl pb-32">
-          {/* One column at every width — bigger frames read as
-              portfolio prints rather than thumbnails, and the
-              inline EXIF strip below each one wants the room. */}
-          <div className="grid grid-cols-1 gap-y-24 sm:gap-y-32">
-            {rest.map((p, i) => (
-              <PhotoTile key={p.src} photo={p} index={i + 1} />
-            ))}
-          </div>
-        </Container>
+      {/* Rhythm gallery: full / pair / offset slots interleave so no
+          two screens-worth read the same. */}
+      {slots.length > 0 && (
+        <div className="space-y-24 pb-32 sm:space-y-32">
+          {slots.map((slot, slotIdx) => {
+            if (slot.kind === "full") {
+              const idx = frame++;
+              return (
+                <Container key={`s-${slotIdx}`} className="max-w-5xl">
+                  <PhotoTile photo={slot.photos[0]} index={idx} />
+                </Container>
+              );
+            }
+            if (slot.kind === "pair") {
+              const a = frame++;
+              const b = frame++;
+              return (
+                <Container key={`s-${slotIdx}`} className="max-w-6xl">
+                  <div className="grid grid-cols-1 gap-y-16 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-0">
+                    <PhotoTile photo={slot.photos[0]} index={a} />
+                    <div className="sm:mt-24">
+                      <PhotoTile photo={slot.photos[1]} index={b} />
+                    </div>
+                  </div>
+                </Container>
+              );
+            }
+            if (slot.kind === "right") {
+              const idx = frame++;
+              return (
+                <div key={`s-${slotIdx}`} className="px-6">
+                  <div className="ml-auto max-w-3xl">
+                    <PhotoTile photo={slot.photos[0]} index={idx} />
+                  </div>
+                </div>
+              );
+            }
+            // left
+            const idx = frame++;
+            return (
+              <div key={`s-${slotIdx}`} className="px-6">
+                <div className="mr-auto max-w-3xl">
+                  <PhotoTile photo={slot.photos[0]} index={idx} />
+                </div>
+              </div>
+            );
+          })}
+        </div>
       )}
     </>
   );

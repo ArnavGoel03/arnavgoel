@@ -83,6 +83,12 @@ export interface Photo {
    */
   hidden?: boolean;
   /**
+   * Pin this frame as the hero (top of `/photos`). At most one entry
+   * should set this. If none do, the newest-by-date photo becomes the
+   * hero by default.
+   */
+  hero?: boolean;
+  /**
    * Optional EXIF / capture metadata. Rendered inline below the
    * caption when any field is present, so a photo can quietly tell
    * you what shot it. Empty fields are skipped — partial EXIF is
