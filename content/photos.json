@@ -31,19 +31,20 @@
     "hidden": true
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-07_yellow-leaf-on-asphalt-crack.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_yellow-leaf-on-asphalt-crack-v3.jpg",
     "alt": "A single yellow leaf resting at the edge of a long crack in dark asphalt.",
     "caption": "One leaf, one crack.",
     "location": "La Jolla, San Diego",
     "date": "2023-12-07",
-    "width": 6960,
-    "height": 4640,
+    "width": 6984,
+    "height": 4660,
     "camera": "Canon EOS R7",
     "lens": "RF-S 18-150mm F3.5-6.3",
     "focalLength": "66mm",
     "aperture": "f/6.3",
     "iso": 100,
-    "shutter": "1/25s"
+    "shutter": "1/25s",
+    "rawSource": "C17A0952.CR3"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-07_purple-heart-groundcover.jpg",
@@ -509,7 +510,7 @@
     "hero": true
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2022-11-04_playa-sunset-ridge-blur.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-11-04_playa-sunset-ridge-blur-v3.jpg",
     "alt": "Tilt-shift-style blurred sunrise / sunset over a distant ridge.",
     "caption": "Ridge, soft.",
     "location": "Joshua Tree, California",
@@ -521,7 +522,8 @@
     "focalLength": "65mm",
     "aperture": "f/6.3",
     "iso": 100,
-    "shutter": "1/640s"
+    "shutter": "1/640s",
+    "rawSource": "IMG_0308.JPG"
   },
   {
     "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2022-11-04_playa-photographer-silhouette-dusk.jpg",
@@ -585,7 +587,7 @@
     "shutter": "1/25s"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2022-11-04_playa-couple-jump-pose.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-11-04_playa-couple-jump-pose-v3.jpg",
     "alt": "Same couple, more energetic pose, jumping against the dusk sky.",
     "caption": "Sunset portrait, take two.",
     "location": "Joshua Tree, California",
@@ -597,10 +599,11 @@
     "focalLength": "73mm",
     "aperture": "f/6.3",
     "iso": 100,
-    "shutter": "1/15s"
+    "shutter": "1/15s",
+    "rawSource": "IMG_0342.JPG"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2022-11-04_playa-three-women-sunset-hug.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-11-04_playa-three-women-sunset-hug-v3.jpg",
     "alt": "Three women hugging from behind, watching the sunset over the playa.",
     "caption": "Three friends, last light.",
     "location": "Joshua Tree, California",
@@ -612,10 +615,11 @@
     "focalLength": "76mm",
     "aperture": "f/6.3",
     "iso": 100,
-    "shutter": "1/15s"
+    "shutter": "1/15s",
+    "rawSource": "IMG_0343.JPG"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2022-11-04_playa-blue-bmw-on-lakebed.jpg",
+    "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-11-04_playa-blue-bmw-on-lakebed-v3.jpg",
     "alt": "A blue BMW sedan parked on a dry desert lakebed with mountains behind and a distant camp on the horizon.",
     "caption": "Out at the lakebed.",
     "location": "Joshua Tree, California",
@@ -627,7 +631,8 @@
     "focalLength": "105mm",
     "aperture": "f/7.1",
     "iso": 100,
-    "shutter": "1/640s"
+    "shutter": "1/640s",
+    "rawSource": "IMG_0297.JPG"
   },
   {
     "src": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_patio-grills-bw-v2-v3.jpg",
