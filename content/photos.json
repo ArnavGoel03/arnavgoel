@@ -277,9 +277,9 @@
     "shutter": "1/60s"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_backlit-orange-canopy.jpg",
-    "alt": "Sun-backlit canopy of orange autumn leaves, burning at the edges.",
-    "caption": "The whole canopy on fire.",
+    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_backlit-orange-canopy.jpg?v=2",
+    "alt": "Autumn canopy lit from behind by a warm artificial light, leaves glowing where the lamp's beam hits them.",
+    "caption": "Lit from behind.",
     "location": "UCSD, San Diego",
     "date": "2023-12-06",
     "width": 6960,
