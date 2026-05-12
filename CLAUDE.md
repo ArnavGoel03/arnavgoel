@@ -237,7 +237,20 @@ When adding a new device review (e.g. an essentials category laptop, earbuds, ch
 
 # Source photo library lives on the One Touch external drive
 
-All product / DSLR source frames live at `/Volumes/One Touch/DSLR/` (Seagate One Touch, mounts when plugged in). Flat directory, ~1,060 files, ~21 GB. Filenames are camera-numbered (`C17A####`, `IMG_####`); same base name across formats means the same frame.
+All DSLR source frames live at `/Volumes/One Touch/DSLR/` (Seagate One Touch, mounts when plugged in). Filenames are camera-numbered (`C17A####`, `IMG_####`); same base name across formats means the same frame.
+
+## Drive layout (as of 2026-05-13)
+
+The DSLR folder is split by format so the Finder grid is readable, not three thumbnails per frame:
+
+- **Root**: only `.jpg` / `.JPG` files (the visible-thumbnail layer). All currently-active archive candidates live here.
+- **`_raws/`**: every `.CR3` raw file. Develop from here when re-export is needed.
+- **`_masters/`**: every Lightroom-developed `.tif` keeper. These are the lossless edited masters; pair name-for-name with a JPG in the root.
+- **`_dedup-trash_2026-05-12/`**: 287 byte-identical duplicates moved off-root.
+- **`_gingko-on-water-variants_2026-05-13/`**: 56 sub-par gingko/asphalt cluster takes (drive subfolder = banished from cloud, see memory rule).
+- Future `_*` subfolders follow the same convention: anything moved into one is downgraded out of the active candidate pool.
+
+The CR3 ↔ JPG ↔ TIF triplet is preserved by shared base name. To find a CR3 from a JPG, swap the directory: `<base>.JPG` (root) → `_raws/<base>.CR3`.
 
 Format priority when picking a source for upload (best to worst):
 
