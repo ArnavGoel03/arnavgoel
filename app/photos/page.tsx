@@ -9,6 +9,7 @@ import { JumpToFrame } from "./jump-to-frame";
 import { LightboxRoot } from "./lightbox";
 import { ChapterNav } from "./chapter-nav";
 import { ContactSheet } from "./contact-sheet";
+import { ImageProtection } from "./protect";
 
 export const metadata: Metadata = {
   title: "Photos",
@@ -260,6 +261,7 @@ export default function PhotosPage() {
         </div>
       </Container>
       <JumpToFrame max={editorialPhotos.length} />
+      <ImageProtection />
 
       <ChapterNav chapters={navChapters} />
 
