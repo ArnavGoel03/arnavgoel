@@ -161,6 +161,17 @@
     animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
+  /* /photos: every photo element carries a `view-transition-name`
+     of the form vt-<caption-slug>. When the same photo appears in both
+     the tile grid and the lightbox, the browser morphs one into the
+     other instead of cutting. iOS-Photos-style continuous animation. */
+  ::view-transition-old([class*="vt-"]),
+  ::view-transition-new([class*="vt-"]) {
+    animation-duration: 380ms;
+    animation-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+    mix-blend-mode: normal;
+  }
+
   /* Tour card mount: opacity-only fade so the JS-set inline transforms
      for placement (translate(-50%,-50%) on center, raw left/top on
      anchored cards) remain valid throughout the animation. */

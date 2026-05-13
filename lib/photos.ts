@@ -1,21 +1,15 @@
-import fs from "node:fs";
-import path from "node:path";
+import photosData from "../content/photos.json";
 import type { Photo } from "./types";
 
-const PHOTOS_FILE = path.join(process.cwd(), "content", "photos.json");
-
-function readPhotosFromDisk(): Photo[] {
-  if (!fs.existsSync(PHOTOS_FILE)) return [];
-  const raw = fs.readFileSync(PHOTOS_FILE, "utf8");
-  const data = JSON.parse(raw) as Photo[];
-  return data;
-}
+// photos.json is imported as a module so it's bundled into the build
+// output. Works on both Node and Edge runtimes — required since
+// /photos now runs on Edge for sub-50ms TTFB.
 
 /**
  * All photos in manifest order, including hidden ones. For admin use.
  */
 export function getAllPhotos(): Photo[] {
-  return readPhotosFromDisk();
+  return photosData as Photo[];
 }
 
 /**
@@ -23,7 +17,7 @@ export function getAllPhotos(): Photo[] {
  * `date`. Used by `/photos` and anywhere else on the public site.
  */
 export function getPhotos(): Photo[] {
-  return readPhotosFromDisk()
+  return (photosData as Photo[])
     .filter((p) => !p.hidden)
     .sort((a, b) => b.date.localeCompare(a.date));
 }

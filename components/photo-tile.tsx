@@ -1,20 +1,18 @@
-import fs from "node:fs";
-import path from "node:path";
-import crypto from "node:crypto";
 import { headers } from "next/headers";
 import Image from "next/image";
 import type { Photo } from "@/lib/types";
 
 /**
  * Per-session forensic identifier baked into the visible watermark. Derived
- * from the visitor's forwarded IP + the calendar day + a server-only salt.
- * The hash itself is non-reversible (6 hex chars), but if a watermarked
- * screenshot ever leaks publicly, comparing that ID against the access
- * log narrows the leak source to a small slice of traffic.
+ * from the visitor's forwarded IP + the calendar day + a server-only salt
+ * via Web Crypto (works on both Node and Edge runtimes — required since
+ * /photos now runs on Edge for ~500ms cold-start reduction).
  *
- * The salt is read from `WATERMARK_SALT` env var with a fallback so dev
- * works without configuration. In production set the env var to a long
- * random string so the hash can't be brute-forced from a known IP.
+ * Hash is one-way (6 hex chars). If a watermarked screenshot ever leaks,
+ * comparing that ID against the access log narrows the leak source.
+ *
+ * Set WATERMARK_SALT in Vercel env to a long random string in production
+ * so the hash can't be brute-forced from a known IP.
  */
 async function sessionId(): Promise<string> {
   const h = await headers();
@@ -24,17 +22,19 @@ async function sessionId(): Promise<string> {
     "0.0.0.0";
   const day = new Date().toISOString().slice(0, 10);
   const salt = process.env.WATERMARK_SALT ?? "yashgoel-photos-default-salt";
-  return crypto
-    .createHash("sha256")
-    .update(`${fwd}|${day}|${salt}`)
-    .digest("hex")
-    .slice(0, 6)
-    .toUpperCase();
+  const data = new TextEncoder().encode(`${fwd}|${day}|${salt}`);
+  const digest = await crypto.subtle.digest("SHA-256", data);
+  const hex = Array.from(new Uint8Array(digest))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+  return hex.slice(0, 6).toUpperCase();
 }
 
 function fileExists(srcOrUrl: string) {
-  if (/^https?:\/\//i.test(srcOrUrl)) return true;
-  return fs.existsSync(path.join(process.cwd(), "public", srcOrUrl));
+  // All editorial photos are remote (R2 + GH fallback). Local /public
+  // photos were retired during the R2 migration; this just keeps the
+  // call site honest if an entry has an empty src.
+  return Boolean(srcOrUrl);
 }
 
 function formatDate(iso: string) {

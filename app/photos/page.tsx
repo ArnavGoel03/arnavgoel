@@ -11,6 +11,12 @@ import { ChapterNav } from "./chapter-nav";
 import { ContactSheet } from "./contact-sheet";
 import { ImageProtection } from "./protect";
 
+// Edge runtime cuts cold-start TTFB from ~600 ms (Node) to ~30 ms.
+// Required: every dependency must be edge-compatible — photos.json is
+// imported as a module (not fs.read), Watermark uses Web Crypto instead
+// of node:crypto, no other Node APIs in the render path.
+export const runtime = "edge";
+
 export const metadata: Metadata = {
   title: "Photos",
   description: `DSLR photography by ${site.name}.`,
