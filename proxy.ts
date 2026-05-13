@@ -91,26 +91,13 @@ function isCrossOriginHotlink(referer: string | null, host: string): boolean {
 export default auth(async (req) => {
   const { pathname } = req.nextUrl;
 
-  // ---- /_next/image hot-link + scraper guard ----
-  if (pathname.startsWith("/_next/image")) {
-    const ua = req.headers.get("user-agent") ?? "";
-    if (ua && isBlockedUA(ua)) {
-      return new NextResponse("Forbidden", { status: 403 });
-    }
-    // Only enforce Referer check in production. Local dev / preview can
-    // legitimately have cross-origin Referers.
-    if (process.env.NODE_ENV === "production") {
-      const referer = req.headers.get("referer");
-      const host = req.headers.get("host") ?? "";
-      if (isCrossOriginHotlink(referer, host)) {
-        return new NextResponse("Forbidden", { status: 403 });
-      }
-    }
-    // Fall through to the image optimizer.
-    return NextResponse.next();
-  }
-
   // ---- /admin gate ----
+  // (Hot-link / scraper guard for /_next/image was moved out — Auth.js's
+  // auth() wrapper interferes with Vercel's image-optimizer protocol on
+  // that path, returning 400 even when our handler returned next(). The
+  // same protection now lives at three other layers: robots.txt for
+  // crawlers, R2 bucket CORS for browser hot-links, and the R2 guard
+  // Worker for direct-bucket bypass attempts.)
 
   // Always allow the device enrollment route through, otherwise there is
   // no way to bootstrap a fresh browser.
@@ -138,5 +125,5 @@ export default auth(async (req) => {
 });
 
 export const config = {
-  matcher: ["/admin/:path*", "/_next/image"],
+  matcher: ["/admin/:path*"],
 };
