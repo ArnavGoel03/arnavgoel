@@ -105,6 +105,14 @@ export interface Photo {
    */
   rawSource?: string;
   /**
+   * Cold-mirror URL. If the primary `src` host ever breaks (Vercel Blob
+   * egress cliff, Cloudflare R2 outage, etc.), `srcFallback` points at
+   * a copy of the same file on a secondary host. Currently every R2
+   * photo carries a GitHub Release URL here as the passive backup so
+   * we always have two independently-served copies of every photo.
+   */
+  srcFallback?: string;
+  /**
    * Editorial tier:
    *   - "editorial" (default): part of the curated chapter layout
    *     (hero / anchor / featured / diptych / side caption rhythm).

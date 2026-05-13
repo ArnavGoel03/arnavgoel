@@ -670,6 +670,7 @@ const photoEntrySchema = z.object({
   hero: z.boolean().optional(),
   featured: z.boolean().optional(),
   rawSource: z.string().optional(),
+  srcFallback: z.string().optional(),
   tier: z.enum(["editorial", "archive"]).optional(),
   camera: z.string().optional(),
   lens: z.string().optional(),
