@@ -67,9 +67,9 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "*.public.blob.vercel-storage.com",
       },
-      // GitHub Release assets, used as overflow archive storage when the
-      // Vercel Blob Hobby quota fills up. URLs look like
-      // https://github.com/<owner>/<repo>/releases/download/<tag>/<file>.
+      // GitHub Release assets — legacy fallback. The active editorial
+      // photos have migrated off this path because GH's signed-URL
+      // redirect chain confuses Next/Image's content-type checks.
       {
         protocol: "https",
         hostname: "github.com",
@@ -77,6 +77,17 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "objects.githubusercontent.com",
+      },
+      // Cloudflare R2 public bucket. Replaces GH Releases as the editorial
+      // photo host: stable URLs, content-type=image/jpeg, no signed-URL
+      // expiry chain, no egress cliff.
+      {
+        protocol: "https",
+        hostname: "*.r2.dev",
+      },
+      {
+        protocol: "https",
+        hostname: "*.r2.cloudflarestorage.com",
       },
     ],
   },
