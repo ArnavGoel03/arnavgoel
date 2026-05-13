@@ -15,6 +15,13 @@ export const metadata: Metadata = {
   title: "Photos",
   description: `DSLR photography by ${site.name}.`,
   alternates: { canonical: "/photos" },
+  // Signals to compliant AI crawlers (OpenAI, Anthropic, Google AI, Meta AI)
+  // that these images are not licensed for training-corpus use. Combines
+  // with the robots.txt user-agent blocks at app/robots.ts.
+  other: {
+    "robots": "index, follow, noai, noimageai",
+    "X-Robots-Tag": "noai, noimageai",
+  },
 };
 
 /**

@@ -1,7 +1,36 @@
 import fs from "node:fs";
 import path from "node:path";
+import crypto from "node:crypto";
+import { headers } from "next/headers";
 import Image from "next/image";
 import type { Photo } from "@/lib/types";
+
+/**
+ * Per-session forensic identifier baked into the visible watermark. Derived
+ * from the visitor's forwarded IP + the calendar day + a server-only salt.
+ * The hash itself is non-reversible (6 hex chars), but if a watermarked
+ * screenshot ever leaks publicly, comparing that ID against the access
+ * log narrows the leak source to a small slice of traffic.
+ *
+ * The salt is read from `WATERMARK_SALT` env var with a fallback so dev
+ * works without configuration. In production set the env var to a long
+ * random string so the hash can't be brute-forced from a known IP.
+ */
+async function sessionId(): Promise<string> {
+  const h = await headers();
+  const fwd =
+    h.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    h.get("x-real-ip") ||
+    "0.0.0.0";
+  const day = new Date().toISOString().slice(0, 10);
+  const salt = process.env.WATERMARK_SALT ?? "yashgoel-photos-default-salt";
+  return crypto
+    .createHash("sha256")
+    .update(`${fwd}|${day}|${salt}`)
+    .digest("hex")
+    .slice(0, 6)
+    .toUpperCase();
+}
 
 function fileExists(srcOrUrl: string) {
   if (/^https?:\/\//i.test(srcOrUrl)) return true;
@@ -23,8 +52,13 @@ function formatDate(iso: string) {
  * with the EXIF Copyright/Artist metadata baked into every JPEG and
  * the document-level right-click / drag / Cmd+S guard for layered
  * protection.
+ *
+ * The trailing 6-char hex is the per-session ID — if a leaked screenshot
+ * surfaces somewhere, that ID + date narrows down which visitor session
+ * originated the leak. Hash is one-way; nothing identifying is rendered.
  */
-function Watermark({ size = "sm" }: { size?: "sm" | "lg" }) {
+async function Watermark({ size = "sm" }: { size?: "sm" | "lg" }) {
+  const id = await sessionId();
   const cls =
     size === "lg"
       ? "bottom-4 right-4 text-[11px] tracking-[0.28em]"
@@ -34,7 +68,7 @@ function Watermark({ size = "sm" }: { size?: "sm" | "lg" }) {
       aria-hidden
       className={`pointer-events-none absolute select-none font-mono uppercase text-white/85 mix-blend-difference ${cls}`}
     >
-      ❋ yashgoel.vercel.app
+      ❋ yashgoel.vercel.app · {id}
     </span>
   );
 }
