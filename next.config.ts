@@ -62,6 +62,11 @@ const nextConfig: NextConfig = {
     // Listing every quality we use across PhotoTile / PhotoHero /
     // PhotoSideCaption / Lightbox / chapter-cover backgrounds.
     qualities: [60, 65, 70, 75, 80, 85, 88, 90, 92, 95],
+    // Lightbox requests w=2400 explicitly for retina previews. Default
+    // deviceSizes tops out at 3840 but doesn't include 2400; Next 16
+    // is strict about widths and rejects unknown ones with 400. Adding
+    // 2400 to deviceSizes makes the lightbox URL valid.
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 2400, 3840],
     remotePatterns: [
       {
         protocol: "https",
