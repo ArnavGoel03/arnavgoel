@@ -85,6 +85,22 @@ const protectionProps = {
   draggable: false,
 } as const;
 
+// 1×1 transparent SVG used when a photo has no per-image LQIP yet.
+// Next/Image needs *some* blurDataURL when placeholder="blur".
+const PLACEHOLDER_SVG =
+  "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxyZWN0IHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiNlN2U1ZTQiLz48L3N2Zz4=";
+
+// CSS class for the view-transition smooth-morph animation between
+// tile and lightbox. Computed from caption so the same photo carries
+// the same transition name across views.
+function viewTransitionName(photo: Photo): string {
+  const slug = (photo.caption || "photo")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return `vt-${slug || "photo"}`;
+}
+
 export function PhotoTile({ photo, index }: { photo: Photo; index: number }) {
   const exists = fileExists(photo.src);
   const aspect = `${photo.width} / ${photo.height}`;
@@ -115,9 +131,12 @@ export function PhotoTile({ photo, index }: { photo: Photo; index: number }) {
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
               quality={90}
               placeholder="blur"
-              blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxyZWN0IHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiNlN2U1ZTQiLz48L3N2Zz4="
+              blurDataURL={photo.blurDataURL ?? PLACEHOLDER_SVG}
+              fetchPriority={index < 4 ? "high" : undefined}
+              loading={index < 4 ? "eager" : undefined}
               className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.015]"
               draggable={false}
+              style={{ viewTransitionName: viewTransitionName(photo) }}
             />
             <Watermark size="sm" />
           </>
@@ -211,9 +230,10 @@ export function PhotoSideCaption({
                   sizes="(max-width: 640px) 100vw, 66vw"
                   quality={90}
                   placeholder="blur"
-                  blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxyZWN0IHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiNlN2U1ZTQiLz48L3N2Zz4="
+                  blurDataURL={photo.blurDataURL ?? PLACEHOLDER_SVG}
                   className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.015]"
                   draggable={false}
+                  style={{ viewTransitionName: viewTransitionName(photo) }}
                 />
                 <Watermark size="sm" />
               </>
@@ -268,6 +288,20 @@ export function PhotoHero({ photo, index }: { photo: Photo; index: number }) {
       >
         {exists ? (
           <>
+            {/* Paint-instant inline AVIF: ~20 KB base64-embedded into the
+                HTML, so the hero renders the moment the document streams,
+                before any image network request fires. The full-resolution
+                Next/Image transcode then loads silently on top and the
+                browser swaps when ready. */}
+            {photo.inlineAvif && (
+              <img
+                src={photo.inlineAvif}
+                alt=""
+                aria-hidden
+                draggable={false}
+                className="pointer-events-none absolute inset-0 h-full w-full select-none object-cover"
+              />
+            )}
             <Image
               src={photo.src}
               alt={photo.alt}
@@ -275,10 +309,12 @@ export function PhotoHero({ photo, index }: { photo: Photo; index: number }) {
               sizes="100vw"
               quality={92}
               priority
+              fetchPriority="high"
               placeholder="blur"
-              blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxyZWN0IHdpZHRoPSI4IiBoZWlnaHQ9IjgiIGZpbGw9IiNlN2U1ZTQiLz48L3N2Zz4="
-              className="object-cover"
+              blurDataURL={photo.blurDataURL ?? PLACEHOLDER_SVG}
+              className="relative object-cover"
               draggable={false}
+              style={{ viewTransitionName: viewTransitionName(photo) }}
             />
             <Watermark size="lg" />
           </>

@@ -206,7 +206,7 @@ export default function PhotosPage() {
           the DNS + TLS handshake on the request path. */}
       <link
         rel="preconnect"
-        href="https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com"
+        href="https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev"
         crossOrigin=""
       />
       <link
@@ -214,6 +214,21 @@ export default function PhotosPage() {
         href="https://objects.githubusercontent.com"
         crossOrigin=""
       />
+
+      {/* Hero preload — fires the browser fetch for the hero's optimized
+          AVIF/WebP before the parser even reaches the <Image>. Combined
+          with the inline AVIF (which paints from the HTML itself with
+          zero network), the hero is visible faster than physically
+          possible by any other means. */}
+      {hero?.src && (
+        <link
+          rel="preload"
+          as="image"
+          href={`/_next/image?url=${encodeURIComponent(hero.src)}&w=1920&q=92`}
+          fetchPriority="high"
+          type="image/avif"
+        />
+      )}
 
       {/* Masthead — quiet eyebrow, dramatic title, italic subtitle,
           one hairline rule, a single tight stat line. Press "/" to
