@@ -17,7 +17,7 @@
     "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_liquidambar-leaves-day-v3.jpg"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-07_liquidambar-leaves-red-fill.jpg",
+    "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2023-12-07_liquidambar-leaves-red-fill-v3.jpg",
     "alt": "Frame-filling cluster of deep-red liquidambar leaves.",
     "caption": "Liquidambar, filling the frame.",
     "location": "La Jolla, San Diego",
@@ -30,7 +30,9 @@
     "aperture": "f/6.3",
     "iso": 100,
     "shutter": "1/50s",
-    "hidden": true
+    "hidden": true,
+    "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_liquidambar-leaves-red-fill-v3.jpg",
+    "rawSource": "2023-12-07_liquidambar-leaves-red-fill.tif"
   },
   {
     "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2023-12-07_yellow-leaf-on-asphalt-crack-v3.jpg",
@@ -120,7 +122,7 @@
     "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_gingko-branch-on-pool-wide-v3.jpg"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-07_purple-heart-flowers.jpg",
+    "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2023-12-07_purple-heart-flowers-v3.jpg",
     "alt": "Purple-heart plants with small pink-violet flowers, weathered wood at the edge.",
     "caption": "Purple heart, flowers and wood.",
     "location": "La Jolla, San Diego",
@@ -132,7 +134,9 @@
     "focalLength": "47mm",
     "aperture": "f/20",
     "iso": 320,
-    "shutter": "1/10s"
+    "shutter": "1/10s",
+    "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_purple-heart-flowers-v3.jpg",
+    "rawSource": "2023-12-07_purple-heart-flowers.tif"
   },
   {
     "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2023-12-07_bird-of-paradise-stucco-wall-v3.jpg",
@@ -169,7 +173,7 @@
     "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_flutist-sculpture-italianate-building-v3.jpg"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-07_still-life-conch-shells.jpg",
+    "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2023-12-07_still-life-conch-shells-v3.jpg",
     "alt": "Still life of three large conch and scallop shells in dark wooden bowls under side light.",
     "caption": "Shells in bowls.",
     "location": "San Diego",
@@ -181,10 +185,12 @@
     "focalLength": "28mm",
     "aperture": "f/10",
     "iso": 100,
-    "shutter": "0.4s"
+    "shutter": "0.4s",
+    "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_still-life-conch-shells-v3.jpg",
+    "rawSource": "2023-12-07_still-life-conch-shells.tif"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-07_still-life-scallop-and-orb.jpg",
+    "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2023-12-07_still-life-scallop-and-orb-v3.jpg",
     "alt": "Still life of a single scallop shell next to a textured blue glass orb under hard side light.",
     "caption": "Scallop and glass orb.",
     "location": "San Diego",
@@ -197,7 +203,9 @@
     "aperture": "f/5",
     "iso": 100,
     "shutter": "1/20s",
-    "hidden": true
+    "hidden": true,
+    "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-07_still-life-scallop-and-orb-v3.jpg",
+    "rawSource": "2023-12-07_still-life-scallop-and-orb.tif"
   },
   {
     "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2023-12-06_ucsd-autumn-leaves-dusk-v3.jpg",
@@ -253,7 +261,7 @@
     "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_ucsd-eucalyptus-canopy-twilight-v3.jpg"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_ucsd-muir-apartments-tree.jpg",
+    "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2023-12-06_ucsd-muir-apartments-tree-v3.jpg",
     "alt": "Muir College Apartments at dusk, vine-draped tree in foreground.",
     "caption": "Muir College, blue hour.",
     "location": "Muir College, UCSD",
@@ -265,10 +273,12 @@
     "focalLength": "18mm",
     "aperture": "f/3.5",
     "iso": 100,
-    "shutter": "1/40s"
+    "shutter": "1/40s",
+    "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_ucsd-muir-apartments-tree-v3.jpg",
+    "rawSource": "2023-12-06_ucsd-muir-apartments-tree.tif"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_ucsd-purple-leaf-canopy.jpg",
+    "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2023-12-06_ucsd-purple-leaf-canopy-v3.jpg",
     "alt": "Dense canopy of red and purple autumn leaves against a pale dusk sky.",
     "caption": "Color in the canopy.",
     "location": "UCSD, San Diego",
@@ -281,10 +291,12 @@
     "aperture": "f/3.5",
     "iso": 100,
     "shutter": "1/20s",
-    "hidden": true
+    "hidden": true,
+    "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_ucsd-purple-leaf-canopy-v3.jpg",
+    "rawSource": "2023-12-06_ucsd-purple-leaf-canopy.tif"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_ucsd-bougainvillea-apartments-dusk.jpg",
+    "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2023-12-06_ucsd-bougainvillea-apartments-dusk-v3.jpg",
     "alt": "Bougainvillea-style red blooms in front of campus apartments at dusk.",
     "caption": "Bougainvillea before sundown.",
     "location": "Muir College, UCSD",
@@ -296,10 +308,12 @@
     "focalLength": "18mm",
     "aperture": "f/3.5",
     "iso": 640,
-    "shutter": "1/60s"
+    "shutter": "1/60s",
+    "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_ucsd-bougainvillea-apartments-dusk-v3.jpg",
+    "rawSource": "2023-12-06_ucsd-bougainvillea-apartments-dusk.tif"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_backlit-orange-canopy.jpg?v=2",
+    "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2023-12-06_backlit-orange-canopy-v3.jpg",
     "alt": "Autumn canopy lit from behind by a warm artificial light, leaves glowing where the lamp's beam hits them.",
     "caption": "Lit from behind.",
     "location": "UCSD, San Diego",
@@ -312,10 +326,12 @@
     "aperture": "f/3.5",
     "iso": 5000,
     "shutter": "1/60s",
-    "featured": true
+    "featured": true,
+    "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_backlit-orange-canopy-v3.jpg",
+    "rawSource": "2023-12-06_backlit-orange-canopy.tif"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_streetlight-leaf-night.jpg",
+    "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2023-12-06_streetlight-leaf-night-v3.jpg",
     "alt": "A single backlit leaf held up to a streetlight against a night sky.",
     "caption": "One leaf, one lamp.",
     "location": "Gaslamp Quarter, San Diego",
@@ -327,10 +343,12 @@
     "focalLength": "35mm",
     "aperture": "f/5",
     "iso": 2500,
-    "shutter": "1/60s"
+    "shutter": "1/60s",
+    "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_streetlight-leaf-night-v3.jpg",
+    "rawSource": "2023-12-06_streetlight-leaf-night.tif"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_downtown-grocery-outlet-night.jpg",
+    "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2023-12-06_downtown-grocery-outlet-night-v3.jpg",
     "alt": "Empty downtown intersection at night, a residential tower beside a lit storefront.",
     "caption": "Downtown, late.",
     "location": "Gaslamp Quarter, San Diego",
@@ -343,10 +361,12 @@
     "aperture": "f/8",
     "iso": 250,
     "shutter": "1.3s",
-    "featured": true
+    "featured": true,
+    "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_downtown-grocery-outlet-night-v3.jpg",
+    "rawSource": "2023-12-06_downtown-grocery-outlet-night.tif"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_downtown-hotel-st-james-palms.jpg",
+    "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2023-12-06_downtown-hotel-st-james-palms-v3.jpg",
     "alt": "Palm trees framing a neon Hotel St. James sign at night.",
     "caption": "Hotel St. James through the palms.",
     "location": "Hotel St. James, San Diego",
@@ -359,10 +379,12 @@
     "aperture": "f/9",
     "iso": 250,
     "shutter": "1.0s",
-    "featured": true
+    "featured": true,
+    "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_downtown-hotel-st-james-palms-v3.jpg",
+    "rawSource": "2023-12-06_downtown-hotel-st-james-palms.tif"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_downtown-hotel-st-james-uplit.jpg",
+    "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2023-12-06_downtown-hotel-st-james-uplit-v3.jpg",
     "alt": "Closer view of the Hotel St. James sign with uplit palm trees and a traffic light.",
     "caption": "Hotel St. James, uplit.",
     "location": "Hotel St. James, San Diego",
@@ -374,7 +396,9 @@
     "focalLength": "79mm",
     "aperture": "f/9",
     "iso": 250,
-    "shutter": "1.0s"
+    "shutter": "1.0s",
+    "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_downtown-hotel-st-james-uplit-v3.jpg",
+    "rawSource": "2023-12-06_downtown-hotel-st-james-uplit.tif"
   },
   {
     "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2023-12-06_downtown-facade-red-green-lights-v3.jpg",
@@ -394,7 +418,7 @@
     "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_downtown-facade-red-green-lights-v3.jpg"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_downtown-flags-night.jpg",
+    "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2023-12-06_downtown-flags-night-v3.jpg",
     "alt": "An American flag and a California state flag flying on a building at night.",
     "caption": "Two flags after dark.",
     "location": "Gaslamp Quarter, San Diego",
@@ -406,7 +430,9 @@
     "focalLength": "50mm",
     "aperture": "f/9",
     "iso": 1600,
-    "shutter": "1/6s"
+    "shutter": "1/6s",
+    "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_downtown-flags-night-v3.jpg",
+    "rawSource": "2023-12-06_downtown-flags-night.tif"
   },
   {
     "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2023-12-06_downtown-horton-fountain-a-v3.jpg",
@@ -444,7 +470,7 @@
     "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_downtown-horton-fountain-b-v3.jpg"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_downtown-horton-fountain-detail.jpg",
+    "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2023-12-06_downtown-horton-fountain-detail-v3.jpg",
     "alt": "Tight detail on the red-lit dome of the Broadway Fountain at Horton Plaza.",
     "caption": "The dome, up close.",
     "location": "Broadway Fountain, San Diego",
@@ -457,10 +483,12 @@
     "aperture": "f/8",
     "iso": 500,
     "shutter": "0.4s",
-    "hidden": true
+    "hidden": true,
+    "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_downtown-horton-fountain-detail-v3.jpg",
+    "rawSource": "2023-12-06_downtown-horton-fountain-detail.tif"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_downtown-att-corner-night.jpg",
+    "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2023-12-06_downtown-att-corner-night-v3.jpg",
     "alt": "An empty downtown corner at night with an AT&T store front-lit beneath a residential tower.",
     "caption": "An AT&T at midnight.",
     "location": "Gaslamp Quarter, San Diego",
@@ -473,25 +501,29 @@
     "aperture": "f/8",
     "iso": 1000,
     "shutter": "1/6s",
-    "hidden": true
+    "hidden": true,
+    "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_downtown-att-corner-night-v3.jpg",
+    "rawSource": "2023-12-06_downtown-att-corner-night.tif"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2023-12-06_downtown-modernist-building-night.jpg?v=2",
+    "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2023-12-06_downtown-modernist-building-night-v3.jpg",
     "alt": "A wide sculptural tree silhouetted against an illuminated colonnade at night, a lone figure passing beneath.",
     "caption": "The tree on the corner.",
     "location": "Downtown, San Diego",
     "date": "2023-12-06",
     "width": 6960,
-    "height": 2900,
+    "height": 4640,
     "camera": "Canon EOS R7",
     "lens": "RF-S 18-150mm F3.5-6.3",
     "focalLength": "40mm",
     "aperture": "f/8",
     "iso": 125,
-    "shutter": "1.6s"
+    "shutter": "1.6s",
+    "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2023-12-06_downtown-modernist-building-night-v3.jpg",
+    "rawSource": "2023-12-06_downtown-modernist-building-night.tif"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2022-11-04_playa-sunset-walkers-silhouettes.jpg",
+    "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2022-11-04_playa-sunset-walkers-silhouettes-v3.jpg",
     "alt": "Sunset over a desert playa with distant silhouettes of walkers and low ground fog.",
     "caption": "Playa, the walk back.",
     "location": "Joshua Tree, California",
@@ -503,10 +535,12 @@
     "focalLength": "105mm",
     "aperture": "f/7.1",
     "iso": 100,
-    "shutter": "1/1600s"
+    "shutter": "1/1600s",
+    "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-11-04_playa-sunset-walkers-silhouettes-v3.jpg",
+    "rawSource": "2022-11-04_playa-sunset-walkers-silhouettes.tif"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2022-11-04_playa-sound-stage-golden-hour.jpg",
+    "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2022-11-04_playa-sound-stage-golden-hour-v3.jpg",
     "alt": "A sound stage with PA towers and tents on the open desert at golden hour.",
     "caption": "Stage in the dust.",
     "location": "Joshua Tree, California",
@@ -518,10 +552,12 @@
     "focalLength": "102mm",
     "aperture": "f/7.1",
     "iso": 100,
-    "shutter": "1/320s"
+    "shutter": "1/320s",
+    "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-11-04_playa-sound-stage-golden-hour-v3.jpg",
+    "rawSource": "2022-11-04_playa-sound-stage-golden-hour.tif"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2022-11-04_playa-sunset-lone-silhouette.jpg",
+    "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2022-11-04_playa-sunset-lone-silhouette-v3.jpg",
     "alt": "A single silhouetted figure on the playa at sunset with arm raised.",
     "caption": "Alone on the playa.",
     "location": "Joshua Tree, California",
@@ -533,7 +569,10 @@
     "focalLength": "105mm",
     "aperture": "f/7.1",
     "iso": 100,
-    "shutter": "1/400s"
+    "shutter": "1/400s",
+    "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-11-04_playa-sunset-lone-silhouette-v3.jpg",
+    "rawSource": "2022-11-04_playa-sunset-lone-silhouette.tif",
+    "hero": true
   },
   {
     "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2022-11-04_playa-sunset-ridge-blur-v3.jpg",
@@ -553,7 +592,7 @@
     "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-11-04_playa-sunset-ridge-blur-v3.jpg"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2022-11-04_playa-photographer-silhouette-dusk.jpg",
+    "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2022-11-04_playa-photographer-silhouette-dusk-v3.jpg",
     "alt": "Brandon raising his DSLR to his face, silhouetted against a pastel dusk sky.",
     "caption": "Brandon, mid-shot.",
     "location": "Joshua Tree, California",
@@ -565,10 +604,12 @@
     "focalLength": "46mm",
     "aperture": "f/5",
     "iso": 100,
-    "shutter": "1/200s"
+    "shutter": "1/200s",
+    "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-11-04_playa-photographer-silhouette-dusk-v3.jpg",
+    "rawSource": "2022-11-04_playa-photographer-silhouette-dusk.tif"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2022-11-04_playa-sound-stage-pink-sunset.jpg",
+    "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2022-11-04_playa-sound-stage-pink-sunset-v3.jpg",
     "alt": "Sound stage with parked cars on the dunes under a pink-orange sunset.",
     "caption": "Stage, pink sky.",
     "location": "Joshua Tree, California",
@@ -580,10 +621,12 @@
     "focalLength": "63mm",
     "aperture": "f/6.3",
     "iso": 100,
-    "shutter": "1/30s"
+    "shutter": "1/30s",
+    "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-11-04_playa-sound-stage-pink-sunset-v3.jpg",
+    "rawSource": "2022-11-04_playa-sound-stage-pink-sunset.tif"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2022-11-04_playa-sound-stage-mountains-dusk.jpg",
+    "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2022-11-04_playa-sound-stage-mountains-dusk-v3.jpg",
     "alt": "Camp and sound stage clustered against distant mountains at deep sunset.",
     "caption": "Camp against the range.",
     "location": "Joshua Tree, California",
@@ -596,10 +639,12 @@
     "aperture": "f/7.1",
     "iso": 100,
     "shutter": "1/80s",
-    "featured": true
+    "featured": true,
+    "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-11-04_playa-sound-stage-mountains-dusk-v3.jpg",
+    "rawSource": "2022-11-04_playa-sound-stage-mountains-dusk.tif"
   },
   {
-    "src": "https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com/dslr/2022-11-04_playa-couple-sunset-pose.jpg",
+    "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2022-11-04_playa-couple-sunset-pose-v3.jpg",
     "alt": "A couple posing at sunset, one holding a camera, one with arms wide.",
     "caption": "Sunset portrait.",
     "location": "Joshua Tree, California",
@@ -611,7 +656,9 @@
     "focalLength": "73mm",
     "aperture": "f/6.3",
     "iso": 100,
-    "shutter": "1/25s"
+    "shutter": "1/25s",
+    "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-11-04_playa-couple-sunset-pose-v3.jpg",
+    "rawSource": "2022-11-04_playa-couple-sunset-pose.tif"
   },
   {
     "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2022-11-04_playa-couple-jump-pose-v3.jpg",
@@ -1275,8 +1322,7 @@
     "iso": 100,
     "shutter": "1/1600s",
     "blurDataURL": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABgDASIAAhEBAxEB/8QAGAAAAgMAAAAAAAAAAAAAAAAAAAYBBAf/xAAgEAACAgIBBQEAAAAAAAAAAAABAgAEAxESBRMUIjFx/8QAFgEBAQEAAAAAAAAAAAAAAAAAAwAB/8QAGREAAgMBAAAAAAAAAAAAAAAAAAECERIT/9oADAMBAAIRAxEAPwCvUsoXGwYwYrtVcBUj218mdrYyqdhyJPl5uW+42/2Dzdi7Qy9QuryPBDCLLWMrfXJhNUKJzR//2Q==",
-    "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-11-04_arms-open-v3.jpg",
-    "hero": true
+    "srcFallback": "https://github.com/ArnavGoel03/yashgoel/releases/download/dslr-archive-v1/2022-11-04_arms-open-v3.jpg"
   },
   {
     "src": "https://pub-81726e3b98da43bb906dabff81db14a2.r2.dev/dslr/2022-11-04_the-witness-v3.jpg",
