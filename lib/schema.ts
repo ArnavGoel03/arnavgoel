@@ -87,6 +87,13 @@ export const reviewFrontmatter = z.object({
     )
     .default([]),
   photo: z.string().optional(),
+  // Cold-mirror URL for the primary photo. When `photo` is a local
+  // /products/... path served from /public/, this points at a copy on
+  // R2 under the same key. The detail-page gallery falls back to this
+  // automatically if the local image ever 404s (deploy drift, CDN
+  // issue, etc.). Auto-populated by the mirror script when the local
+  // photo is uploaded to R2.
+  photoFallback: z.string().optional(),
   // Additional product shots (alt angles, packaging, in-use). Listing
   // cards cycle through these on hover; the detail-page gallery shows
   // them as slides. Distinct from `photoTimeline` (dated progress).

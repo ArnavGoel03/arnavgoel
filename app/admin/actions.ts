@@ -129,6 +129,7 @@ const reviewSchema = z.object({
       );
     }),
   photo: z.string().trim().optional(),
+  photoFallback: z.string().trim().optional(),
   boughtFromUrl: z
     .string()
     .trim()

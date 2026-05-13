@@ -27,7 +27,7 @@ import type { Review } from "@/lib/types";
  * video tiles in the strip render a play badge instead of <img>.
  */
 
-type Slide = { kind: "image" | "video"; src: string };
+type Slide = { kind: "image" | "video"; src: string; fallback?: string };
 type VideoEmbed =
   | { type: "file"; src: string }
   | { type: "youtube"; src: string; id: string }
@@ -70,6 +70,16 @@ export function ProductPhotoGallery({ review }: { review: Review }) {
               alt={alt}
               fetchPriority={active === 0 ? "high" : "auto"}
               decoding="async"
+              onError={(e) => {
+                // Auto-fall back to the R2 mirror if the local /public/
+                // path 404s (deploy drift / CDN issue / file removed).
+                // Guard against infinite loop with a data attribute.
+                const img = e.currentTarget;
+                if (current.fallback && !img.dataset.fallback) {
+                  img.dataset.fallback = "1";
+                  img.src = current.fallback;
+                }
+              }}
               className="block max-h-[70vh] w-auto max-w-full object-contain mix-blend-multiply animate-[fade-in_220ms_ease-out]"
             />
           ) : (
@@ -129,6 +139,13 @@ export function ProductPhotoGallery({ review }: { review: Review }) {
                     alt=""
                     loading="lazy"
                     decoding="async"
+                    onError={(e) => {
+                      const img = e.currentTarget;
+                      if (slide.fallback && !img.dataset.fallback) {
+                        img.dataset.fallback = "1";
+                        img.src = slide.fallback;
+                      }
+                    }}
                     className="h-full w-full object-contain mix-blend-multiply"
                   />
                 ) : (
@@ -218,7 +235,11 @@ function collectSlides(review: Review): Slide[] {
   const out: Slide[] = [];
   if (review.photo) {
     seen.add(review.photo);
-    out.push({ kind: "image", src: review.photo });
+    out.push({
+      kind: "image",
+      src: review.photo,
+      fallback: review.photoFallback,
+    });
   }
   for (const src of review.photos ?? []) {
     if (!src || seen.has(src)) continue;
