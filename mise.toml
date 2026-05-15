@@ -1,0 +1,7 @@
+[tools]
+node = "26"
+pnpm = "latest"
+
+[env]
+# Auto-loaded when you `cd` into this project (requires `mise activate` in shell).
+NEXT_TELEMETRY_DISABLED = "1"

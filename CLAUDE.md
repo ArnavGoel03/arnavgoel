@@ -223,8 +223,16 @@ There's a yellow warning banner on the page. The URL is private (excluded from s
 # Build / deploy notes
 
 - Push to `main` triggers a Vercel rebuild (~30-60s).
-- Local dev: `npm run dev`. The dashboard's GitHub commit flow needs `vercel env pull` to get `GITHUB_TOKEN` etc. into the local environment.
+- Local dev: `just dev` (Turbopack). The dashboard's GitHub commit flow needs `vercel env pull` (`just build-preview` does this in one shot) to get `GITHUB_TOKEN` etc. into the local environment.
 - Don't write build/deploy meta on user-visible surfaces (the user explicitly removed all "Built quietly, shipped slowly"-style language). Internal commit messages can mention build/CI freely.
+
+# Local toolchain (2026-05-16)
+
+This project is canonically pnpm-based — `pnpm-lock.yaml` is the source of truth. If you ever see a `package-lock.json` appear, delete it; it's a local accident from a stray `npm install`.
+
+- `justfile` at repo root holds the canonical dev recipes. Prefer `just dev`, `just build`, `just deploy`, etc. over typing the raw commands. `just` (no args) lists recipes.
+- `mise.toml` pins Node 26 + pnpm latest. Run `mise install` once after cloning.
+- `.envrc` auto-loads `.env.local` / `.env.development` via direnv. Run `direnv allow` once after editing it.
 
 # Hardware the user actually owns (for review accuracy)
 
