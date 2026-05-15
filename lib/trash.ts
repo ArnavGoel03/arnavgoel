@@ -125,6 +125,12 @@ export type TrashEntry = {
 };
 
 export async function listTrashed(): Promise<TrashEntry[]> {
+  // Mark this read as request-time so Next 16 cacheComponents doesn't
+  // try to prerender pages that call us — @vercel/blob's `list()`
+  // internally calls Date.now(), which trips the prerender guard.
+  const { connection } = await import("next/server");
+  await connection();
+
   const out: TrashEntry[] = [];
   let cursor: string | undefined = undefined;
   do {
