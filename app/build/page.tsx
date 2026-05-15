@@ -1,11 +1,23 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import { Container } from "@/components/container";
-import { StackBuilder } from "@/components/stack-builder";
-import { RoutineBuilder } from "@/components/routine-builder";
-import { RoutineSimulator } from "@/components/routine-simulator";
 import { getReviews } from "@/lib/content";
+
+// Lazy-load each builder. /build serves three tools via ?tool= and
+// only one renders per request, so dynamic() lets a visitor download
+// just their chosen tool's chunk on first paint and lazy-fetch the
+// others on tab switch.
+const RoutineBuilder = dynamic(
+  () => import("@/components/routine-builder").then((m) => m.RoutineBuilder),
+);
+const StackBuilder = dynamic(
+  () => import("@/components/stack-builder").then((m) => m.StackBuilder),
+);
+const RoutineSimulator = dynamic(
+  () => import("@/components/routine-simulator").then((m) => m.RoutineSimulator),
+);
 
 const VALID_TOOLS = ["routine", "stack", "simulator"] as const;
 type Tool = (typeof VALID_TOOLS)[number];
