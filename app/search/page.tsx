@@ -9,12 +9,14 @@ export const metadata: Metadata = {
   alternates: { canonical: "/search" },
 };
 
+const TODAY = new Date().toLocaleDateString("en-US", {
+  month: "long",
+  year: "numeric",
+});
+
 export default function SearchPage() {
   const items = buildSearchIndex();
-  const today = new Date().toLocaleDateString("en-US", {
-    month: "long",
-    year: "numeric",
-  });
+  const today = TODAY;
 
   return (
     <Container className="max-w-3xl py-12 sm:py-16">

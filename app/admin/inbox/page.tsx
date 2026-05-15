@@ -12,7 +12,6 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export const dynamic = "force-dynamic";
 
 const INBOX_PATH = "content/_inbox.json";
 

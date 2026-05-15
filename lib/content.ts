@@ -57,10 +57,15 @@ const VERDICT_SCORE: Record<string, number> = {
   bad: -40,
 };
 
+// Snapshot at module load so prerender doesn't trip Next 16's
+// cacheComponents "current time" guard. Sort order is stable within a
+// deploy, which is the intended granularity for the recency boost.
+const BUILD_NOW_MS = Date.now();
+
 function recencyBoost(datePublished: string): number {
   const t = Date.parse(datePublished);
   if (Number.isNaN(t)) return 0;
-  const days = (Date.now() - t) / 86_400_000;
+  const days = (BUILD_NOW_MS - t) / 86_400_000;
   if (days <= 0) return 15;
   if (days >= 365) return 0;
   return 15 * (1 - days / 365);

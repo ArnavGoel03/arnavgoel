@@ -10,7 +10,6 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export const dynamic = "force-dynamic";
 
 export default async function TrashPage() {
   let entries: Awaited<ReturnType<typeof listTrashed>> = [];

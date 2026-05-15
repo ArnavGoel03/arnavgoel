@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { getPhotos } from "@/lib/photos";
 
-export const runtime = "nodejs";
+
 export const alt = "Photos by Yash Goel";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";

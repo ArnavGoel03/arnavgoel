@@ -22,8 +22,7 @@ import { commitRepoFile, readRepoFile } from "@/lib/github";
  *     deploys, which is fine for the volume this site sees).
  */
 
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
+
 
 const INBOX_PATH = "content/_inbox.json";
 

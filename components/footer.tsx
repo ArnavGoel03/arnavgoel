@@ -5,6 +5,11 @@ import { FooterSearchLink } from "./footer-search-link";
 import { SubscribeForm } from "./subscribe-form";
 import { site } from "@/lib/site";
 
+// Module-level constant so prerenders don't trip the cacheComponents
+// "current time" guard. Updates once per deploy, which is fine for a
+// copyright notice.
+const COPYRIGHT_YEAR = new Date().getFullYear();
+
 export function Footer() {
   return (
     <footer className="mt-24 border-t border-stone-200/70 py-14 text-sm text-stone-500 dark:border-stone-900/40 dark:text-stone-400">
@@ -79,7 +84,7 @@ export function Footer() {
             this site is paid placement.
           </p>
           <p className="text-[10px] uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500">
-            © {new Date().getFullYear()} {site.name}
+            © {COPYRIGHT_YEAR} {site.name}
           </p>
         </div>
       </Container>

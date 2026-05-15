@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { RoseMark } from "@/lib/og-rose";
 
-export const runtime = "nodejs";
+
 export const size = { width: 192, height: 192 };
 export const contentType = "image/png";
 

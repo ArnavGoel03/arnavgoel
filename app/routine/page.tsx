@@ -15,12 +15,14 @@ export const metadata: Metadata = {
   alternates: { canonical: "/routine" },
 };
 
+const TODAY = new Date().toLocaleDateString("en-US", {
+  month: "long",
+  year: "numeric",
+});
+
 export default function RoutineIndexPage() {
   const routines = getRoutinesList();
-  const today = new Date().toLocaleDateString("en-US", {
-    month: "long",
-    year: "numeric",
-  });
+  const today = TODAY;
 
   return (
     <Container className="max-w-4xl py-12 sm:py-16">

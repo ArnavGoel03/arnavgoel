@@ -10,12 +10,14 @@ export const metadata: Metadata = {
   alternates: { canonical: "/retired" },
 };
 
+const TODAY = new Date().toLocaleDateString("en-US", {
+  month: "long",
+  year: "numeric",
+});
+
 export default function RetiredPage() {
   const items = getRetiredReviews();
-  const today = new Date().toLocaleDateString("en-US", {
-    month: "long",
-    year: "numeric",
-  });
+  const today = TODAY;
 
   return (
     <Container className="max-w-3xl py-12 sm:py-16">

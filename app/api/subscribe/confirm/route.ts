@@ -14,8 +14,7 @@ type Subscriber = {
   createdAt: string;
 };
 
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
+
 
 /**
  * GET /api/subscribe/confirm?token=...   confirms an opt-in

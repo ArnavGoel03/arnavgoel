@@ -20,8 +20,7 @@ import { commitRepoFile } from "@/lib/github";
  *   - 8 short-term top tracks (the "this month" list)
  */
 
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
+
 
 type SpotifyTrack = {
   name: string;

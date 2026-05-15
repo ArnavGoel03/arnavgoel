@@ -13,7 +13,7 @@ import { DEVICE_COOKIE, mintDeviceCookieValue, verifySetupToken } from "@/lib/de
  * Returns a 404 if the token is wrong or missing, so this endpoint is
  * indistinguishable from a non-existent route in the wild.
  */
-export const runtime = "nodejs";
+
 
 const ONE_YEAR_SECONDS = 60 * 60 * 24 * 365;
 

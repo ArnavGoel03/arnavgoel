@@ -141,8 +141,16 @@ export default function RootLayout({
       <body className="flex min-h-screen flex-col bg-background font-sans text-stone-900 dark:text-stone-100">
         <WebsiteJsonLd />
         <CompareProvider>
-          <Header />
-          <RouteWarmer />
+          {/* Header + RouteWarmer + main use client hooks like
+              usePathname / useSearchParams; under Next 16
+              cacheComponents these must be inside a Suspense
+              boundary so the static shell can prerender. */}
+          <Suspense fallback={null}>
+            <Header />
+          </Suspense>
+          <Suspense fallback={null}>
+            <RouteWarmer />
+          </Suspense>
           <main className="flex-1">{children}</main>
           <Footer />
           <CommandPaletteMount />

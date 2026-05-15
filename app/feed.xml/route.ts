@@ -1,7 +1,6 @@
+import { cacheLife, cacheTag } from "next/cache";
 import { getAllReviews, getPrimers } from "@/lib/content";
 import { site } from "@/lib/site";
-
-export const dynamic = "force-static";
 
 type FeedItem = {
   title: string;
@@ -56,7 +55,11 @@ function render(items: FeedItem[]): string {
 </rss>`;
 }
 
-export async function GET() {
+async function buildFeed(): Promise<string> {
+  "use cache";
+  cacheLife("max");
+  cacheTag("reviews", "primers", "feed");
+
   const items: FeedItem[] = [];
 
   for (const r of getAllReviews()) {
@@ -81,8 +84,12 @@ export async function GET() {
   }
 
   items.sort((a, b) => b.pubDate.localeCompare(a.pubDate));
+  return render(items);
+}
 
-  return new Response(render(items), {
+export async function GET() {
+  const body = await buildFeed();
+  return new Response(body, {
     headers: {
       "Content-Type": "application/rss+xml; charset=utf-8",
       "Cache-Control": "public, max-age=3600, s-maxage=3600",

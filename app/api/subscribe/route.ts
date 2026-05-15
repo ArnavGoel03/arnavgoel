@@ -18,8 +18,7 @@ import { commitRepoFile, readRepoFile } from "@/lib/github";
  *   - existing-email idempotent (returns ok without re-committing).
  */
 
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
+
 
 const SUBSCRIBERS_PATH = "content/_subscribers.json";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

@@ -1,4 +1,9 @@
 import type { NextConfig } from "next";
+import bundleAnalyzer from "@next/bundle-analyzer";
+
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
 
 /**
  * Baseline CSP for the public site. Trades off strictness vs.
@@ -42,12 +47,11 @@ const cspValue = Object.entries(CSP_DIRECTIVES)
   .join("; ");
 
 const nextConfig: NextConfig = {
-  // Note: `cacheComponents: true` would enable Next 16 PPR for instant tab
-  // shells, but it conflicts with 22 existing per-route segment configs
-  // (`export const runtime = "nodejs"` on OG image routes, `force-dynamic`
-  // on subscribe/admin API routes). Worth migrating to `'use cache'`
-  // directives later — for now, keep loading.tsx + hover-prefetch +
-  // viewTransition for ~70% of the speed gain at zero risk.
+  // Next 16 PPR via Cache Components. Pages are dynamic by default;
+  // anything wrapped with `'use cache'` (see lib/content.ts, lib/photos.ts,
+  // and per-route page wrappers) becomes a prerendered cache hit, with
+  // tag-based invalidation through `cacheTag` + `updateTag`.
+  cacheComponents: true,
   experimental: {
     viewTransition: true,
   },
@@ -125,4 +129,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withBundleAnalyzer(nextConfig);

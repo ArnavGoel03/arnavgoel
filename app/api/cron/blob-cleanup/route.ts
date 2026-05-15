@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { purgeExpiredTrash } from "@/lib/trash";
 
-export const runtime = "nodejs";
+
 
 /**
  * Daily cron endpoint that physically deletes any soft-deleted Blob

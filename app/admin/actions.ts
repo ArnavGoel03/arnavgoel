@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { put } from "@vercel/blob";
+import { updateTag } from "next/cache";
 import { auth } from "@/auth";
 import { commitRepoFile, readRepoFile } from "@/lib/github";
 import { retailerForUrl } from "@/lib/retailers";
@@ -413,12 +414,17 @@ export async function createReview(
     return { ok: false, error: (err as Error).message };
   }
 
+  updateTag(`review-${d.kind}-${slug}`);
+  updateTag(`reviews-${d.kind}`);
+  updateTag("reviews");
+  updateTag("feed");
+
   return {
     ok: true,
     slug,
     kind: d.kind,
     path: repoPath,
-    message: `Committed ${repoPath}. Live in ~30-60s once Vercel redeploys.`,
+    message: `Committed ${repoPath}. New review live on the next deploy (Vercel rebuilds on push).`,
   };
 }
 
@@ -453,12 +459,17 @@ export async function updateReview(
     return { ok: false, error: (err as Error).message };
   }
 
+  updateTag(`review-${d.kind}-${slug}`);
+  updateTag(`reviews-${d.kind}`);
+  updateTag("reviews");
+  updateTag("feed");
+
   return {
     ok: true,
     slug,
     kind: d.kind,
     path: repoPath,
-    message: `Updated ${repoPath}. Live in ~30-60s once Vercel redeploys.`,
+    message: `Updated ${repoPath}. Edit live on the next deploy (Vercel rebuilds on push).`,
   };
 }
 
@@ -652,10 +663,12 @@ export async function createPhoto(
     };
   }
 
+  updateTag("photos");
+
   return {
     ok: true,
     path: repoPath,
-    message: `Uploaded and committed. Live in ~30-60s once Vercel redeploys.`,
+    message: `Uploaded and committed. Live on the next deploy.`,
   };
 }
 
@@ -718,8 +731,9 @@ export async function updatePhotosManifest(
   } catch (err) {
     return { ok: false, error: (err as Error).message };
   }
+  updateTag("photos");
   return {
     ok: true,
-    message: `Saved. Live in ~30-60s once Vercel redeploys.`,
+    message: `Saved. Live on the next deploy.`,
   };
 }

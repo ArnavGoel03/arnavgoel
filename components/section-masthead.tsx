@@ -22,11 +22,14 @@ function computeStats(reviews: ReviewSummary[]) {
   };
 }
 
+// Evaluated at module load (build/deploy time) — keeps Next 16
+// cacheComponents prerender happy and updates each deploy.
+const ISSUE_DATE = new Date().toLocaleDateString("en-US", {
+  month: "long",
+  year: "numeric",
+});
 function issueDate(): string {
-  return new Date().toLocaleDateString("en-US", {
-    month: "long",
-    year: "numeric",
-  });
+  return ISSUE_DATE;
 }
 
 // ────────────────────────────────────────────────────────────────────────────
