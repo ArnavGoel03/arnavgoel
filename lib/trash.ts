@@ -64,9 +64,29 @@ function parseTrashKey(
  * Move an asset from its current key to a timestamped trash key.
  * Returns the new (trash) URL the admin can save for later restore.
  */
+// Vercel Blob URLs are publicly readable for the lifetime of the
+// asset. Soft-delete moves a blob to a `__trash/<iso>__...` key for
+// 30 days before the daily cron physically deletes it; during that
+// window the bytes are still served at the trash URL. To avoid trivial
+// URL guessing (the timestamp prefix narrows the search space to ~60k
+// requests/hour-of-deletion), we set `addRandomSuffix: true` so each
+// trash key gets cryptographic entropy in the pathname.
+function assertBlobUrl(url: string): void {
+  let parsed: URL;
+  try {
+    parsed = new URL(url);
+  } catch {
+    throw new Error(`Refusing to fetch malformed URL: ${url}`);
+  }
+  if (!parsed.hostname.endsWith(".public.blob.vercel-storage.com")) {
+    throw new Error(`Refusing to fetch non-Blob URL: ${parsed.hostname}`);
+  }
+}
+
 export async function softDeleteBlob(
   publicUrl: string,
 ): Promise<{ trashUrl: string; trashKey: string }> {
+  assertBlobUrl(publicUrl);
   const info = await head(publicUrl);
   const originalPathname = info.pathname;
   const trashKey = trashKeyFor(originalPathname);
@@ -79,7 +99,9 @@ export async function softDeleteBlob(
   const buf = Buffer.from(await res.arrayBuffer());
   const moved = await put(trashKey, buf, {
     access: "public",
-    addRandomSuffix: false,
+    // Add an unguessable suffix so external attackers can't enumerate
+    // trash URLs by brute-forcing the deletion timestamp.
+    addRandomSuffix: true,
     contentType: info.contentType ?? undefined,
   });
 
@@ -96,6 +118,7 @@ export async function softDeleteBlob(
 export async function restoreBlob(
   trashUrl: string,
 ): Promise<{ publicUrl: string }> {
+  assertBlobUrl(trashUrl);
   const info = await head(trashUrl);
   const parsed = parseTrashKey(info.pathname);
   if (!parsed) {

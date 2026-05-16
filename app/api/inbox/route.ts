@@ -87,8 +87,10 @@ export async function POST(req: Request): Promise<NextResponse> {
     return NextResponse.json({ error: "Bad JSON." }, { status: 400 });
   }
 
-  // Honeypot: any non-empty value is a bot.
-  if (typeof body.companion === "string" && body.companion.length > 0) {
+  // Honeypot: any value at all on this field is a bot. Previous check
+  // only fired on non-empty strings, so JSON clients sending booleans,
+  // numbers, or arrays trivially bypassed it.
+  if (body.companion != null && body.companion !== "") {
     return NextResponse.json({ ok: true });
   }
 
@@ -111,9 +113,14 @@ export async function POST(req: Request): Promise<NextResponse> {
 
   const name = asString(body.name, 120) ?? undefined;
 
+  // Vercel guarantees the real client IP is in `x-real-ip`, or as the
+  // RIGHTMOST entry in `x-forwarded-for` (Vercel appends it). Reading
+  // the leftmost entry trusts the caller and lets a bot rotate fake
+  // IPs to bypass rate-limiting.
+  const xff = req.headers.get("x-forwarded-for");
   const ip =
-    req.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
     req.headers.get("x-real-ip") ||
+    xff?.split(",").at(-1)?.trim() ||
     "0.0.0.0";
   if (rateLimited(ip)) {
     return NextResponse.json(
@@ -152,8 +159,9 @@ export async function POST(req: Request): Promise<NextResponse> {
       message: `inbox: note on ${kind}/${slug}`,
     });
   } catch (err) {
+    console.error("inbox commit failed:", err);
     return NextResponse.json(
-      { error: `Could not save: ${(err as Error).message}` },
+      { error: "Could not save. Try again later." },
       { status: 500 },
     );
   }

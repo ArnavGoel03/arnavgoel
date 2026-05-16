@@ -21,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${site.url}/routine`, lastModified: now, priority: 0.8 },
     { url: `${site.url}/retired`, lastModified: now, priority: 0.5 },
     { url: `${site.url}/search`, lastModified: now, priority: 0.5 },
-    { url: `${site.url}/compare`, lastModified: now, priority: 0.4 },
+    // /compare is disallowed in robots.ts — don't surface it here.
     { url: `${site.url}/links`, lastModified: now, priority: 0.7 },
     { url: `${site.url}/subscribe`, lastModified: now, priority: 0.6 },
     { url: `${site.url}/library`, lastModified: now, priority: 0.7 },

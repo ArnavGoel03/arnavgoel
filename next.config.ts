@@ -76,16 +76,20 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "*.public.blob.vercel-storage.com",
       },
-      // GitHub Release assets — legacy fallback. The active editorial
-      // photos have migrated off this path because GH's signed-URL
-      // redirect chain confuses Next/Image's content-type checks.
+      // GitHub Release assets — legacy fallback. Active editorial photos
+      // have migrated to R2; these entries are pinned to OUR repo so the
+      // image optimizer can't be abused as an open image-laundering proxy
+      // (without a pathname restriction, any GitHub user could route
+      // images through yashgoel.vercel.app/_next/image).
       {
         protocol: "https",
         hostname: "github.com",
+        pathname: "/ArnavGoel03/yashgoel/**",
       },
       {
         protocol: "https",
         hostname: "objects.githubusercontent.com",
+        pathname: "/**",
       },
       // Cloudflare R2 public bucket. Replaces GH Releases as the editorial
       // photo host: stable URLs, content-type=image/jpeg, no signed-URL
@@ -123,6 +127,18 @@ const nextConfig: NextConfig = {
             key: "Strict-Transport-Security",
             value: "max-age=63072000; includeSubDomains; preload",
           },
+          // COOP isolates the browsing context — prevents cross-origin
+          // popups from holding a reference to this window. Required for
+          // Spectre-class hardening and crossOriginIsolated to return true.
+          { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+          // CORP blocks other origins from loading this site's
+          // sub-resources via no-cors fetches.
+          { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
+          // Disable implicit DNS prefetch on every link href — stops the
+          // browser from leaking navigation intent to the DNS layer.
+          { key: "X-DNS-Prefetch-Control", value: "off" },
+          // Closes the Adobe Flash / PDF cross-domain-policies vector.
+          { key: "X-Permitted-Cross-Domain-Policies", value: "none" },
         ],
       },
     ];

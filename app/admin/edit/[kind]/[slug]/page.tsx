@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { auth } from "@/auth";
 import { Container } from "@/components/container";
 import { PageHeading } from "@/components/page-heading";
 import { ProductForm } from "../../../product-form";
@@ -18,7 +19,23 @@ const VALID_KINDS: Kind[] = ["skincare", "supplements", "oral-care", "hair-care"
 
 type Props = { params: Promise<{ kind: string; slug: string }> };
 
+// Defense-in-depth session check (see /admin/trash for rationale).
+async function requireAdminEmail(): Promise<void> {
+  const session = await auth();
+  const email = session?.user?.email?.toLowerCase() ?? null;
+  if (!email) redirect("/admin/login");
+  const allowed = (process.env.ALLOWED_ADMIN_EMAIL ?? "")
+    .toLowerCase()
+    .split(",")
+    .map((e) => e.trim())
+    .filter(Boolean);
+  if (allowed.length === 0 || !allowed.includes(email)) {
+    redirect("/admin/login");
+  }
+}
+
 export default async function EditReviewPage({ params }: Props) {
+  await requireAdminEmail();
   const { kind, slug } = await params;
   if (!VALID_KINDS.includes(kind as Kind)) notFound();
   const review = getReview(kind as Kind, slug);

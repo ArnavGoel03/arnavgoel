@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
+import { auth } from "@/auth";
 import { Container } from "@/components/container";
 import { listTrashed, TRASH_GRACE_DAYS } from "@/lib/trash";
 import { TrashTable } from "./trash-table";
@@ -10,8 +12,26 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
+// Defense-in-depth: the middleware device-cookie gate is layer 1, but
+// admin read surfaces should also check the OAuth session in case the
+// middleware ever regresses or a CVE bypasses it (see Next 16.2.4
+// segment-prefetch CVEs). Mirrors /admin/inbox and /admin/subscribers.
+async function requireAdminEmail(): Promise<void> {
+  const session = await auth();
+  const email = session?.user?.email?.toLowerCase() ?? null;
+  if (!email) redirect("/admin/login");
+  const allowed = (process.env.ALLOWED_ADMIN_EMAIL ?? "")
+    .toLowerCase()
+    .split(",")
+    .map((e) => e.trim())
+    .filter(Boolean);
+  if (allowed.length === 0 || !allowed.includes(email)) {
+    redirect("/admin/login");
+  }
+}
 
 export default async function TrashPage() {
+  await requireAdminEmail();
   let entries: Awaited<ReturnType<typeof listTrashed>> = [];
   let loadError: string | null = null;
   try {

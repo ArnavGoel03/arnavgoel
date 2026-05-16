@@ -21,11 +21,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }),
   ],
 
-  // Secret is required by Auth.js v5. Fall back to an obviously-fake
-  // string so the module can load in environments where AUTH_SECRET
-  // hasn't been configured yet. The sign-in flow still rejects
-  // everything without real credentials.
-  secret: process.env.AUTH_SECRET ?? "build-time-placeholder-do-not-use",
+  // Secret is required by Auth.js v5. Do NOT provide a fallback string —
+  // a hardcoded fallback lets anyone who reads the source forge valid
+  // session JWTs in any environment where AUTH_SECRET is missing.
+  // Auth.js will throw at first request if the env var is unset, which
+  // is the correct failure mode.
+  secret: process.env.AUTH_SECRET,
 
   trustHost: true,
 

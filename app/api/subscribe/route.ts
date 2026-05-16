@@ -1,5 +1,26 @@
 import { NextResponse } from "next/server";
+import { createHash } from "node:crypto";
 import { commitRepoFile, readRepoFile } from "@/lib/github";
+
+// Reuse for commit-message email pseudonymization.
+function emailFingerprint(email: string): string {
+  return createHash("sha256").update(email).digest("hex").slice(0, 12);
+}
+
+// Vercel guarantees the real client IP is in `x-real-ip`, or as the
+// RIGHTMOST entry in `x-forwarded-for` (Vercel appends it). Reading the
+// leftmost entry trusts the caller and lets a bot rotate fake IPs to
+// bypass rate-limiting.
+function clientIp(req: Request): string {
+  const real = req.headers.get("x-real-ip");
+  if (real) return real;
+  const xff = req.headers.get("x-forwarded-for");
+  if (xff) {
+    const tail = xff.split(",").at(-1)?.trim();
+    if (tail) return tail;
+  }
+  return "0.0.0.0";
+}
 
 /**
  * Email-subscription endpoint.
@@ -33,8 +54,9 @@ type Subscriber = {
   unsubscribeToken: string;
   confirmToken: string;
   createdAt: string;
-  ip?: string;
-  ua?: string;
+  // `ip` and `ua` fields were removed in the red-team pass — they were
+  // PII committed to git history. Older entries in the repo may still
+  // carry them and that's fine; the JSON parse keeps unknown fields.
 };
 
 const RATE_WINDOW_MS = 60_000;
@@ -70,7 +92,10 @@ export async function POST(req: Request): Promise<NextResponse> {
     return NextResponse.json({ error: "Bad JSON." }, { status: 400 });
   }
 
-  if (typeof body.companion === "string" && body.companion.length > 0) {
+  // Honeypot: any value at all on this field is a bot. Previous check
+  // only fired on non-empty strings, so JSON clients sending booleans,
+  // numbers, or arrays trivially bypassed it.
+  if (body.companion != null && body.companion !== "") {
     return NextResponse.json({ ok: true });
   }
 
@@ -84,13 +109,12 @@ export async function POST(req: Request): Promise<NextResponse> {
 
   const source =
     typeof body.source === "string" && body.source.length <= 60
-      ? body.source.trim()
+      ? // Strip CR/LF/TAB so user-supplied source can't inject extra lines
+        // (Co-Authored-By trailers, Signed-off-by) into the commit message.
+        body.source.trim().replace(/[\r\n\t]/g, " ")
       : "site";
 
-  const ip =
-    req.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
-    req.headers.get("x-real-ip") ||
-    "0.0.0.0";
+  const ip = clientIp(req);
   if (rateLimited(ip)) {
     return NextResponse.json(
       { error: "Slow down a moment, then try again." },
@@ -107,6 +131,11 @@ export async function POST(req: Request): Promise<NextResponse> {
   }
 
   const ua = req.headers.get("user-agent") ?? undefined;
+  // IP + UA are PII; do NOT persist them to the repo (where they end up
+  // in commit history forever). Log to stderr for abuse investigation —
+  // Vercel function logs are visible only to the project owner.
+  console.info("subscribe", { ip, ua, emailFp: emailFingerprint(emailRaw) });
+
   const entry: Subscriber = {
     id: crypto.randomUUID(),
     email: emailRaw,
@@ -116,8 +145,6 @@ export async function POST(req: Request): Promise<NextResponse> {
     unsubscribeToken: crypto.randomUUID(),
     confirmToken: crypto.randomUUID(),
     createdAt: new Date().toISOString(),
-    ip,
-    ua,
   };
   const next = [entry, ...existing].slice(0, 50_000);
 
@@ -125,11 +152,15 @@ export async function POST(req: Request): Promise<NextResponse> {
     await commitRepoFile({
       path: SUBSCRIBERS_PATH,
       content: JSON.stringify(next, null, 2) + "\n",
-      message: `subscribe: ${emailRaw} via ${source}`,
+      // Commit messages are public if the repo is public, so use a hash
+      // instead of the raw email. The fingerprint is stable across
+      // re-subscribes for the same email but isn't reversible.
+      message: `subscribe: ${emailFingerprint(emailRaw)} via ${source}`,
     });
   } catch (err) {
+    console.error("subscribe commit failed:", err);
     return NextResponse.json(
-      { error: `Could not save: ${(err as Error).message}` },
+      { error: "Could not save. Try again later." },
       { status: 500 },
     );
   }

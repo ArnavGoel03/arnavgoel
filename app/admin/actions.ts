@@ -436,6 +436,14 @@ export async function updateReview(
   if (authError) return { ok: false, error: authError };
   const slug = (formData.get("slug") ?? "").toString().trim();
   if (!slug) return { ok: false, error: "Missing slug, can't locate the file to update." };
+  // Hard-validate the slug. Without this, an authenticated admin (or a
+  // hijacked session) could supply `../../package.json` and write
+  // arbitrary `.mdx` content to any repo path via the GitHub Contents
+  // API. createReview is already safe because it derives slug via
+  // slugify(); updateReview takes slug from the form raw.
+  if (!/^[a-z0-9-]{2,120}$/.test(slug)) {
+    return { ok: false, error: "Invalid slug format." };
+  }
 
   const parsed = reviewSchema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) {

@@ -63,11 +63,13 @@ function shapeTrack(t: SpotifyTrack, playedAt?: string) {
 }
 
 export async function GET(req: Request): Promise<NextResponse> {
+  // Fail-closed cron auth: refuse if CRON_SECRET isn't set OR the
+  // Authorization header doesn't match. Previous logic short-circuited
+  // when the env var was empty, leaving this endpoint publicly callable
+  // in any environment that hadn't configured the secret yet.
   const auth = req.headers.get("authorization") ?? "";
-  if (
-    process.env.CRON_SECRET &&
-    auth !== `Bearer ${process.env.CRON_SECRET}`
-  ) {
+  const secret = process.env.CRON_SECRET;
+  if (!secret || auth !== `Bearer ${secret}`) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   const token = await getAccessToken();
