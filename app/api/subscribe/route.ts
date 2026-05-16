@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createHash } from "node:crypto";
 import { commitRepoFile, readRepoFile } from "@/lib/github";
+import { createLimiter } from "@/lib/rate-limit";
 
 // Reuse for commit-message email pseudonymization.
 function emailFingerprint(email: string): string {
@@ -59,20 +60,9 @@ type Subscriber = {
   // carry them and that's fine; the JSON parse keeps unknown fields.
 };
 
-const RATE_WINDOW_MS = 60_000;
-const RATE_MAX = 4;
-const ipHits = new Map<string, number[]>();
-function rateLimited(ip: string): boolean {
-  const now = Date.now();
-  const arr = (ipHits.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
-  if (arr.length >= RATE_MAX) {
-    ipHits.set(ip, arr);
-    return true;
-  }
-  arr.push(now);
-  ipHits.set(ip, arr);
-  return false;
-}
+// Upstash-backed when KV_REST_API_* / UPSTASH_REDIS_REST_* env vars are
+// set in prod; per-instance Map fallback otherwise. 4 requests/min/IP.
+const limit = createLimiter({ name: "subscribe", max: 4, windowSeconds: 60 });
 
 async function loadSubscribers(): Promise<Subscriber[]> {
   try {
@@ -115,10 +105,11 @@ export async function POST(req: Request): Promise<NextResponse> {
       : "site";
 
   const ip = clientIp(req);
-  if (rateLimited(ip)) {
+  const gate = await limit(ip);
+  if (!gate.ok) {
     return NextResponse.json(
       { error: "Slow down a moment, then try again." },
-      { status: 429 },
+      { status: 429, headers: { "Retry-After": String(gate.retryAfterSeconds) } },
     );
   }
 

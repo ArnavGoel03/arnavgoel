@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
+import { headers } from "next/headers";
 import { Inter, JetBrains_Mono, Instrument_Serif, Fraunces } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -109,9 +110,12 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  // proxy.ts sets x-nonce per request. Pass it to inline scripts so the
+  // strict CSP (which forbids 'unsafe-inline') still permits them.
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
   return (
     <html
       lang="en"
@@ -135,6 +139,7 @@ export default function RootLayout({
           href="https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com"
         />
         <script
+          nonce={nonce}
           dangerouslySetInnerHTML={{ __html: themeInitScript }}
         />
       </head>

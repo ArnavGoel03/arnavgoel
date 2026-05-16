@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { commitRepoFile, readRepoFile } from "@/lib/github";
+import { createLimiter } from "@/lib/rate-limit";
 
 /**
  * Private reader-feedback inbox. Submissions land in
@@ -56,21 +57,9 @@ const VALID_KINDS = new Set([
   "miscellaneous",
 ]);
 
-// Per-IP rate-limit: max 4 submissions per 60s.
-const RATE_WINDOW_MS = 60_000;
-const RATE_MAX = 4;
-const ipHits = new Map<string, number[]>();
-function rateLimited(ip: string): boolean {
-  const now = Date.now();
-  const arr = (ipHits.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
-  if (arr.length >= RATE_MAX) {
-    ipHits.set(ip, arr);
-    return true;
-  }
-  arr.push(now);
-  ipHits.set(ip, arr);
-  return false;
-}
+// Upstash-backed when configured; per-instance Map fallback otherwise.
+// 4 submissions/min/IP.
+const limit = createLimiter({ name: "inbox", max: 4, windowSeconds: 60 });
 
 function asString(v: unknown, max: number): string | null {
   if (typeof v !== "string") return null;
@@ -122,10 +111,11 @@ export async function POST(req: Request): Promise<NextResponse> {
     req.headers.get("x-real-ip") ||
     xff?.split(",").at(-1)?.trim() ||
     "0.0.0.0";
-  if (rateLimited(ip)) {
+  const gate = await limit(ip);
+  if (!gate.ok) {
     return NextResponse.json(
       { error: "Slow down a moment, then try again." },
-      { status: 429 },
+      { status: 429, headers: { "Retry-After": String(gate.retryAfterSeconds) } },
     );
   }
 
