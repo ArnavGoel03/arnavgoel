@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { auth } from "@/auth";
 import { DEVICE_COOKIE, verifyDeviceCookie } from "@/lib/device-lock";
+import { themeInitScriptCspSource } from "@/lib/theme-script";
 
 /**
  * Three things this middleware does on every request:
@@ -61,6 +62,12 @@ function buildCsp(nonce: string): string {
   const script = [
     "'self'",
     `'nonce-${nonce}'`,
+    // Hash for the inline theme-init script rendered by app/layout.tsx.
+    // It runs before React hydrates and used to ride on the per-request
+    // nonce; reading `headers()` in the root layout broke /_not-found
+    // prerender under Next 16 cacheComponents, so we authorize the
+    // (static) script body via SHA-256 instead.
+    themeInitScriptCspSource,
     "'strict-dynamic'",
     "'unsafe-eval'",
   ];

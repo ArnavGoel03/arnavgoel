@@ -2,14 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
-
-type Theme = "light" | "dark";
-
-const STORAGE_KEY = "yashgoel-theme";
-// Dark is the house style: the editorial stone-on-near-black aesthetic
-// looks right by default. Users who prefer light can still toggle, and
-// the choice is persisted for next visit.
-const DEFAULT_THEME: Theme = "dark";
+import {
+  DEFAULT_THEME,
+  THEME_STORAGE_KEY,
+  type Theme,
+} from "@/lib/theme-constants";
 
 function apply(theme: Theme) {
   const root = document.documentElement;
@@ -21,7 +18,7 @@ export function ThemeToggle() {
   const [theme, setTheme] = useState<Theme>(DEFAULT_THEME);
 
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY) as Theme | null;
+    const stored = localStorage.getItem(THEME_STORAGE_KEY) as Theme | null;
     const initial: Theme =
       stored === "light" || stored === "dark" ? stored : DEFAULT_THEME;
     setTheme(initial);
@@ -30,7 +27,7 @@ export function ThemeToggle() {
 
   function set(next: Theme) {
     setTheme(next);
-    localStorage.setItem(STORAGE_KEY, next);
+    localStorage.setItem(THEME_STORAGE_KEY, next);
     apply(next);
   }
 
@@ -79,21 +76,6 @@ export function ThemeToggle() {
   );
 }
 
-/**
- * Inline script injected into <head> to apply the saved theme BEFORE
- * React hydrates, avoids the "flash of light UI" when a user has chosen
- * dark. Keep this tiny; it runs on every navigation.
- */
-export const themeInitScript = `
-(function(){
-  try {
-    var stored = localStorage.getItem('${STORAGE_KEY}');
-    var theme = (stored === 'light' || stored === 'dark') ? stored : '${DEFAULT_THEME}';
-    if (theme === 'dark') document.documentElement.classList.add('dark');
-    document.documentElement.dataset.theme = theme;
-  } catch (e) {
-    document.documentElement.classList.add('dark');
-    document.documentElement.dataset.theme = '${DEFAULT_THEME}';
-  }
-})();
-`;
+// The inline init script that used to live here moved to
+// `lib/theme-script.ts` so it can be authorized via a CSP hash without
+// pulling `node:crypto` into this client bundle.

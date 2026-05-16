@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
-import { headers } from "next/headers";
 import { Inter, JetBrains_Mono, Instrument_Serif, Fraunces } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -10,7 +9,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { ToastHost } from "@/components/toast-host";
 import { WebsiteJsonLd } from "@/components/json-ld";
-import { themeInitScript } from "@/components/theme-toggle";
+import { themeInitScript } from "@/lib/theme-script";
 import { CompareProvider } from "@/components/compare-bar";
 import { CommandPaletteMount } from "@/components/command-palette-mount";
 import { SiteTourMount } from "@/components/site-tour-mount";
@@ -110,12 +109,14 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  // proxy.ts sets x-nonce per request. Pass it to inline scripts so the
-  // strict CSP (which forbids 'unsafe-inline') still permits them.
-  const nonce = (await headers()).get("x-nonce") ?? undefined;
+  // No `await headers()` here on purpose: under Next 16 cacheComponents,
+  // reading request headers in the root layout marks every route as
+  // dynamic and breaks `/_not-found` prerender. The one inline script
+  // we render below is authorized via a SHA-256 CSP hash (see
+  // lib/theme-script.ts + proxy.ts) instead of a per-request nonce.
   return (
     <html
       lang="en"
@@ -138,10 +139,7 @@ export default async function RootLayout({
           rel="dns-prefetch"
           href="https://znqq4cj0ea3wjrtv.public.blob.vercel-storage.com"
         />
-        <script
-          nonce={nonce}
-          dangerouslySetInnerHTML={{ __html: themeInitScript }}
-        />
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className="flex min-h-screen flex-col bg-background font-sans text-stone-900 dark:text-stone-100">
         <WebsiteJsonLd />
