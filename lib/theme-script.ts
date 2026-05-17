@@ -1,15 +1,12 @@
-import { createHash } from "node:crypto";
 import { DEFAULT_THEME, THEME_STORAGE_KEY } from "@/lib/theme-constants";
 
 // Inline script injected into <head> to apply the saved theme BEFORE
 // React hydrates — avoids the "flash of light UI" when a user has
-// chosen dark. Keep this tiny; it runs on every navigation.
-//
-// The body is static (only build-time constants are interpolated), so
-// we authorize it via a SHA-256 hash in CSP instead of a per-request
-// nonce. That keeps app/layout.tsx free of `headers()`, which under
-// Next 16 cacheComponents would otherwise mark the whole shell as
-// dynamic and break /_not-found prerender.
+// chosen dark. Body is static (only build-time constants interpolated),
+// so we authorize it via a SHA-256 CSP source-expression instead of a
+// per-request nonce. That keeps app/layout.tsx free of `headers()`,
+// which under Next 16 cacheComponents would otherwise mark the whole
+// shell as dynamic and break /_not-found prerender.
 export const themeInitScript = `
 (function(){
   try {
@@ -24,10 +21,9 @@ export const themeInitScript = `
 })();
 `;
 
-// CSP source-expression for the inline script above. Browsers compute
-// the hash over the exact byte sequence between <script> and </script>,
-// so this MUST match `themeInitScript` verbatim — any edit to the
-// string above regenerates the hash automatically.
-export const themeInitScriptCspSource = `'sha256-${createHash("sha256")
-  .update(themeInitScript)
-  .digest("base64")}'`;
+// Precomputed SHA-256 of the exact byte sequence above. `node:crypto`
+// is not available in Edge middleware, so the hash is baked in as a
+// literal. If you edit `themeInitScript`, regenerate with:
+//   node -e "const{createHash}=require('crypto');const{readFileSync}=require('fs');const m=readFileSync('lib/theme-script.ts','utf8').match(/themeInitScript = \`([\s\S]*?)\`/);console.log('sha256-'+createHash('sha256').update(m[1]).digest('base64'))"
+export const themeInitScriptCspSource =
+  "'sha256-oSd5tTgj4ePMIvXiwqre9x4DNHZhYDpz8ijH6cLAUzs='";

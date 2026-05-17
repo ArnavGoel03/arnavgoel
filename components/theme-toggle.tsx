@@ -2,11 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
-import {
-  DEFAULT_THEME,
-  THEME_STORAGE_KEY,
-  type Theme,
-} from "@/lib/theme-constants";
+
+type Theme = "light" | "dark";
+
+const STORAGE_KEY = "yashgoel-theme";
+// Dark is the house style: the editorial stone-on-near-black aesthetic
+// looks right by default. Users who prefer light can still toggle, and
+// the choice is persisted for next visit.
+const DEFAULT_THEME: Theme = "dark";
 
 function apply(theme: Theme) {
   const root = document.documentElement;
@@ -18,7 +21,7 @@ export function ThemeToggle() {
   const [theme, setTheme] = useState<Theme>(DEFAULT_THEME);
 
   useEffect(() => {
-    const stored = localStorage.getItem(THEME_STORAGE_KEY) as Theme | null;
+    const stored = localStorage.getItem(STORAGE_KEY) as Theme | null;
     const initial: Theme =
       stored === "light" || stored === "dark" ? stored : DEFAULT_THEME;
     setTheme(initial);
@@ -27,7 +30,7 @@ export function ThemeToggle() {
 
   function set(next: Theme) {
     setTheme(next);
-    localStorage.setItem(THEME_STORAGE_KEY, next);
+    localStorage.setItem(STORAGE_KEY, next);
     apply(next);
   }
 
@@ -76,6 +79,6 @@ export function ThemeToggle() {
   );
 }
 
-// The inline init script that used to live here moved to
-// `lib/theme-script.ts` so it can be authorized via a CSP hash without
-// pulling `node:crypto` into this client bundle.
+// The inline pre-hydration init script lives in lib/theme-script.ts so
+// proxy.ts (Edge runtime) and app/layout.tsx (RSC) can share a single
+// byte-exact source whose SHA-256 is authorized in CSP.

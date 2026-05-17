@@ -90,7 +90,6 @@ function passthrough(
   // bootstrap scripts.
   const reqHeaders = new Headers(req.headers);
   reqHeaders.set("x-nonce", nonce);
-  reqHeaders.set("Content-Security-Policy", csp);
   const res = NextResponse.next({ request: { headers: reqHeaders } });
   res.headers.set("Content-Security-Policy", csp);
   return res;

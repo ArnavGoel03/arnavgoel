@@ -112,11 +112,10 @@ export const viewport: Viewport = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  // No `await headers()` here on purpose: under Next 16 cacheComponents,
-  // reading request headers in the root layout marks every route as
-  // dynamic and breaks `/_not-found` prerender. The one inline script
-  // we render below is authorized via a SHA-256 CSP hash (see
-  // lib/theme-script.ts + proxy.ts) instead of a per-request nonce.
+  // The inline theme-init script is authorized in CSP via a SHA-256
+  // hash (see lib/theme-script.ts + proxy.ts), not a per-request nonce.
+  // Keeping `headers()` out of the root layout is what lets /_not-found
+  // (and the rest of the shell) prerender under Next 16 cacheComponents.
   return (
     <html
       lang="en"
