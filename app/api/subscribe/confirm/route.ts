@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import { commitRepoFile, readRepoFile } from "@/lib/github";
 
 const SUBSCRIBERS_PATH = "content/_subscribers.json";
@@ -33,7 +32,18 @@ export async function GET(req: Request): Promise<Response> {
   }
 
   const raw = (await readRepoFile(SUBSCRIBERS_PATH)) ?? "[]";
-  const list = JSON.parse(raw) as Subscriber[];
+  let list: Subscriber[];
+  try {
+    list = JSON.parse(raw) as Subscriber[];
+  } catch {
+    // _subscribers.json is corrupted — don't kill the whole opt-in /
+    // unsub flow with a 500 trace. Show the same generic message as
+    // an expired link.
+    return reply(
+      "Could not verify that link right now. Try again in a moment.",
+      503,
+    );
+  }
   let found = false;
   let action: "confirmed" | "unsubscribed" | null = null;
   const next = list.map((s) => {

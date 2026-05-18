@@ -45,6 +45,7 @@ async function getAccessToken(): Promise<string | null> {
       refresh_token: refresh,
     }),
     cache: "no-store",
+    signal: AbortSignal.timeout(8000),
   });
   if (!res.ok) return null;
   const j = (await res.json()) as { access_token?: string };
@@ -84,11 +85,11 @@ export async function GET(req: Request): Promise<NextResponse> {
   const [recentRes, topRes] = await Promise.all([
     fetch(
       "https://api.spotify.com/v1/me/player/recently-played?limit=6",
-      { headers, cache: "no-store" },
+      { headers, cache: "no-store", signal: AbortSignal.timeout(8000) },
     ),
     fetch(
       "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=8",
-      { headers, cache: "no-store" },
+      { headers, cache: "no-store", signal: AbortSignal.timeout(8000) },
     ),
   ]);
 

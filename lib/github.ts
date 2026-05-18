@@ -28,6 +28,10 @@ async function getFile(
   const r = await fetch(`${repoUrl(repoPath)}?ref=${branch()}`, {
     headers: authHeaders(),
     cache: "no-store",
+    // GitHub Contents API has been known to stall for tens of seconds
+    // during regional incidents. Hard 8s cap so a single GitHub blip
+    // doesn't pin a Vercel function instance.
+    signal: AbortSignal.timeout(8000),
   });
   if (r.status === 404) return null;
   if (!r.ok) {
@@ -66,6 +70,9 @@ export async function commitRepoFile(args: {
     method: "PUT",
     headers: { ...authHeaders(), "Content-Type": "application/json" },
     body: JSON.stringify(body),
+    // Writes can be slower than reads but 12s is the longest a healthy
+    // GitHub commit takes; anything past that is a stall, not a slow path.
+    signal: AbortSignal.timeout(12000),
   });
   if (!r.ok) {
     throw new Error(

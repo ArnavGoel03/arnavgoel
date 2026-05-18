@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { Inbox, LogOut, Mail, Trash2 } from "lucide-react";
 import { Container } from "@/components/container";
 import { PageHeading } from "@/components/page-heading";
@@ -15,7 +16,11 @@ export const metadata: Metadata = {
 
 export default async function AdminPage() {
   const session = await auth();
-  const email = session?.user?.email;
+  // proxy.ts already enforces this at the edge, but a redirect here
+  // is the second line of defense (and avoids rendering the half-shell
+  // if the proxy is ever misconfigured).
+  if (!session) redirect("/admin/login");
+  const email = session.user?.email;
 
   async function doSignOut() {
     "use server";

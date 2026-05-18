@@ -13,14 +13,13 @@ import { themeInitScript } from "@/lib/theme-script";
 import { CompareProvider } from "@/components/compare-bar";
 import { CommandPaletteMount } from "@/components/command-palette-mount";
 import { SiteTourMount } from "@/components/site-tour-mount";
-import { BackToTop } from "@/components/back-to-top";
 import { RouteWarmer } from "@/components/route-warmer";
 import { SwRegister } from "@/components/sw-register";
-import { CursorHalo } from "@/components/cursor-halo";
-// AudioCues mount was removed — the opt-in bell + nav clicks read as
-// ambient noise on every page load, which fights the editorial calm.
-// AudioToggle in the footer also gone via components/footer.tsx.
-import { ReadingProgress } from "@/components/reading-progress";
+// AudioCues mount + CursorHalo mount were removed — both were ambient
+// decoration without UX value (cursor halo ran a continuous RAF loop
+// on every page; audio cues fought the editorial calm). If they come
+// back, gate them behind a user-toggleable setting, not a global mount.
+import { LongPageChrome } from "@/components/long-page-chrome";
 import { HapticClickEffect } from "@/components/haptic-click-effect";
 import { site } from "@/lib/site";
 
@@ -156,7 +155,13 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
           <CommandPaletteMount />
-          <BackToTop />
+          {/* ReadingProgress + BackToTop only mount on long-form
+              routes (primers / reviews / photos). Short pages like
+              the homepage or category indexes don't pay the listener
+              cost. */}
+          <Suspense fallback={null}>
+            <LongPageChrome />
+          </Suspense>
           <ToastHost />
           {/* Suspense wrap is required because SiteTourMount calls
               useSearchParams(); without it, static prerender of /404
@@ -165,15 +170,8 @@ export default function RootLayout({
             <SiteTourMount />
           </Suspense>
         </CompareProvider>
-        {/* Reading progress: thin bar at top of viewport, only
-            visible on pages tall enough to warrant it. */}
-        <ReadingProgress />
         {/* Haptic click feedback via navigator.vibrate on touch. */}
         <HapticClickEffect />
-        {/* Cursor halo: renders nothing on touch devices — the
-            component checks (hover: hover) at mount time. */}
-        <CursorHalo />
-        {/* AudioCues removed — see import-block comment. */}
         <SwRegister />
         <Analytics />
         <SpeedInsights />

@@ -178,6 +178,9 @@ export async function POST(req: Request): Promise<NextResponse> {
             `Tap to confirm you want new reviews from yashgoel.com:\n\n${confirmUrl}\n\n` +
             `If this was not you, ignore this email; nothing happens until you tap.`,
         }),
+        // 5s hard cap so a Resend stall can't pin a Vercel function
+        // instance for the full 30s request budget.
+        signal: AbortSignal.timeout(5000),
       });
     } catch {
       // Subscription is already saved; failing to send the confirm
