@@ -1,34 +1,21 @@
 "use client";
 
-/// Bulk-prerender every tab in the background after first paint so subsequent
-/// navigations feel instant. Two layers:
-///   1. Next router.prefetch() — works in every modern browser (Safari/FF/Chrome)
-///   2. <script type="speculationrules"> — Chrome/Edge actually *prerender*
-///      pages in a hidden tab, so swaps are zero-cost.
+/// Background-prefetch the most-trafficked tabs after first paint so
+/// subsequent navigations feel instant. We keep this small on purpose:
+/// every prefetched route is a real network round-trip, and the goal
+/// is "first hop feels free" not "every conceivable route is warm."
 ///
-/// Only mount this once at the app root.
+/// The inline <script type="speculationrules"> was removed in
+/// 2026-05-18 — it's a script tag for CSP purposes, has no nonce, and
+/// was being blocked by the strict-dynamic CSP. router.prefetch() on
+/// the same set delivers most of the perceived speed at zero CSP risk.
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-const ROUTES = [
-  "/",
-  "/about",
-  "/now",
-  "/links",
-  "/routine",
-  "/primers",
-  "/library",
-  "/reading",
-  "/watching",
-  "/supplements",
-  "/body-care",
-  "/oral-care",
-  "/miscellaneous",
-  "/best-of",
-  "/build",
-  "/search",
-];
+// Top routes by analytics. Anything past this list pays its own
+// network cost on first hit and that's fine.
+const ROUTES = ["/", "/about", "/now", "/photos", "/routine", "/primers"];
 
 export function RouteWarmer() {
   const router = useRouter();
@@ -42,39 +29,19 @@ export function RouteWarmer() {
         : (cb: () => void) => window.setTimeout(cb, 1200);
 
     schedule(() => {
-      // Stagger 50 ms per route so the browser doesn't hammer the network in
-      // one burst — keeps the main thread responsive.
+      // Stagger so the prefetch burst doesn't starve user-initiated
+      // navigation requests when the click happens mid-warmup.
       ROUTES.forEach((path, i) => {
         window.setTimeout(() => {
           try {
             router.prefetch(path);
           } catch {
-            // Ignore — prefetch is best-effort.
+            // Best-effort; prefetch failure must never break the page.
           }
-        }, i * 50);
+        }, i * 80);
       });
     });
   }, [router]);
 
-  return (
-    <script
-      type="speculationrules"
-      // The Speculation Rules API tells supporting browsers (Chrome/Edge) to
-      // actually prerender these pages in the background. Instant on click.
-      // `eagerness: "moderate"` keeps it from prerendering everything on the
-      // entire site — only the listed nav routes.
-      // eslint-disable-next-line react/no-danger
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify({
-          prerender: [
-            {
-              source: "list",
-              urls: ROUTES,
-              eagerness: "moderate",
-            },
-          ],
-        }),
-      }}
-    />
-  );
+  return null;
 }

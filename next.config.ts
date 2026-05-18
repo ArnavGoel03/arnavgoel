@@ -5,9 +5,32 @@ const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
 });
 
-// CSP is set per-request in proxy.ts (the Next 16 middleware) so each
-// response gets a fresh nonce. The static headers below are the
-// non-CSP ones that don't vary per request.
+// CSP is static. Per-request nonces don't work with cacheComponents
+// prerender (Next streams inline scripts from the cached shell that
+// can't carry a per-request nonce), so we authorize known sources by
+// host + 'unsafe-inline' for the framework's own inline tags. The
+// theme-init script's body is also covered by the unsafe-inline clause.
+const CSP = [
+  "default-src 'self'",
+  // 'unsafe-inline' covers Next's framework bootstrap + theme-init + JSON-LD.
+  // 'unsafe-eval' is retained for libs (analytics, error tracking).
+  // Vercel + Google Analytics hosts are listed explicitly so a future
+  // 'strict-dynamic' upgrade has somewhere to land.
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.vercel-scripts.com https://va.vercel-scripts.com https://vitals.vercel-insights.com https://www.googletagmanager.com https://www.google-analytics.com https://*.vercel-analytics.com",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: blob: https:",
+  "font-src 'self' data:",
+  "connect-src 'self' https:",
+  // Spotify embeds for the listening section + YouTube/Vimeo for any
+  // product walkthrough video in the detail-page gallery.
+  "frame-src https://open.spotify.com https://www.youtube-nocookie.com https://player.vimeo.com",
+  "media-src 'self'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+  "upgrade-insecure-requests",
+].join("; ");
 
 const nextConfig: NextConfig = {
   // Next 16 PPR via Cache Components. Pages are dynamic by default;
@@ -85,9 +108,7 @@ const nextConfig: NextConfig = {
             value:
               "camera=(), microphone=(self), geolocation=(), interest-cohort=()",
           },
-          // Content-Security-Policy is set per-request in proxy.ts so
-          // each response gets a fresh nonce. Don't set it here too
-          // (a header set in next.config "wins" and breaks the nonce).
+          { key: "Content-Security-Policy", value: CSP },
           {
             key: "Strict-Transport-Security",
             value: "max-age=63072000; includeSubDomains; preload",
